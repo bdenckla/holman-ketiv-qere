@@ -1,0 +1,1413 @@
+{
+  "source_document": "C:\\Users\\BenDe\\GitRepos\\holman-ketiv-qere\\source\\Review of Qere and Kethib readings in the Aleppo and Leningrad.docx",
+  "introduction_paragraph_count": 10,
+  "table": {
+    "header_labels": [
+      "",
+      "Verse",
+      "Word",
+      "Finding",
+      "Aleppo",
+      "Leningrad",
+      "Notes"
+    ],
+    "column_keys": [
+      "entry",
+      "verse",
+      "word",
+      "finding",
+      "aleppo",
+      "leningrad",
+      "notes"
+    ],
+    "row_count": 77,
+    "rows": [
+      {
+        "row_number": 1,
+        "entry": "1",
+        "verse": "Josh 3:4.5",
+        "word": "וּבֵנָ֔יו",
+        "finding": "A - Masorah Circle | L - Qere",
+        "aleppo": "",
+        "leningrad": "",
+        "notes": "MAM - No Comments | UXLC - ובינו וּבֵינָ֔יו",
+        "image_files": {
+          "aleppo": [
+            "docs/img/row001_aleppo_01.png"
+          ],
+          "leningrad": [
+            "docs/img/row001_leningrad_01.png"
+          ]
+        }
+      },
+      {
+        "row_number": 2,
+        "entry": "2",
+        "verse": "Josh 10:24.19",
+        "word": "הֶהָלְכ֣וּא",
+        "finding": "A - Masorah Circle | L - Qere",
+        "aleppo": "",
+        "leningrad": "’",
+        "notes": "MAM - No Comments | UXLC - ההלכואy‬‏ הֶהָלְכ֣וְּּ‬‬\n(yatir aleph)",
+        "image_files": {
+          "aleppo": [
+            "docs/img/row002_aleppo_01.png"
+          ],
+          "leningrad": [
+            "docs/img/row002_leningrad_01.png"
+          ]
+        }
+      },
+      {
+        "row_number": 3,
+        "entry": "3",
+        "verse": "Judg 7:13.13",
+        "word": "צְלִ֜יל",
+        "finding": "A - Masorah Circle | L - Qere",
+        "aleppo": "",
+        "leningrad": "",
+        "notes": "MAM - No Comments | UXLC - צלול צְלִ֜יל",
+        "image_files": {
+          "aleppo": [
+            "docs/img/row003_aleppo_01.png"
+          ],
+          "leningrad": [
+            "docs/img/row003_leningrad_01.png"
+          ]
+        }
+      },
+      {
+        "row_number": 4,
+        "entry": "4",
+        "verse": "1Sa 2:9.2",
+        "word": "חֲסִידָו֙",
+        "finding": "A - Masorah Circle | L - Qere",
+        "aleppo": "",
+        "leningrad": "",
+        "notes": "MAM - No Comments | UXLC - חסידו חֲסִידָיו֙",
+        "image_files": {
+          "aleppo": [
+            "docs/img/row004_aleppo_01.png"
+          ],
+          "leningrad": [
+            "docs/img/row004_leningrad_01.png"
+          ]
+        }
+      },
+      {
+        "row_number": 5,
+        "entry": "5",
+        "verse": "1Sa 17:17.9",
+        "word": "הַקָּלִיא֙",
+        "finding": "A - Masorah Circle | L - Qere",
+        "aleppo": "",
+        "leningrad": "",
+        "notes": "MAM - No Comments | UXLC - הקליאy‬‏ הַקָּלִי֙‬‬\n(yatir aleph)",
+        "image_files": {
+          "aleppo": [
+            "docs/img/row005_aleppo_01.png"
+          ],
+          "leningrad": [
+            "docs/img/row005_leningrad_01.png"
+          ]
+        }
+      },
+      {
+        "row_number": 6,
+        "entry": "6",
+        "verse": "1Sa 21:14.7",
+        "word": "וַיְתָו֙",
+        "finding": "A - Masorah Circle | L - Qere",
+        "aleppo": "",
+        "leningrad": "",
+        "notes": "MAM - No Comments | UXLC - ויתו וַיְתָיו֙",
+        "image_files": {
+          "aleppo": [
+            "docs/img/row006_aleppo_01.png"
+          ],
+          "leningrad": [
+            "docs/img/row006_leningrad_01.png"
+          ]
+        }
+      },
+      {
+        "row_number": 7,
+        "entry": "7",
+        "verse": "1Sa 22:13.2",
+        "word": "אֵלָו֙",
+        "finding": "A - Masorah Circle | L - Qere",
+        "aleppo": "",
+        "leningrad": "",
+        "notes": "MAM - No Comments | UXLC - אלו אֵלָיו֙",
+        "image_files": {
+          "aleppo": [
+            "docs/img/row007_aleppo_01.png"
+          ],
+          "leningrad": [
+            "docs/img/row007_leningrad_01.png"
+          ]
+        }
+      },
+      {
+        "row_number": 8,
+        "entry": "8",
+        "verse": "1Sa 30:6.15",
+        "word": "בָּנָ֣ו",
+        "finding": "A - Masorah Circle | L - Qere",
+        "aleppo": "",
+        "leningrad": "",
+        "notes": "MAM - No Comments | UXLC - עַל־בנו בָּנָ֣יו",
+        "image_files": {
+          "aleppo": [
+            "docs/img/row008_aleppo_01.png"
+          ],
+          "leningrad": [
+            "docs/img/row008_leningrad_01.png"
+          ]
+        }
+      },
+      {
+        "row_number": 9,
+        "entry": "9",
+        "verse": "2Sa 1:11.3",
+        "word": "בִּבְגָדָ֖ו",
+        "finding": "A - Masorah Circle | L - Qere",
+        "aleppo": "",
+        "leningrad": "",
+        "notes": "MAM - No Comments | UXLC - בבגדו בִּבְגָדָ֖יו",
+        "image_files": {
+          "aleppo": [
+            "docs/img/row009_aleppo_01.png"
+          ],
+          "leningrad": [
+            "docs/img/row009_leningrad_01.png"
+          ]
+        }
+      },
+      {
+        "row_number": 10,
+        "entry": "10",
+        "verse": "2Sa 2:23.15",
+        "word": "תַּחְתָּ֑ו",
+        "finding": "A and L - Qere",
+        "aleppo": "",
+        "leningrad": "",
+        "notes": "MAM - No Comments | UXLC - תחתו תַּחְתָּ֑יו | HaKeter - תַּחְתָּ֑ו תַּחְתָּ֑יו",
+        "image_files": {
+          "aleppo": [
+            "docs/img/row010_aleppo_01.png"
+          ],
+          "leningrad": [
+            "docs/img/row010_leningrad_01.png"
+          ]
+        }
+      },
+      {
+        "row_number": 11,
+        "entry": "11",
+        "verse": "2Sa 3:12.6",
+        "word": "תַּחְתָּ֥ו",
+        "finding": "A - Masorah Circle | L - Qere",
+        "aleppo": "",
+        "leningrad": "",
+        "notes": "MAM - No Comments | UXLC - תחתו תַּחְתָּ֥יו",
+        "image_files": {
+          "aleppo": [
+            "docs/img/row011_aleppo_01.png"
+          ],
+          "leningrad": [
+            "docs/img/row011_leningrad_01.png"
+          ]
+        }
+      },
+      {
+        "row_number": 12,
+        "entry": "12",
+        "verse": "2Sa 5:2.12",
+        "word": "וְהַמֵּבִ֖י",
+        "finding": "A - Masorah Circle | L - Qere",
+        "aleppo": "",
+        "leningrad": "",
+        "notes": "MAM - No Comments | UXLC - והמבי וְהַמֵּבִ֖יא",
+        "image_files": {
+          "aleppo": [
+            "docs/img/row012_aleppo_01.png"
+          ],
+          "leningrad": [
+            "docs/img/row012_leningrad_01.png"
+          ]
+        }
+      },
+      {
+        "row_number": 13,
+        "entry": "13",
+        "verse": "2Sa 11:24.1",
+        "word": "וַיֹּר֨אוּ",
+        "finding": "A - Masorah Circle | L - Qere",
+        "aleppo": "",
+        "leningrad": "",
+        "notes": "MAM - No Comments | UXLC - ויראו וַיֹּר֨וּ",
+        "image_files": {
+          "aleppo": [
+            "docs/img/row013_aleppo_01.png"
+          ],
+          "leningrad": [
+            "docs/img/row013_leningrad_01.png"
+          ]
+        }
+      },
+      {
+        "row_number": 14,
+        "entry": "14",
+        "verse": "2Sa 11:24.2",
+        "word": "הַמּוֹרִ֤אים",
+        "finding": "A - Masorah Circle | L - Qere",
+        "aleppo": "",
+        "leningrad": "",
+        "notes": "MAM - No Comments | UXLC - המוראים הַמּוֹרִ֤ים",
+        "image_files": {
+          "aleppo": [
+            "docs/img/row014_aleppo_01.png"
+          ],
+          "leningrad": [
+            "docs/img/row014_leningrad_01.png"
+          ]
+        }
+      },
+      {
+        "row_number": 15,
+        "entry": "15",
+        "verse": "2Sa 16:8.10",
+        "word": "תַּחְתָּ֔ו",
+        "finding": "A - Masorah Circle | L - Qere",
+        "aleppo": "",
+        "leningrad": "",
+        "notes": "MAM - No Comments | UXLC - תחתו תַּחְתָּ֔יו",
+        "image_files": {
+          "aleppo": [
+            "docs/img/row015_aleppo_01.png"
+          ],
+          "leningrad": [
+            "docs/img/row015_leningrad_01.png"
+          ]
+        }
+      },
+      {
+        "row_number": 16,
+        "entry": "16",
+        "verse": "2Sa 18:17.20",
+        "word": "לְאֹהָלָֽו׃",
+        "finding": "A - Masorah Circle | L - Qere",
+        "aleppo": "",
+        "leningrad": "",
+        "notes": "MAM - No Comments | UXLC - לאהלו לְאֹהָלָֽיו׃",
+        "image_files": {
+          "aleppo": [
+            "docs/img/row016_aleppo_01.png"
+          ],
+          "leningrad": [
+            "docs/img/row016_leningrad_01.png"
+          ]
+        }
+      },
+      {
+        "row_number": 17,
+        "entry": "17",
+        "verse": "2Sa 18:18.5",
+        "word": "בְחַיָּו֙",
+        "finding": "A - Masorah Circle | L - Qere",
+        "aleppo": "",
+        "leningrad": "",
+        "notes": "MAM - No Comments | UXLC - בחיו בְחַיָּיו֙",
+        "image_files": {
+          "aleppo": [
+            "docs/img/row017_aleppo_01.png"
+          ],
+          "leningrad": [
+            "docs/img/row017_leningrad_01.png"
+          ]
+        }
+      },
+      {
+        "row_number": 18,
+        "entry": "18",
+        "verse": "2Sa 24:14.14",
+        "word": "רַחֲמָ֔ו",
+        "finding": "A - Masorah Circle | L - Qere",
+        "aleppo": "",
+        "leningrad": "",
+        "notes": "MAM - No Comments | UXLC - רחמו רַֽחֲמָ֔יו",
+        "image_files": {
+          "aleppo": [
+            "docs/img/row018_aleppo_01.png"
+          ],
+          "leningrad": [
+            "docs/img/row018_leningrad_01.png"
+          ]
+        }
+      },
+      {
+        "row_number": 19,
+        "entry": "19",
+        "verse": "1Ki 6:38.14",
+        "word": "מִשְׁפָּטָ֑ו",
+        "finding": "A - Masorah Circle | L - Qere",
+        "aleppo": "",
+        "leningrad": "",
+        "notes": "MAM - No Comments | UXLC - וּלְכָל־משפטו מִשְׁפָּטָ֑יו",
+        "image_files": {
+          "aleppo": [
+            "docs/img/row019_aleppo_01.png"
+          ],
+          "leningrad": [
+            "docs/img/row019_leningrad_01.png"
+          ]
+        }
+      },
+      {
+        "row_number": 20,
+        "entry": "20",
+        "verse": "2Ki 4:34.14",
+        "word": "כַּפָּ֔ו",
+        "finding": "A - Masorah Circle | L - Qere",
+        "aleppo": "",
+        "leningrad": "",
+        "notes": "MAM - No Comments | UXLC - עַל־כפו כַּפָּ֔יו",
+        "image_files": {
+          "aleppo": [
+            "docs/img/row020_aleppo_01.png"
+          ],
+          "leningrad": [
+            "docs/img/row020_leningrad_01.png"
+          ]
+        }
+      },
+      {
+        "row_number": 21,
+        "entry": "21",
+        "verse": "2Ki 6:10.11",
+        "word": "וְהִזְהִירֹ֖ה",
+        "finding": "A - Masorah Circle | L - Qere",
+        "aleppo": "",
+        "leningrad": "",
+        "notes": "MAM - No Comments | UXLC - והזהירה וְהִזְהִיר֖וֹ",
+        "image_files": {
+          "aleppo": [
+            "docs/img/row021_aleppo_01.png"
+          ],
+          "leningrad": [
+            "docs/img/row021_leningrad_01.png"
+          ]
+        }
+      },
+      {
+        "row_number": 22,
+        "entry": "22",
+        "verse": "2Ki 9:25.4",
+        "word": "שָׁלִשֹׁ֔ה",
+        "finding": "A - Masorah Circle | L - Qere",
+        "aleppo": "",
+        "leningrad": "",
+        "notes": "MAM - No Comments | UXLC - שלשה שָֽׁלִשׁ֔וֹ",
+        "image_files": {
+          "aleppo": [
+            "docs/img/row022_aleppo_01.png"
+          ],
+          "leningrad": [
+            "docs/img/row022_leningrad_01.png"
+          ]
+        }
+      },
+      {
+        "row_number": 23,
+        "entry": "23",
+        "verse": "1Ch 2:16.1",
+        "word": "וְאַחְיֹתֵיהֶ֖ם",
+        "finding": "A - Masorah Circle | L - Qere",
+        "aleppo": "",
+        "leningrad": "",
+        "notes": "MAM - No Comments | UXLC - ואחיתיהם וְאַחְיוֹתֵיהֶ֖ם",
+        "image_files": {
+          "aleppo": [
+            "docs/img/row023_aleppo_01.png"
+          ],
+          "leningrad": [
+            "docs/img/row023_leningrad_01.png"
+          ]
+        }
+      },
+      {
+        "row_number": 24,
+        "entry": "24",
+        "verse": "1Ch 11:17.1",
+        "word": "וַיִּתְאָ֥ו",
+        "finding": "A - Masorah Circle | L - Qere",
+        "aleppo": "",
+        "leningrad": "",
+        "notes": "MAM - No Comments | UXLC - ויתאו וַיִּתְאָ֥יו",
+        "image_files": {
+          "aleppo": [
+            "docs/img/row024_aleppo_01.png"
+          ],
+          "leningrad": [
+            "docs/img/row024_leningrad_01.png"
+          ]
+        }
+      },
+      {
+        "row_number": 25,
+        "entry": "25",
+        "verse": "2Ch 24:25.6",
+        "word": "בְּמַחֲלֻיִ֣ים",
+        "finding": "A - Masorah Circle | L - Qere",
+        "aleppo": "",
+        "leningrad": "",
+        "notes": "MAM - No Comments | UXLC - במחליים בְּמַחֲלוּיִ֣ם",
+        "image_files": {
+          "aleppo": [
+            "docs/img/row025_aleppo_01.png"
+          ],
+          "leningrad": [
+            "docs/img/row025_leningrad_01.png"
+          ]
+        }
+      },
+      {
+        "row_number": 26,
+        "entry": "26",
+        "verse": "Job 1:4.11",
+        "word": "אַחְיֹתֵיהֶ֔ם",
+        "finding": "A - Masorah Circle | L - Qere",
+        "aleppo": "",
+        "leningrad": "",
+        "notes": "MAM - No Comments | UXLC - אחיתיהם אַחְיֽוֹתֵיהֶ֔ם",
+        "image_files": {
+          "aleppo": [
+            "docs/img/row026_aleppo_01.png"
+          ],
+          "leningrad": [
+            "docs/img/row026_leningrad_01.png"
+          ]
+        }
+      },
+      {
+        "row_number": 27,
+        "entry": "27",
+        "verse": "Job 1:21.3",
+        "word": "יָצָ֜תִי",
+        "finding": "A - Masorah Circle | L - Qere",
+        "aleppo": "",
+        "leningrad": "",
+        "notes": "MAM - No Comments | UXLC - יצתי יָצָ֜אתִי",
+        "image_files": {
+          "aleppo": [
+            "docs/img/row027_aleppo_01.png"
+          ],
+          "leningrad": [
+            "docs/img/row027_leningrad_01.png"
+          ]
+        }
+      },
+      {
+        "row_number": 28,
+        "entry": "28",
+        "verse": "Job 9:13.5",
+        "word": "תַּחְתָּ֥ו",
+        "finding": "A - Masorah Circle | L - Qere",
+        "aleppo": "",
+        "leningrad": "",
+        "notes": "MAM - No Comments | UXLC - תחתו תַּחְתָּ֥יו",
+        "image_files": {
+          "aleppo": [
+            "docs/img/row028_aleppo_01.png"
+          ],
+          "leningrad": [
+            "docs/img/row028_leningrad_01.png"
+          ]
+        }
+      },
+      {
+        "row_number": 29,
+        "entry": "29",
+        "verse": "Job 14:5.7",
+        "word": "חֻקָּ֥ו",
+        "finding": "A - Masorah Circle | L - Qere",
+        "aleppo": "",
+        "leningrad": "",
+        "notes": "MAM - No Comments | UXLC - חקו חֻקָּ֥יו",
+        "image_files": {
+          "aleppo": [
+            "docs/img/row029_aleppo_01.png"
+          ],
+          "leningrad": [
+            "docs/img/row029_leningrad_01.png"
+          ]
+        }
+      },
+      {
+        "row_number": 30,
+        "entry": "30",
+        "verse": "Job 15:15.2",
+        "word": "בִּ֭קְדֹשָׁו",
+        "finding": "A - Masorah Circle | L - Qere",
+        "aleppo": "",
+        "leningrad": "",
+        "notes": "MAM - No Comments | UXLC - בקדשו בִּ֭קְדֹשָׁיו",
+        "image_files": {
+          "aleppo": [
+            "docs/img/row030_aleppo_01.png"
+          ],
+          "leningrad": [
+            "docs/img/row030_leningrad_01.png"
+          ]
+        }
+      },
+      {
+        "row_number": 31,
+        "entry": "31",
+        "verse": "Job 15:31.3",
+        "word": "בַּשָּׁ֣ו",
+        "finding": "A - Masorah Circle | L - Qere",
+        "aleppo": "",
+        "leningrad": "",
+        "notes": "MAM - No Comments | UXLC - בשו בַּשָּׁ֣יו",
+        "image_files": {
+          "aleppo": [
+            "docs/img/row031_aleppo_01.png"
+          ],
+          "leningrad": [
+            "docs/img/row031_leningrad_01.png"
+          ]
+        }
+      },
+      {
+        "row_number": 32,
+        "entry": "32",
+        "verse": "Job 26:14.4",
+        "word": "דְּרָכָ֗ו",
+        "finding": "A - Masorah Circle | L - Qere",
+        "aleppo": "",
+        "leningrad": "",
+        "notes": "MAM - No Comments | UXLC - דרכו דְּרָכָ֗יו",
+        "image_files": {
+          "aleppo": [
+            "docs/img/row032_aleppo_01.png"
+          ],
+          "leningrad": [
+            "docs/img/row032_leningrad_01.png"
+          ]
+        }
+      },
+      {
+        "row_number": 33,
+        "entry": "33",
+        "verse": "Job 42:11.6",
+        "word": "אַחְיֹתָ֜יו",
+        "finding": "A - Masorah Circle | L - Qere",
+        "aleppo": "",
+        "leningrad": "",
+        "notes": "MAM - No Comments | UXLC - וְכָל־אחיתיו אַחְיוֹתָ֜יו",
+        "image_files": {
+          "aleppo": [
+            "docs/img/row033_aleppo_01.png"
+          ],
+          "leningrad": [
+            "docs/img/row033_leningrad_01.png"
+          ]
+        }
+      },
+      {
+        "row_number": 34,
+        "entry": "34",
+        "verse": "Ps 42:9.6",
+        "word": "שִׁירֹ֣ה",
+        "finding": "A - Masorah Circle | L - Qere",
+        "aleppo": "",
+        "leningrad": "",
+        "notes": "MAM - No Comments | UXLC - שירה שִׁיר֣וֹ",
+        "image_files": {
+          "aleppo": [
+            "docs/img/row034_aleppo_01.png"
+          ],
+          "leningrad": [
+            "docs/img/row034_leningrad_01.png"
+          ]
+        }
+      },
+      {
+        "row_number": 35,
+        "entry": "35",
+        "verse": "Prov 2:8.5",
+        "word": "חֲסִידָ֣ו",
+        "finding": "A - Masorah Circle | L - Qere",
+        "aleppo": "",
+        "leningrad": "",
+        "notes": "MAM - No Comments | UXLC - חסידו חֲסִידָ֣יו",
+        "image_files": {
+          "aleppo": [
+            "docs/img/row035_aleppo_01.png"
+          ],
+          "leningrad": [
+            "docs/img/row035_leningrad_01.png"
+          ]
+        }
+      },
+      {
+        "row_number": 36,
+        "entry": "36",
+        "verse": "Prov 27:20.2",
+        "word": "וַ֭אֲבַדֹּה",
+        "finding": "A - Masorah Circle | L - Qere",
+        "aleppo": "",
+        "leningrad": "",
+        "notes": "MAM - No Comments | UXLC - ואבדה וַ֭אֲבַדּוֹ",
+        "image_files": {
+          "aleppo": [
+            "docs/img/row036_aleppo_01.png"
+          ],
+          "leningrad": [
+            "docs/img/row036_leningrad_01.png"
+          ]
+        }
+      },
+      {
+        "row_number": 37,
+        "entry": "37",
+        "verse": "Isa 52:5.2",
+        "word": "",
+        "finding": "A - No Masorah Circle | L - Qere",
+        "aleppo": "",
+        "leningrad": "",
+        "notes": "MAM - No Comments | UXLC - מַה־לִּי־פֹה֙ מי־לי־",
+        "image_files": {
+          "aleppo": [
+            "docs/img/row037_aleppo_01.png"
+          ],
+          "leningrad": [
+            "docs/img/row037_leningrad_01.png"
+          ]
+        }
+      },
+      {
+        "row_number": 38,
+        "entry": "38",
+        "verse": "Isa 52:5.11",
+        "word": "מֹשְׁלָ֤ו",
+        "finding": "A - Masorah Circle | L - Qere",
+        "aleppo": "",
+        "leningrad": "",
+        "notes": "MAM - No Comments | UXLC - משלו מֹשְׁלָ֤יו",
+        "image_files": {
+          "aleppo": [
+            "docs/img/row038_aleppo_01.png"
+          ],
+          "leningrad": [
+            "docs/img/row038_leningrad_01.png"
+          ]
+        }
+      },
+      {
+        "row_number": 39,
+        "entry": "39",
+        "verse": "Jer 5:6.21",
+        "word": "מְשֻׁבוֹתֵיהֶֽם׃",
+        "finding": "A - No Masorah Circle | L - Qere",
+        "aleppo": "",
+        "leningrad": "",
+        "notes": "MAM - No Comments | UXLC - משבותיהם מְשׁוּבוֹתֵיהֶֽם׃",
+        "image_files": {
+          "aleppo": [
+            "docs/img/row039_aleppo_01.png"
+          ],
+          "leningrad": [
+            "docs/img/row039_leningrad_01.png"
+          ]
+        }
+      },
+      {
+        "row_number": 40,
+        "entry": "40",
+        "verse": "Jer 17:10.9",
+        "word": "כִּדְרָכָ֔ו",
+        "finding": "A - Masorah Circle | L - Qere",
+        "aleppo": "",
+        "leningrad": "",
+        "notes": "MAM - No Comments | UXLC - כדרכו כִּדְרָכָ֔יו",
+        "image_files": {
+          "aleppo": [
+            "docs/img/row040_aleppo_01.png"
+          ],
+          "leningrad": [
+            "docs/img/row040_leningrad_01.png"
+          ]
+        }
+      },
+      {
+        "row_number": 41,
+        "entry": "41",
+        "verse": "Jer 17:11.10",
+        "word": "יָמָו֙",
+        "finding": "A - Masorah Circle | L - Qere",
+        "aleppo": "",
+        "leningrad": "",
+        "notes": "MAM - No Comments | UXLC - ימו יָמָיו֙",
+        "image_files": {
+          "aleppo": [
+            "docs/img/row041_aleppo_01.png"
+          ],
+          "leningrad": [
+            "docs/img/row041_leningrad_01.png"
+          ]
+        }
+      },
+      {
+        "row_number": 42,
+        "entry": "42",
+        "verse": "Jer 19:15.8",
+        "word": "מֵבִ֜י",
+        "finding": "A - Masorah Circle | L - Qere",
+        "aleppo": "",
+        "leningrad": "",
+        "notes": "MAM - No Comments | UXLC - מבי מֵבִ֜יא",
+        "image_files": {
+          "aleppo": [
+            "docs/img/row042_aleppo_01.png"
+          ],
+          "leningrad": [
+            "docs/img/row042_leningrad_01.png"
+          ]
+        }
+      },
+      {
+        "row_number": 43,
+        "entry": "43",
+        "verse": "Jer 22:4.21",
+        "word": "וַעֲבָדָ֖ו",
+        "finding": "A - Masorah Circle | L - Qere",
+        "aleppo": "",
+        "leningrad": "",
+        "notes": "MAM - No Comments | UXLC - ועבדו וַעֲבָדָ֖יו",
+        "image_files": {
+          "aleppo": [
+            "docs/img/row043_aleppo_01.png"
+          ],
+          "leningrad": [
+            "docs/img/row043_leningrad_01.png"
+          ]
+        }
+      },
+      {
+        "row_number": 44,
+        "entry": "44",
+        "verse": "Jer 39:16.14",
+        "word": "מֵבִ֨י",
+        "finding": "A - Masorah Circle | L - Qere",
+        "aleppo": "",
+        "leningrad": "",
+        "notes": "MAM - No Comments | UXLC - מבי מֵבִ֨יא",
+        "image_files": {
+          "aleppo": [
+            "docs/img/row044_aleppo_01.png"
+          ],
+          "leningrad": [
+            "docs/img/row044_leningrad_01.png"
+          ]
+        }
+      },
+      {
+        "row_number": 45,
+        "entry": "45",
+        "verse": "Jer 51:9.1",
+        "word": "רִפִּ֤אנוּ",
+        "finding": "A - Masorah Circle | L - Qere",
+        "aleppo": "",
+        "leningrad": "",
+        "notes": "MAM - No Comments | UXLC - רפאנו רִפִּ֣ינוּ",
+        "image_files": {
+          "aleppo": [
+            "docs/img/row045_aleppo_01.png"
+          ],
+          "leningrad": [
+            "docs/img/row045_leningrad_01.png"
+          ]
+        }
+      },
+      {
+        "row_number": 46,
+        "entry": "46",
+        "verse": "Eze 9:4.3",
+        "word": "אֵלָ֔ו",
+        "finding": "A - Masorah Circle | L - Qere",
+        "aleppo": "",
+        "leningrad": "",
+        "notes": "MAM - No Comments | UXLC - אלו אֵלָ֔יו",
+        "image_files": {
+          "aleppo": [
+            "docs/img/row046_aleppo_01.png"
+          ],
+          "leningrad": [
+            "docs/img/row046_leningrad_01.png"
+          ]
+        }
+      },
+      {
+        "row_number": 47,
+        "entry": "47",
+        "verse": "Eze 17:21.3",
+        "word": "מִבְרָחָ֤ו",
+        "finding": "A - Masorah Circle | L - Qere",
+        "aleppo": "",
+        "leningrad": "",
+        "notes": "MAM - No Comments | UXLC - כָּל־מברחו מִבְרָחָ֤יו",
+        "image_files": {
+          "aleppo": [
+            "docs/img/row047_aleppo_01.png"
+          ],
+          "leningrad": [
+            "docs/img/row047_leningrad_01.png"
+          ]
+        }
+      },
+      {
+        "row_number": 48,
+        "entry": "48",
+        "verse": "Eze 31:5.11",
+        "word": "פֹארֹתָ֛ו",
+        "finding": "A and L - Qere",
+        "aleppo": "",
+        "leningrad": "",
+        "notes": "MAM - No Comments | UXLC - פארתו פֹארֹתָ֛יו | HaKeter - פֹארֹתָ֛ו פֹארֹתָ֛יו",
+        "image_files": {
+          "aleppo": [
+            "docs/img/row048_aleppo_01.png"
+          ],
+          "leningrad": [
+            "docs/img/row048_leningrad_01.png"
+          ]
+        }
+      },
+      {
+        "row_number": 49,
+        "entry": "49",
+        "verse": "Eze 32:31.7",
+        "word": "הֲמוֹנֹ֑ה",
+        "finding": "A - Masorah Circle | L - Qere",
+        "aleppo": "",
+        "leningrad": "",
+        "notes": "MAM - No Comments | UXLC - עַל־כָּל־המונה הֲמוֹנ֑וֹ",
+        "image_files": {
+          "aleppo": [
+            "docs/img/row049_aleppo_01.png"
+          ],
+          "leningrad": [
+            "docs/img/row049_leningrad_01.png"
+          ]
+        }
+      },
+      {
+        "row_number": 50,
+        "entry": "50",
+        "verse": "Eze 40:6.9",
+        "word": "בְּמַעֲלוֹתָ֑ו",
+        "finding": "A and L - Qere",
+        "aleppo": "",
+        "leningrad": "",
+        "notes": "MAM - No Comments | UXLC - במעלותו בְּמַֽעֲלוֹתָ֑יו | HaKeter - בְּמַעֲלוֹתָ֑ו בְּמַעֲלוֹתָ֑יו",
+        "image_files": {
+          "aleppo": [
+            "docs/img/row050_aleppo_01.png"
+          ],
+          "leningrad": [
+            "docs/img/row050_leningrad_01.png"
+          ]
+        }
+      },
+      {
+        "row_number": 51,
+        "entry": "51",
+        "verse": "Eze 40:21.1",
+        "word": "וְתָאָ֗ו",
+        "finding": "A - Masorah Circle | L - Qere",
+        "aleppo": "",
+        "leningrad": "",
+        "notes": "MAM - No Comments | UXLC - ותאו וְתָאָ֗יו",
+        "image_files": {
+          "aleppo": [
+            "docs/img/row051_aleppo_01.png"
+          ],
+          "leningrad": [
+            "docs/img/row051_leningrad_01.png"
+          ]
+        }
+      },
+      {
+        "row_number": 52,
+        "entry": "52",
+        "verse": "Eze 40:24.9",
+        "word": "אֵילָו֙",
+        "finding": "A - Masorah Circle | L - Qere",
+        "aleppo": "",
+        "leningrad": "",
+        "notes": "MAM - No Comments | UXLC - אילו אֵילָיו֙",
+        "image_files": {
+          "aleppo": [
+            "docs/img/row052_aleppo_01.png"
+          ],
+          "leningrad": [
+            "docs/img/row052_leningrad_01.png"
+          ]
+        }
+      },
+      {
+        "row_number": 53,
+        "entry": "53",
+        "verse": "Eze 40:25.3",
+        "word": "וּלְאֵֽילַמָּו֙",
+        "finding": "A - No Masorah Circle | L - Qere",
+        "aleppo": "",
+        "leningrad": "",
+        "notes": "MAM - No Comments | UXLC - ולאילמו וּלְאֵֽילַמָּיו֙",
+        "image_files": {
+          "aleppo": [
+            "docs/img/row053_aleppo_01.png"
+          ],
+          "leningrad": [
+            "docs/img/row053_leningrad_01.png"
+          ]
+        }
+      },
+      {
+        "row_number": 54,
+        "entry": "54",
+        "verse": "Eze 40:26.4",
+        "word": "וְאֵלַמָּ֖ו",
+        "finding": "A - Masorah Circle | L - Qere",
+        "aleppo": "",
+        "leningrad": "",
+        "notes": "MAM - No Comments | UXLC - ואלמו וְאֵֽלַמָּ֖יו | HaKeter - וְאֵלַמָּ֖ו וְאֵלַמָּ֖יו",
+        "image_files": {
+          "aleppo": [
+            "docs/img/row054_aleppo_01.png"
+          ],
+          "leningrad": [
+            "docs/img/row054_leningrad_01.png"
+          ]
+        }
+      },
+      {
+        "row_number": 55,
+        "entry": "55",
+        "verse": "Eze 40:26.13",
+        "word": "אֵילָֽו׃",
+        "finding": "A - No Masorah Circle | L - Qere",
+        "aleppo": "",
+        "leningrad": "",
+        "notes": "MAM - No Comments | UXLC - אֶל־אילו אֵילָֽיו׃",
+        "image_files": {
+          "aleppo": [
+            "docs/img/row055_aleppo_01.png"
+          ],
+          "leningrad": [
+            "docs/img/row055_leningrad_01.png"
+          ]
+        }
+      },
+      {
+        "row_number": 56,
+        "entry": "56",
+        "verse": "Eze 40:29.1",
+        "word": "וְתָאָ֞ו",
+        "finding": "A - No Masorah Circle | L - Qere",
+        "aleppo": "",
+        "leningrad": "",
+        "notes": "MAM - No Comments | UXLC - ותאו וְתָאָ֞יו",
+        "image_files": {
+          "aleppo": [
+            "docs/img/row056_aleppo_01.png"
+          ],
+          "leningrad": [
+            "docs/img/row056_leningrad_01.png"
+          ]
+        }
+      },
+      {
+        "row_number": 57,
+        "entry": "57",
+        "verse": "Eze 40:29.2",
+        "word": "וְאֵילָ֤ו",
+        "finding": "A - No Masorah Circle | L - Qere",
+        "aleppo": "",
+        "leningrad": "",
+        "notes": "MAM - No Comments | UXLC - ואילו וְאֵילָ֤יו",
+        "image_files": {
+          "aleppo": [
+            "docs/img/row057_aleppo_01.png"
+          ],
+          "leningrad": [
+            "docs/img/row057_leningrad_01.png"
+          ]
+        }
+      },
+      {
+        "row_number": 58,
+        "entry": "58",
+        "verse": "Eze 40:29.3",
+        "word": "וְאֵֽלַמָּו֙",
+        "finding": "A - No Masorah Circle | L - Qere",
+        "aleppo": "",
+        "leningrad": "",
+        "notes": "MAM - No Comments | UXLC - ואלמו וְאֵֽלַמָּיו֙",
+        "image_files": {
+          "aleppo": [
+            "docs/img/row058_aleppo_01.png"
+          ],
+          "leningrad": [
+            "docs/img/row058_leningrad_01.png"
+          ]
+        }
+      },
+      {
+        "row_number": 59,
+        "entry": "59",
+        "verse": "Eze 40:29.8",
+        "word": "וּלְאֵלַמָּ֖ו",
+        "finding": "A - No Masorah Circle | L - Qere",
+        "aleppo": "",
+        "leningrad": "",
+        "notes": "MAM - No Comments | UXLC - ולאלמו וּלְאֵלַמָּ֖יו",
+        "image_files": {
+          "aleppo": [
+            "docs/img/row059_aleppo_01.png"
+          ],
+          "leningrad": [
+            "docs/img/row059_leningrad_01.png"
+          ]
+        }
+      },
+      {
+        "row_number": 60,
+        "entry": "60",
+        "verse": "Eze 40:31.7",
+        "word": "אֵילָ֑ו",
+        "finding": "A - No Masorah Circle | L - Qere",
+        "aleppo": "",
+        "leningrad": "",
+        "notes": "MAM - No Comments | UXLC - אֶל־אילו אֵילָ֑יו",
+        "image_files": {
+          "aleppo": [
+            "docs/img/row060_aleppo_01.png"
+          ],
+          "leningrad": [
+            "docs/img/row060_leningrad_01.png"
+          ]
+        }
+      },
+      {
+        "row_number": 61,
+        "entry": "61",
+        "verse": "Eze 40:33.1",
+        "word": "וְתָאָ֞ו",
+        "finding": "A - No Masorah Circle | L - Qere",
+        "aleppo": "",
+        "leningrad": "",
+        "notes": "MAM - No Comments | UXLC - ותאו וְתָאָ֞יו",
+        "image_files": {
+          "aleppo": [
+            "docs/img/row061_aleppo_01.png"
+          ],
+          "leningrad": [
+            "docs/img/row061_leningrad_01.png"
+          ]
+        }
+      },
+      {
+        "row_number": 62,
+        "entry": "62",
+        "verse": "Eze 40:33.2",
+        "word": "וְאֵלָ֤ו",
+        "finding": "A - Masorah Circle? | L - Qere",
+        "aleppo": "",
+        "leningrad": "",
+        "notes": "MAM - No Comments | UXLC - ואלו וְאֵלָ֤יו",
+        "image_files": {
+          "aleppo": [
+            "docs/img/row062_aleppo_01.png"
+          ],
+          "leningrad": [
+            "docs/img/row062_leningrad_01.png"
+          ]
+        }
+      },
+      {
+        "row_number": 63,
+        "entry": "63",
+        "verse": "Eze 40:33.3",
+        "word": "וְאֵֽלַמָּו֙",
+        "finding": "A - No Masorah Circle | L - Qere",
+        "aleppo": "",
+        "leningrad": "",
+        "notes": "MAM - No Comments | UXLC - ואלמו וְאֵֽלַמָּיו֙",
+        "image_files": {
+          "aleppo": [
+            "docs/img/row063_aleppo_01.png"
+          ],
+          "leningrad": [
+            "docs/img/row063_leningrad_01.png"
+          ]
+        }
+      },
+      {
+        "row_number": 64,
+        "entry": "64",
+        "verse": "Eze 40:33.8",
+        "word": "וּלְאֵלַמָּ֖ו",
+        "finding": "A - No Masorah Circle | L - Qere",
+        "aleppo": "",
+        "leningrad": "",
+        "notes": "MAM - No Comments | UXLC - ולאלמו וּלְאֵלַמָּ֖יו",
+        "image_files": {
+          "aleppo": [
+            "docs/img/row064_aleppo_01.png"
+          ],
+          "leningrad": [
+            "docs/img/row064_leningrad_01.png"
+          ]
+        }
+      },
+      {
+        "row_number": 65,
+        "entry": "65",
+        "verse": "Eze 40:34.1",
+        "word": "וְאֵלַמָּ֗ו",
+        "finding": "A - No Masorah Circle | L - Qere",
+        "aleppo": "",
+        "leningrad": "",
+        "notes": "MAM - No Comments | UXLC - ואלמו וְאֵלַמָּ֗יו",
+        "image_files": {
+          "aleppo": [
+            "docs/img/row065_aleppo_01.png"
+          ],
+          "leningrad": [
+            "docs/img/row065_leningrad_01.png"
+          ]
+        }
+      },
+      {
+        "row_number": 66,
+        "entry": "66",
+        "verse": "Eze 40:34.6",
+        "word": "אֵלָ֖ו",
+        "finding": "A - Masorah Circle | L - Qere",
+        "aleppo": "",
+        "leningrad": "",
+        "notes": "MAM - No Comments | UXLC - אֶל־אלו אֵלָ֖יו",
+        "image_files": {
+          "aleppo": [
+            "docs/img/row066_aleppo_01.png"
+          ],
+          "leningrad": [
+            "docs/img/row066_leningrad_01.png"
+          ]
+        }
+      },
+      {
+        "row_number": 67,
+        "entry": "67",
+        "verse": "Eze 40:34.11",
+        "word": "מַעֲלָֽו׃",
+        "finding": "A - No Masorah Circle | L - Qere",
+        "aleppo": "",
+        "leningrad": "",
+        "notes": "MAM - No Comments | UXLC - מעלו מַעֲלָֽיו׃",
+        "image_files": {
+          "aleppo": [
+            "docs/img/row067_aleppo_01.png"
+          ],
+          "leningrad": [
+            "docs/img/row067_leningrad_01.png"
+          ]
+        }
+      },
+      {
+        "row_number": 68,
+        "entry": "68",
+        "verse": "Eze 40:36.1",
+        "word": "תָּאָו֙",
+        "finding": "A - Masorah Circle | L - Qere",
+        "aleppo": "",
+        "leningrad": "",
+        "notes": "MAM - No Comments | UXLC - תאו תָּאָיו֙",
+        "image_files": {
+          "aleppo": [
+            "docs/img/row068_aleppo_01.png"
+          ],
+          "leningrad": [
+            "docs/img/row068_leningrad_01.png"
+          ]
+        }
+      },
+      {
+        "row_number": 69,
+        "entry": "69",
+        "verse": "Eze 40:36.2",
+        "word": "אֵלָ֣ו",
+        "finding": "A - Masorah Circle | L - Qere",
+        "aleppo": "",
+        "leningrad": "",
+        "notes": "MAM - No Comments | UXLC - אלו אֵלָ֣יו",
+        "image_files": {
+          "aleppo": [
+            "docs/img/row069_aleppo_01.png"
+          ],
+          "leningrad": [
+            "docs/img/row069_leningrad_01.png"
+          ]
+        }
+      },
+      {
+        "row_number": 70,
+        "entry": "70",
+        "verse": "Eze 40:36.3",
+        "word": "וְאֵלַמָּ֔ו",
+        "finding": "A - No Masorah Circle | L - Qere",
+        "aleppo": "",
+        "leningrad": "",
+        "notes": "MAM - No Comments | UXLC - ואלמו וְאֽ͏ֵלַמָּ֔יו",
+        "image_files": {
+          "aleppo": [
+            "docs/img/row070_aleppo_01.png"
+          ],
+          "leningrad": [
+            "docs/img/row070_leningrad_01.png"
+          ]
+        }
+      },
+      {
+        "row_number": 71,
+        "entry": "71",
+        "verse": "Eze 40:37.1",
+        "word": "וְאֵילָ֗ו",
+        "finding": "A - No Masorah Circle | L - Qere",
+        "aleppo": "",
+        "leningrad": "",
+        "notes": "MAM - No Comments | UXLC - ואילו וְאֵילָ֗יו",
+        "image_files": {
+          "aleppo": [
+            "docs/img/row071_aleppo_01.png"
+          ],
+          "leningrad": [
+            "docs/img/row071_leningrad_01.png"
+          ]
+        }
+      },
+      {
+        "row_number": 72,
+        "entry": "72",
+        "verse": "Eze 40:37.6",
+        "word": "אֵילָ֖ו",
+        "finding": "A - No Masorah Circle | L - Qere",
+        "aleppo": "",
+        "leningrad": "",
+        "notes": "MAM - No Comments | UXLC - אֶל־אילו אֵילָ֖יו",
+        "image_files": {
+          "aleppo": [
+            "docs/img/row072_aleppo_01.png"
+          ],
+          "leningrad": [
+            "docs/img/row072_leningrad_01.png"
+          ]
+        }
+      },
+      {
+        "row_number": 73,
+        "entry": "73",
+        "verse": "Eze 40:37.11",
+        "word": "מַעֲלָֽו׃",
+        "finding": "A - No Masorah Circle | L - Qere",
+        "aleppo": "",
+        "leningrad": "",
+        "notes": "MAM - No Comments | UXLC - מעלו מַעֲלָֽיו׃",
+        "image_files": {
+          "aleppo": [
+            "docs/img/row073_aleppo_01.png"
+          ],
+          "leningrad": [
+            "docs/img/row073_leningrad_01.png"
+          ]
+        }
+      },
+      {
+        "row_number": 74,
+        "entry": "74",
+        "verse": "Eze 47:8.17",
+        "word": "וְנִרְפּ֥אוּ",
+        "finding": "A - Masorah Circle | L - Qere",
+        "aleppo": "",
+        "leningrad": "",
+        "notes": "MAM - No Comments | UXLC - ונרפאו וְנִרְפּ֥וּ",
+        "image_files": {
+          "aleppo": [
+            "docs/img/row074_aleppo_01.png"
+          ],
+          "leningrad": [
+            "docs/img/row074_leningrad_01.png"
+          ]
+        }
+      },
+      {
+        "row_number": 75,
+        "entry": "75",
+        "verse": "Eze 48:18.17",
+        "word": "תְבֽוּאָתֹה֙",
+        "finding": "A - Masorah Circle | L - Qere",
+        "aleppo": "",
+        "leningrad": "",
+        "notes": "MAM - No Comments | UXLC - תבואתה תְבֽוּאָתוֹ֙",
+        "image_files": {
+          "aleppo": [
+            "docs/img/row075_aleppo_01.png"
+          ],
+          "leningrad": [
+            "docs/img/row075_leningrad_01.png"
+          ]
+        }
+      },
+      {
+        "row_number": 76,
+        "entry": "76",
+        "verse": "Eze 48:21.35",
+        "word": "בְּתוֹכֹֽה׃",
+        "finding": "A - Masorah Circle | L - Qere",
+        "aleppo": "",
+        "leningrad": "",
+        "notes": "MAM - No Comments | UXLC - בתוכה בְּתוֹכֽוֹ׃",
+        "image_files": {
+          "aleppo": [
+            "docs/img/row076_aleppo_01.png"
+          ],
+          "leningrad": [
+            "docs/img/row076_leningrad_01.png"
+          ]
+        }
+      },
+      {
+        "row_number": 77,
+        "entry": "77",
+        "verse": "Zeph 2:9.27",
+        "word": "גּוֹיִ֖",
+        "finding": "A - Masorah Circle | L - Qere",
+        "aleppo": "",
+        "leningrad": "",
+        "notes": "MAM - No Comments | UXLC - גוי גּוֹיִ֖י",
+        "image_files": {
+          "aleppo": [
+            "docs/img/row077_aleppo_01.png"
+          ],
+          "leningrad": [
+            "docs/img/row077_leningrad_01.png"
+          ]
+        }
+      }
+    ]
+  }
+}
