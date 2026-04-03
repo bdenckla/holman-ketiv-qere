@@ -7,6 +7,8 @@ import zipfile
 from pathlib import Path
 from xml.etree import ElementTree as ET
 
+from pycmn import bib_locales
+
 
 NS = {
     "a": "http://schemas.openxmlformats.org/drawingml/2006/main",
@@ -16,6 +18,26 @@ NS = {
 
 CONTROL_CHARS = {
     "\u00a0": " ",
+}
+
+VERSE_PATTERN = re.compile(r"^(?P<book_abbreviation>.*) (?P<chapter>\d+):(?P<verse>\d+)\.(?P<segment>\d+)$")
+
+STANDARD_BOOK_NAME_BY_ABBREVIATION = {
+    "1Ch": bib_locales.BK_FST_CHR,
+    "1Ki": bib_locales.BK_FST_KGS,
+    "1Sa": bib_locales.BK_FST_SAM,
+    "2Ch": bib_locales.BK_SND_CHR,
+    "2Ki": bib_locales.BK_SND_KGS,
+    "2Sa": bib_locales.BK_SND_SAM,
+    "Eze": bib_locales.BK_EZEKIEL,
+    "Isa": bib_locales.BK_ISAIAH,
+    "Jer": bib_locales.BK_JEREM,
+    "Job": bib_locales.BK_JOB,
+    "Josh": bib_locales.BK_JOSHUA,
+    "Judg": bib_locales.BK_JUDGES,
+    "Prov": bib_locales.BK_PROV,
+    "Ps": bib_locales.BK_PSALMS,
+    "Zeph": bib_locales.BK_TSEF,
 }
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -57,6 +79,24 @@ def slugify(label: str) -> str:
     text = label.strip().lower()
     text = re.sub(r"[^0-9a-z]+", "_", text)
     return text.strip("_") or "entry"
+
+
+def verse_book_abbreviation(verse: str) -> str:
+    match = VERSE_PATTERN.fullmatch(verse)
+    if match is None:
+        raise ValueError(f"unexpected verse format: {verse!r}")
+    return match.group("book_abbreviation")
+
+
+def standard_book_name(book_abbreviation: str) -> str:
+    try:
+        return STANDARD_BOOK_NAME_BY_ABBREVIATION[book_abbreviation]
+    except KeyError as exc:
+        raise ValueError(f"unknown book abbreviation: {book_abbreviation!r}") from exc
+
+
+def standard_book_abbreviation(book_abbreviation: str) -> str:
+    return bib_locales.short(standard_book_name(book_abbreviation))
 
 
 def intro_markdown(paragraphs: list[str]) -> str:
@@ -182,6 +222,18 @@ def extract(docx_path: Path, output_dir: Path) -> dict[str, object]:
                 row_data["image_files"] = image_refs
             data_rows.append(row_data)
 
+        verse_book_abbreviations = sorted(
+            {verse_book_abbreviation(str(row["verse"])) for row in data_rows}
+        )
+        verse_book_name_by_abbreviation = {
+            abbreviation: standard_book_name(abbreviation)
+            for abbreviation in verse_book_abbreviations
+        }
+        verse_book_standard_abbreviation_by_abbreviation = {
+            abbreviation: standard_book_abbreviation(abbreviation)
+            for abbreviation in verse_book_abbreviations
+        }
+
     intro_path = output_dir / "introduction.md"
     intro_path.write_text(intro_markdown(intro_paragraphs), encoding="utf-8")
 
@@ -192,6 +244,11 @@ def extract(docx_path: Path, output_dir: Path) -> dict[str, object]:
             "header_labels": headers,
             "column_keys": column_keys,
             "row_count": len(data_rows),
+            "verse_book_abbreviations": verse_book_abbreviations,
+            "verse_book_name_by_abbreviation": verse_book_name_by_abbreviation,
+            "verse_book_standard_abbreviation_by_abbreviation": (
+                verse_book_standard_abbreviation_by_abbreviation
+            ),
             "rows": data_rows,
         },
     }
