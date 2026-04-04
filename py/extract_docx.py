@@ -10,6 +10,7 @@ from typing import cast
 from xml.etree import ElementTree as ET
 
 from pycmn import bib_locales
+from python_modules.verify_table_words_in_mam_plus import verify_table_words_in_mam_plus
 
 
 NS = {
@@ -44,6 +45,7 @@ STANDARD_BOOK_NAME_BY_ABBREVIATION = {
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_DOCX_PATH = REPO_ROOT / "Review of Qere and Kethib readings in the Aleppo and Leningrad.docx"
+DEFAULT_MAM_PARSED_PATH = REPO_ROOT.parent / "MAM-parsed"
 
 NOTES_JUNK_REPLACEMENTS = (
     ("y\u202c\u200f", ""),
@@ -464,9 +466,46 @@ def main() -> None:
         default=Path("docs"),
         help="Directory where introduction.md, table_data.json, and img/ will be written.",
     )
+    parser.add_argument(
+        "--mam-parsed-path",
+        type=Path,
+        default=DEFAULT_MAM_PARSED_PATH,
+        help="Path to sibling MAM-parsed repo used for mandatory post-extraction verification.",
+    )
     args = parser.parse_args()
 
     summary = extract(docx_path=args.docx_path, output_dir=args.output_dir)
+    table_json_path = args.output_dir / "table_data.json"
+    verify_report = verify_table_words_in_mam_plus(
+        table_json_path=table_json_path,
+        mam_parsed_path=args.mam_parsed_path,
+    )
+
+    verify_summary = verify_report["summary"]
+    if not isinstance(verify_summary, dict):
+        raise ValueError("verification summary is invalid")
+
+    missing_any = verify_summary["missing_any_plus_count"]
+    missing_expected = verify_summary["missing_expected_plus_count"]
+    summary["mam_plus_verify"] = verify_summary
+
+    # Persist verification output inside extracted table_data.json.
+    table_data = json.loads(table_json_path.read_text(encoding="utf-8"))
+    if not isinstance(table_data, dict):
+        raise ValueError("extracted table_data.json root must be an object")
+    table_data["mam_plus_verify"] = verify_summary
+    table_json_path.write_text(
+        json.dumps(table_data, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8",
+    )
+
+    if missing_any or missing_expected:
+        raise ValueError(
+            "post-extraction verification failed: "
+            f"missing_any_plus_count={missing_any}, "
+            f"missing_expected_plus_count={missing_expected}"
+        )
+
     print(json.dumps(summary, ensure_ascii=False, indent=2))
 
 

@@ -22,3 +22,9 @@ This repo contains Hebrew text.
 - Keep tracked outputs under `docs/`.
 - Put extracted images under `docs/img/`.
 - Keep scratch or inspection artifacts in `.novc/` only.
+
+## Project Scope
+
+- Treat this project as intentionally narrow and mostly static.
+- The current table dataset has 77 rows and is expected to remain the effective scope.
+- Prefer simple, direct checks and scripts over general-purpose, highly configurable frameworks.
