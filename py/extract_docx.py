@@ -220,16 +220,19 @@ def apply_notes_fixes(row_data: dict[str, object]) -> None:
         return
 
     fixed_notes = strip_known_notes_junk(current_notes)
+    targeted_fix_applied = False
 
     row_number = cast(int, row_data["row_number"])
     fix = NOTES_TARGETED_FIXES_BY_ROW_NUMBER.get(row_number)
     if fix is not None and fixed_notes == fix["original"]:
         fixed_notes = fix["fixed"]
+        targeted_fix_applied = True
 
     if fixed_notes == current_notes:
         return
 
-    row_data["notes_orig"] = current_notes
+    if targeted_fix_applied:
+        row_data["notes_orig"] = current_notes
     row_data["notes"] = fixed_notes
 
 

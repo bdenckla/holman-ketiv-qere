@@ -198,10 +198,10 @@ It distinguishes between:
 ### `notes_orig`
 
 - Type: string, optional
-- Meaning: original notes column text before extractor cleanup or a targeted note correction is applied
-- Source: copied from the source-table `notes` value only for rows whose `notes` value changes during extraction
-- Current data observation: present on `3` rows
-- Note: this exists so rerunning the extractor remains reproducible while preserving the original extracted text alongside the parsed `notes-UXLC`, `notes-UXLC-yatir`, and `notes-HaKeter` values
+- Meaning: original notes column text before a targeted note correction is applied
+- Source: copied from source-table `notes` only when a row-specific fix in `NOTES_TARGETED_FIXES_BY_ROW_NUMBER` is applied
+- Current data observation: present on `1` row (`Isa 52:5.2`)
+- Note: this is not used for routine junk-character cleanup; it is retained only when content-level correction changes the note itself
 
 ### `image_files`
 
