@@ -53,12 +53,24 @@ It distinguishes between:
 - Source: `len(rows)` after extraction
 - Current data observation: `77`
 
-### `verse_book_abbreviations`
+### `finding_value_counts`
 
-- Type: array of strings
-- Meaning: the distinct book abbreviations observed in the `verse` field across all rows
-- Source: extracted from `rows[].verse` using the verse regex
-- Current data observation: `['1Ch', '1Ki', '1Sa', '2Ch', '2Ki', '2Sa', 'Eze', 'Isa', 'Jer', 'Job', 'Josh', 'Judg', 'Prov', 'Ps', 'Zeph']`
+- Type: array of objects
+- Meaning: each distinct `rows[].finding` value and the number of rows where it appears
+- Source: grouped count over extracted row `finding` values
+- Current data observation: four entries
+
+### `finding_value_counts[].finding`
+
+- Type: string
+- Meaning: one unique finding label
+- Source: distinct values from `rows[].finding`
+
+### `finding_value_counts[].count`
+
+- Type: integer
+- Meaning: number of rows whose `finding` equals `finding_value_counts[].finding`
+- Source: grouped count over `rows[].finding`
 
 ### `verse_book_name_by_abbreviation`
 
@@ -66,13 +78,6 @@ It distinguishes between:
 - Meaning: mapping from each observed `verse` book abbreviation to a standard 39-book name
 - Source: extractor lookup table aligned to the vendored copy of `MAM-basics/py/pycmn/bib_locales.py`
 - Current data observation: includes mappings like `Josh -> Joshua`, `1Sa -> 1Samuel`, and `Zeph -> Tsefaniah`
-
-### `verse_book_standard_abbreviation_by_abbreviation`
-
-- Type: object mapping strings to strings
-- Meaning: mapping from each observed `verse` book abbreviation to the standard MAM short abbreviation
-- Source: the vendored copy of `MAM-basics/py/pycmn/bib_locales.py`
-- Current data observation: includes mappings like `Josh -> Js`, `Judg -> Ju`, `1Sa -> 1S`, and `Zeph -> Ts`
 
 ### `rows`
 
@@ -183,7 +188,6 @@ It distinguishes between:
 - `entry` is copied from the first column of the source table.
 - In the current output, `entry` is exactly the string version of `row_number` for every row.
 - That equality is an observed property of this document, not a structural rule of the extractor.
-- `verse_book_abbreviations` is a dataset-level summary derived from `verse`.
+- `finding_value_counts` summarizes each distinct `finding` label and its row count.
 - `verse_book_name_by_abbreviation` maps those observed abbreviations to standard MAM 39-book names.
-- `verse_book_standard_abbreviation_by_abbreviation` maps those observed abbreviations to standard MAM short abbreviations.
 - `aleppo` and `leningrad` store extracted text only; their screenshots or embedded figures live under `image_files`.

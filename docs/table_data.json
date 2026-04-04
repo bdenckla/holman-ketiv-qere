@@ -21,22 +21,23 @@
       "notes"
     ],
     "row_count": 77,
-    "verse_book_abbreviations": [
-      "1Ch",
-      "1Ki",
-      "1Sa",
-      "2Ch",
-      "2Ki",
-      "2Sa",
-      "Eze",
-      "Isa",
-      "Jer",
-      "Job",
-      "Josh",
-      "Judg",
-      "Prov",
-      "Ps",
-      "Zeph"
+    "finding_value_counts": [
+      {
+        "finding": "A - Masorah Circle | L - Qere",
+        "count": 55
+      },
+      {
+        "finding": "A - Masorah Circle? | L - Qere",
+        "count": 1
+      },
+      {
+        "finding": "A - No Masorah Circle | L - Qere",
+        "count": 18
+      },
+      {
+        "finding": "A and L - Qere",
+        "count": 3
+      }
     ],
     "verse_book_name_by_abbreviation": {
       "1Ch": "1Chronicles",
@@ -54,23 +55,6 @@
       "Prov": "Proverbs",
       "Ps": "Psalms",
       "Zeph": "Tsefaniah"
-    },
-    "verse_book_standard_abbreviation_by_abbreviation": {
-      "1Ch": "1C",
-      "1Ki": "1K",
-      "1Sa": "1S",
-      "2Ch": "2C",
-      "2Ki": "2K",
-      "2Sa": "2S",
-      "Eze": "Ee",
-      "Isa": "I",
-      "Jer": "Je",
-      "Job": "Jb",
-      "Josh": "Js",
-      "Judg": "Ju",
-      "Prov": "Pr",
-      "Ps": "Ps",
-      "Zeph": "Ts"
     },
     "rows": [
       {

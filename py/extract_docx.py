@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+from collections import Counter
 import json
 import re
 import zipfile
@@ -106,10 +107,6 @@ def standard_book_name(book_abbreviation: str) -> str:
         return STANDARD_BOOK_NAME_BY_ABBREVIATION[book_abbreviation]
     except KeyError as exc:
         raise ValueError(f"unknown book abbreviation: {book_abbreviation!r}") from exc
-
-
-def standard_book_abbreviation(book_abbreviation: str) -> str:
-    return bib_locales.short(standard_book_name(book_abbreviation))
 
 
 def intro_markdown(paragraphs: list[str]) -> str:
@@ -278,10 +275,15 @@ def extract(docx_path: Path, output_dir: Path) -> dict[str, object]:
             abbreviation: standard_book_name(abbreviation)
             for abbreviation in verse_book_abbreviations
         }
-        verse_book_standard_abbreviation_by_abbreviation = {
-            abbreviation: standard_book_abbreviation(abbreviation)
-            for abbreviation in verse_book_abbreviations
-        }
+        finding_value_counts = [
+            {
+                "finding": finding,
+                "count": count,
+            }
+            for finding, count in sorted(
+                Counter(str(row["finding"]) for row in data_rows).items()
+            )
+        ]
 
     intro_path = output_dir / "introduction.md"
     intro_path.write_text(intro_markdown(intro_paragraphs), encoding="utf-8")
@@ -293,11 +295,8 @@ def extract(docx_path: Path, output_dir: Path) -> dict[str, object]:
             "header_labels": headers,
             "column_keys": column_keys,
             "row_count": len(data_rows),
-            "verse_book_abbreviations": verse_book_abbreviations,
+            "finding_value_counts": finding_value_counts,
             "verse_book_name_by_abbreviation": verse_book_name_by_abbreviation,
-            "verse_book_standard_abbreviation_by_abbreviation": (
-                verse_book_standard_abbreviation_by_abbreviation
-            ),
             "rows": data_rows,
         },
     }
