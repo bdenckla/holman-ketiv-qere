@@ -143,6 +143,15 @@ It distinguishes between:
 - Meaning: notes column text
 - Source: source-table content
 - Current data observation: populated for all rows; may include Hebrew text, separators like `|`, and embedded newlines
+- Note: the extractor applies a general cleanup pass that strips known junk sequences from all notes values, and one targeted UXLC correction for row `37`; when a note changes, `notes` contains the corrected value
+
+### `notes_orig`
+
+- Type: string, optional
+- Meaning: original notes column text before extractor cleanup or a targeted note correction is applied
+- Source: copied from the source-table `notes` value only for rows whose `notes` value changes during extraction
+- Current data observation: present on `3` rows
+- Note: this exists so rerunning the extractor remains reproducible while preserving the original extracted text alongside the corrected `notes` value
 
 ### `image_files`
 

@@ -5,6 +5,7 @@ import json
 import re
 import zipfile
 from pathlib import Path
+from typing import cast
 from xml.etree import ElementTree as ET
 
 from pycmn import bib_locales
@@ -42,6 +43,18 @@ STANDARD_BOOK_NAME_BY_ABBREVIATION = {
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_DOCX_PATH = REPO_ROOT / "source" / "Review of Qere and Kethib readings in the Aleppo and Leningrad.docx"
+
+NOTES_JUNK_REPLACEMENTS = (
+    ("y\u202c\u200f", ""),
+    ("\u202c\u202c", ""),
+)
+
+NOTES_TARGETED_FIXES_BY_ROW_NUMBER = {
+    37: {
+        "original": "MAM - No Comments | UXLC - מַה־לִּי־פֹה֙ מי־לי־",
+        "fixed": "MAM - No Comments | UXLC - לי־ מַה־לִּי־פֹה֙",
+    },
+}
 
 
 def normalize_text(text: str) -> str:
@@ -148,6 +161,31 @@ def export_images(
     return exported_paths
 
 
+def strip_known_notes_junk(notes: str) -> str:
+    for old, new in NOTES_JUNK_REPLACEMENTS:
+        notes = notes.replace(old, new)
+    return notes
+
+
+def apply_notes_fixes(row_data: dict[str, object]) -> None:
+    current_notes = row_data.get("notes")
+    if not isinstance(current_notes, str):
+        return
+
+    fixed_notes = strip_known_notes_junk(current_notes)
+
+    row_number = cast(int, row_data["row_number"])
+    fix = NOTES_TARGETED_FIXES_BY_ROW_NUMBER.get(row_number)
+    if fix is not None and fixed_notes == fix["original"]:
+        fixed_notes = fix["fixed"]
+
+    if fixed_notes == current_notes:
+        return
+
+    row_data["notes_orig"] = current_notes
+    row_data["notes"] = fixed_notes
+
+
 def extract(docx_path: Path, output_dir: Path) -> dict[str, object]:
     image_dir = output_dir / "img"
     image_dir.mkdir(parents=True, exist_ok=True)
@@ -220,6 +258,8 @@ def extract(docx_path: Path, output_dir: Path) -> dict[str, object]:
 
             if image_refs:
                 row_data["image_files"] = image_refs
+
+            apply_notes_fixes(row_data)
             data_rows.append(row_data)
 
         verse_book_abbreviations = sorted(

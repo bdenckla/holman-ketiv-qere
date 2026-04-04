@@ -99,7 +99,7 @@
         "finding": "A - Masorah Circle | L - Qere",
         "aleppo": "",
         "leningrad": "’",
-        "notes": "MAM - No Comments | UXLC - ההלכואy‬‏ הֶהָלְכ֣וְּּ‬‬\n(yatir aleph)",
+        "notes": "MAM - No Comments | UXLC - ההלכוא הֶהָלְכ֣וְּּ\n(yatir aleph)",
         "image_files": {
           "aleppo": [
             "docs/img/row002_aleppo_01.png"
@@ -107,7 +107,8 @@
           "leningrad": [
             "docs/img/row002_leningrad_01.png"
           ]
-        }
+        },
+        "notes_orig": "MAM - No Comments | UXLC - ההלכואy‬‏ הֶהָלְכ֣וְּּ‬‬\n(yatir aleph)"
       },
       {
         "row_number": 3,
@@ -153,7 +154,7 @@
         "finding": "A - Masorah Circle | L - Qere",
         "aleppo": "",
         "leningrad": "",
-        "notes": "MAM - No Comments | UXLC - הקליאy‬‏ הַקָּלִי֙‬‬\n(yatir aleph)",
+        "notes": "MAM - No Comments | UXLC - הקליא הַקָּלִי֙\n(yatir aleph)",
         "image_files": {
           "aleppo": [
             "docs/img/row005_aleppo_01.png"
@@ -161,7 +162,8 @@
           "leningrad": [
             "docs/img/row005_leningrad_01.png"
           ]
-        }
+        },
+        "notes_orig": "MAM - No Comments | UXLC - הקליאy‬‏ הַקָּלִי֙‬‬\n(yatir aleph)"
       },
       {
         "row_number": 6,
@@ -729,7 +731,7 @@
         "finding": "A - No Masorah Circle | L - Qere",
         "aleppo": "",
         "leningrad": "",
-        "notes": "MAM - No Comments | UXLC - מַה־לִּי־פֹה֙ מי־לי־",
+        "notes": "MAM - No Comments | UXLC - לי־ מַה־לִּי־פֹה֙",
         "image_files": {
           "aleppo": [
             "docs/img/row037_aleppo_01.png"
@@ -737,7 +739,8 @@
           "leningrad": [
             "docs/img/row037_leningrad_01.png"
           ]
-        }
+        },
+        "notes_orig": "MAM - No Comments | UXLC - מַה־לִּי־פֹה֙ מי־לי־"
       },
       {
         "row_number": 38,
