@@ -50,6 +50,13 @@ NOTES_JUNK_REPLACEMENTS = (
     ("\u202c\u202c", ""),
 )
 
+# Strip known invisible format marks before pattern counting.
+INVISIBLE_MARK_PATTERN = re.compile(r"[\u034F\u200C-\u200F\u202A-\u202E\u2066-\u2069]")
+HEBREW_RUN_PATTERN = re.compile(r"[\u0590-\u05FF\uFB1D-\uFB4F]+")
+NOTES_PREFIX = "MAM - No Comments | UXLC - "
+HAKETER_SEPARATOR = " | HaKeter - "
+UXLC_YATIR_PATTERN = re.compile(r"^(?P<uxlc>.*)\n\((?P<yatir>[^)]+)\)$", re.DOTALL)
+
 NOTES_TARGETED_FIXES_BY_ROW_NUMBER = {
     37: {
         "original": "MAM - No Comments | UXLC - מַה־לִּי־פֹה֙ מי־לי־",
@@ -164,6 +171,49 @@ def strip_known_notes_junk(notes: str) -> str:
     return notes
 
 
+def abstract_hebrew_runs(text: str) -> str:
+    return HEBREW_RUN_PATTERN.sub("<HEB>", text)
+
+
+def split_notes_components(notes: str) -> tuple[str, str | None, str | None]:
+    normalized_notes = INVISIBLE_MARK_PATTERN.sub("", notes)
+    if not normalized_notes.startswith(NOTES_PREFIX):
+        raise ValueError(f"unexpected notes format: {notes!r}")
+
+    body = normalized_notes.removeprefix(NOTES_PREFIX)
+    haketer_text = None
+    if HAKETER_SEPARATOR in body:
+        uxlc_text, haketer_text = body.split(HAKETER_SEPARATOR, 1)
+    else:
+        uxlc_text = body
+
+    yatir = None
+    uxlc_match = UXLC_YATIR_PATTERN.fullmatch(uxlc_text)
+    if uxlc_match is not None:
+        uxlc_text = uxlc_match.group("uxlc")
+        yatir = uxlc_match.group("yatir")
+
+    uxlc_text = uxlc_text.strip()
+    if not uxlc_text:
+        raise ValueError(f"unexpected empty UXLC notes component: {notes!r}")
+
+    if haketer_text is not None:
+        haketer_text = haketer_text.strip()
+        if not haketer_text:
+            raise ValueError(f"unexpected empty HaKeter notes component: {notes!r}")
+
+    return (uxlc_text, yatir.strip() if yatir is not None else None, haketer_text)
+
+
+def notes_structured_signature(notes: str) -> tuple[str, str | None, str | None]:
+    notes_uxlc, notes_uxlc_yatir, notes_haketer = split_notes_components(notes)
+    return (
+        abstract_hebrew_runs(notes_uxlc),
+        notes_uxlc_yatir,
+        abstract_hebrew_runs(notes_haketer) if notes_haketer is not None else None,
+    )
+
+
 def apply_notes_fixes(row_data: dict[str, object]) -> None:
     current_notes = row_data.get("notes")
     if not isinstance(current_notes, str):
@@ -238,6 +288,7 @@ def extract(docx_path: Path, output_dir: Path) -> dict[str, object]:
         column_keys = [slugify(header if isinstance(header, str) else "") for header in headers]
 
         data_rows = []
+        notes_signatures: list[tuple[str, str | None, str | None]] = []
         for row_index, row in enumerate(table_rows[1:], start=1):
             row_data: dict[str, object] = {
                 "row_number": row_index,
@@ -266,7 +317,29 @@ def extract(docx_path: Path, output_dir: Path) -> dict[str, object]:
                 row_data["image_files"] = image_refs
 
             apply_notes_fixes(row_data)
-            data_rows.append(row_data)
+
+            notes = str(row_data["notes"])
+            notes_uxlc, notes_uxlc_yatir, notes_haketer = split_notes_components(notes)
+
+            # Preserve column order and place notes-* exactly where notes used to be.
+            ordered_row_data: dict[str, object] = {
+                "row_number": row_data["row_number"],
+            }
+            for key in column_keys:
+                if key == "notes":
+                    ordered_row_data["notes-UXLC"] = notes_uxlc
+                    ordered_row_data["notes-UXLC-yatir"] = notes_uxlc_yatir
+                    ordered_row_data["notes-HaKeter"] = notes_haketer
+                    continue
+                ordered_row_data[key] = row_data[key]
+
+            if "image_files" in row_data:
+                ordered_row_data["image_files"] = row_data["image_files"]
+            if "notes_orig" in row_data:
+                ordered_row_data["notes_orig"] = row_data["notes_orig"]
+
+            notes_signatures.append(notes_structured_signature(notes))
+            data_rows.append(ordered_row_data)
 
         verse_book_abbreviations = sorted(
             {verse_book_abbreviation(str(row["verse"])) for row in data_rows}
@@ -284,6 +357,18 @@ def extract(docx_path: Path, output_dir: Path) -> dict[str, object]:
                 Counter(str(row["finding"]) for row in data_rows).items()
             )
         ]
+        notes_structured_counts = [
+            {
+                "notes-UXLC": notes_uxlc,
+                "notes-UXLC-yatir": notes_uxlc_yatir,
+                "notes-HaKeter": notes_haketer,
+                "count": count,
+            }
+            for (notes_uxlc, notes_uxlc_yatir, notes_haketer), count in sorted(
+                Counter(notes_signatures).items(),
+                key=lambda item: (-item[1], item[0]),
+            )
+        ]
 
     intro_path = output_dir / "introduction.md"
     intro_path.write_text(intro_markdown(intro_paragraphs), encoding="utf-8")
@@ -296,6 +381,7 @@ def extract(docx_path: Path, output_dir: Path) -> dict[str, object]:
             "column_keys": column_keys,
             "row_count": len(data_rows),
             "finding_value_counts": finding_value_counts,
+            "notes_structured_counts": notes_structured_counts,
             "verse_book_name_by_abbreviation": verse_book_name_by_abbreviation,
             "rows": data_rows,
         },

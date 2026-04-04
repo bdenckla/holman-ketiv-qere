@@ -72,6 +72,38 @@ It distinguishes between:
 - Meaning: number of rows whose `finding` equals `finding_value_counts[].finding`
 - Source: grouped count over `rows[].finding`
 
+### `notes_structured_counts`
+
+- Type: array of objects
+- Meaning: each distinct structured notes signature and the number of rows where it appears
+- Source: grouped count over parsed notes components
+- Current data observation: three entries
+
+### `notes_structured_counts[].notes-UXLC`
+
+- Type: string
+- Meaning: abstracted UXLC notes payload with Hebrew runs replaced by `<HEB>`
+- Source: parsed `rows[].notes` after the constant prefix `MAM - No Comments | UXLC - `
+
+### `notes_structured_counts[].notes-UXLC-yatir`
+
+- Type: string or null
+- Meaning: yatir marker extracted from UXLC notes, when present
+- Source: optional trailing `\n(yatir ...)` parsed from UXLC notes payload
+- Current data observation: `null` or `yatir aleph`
+
+### `notes_structured_counts[].notes-HaKeter`
+
+- Type: string or null
+- Meaning: abstracted HaKeter notes payload with Hebrew runs replaced by `<HEB>`
+- Source: optional `| HaKeter - ...` component in `rows[].notes`
+
+### `notes_structured_counts[].count`
+
+- Type: integer
+- Meaning: number of rows whose parsed notes components equal this structured signature
+- Source: grouped count over parsed notes components
+
 ### `verse_book_name_by_abbreviation`
 
 - Type: object mapping strings to strings
@@ -142,13 +174,26 @@ It distinguishes between:
 - Current data observation: empty string for `76` rows and `’` for one row
 - Note: as with `aleppo`, image content is represented separately under `image_files`
 
-### `notes`
+### `notes-UXLC`
 
 - Type: string
-- Meaning: notes column text
-- Source: source-table content
-- Current data observation: populated for all rows; may include Hebrew text, separators like `|`, and embedded newlines
-- Note: the extractor applies a general cleanup pass that strips known junk sequences from all notes values, and one targeted UXLC correction for row `37`; when a note changes, `notes` contains the corrected value
+- Meaning: parsed UXLC notes payload (without the constant `MAM - No Comments | UXLC - ` prefix)
+- Source: parsed from the source-table notes column after extractor cleanup
+- Current data observation: populated for all rows
+
+### `notes-UXLC-yatir`
+
+- Type: string or null
+- Meaning: optional yatir marker parsed from the UXLC payload
+- Source: parsed from a trailing newline marker in UXLC notes payload (for example `\n(yatir aleph)`)
+- Current data observation: `null` for most rows; `yatir aleph` on two rows
+
+### `notes-HaKeter`
+
+- Type: string or null
+- Meaning: optional HaKeter notes payload
+- Source: parsed from an optional `| HaKeter - ...` component in the source-table notes column
+- Current data observation: `null` for most rows; populated on four rows
 
 ### `notes_orig`
 
@@ -156,7 +201,7 @@ It distinguishes between:
 - Meaning: original notes column text before extractor cleanup or a targeted note correction is applied
 - Source: copied from the source-table `notes` value only for rows whose `notes` value changes during extraction
 - Current data observation: present on `3` rows
-- Note: this exists so rerunning the extractor remains reproducible while preserving the original extracted text alongside the corrected `notes` value
+- Note: this exists so rerunning the extractor remains reproducible while preserving the original extracted text alongside the parsed `notes-UXLC`, `notes-UXLC-yatir`, and `notes-HaKeter` values
 
 ### `image_files`
 
@@ -189,5 +234,6 @@ It distinguishes between:
 - In the current output, `entry` is exactly the string version of `row_number` for every row.
 - That equality is an observed property of this document, not a structural rule of the extractor.
 - `finding_value_counts` summarizes each distinct `finding` label and its row count.
+- `notes_structured_counts` summarizes `notes-UXLC`, `notes-UXLC-yatir`, and `notes-HaKeter` signatures with row counts.
 - `verse_book_name_by_abbreviation` maps those observed abbreviations to standard MAM 39-book names.
 - `aleppo` and `leningrad` store extracted text only; their screenshots or embedded figures live under `image_files`.
