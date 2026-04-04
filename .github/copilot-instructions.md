@@ -18,7 +18,7 @@ This repo contains Hebrew text.
 
 - Prefer straightforward, fail-fast extraction scripts over defensive wrappers.
 - Keep reusable extraction scripts under `py/`.
-- Keep tracked source documents under `source/` when they should live in the repo.
+- Keep tracked source documents at the repo top level when they should live in the repo.
 - Keep tracked outputs under `docs/`.
 - Put extracted images under `docs/img/`.
 - Keep scratch or inspection artifacts in `.novc/` only.

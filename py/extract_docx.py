@@ -42,7 +42,7 @@ STANDARD_BOOK_NAME_BY_ABBREVIATION = {
 }
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_DOCX_PATH = REPO_ROOT / "source" / "Review of Qere and Kethib readings in the Aleppo and Leningrad.docx"
+DEFAULT_DOCX_PATH = REPO_ROOT / "Review of Qere and Kethib readings in the Aleppo and Leningrad.docx"
 
 NOTES_JUNK_REPLACEMENTS = (
     ("y\u202c\u200f", ""),
@@ -186,6 +186,15 @@ def apply_notes_fixes(row_data: dict[str, object]) -> None:
     row_data["notes"] = fixed_notes
 
 
+def source_document_reference(docx_path: Path) -> str:
+    """Return a stable, repo-relative path when the source file is inside this repo."""
+    try:
+        relative = docx_path.resolve().relative_to(REPO_ROOT.resolve())
+    except ValueError:
+        return str(docx_path)
+    return relative.as_posix()
+
+
 def extract(docx_path: Path, output_dir: Path) -> dict[str, object]:
     image_dir = output_dir / "img"
     image_dir.mkdir(parents=True, exist_ok=True)
@@ -278,7 +287,7 @@ def extract(docx_path: Path, output_dir: Path) -> dict[str, object]:
     intro_path.write_text(intro_markdown(intro_paragraphs), encoding="utf-8")
 
     json_payload = {
-        "source_document": str(docx_path),
+        "source_document": source_document_reference(docx_path),
         "introduction_paragraph_count": len(intro_paragraphs),
         "table": {
             "header_labels": headers,
@@ -321,7 +330,7 @@ def main() -> None:
         type=Path,
         nargs="?",
         default=DEFAULT_DOCX_PATH,
-        help="Source DOCX to extract. Defaults to the tracked repo copy under source/.",
+        help="Source DOCX to extract. Defaults to the tracked repo copy at repo top level.",
     )
     parser.add_argument(
         "--output-dir",

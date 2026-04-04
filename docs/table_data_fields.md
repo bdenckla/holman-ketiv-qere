@@ -14,7 +14,7 @@ It distinguishes between:
 - Type: string
 - Meaning: the path of the DOCX file that was extracted
 - Source: the `docx_path` argument passed into the extractor
-- Current data observation: an absolute Windows path into `source/`
+- Current data observation: a repo-relative path at repo top level
 
 ### `introduction_paragraph_count`
 
