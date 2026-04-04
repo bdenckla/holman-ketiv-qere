@@ -1,0 +1,17 @@
+{
+    "chat.tools.terminal.autoApprove": {
+        "/^git --version$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "where.exe": true,
+        "/^c:/Users/BenDe/GitRepos/holman-ketiv-qere/\\.venv/Scripts/python\\.exe py/extract_docx\\.py$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^Set-Location C:/Users/BenDe/GitRepos/holman-ketiv-qere; c:/Users/BenDe/GitRepos/holman-ketiv-qere/\\.venv/Scripts/python\\.exe py/extract_docx\\.py$/": {
+            "approve": true,
+            "matchCommandLine": true
+        }
+    }
+}
