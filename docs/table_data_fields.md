@@ -45,6 +45,7 @@ It distinguishes between:
 - Source: each header label after lowercasing and slugifying non-alphanumeric characters to underscores
 - Current data observation: `['entry', 'verse', 'word', 'finding', 'aleppo', 'leningrad', 'notes']`
 - Note: because the first header label is blank, its normalized key falls back to `entry`
+- Note: `entry`, `aleppo`, and `leningrad` remain source-column keys, but these text fields are intentionally omitted from each row object after extractor assertions
 
 ### `row_count`
 
@@ -128,15 +129,6 @@ It distinguishes between:
 - Guarantee level: generated metadata
 - Current data observation: runs from `1` to `77`
 
-### `entry`
-
-- Type: string
-- Meaning: the text content of the first table column
-- Source: the first cell in each data row
-- Guarantee level: source-table content
-- Current data observation: equals the string form of `row_number` for all `77` rows
-- Important: this matches `row_number` exactly in the current JSON, but it is not generated from `row_number`; it is copied from the document
-
 ### `verse`
 
 - Type: string
@@ -157,22 +149,6 @@ It distinguishes between:
 - Meaning: the finding label from the table
 - Source: source-table content
 - Current data observation: values like `A - Masorah Circle | L - Qere` and `A and L - Qere`
-
-### `aleppo`
-
-- Type: string
-- Meaning: text extracted from the Aleppo column cell
-- Source: text runs in that table cell only
-- Current data observation: empty string for all `77` rows
-- Note: this does not mean the Aleppo cell is empty overall; image content is stored separately under `image_files`
-
-### `leningrad`
-
-- Type: string
-- Meaning: text extracted from the Leningrad column cell
-- Source: text runs in that table cell only
-- Current data observation: empty string for `76` rows and `’` for one row
-- Note: as with `aleppo`, image content is represented separately under `image_files`
 
 ### `notes-UXLC`
 
@@ -230,10 +206,9 @@ It distinguishes between:
 ## Short conclusions
 
 - `row_number` is generated metadata.
-- `entry` is copied from the first column of the source table.
-- In the current output, `entry` is exactly the string version of `row_number` for every row.
-- That equality is an observed property of this document, not a structural rule of the extractor.
+- `entry` text is asserted to equal the string form of `row_number`, then omitted from row output.
 - `finding_value_counts` summarizes each distinct `finding` label and its row count.
 - `notes_structured_counts` summarizes `notes-UXLC`, `notes-UXLC-yatir`, and `notes-HaKeter` signatures with row counts.
 - `verse_book_name_by_abbreviation` maps those observed abbreviations to standard MAM 39-book names.
-- `aleppo` and `leningrad` store extracted text only; their screenshots or embedded figures live under `image_files`.
+- `aleppo` and `leningrad` text fields are dropped from `rows` after extractor assertions (`aleppo` must be empty; `leningrad` must be empty or a single `’` marker).
+- Aleppo/Leningrad screenshots or embedded figures remain under `image_files`.

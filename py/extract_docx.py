@@ -64,6 +64,8 @@ NOTES_TARGETED_FIXES_BY_ROW_NUMBER = {
     },
 }
 
+ALLOWED_LENINGRAD_TEXT_VALUES = {"", "’"}
+
 
 def normalize_text(text: str) -> str:
     for old, new in CONTROL_CHARS.items():
@@ -236,6 +238,32 @@ def apply_notes_fixes(row_data: dict[str, object]) -> None:
     row_data["notes"] = fixed_notes
 
 
+def assert_text_columns_before_drop(row_data: dict[str, object]) -> int:
+    row_number = row_data["row_number"]
+
+    entry_text = row_data.get("entry")
+    if not isinstance(entry_text, str):
+        raise ValueError(f"unexpected entry type at row {row_number}: {entry_text!r}")
+    expected_entry = str(row_number)
+    if entry_text != expected_entry:
+        raise ValueError(
+            f"unexpected entry text at row {row_number}: expected {expected_entry!r}, got {entry_text!r}"
+        )
+
+    aleppo_text = row_data.get("aleppo")
+    if not isinstance(aleppo_text, str):
+        raise ValueError(f"unexpected aleppo type at row {row_number}: {aleppo_text!r}")
+    if aleppo_text != "":
+        raise ValueError(f"unexpected non-empty aleppo text at row {row_number}: {aleppo_text!r}")
+
+    leningrad_text = row_data.get("leningrad")
+    if not isinstance(leningrad_text, str):
+        raise ValueError(f"unexpected leningrad type at row {row_number}: {leningrad_text!r}")
+    if leningrad_text not in ALLOWED_LENINGRAD_TEXT_VALUES:
+        raise ValueError(f"unexpected leningrad text at row {row_number}: {leningrad_text!r}")
+    return 1 if leningrad_text == "’" else 0
+
+
 def source_document_reference(docx_path: Path) -> str:
     """Return a stable, repo-relative path when the source file is inside this repo."""
     try:
@@ -292,6 +320,7 @@ def extract(docx_path: Path, output_dir: Path) -> dict[str, object]:
 
         data_rows = []
         notes_signatures: list[tuple[str, str | None, str | None]] = []
+        leningrad_quote_count = 0
         for row_index, row in enumerate(table_rows[1:], start=1):
             row_data: dict[str, object] = {
                 "row_number": row_index,
@@ -319,6 +348,7 @@ def extract(docx_path: Path, output_dir: Path) -> dict[str, object]:
             if image_refs:
                 row_data["image_files"] = image_refs
 
+            leningrad_quote_count += assert_text_columns_before_drop(row_data)
             apply_notes_fixes(row_data)
 
             notes = str(row_data["notes"])
@@ -329,6 +359,8 @@ def extract(docx_path: Path, output_dir: Path) -> dict[str, object]:
                 "row_number": row_data["row_number"],
             }
             for key in column_keys:
+                if key in {"entry", "aleppo", "leningrad"}:
+                    continue
                 if key == "notes":
                     ordered_row_data["notes-UXLC"] = notes_uxlc
                     ordered_row_data["notes-UXLC-yatir"] = notes_uxlc_yatir
@@ -343,6 +375,12 @@ def extract(docx_path: Path, output_dir: Path) -> dict[str, object]:
 
             notes_signatures.append(notes_structured_signature(notes))
             data_rows.append(ordered_row_data)
+
+        if leningrad_quote_count > 1:
+            raise ValueError(
+                "unexpected multiple non-empty leningrad text values; expected at most one "
+                f"meaningless quote marker, found {leningrad_quote_count}"
+            )
 
         verse_book_abbreviations = sorted(
             {verse_book_abbreviation(str(row["verse"])) for row in data_rows}
