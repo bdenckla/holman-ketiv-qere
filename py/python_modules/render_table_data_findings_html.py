@@ -11,6 +11,7 @@ from python_modules.mpp_matching_template_args import (
     matching_template_arguments_in_mpp_verse_by_row_number,
 )
 from python_modules.table_data_external_links import verse_external_links
+from python_modules.table_row_github_issues import row_github_issue_url
 
 PALETTE = [
     "#1f5f8b",
@@ -199,7 +200,7 @@ def _record_card_html(
     row_number = _as_text(row.get("row_number", ""))
     row_fragment_id = _row_fragment_id(row_number)
     verse = _as_text(row.get("verse", ""))
-    verse_ref_html = _verse_ref_html(verse)
+    verse_ref_html = _verse_ref_html(verse=verse, row_number=row_number)
     word = _as_text(row.get("word", ""))
     finding = _as_text(row.get("finding", ""))
     finding_display = _finding_display_text(finding)
@@ -296,13 +297,20 @@ def _image_paths_html(
     return "".join(rendered)
 
 
-def _verse_ref_html(verse: str) -> str:
+def _verse_ref_html(verse: str, row_number: str) -> str:
     links = verse_external_links(verse)
+    issue_url = row_github_issue_url(row_number)
+    issue_html = ""
+    if issue_url is not None:
+        issue_html = (
+            f' <a href="{escape(issue_url)}" target="_blank" rel="noopener">issue</a>'
+        )
     return (
         f"{escape(verse)} "
         f'<a href="{escape(links.mgketer_url)}" target="_blank" rel="noopener">mgketer</a>'
         f' <a href="{escape(links.mwd_url)}" target="_blank" rel="noopener">MwD</a>'
         f' <a href="{escape(links.mam_ws_url)}" target="_blank" rel="noopener">MAM-ws</a>'
+        f"{issue_html}"
     )
 
 

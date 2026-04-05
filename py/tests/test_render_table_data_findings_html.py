@@ -122,11 +122,11 @@ class RenderTableDataFindingsHtmlTests(unittest.TestCase):
             html,
         )
         self.assertIn(
-            'Joshua 1:1.1 <a href="https://www.mgketer.org/mikra/6/1/1/mg/106" target="_blank" rel="noopener">mgketer</a> <a href="https://bdenckla.github.io/MAM-with-doc/B1-Joshua.html#c1v1" target="_blank" rel="noopener">MwD</a> <a href="https://he.wikisource.org/wiki/%D7%99%D7%94%D7%95%D7%A9%D7%A2_%D7%90/%D7%98%D7%A2%D7%9E%D7%99%D7%9D" target="_blank" rel="noopener">MAM-ws</a>',
+            'Joshua 1:1.1 <a href="https://www.mgketer.org/mikra/6/1/1/mg/106" target="_blank" rel="noopener">mgketer</a> <a href="https://bdenckla.github.io/MAM-with-doc/B1-Joshua.html#c1v1" target="_blank" rel="noopener">MwD</a> <a href="https://he.wikisource.org/wiki/%D7%99%D7%94%D7%95%D7%A9%D7%A2_%D7%90/%D7%98%D7%A2%D7%9E%D7%99%D7%9D" target="_blank" rel="noopener">MAM-ws</a> <a href="https://github.com/bdenckla/holman-ketiv-qere/issues/12" target="_blank" rel="noopener">issue</a>',
             html,
         )
         self.assertIn(
-            '1Samuel 2:9.2 <a href="https://www.mgketer.org/mikra/8/2/1/mg/106" target="_blank" rel="noopener">mgketer</a> <a href="https://bdenckla.github.io/MAM-with-doc/BA-1Samuel.html#c2v9" target="_blank" rel="noopener">MwD</a> <a href="https://he.wikisource.org/wiki/%D7%A9%D7%9E%D7%95%D7%90%D7%9C%20%D7%90_%D7%91/%D7%98%D7%A2%D7%9E%D7%99%D7%9D" target="_blank" rel="noopener">MAM-ws</a>',
+            '1Samuel 2:9.2 <a href="https://www.mgketer.org/mikra/8/2/1/mg/106" target="_blank" rel="noopener">mgketer</a> <a href="https://bdenckla.github.io/MAM-with-doc/BA-1Samuel.html#c2v9" target="_blank" rel="noopener">MwD</a> <a href="https://he.wikisource.org/wiki/%D7%A9%D7%9E%D7%95%D7%90%D7%9C%20%D7%90_%D7%91/%D7%98%D7%A2%D7%9E%D7%99%D7%9D" target="_blank" rel="noopener">MAM-ws</a> <a href="https://github.com/bdenckla/holman-ketiv-qere/issues/23" target="_blank" rel="noopener">issue</a>',
             html,
         )
         self.assertIn(".filter-btn[data-filter-id]", js)
