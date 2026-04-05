@@ -26,6 +26,9 @@ class HebrewTokenMatcherTests(unittest.TestCase):
     def test_sof_pasuq_boundary_counts_as_separator(self) -> None:
         self.assertTrue(contains_word_as_hebrew_token("אֵילָו֙׃", "אֵילָו֙"))
 
+    def test_cgj_inside_adjacent_token_does_not_create_false_boundary(self) -> None:
+        self.assertFalse(contains_word_as_hebrew_token("עֲבָדִ֑͏ֽים", "דִ֑"))
+
 
 if __name__ == "__main__":
     unittest.main()

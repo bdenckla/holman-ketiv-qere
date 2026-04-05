@@ -56,10 +56,28 @@ reuse or adapt.
 Current example:
 
 - `py/search_holam_he_qere.py`
+- `py/search_final_hiriq_verse_text.py`
 
 This script traverses MPP qere readings directly, reports which hits come from
 the first argument of `קו"כ-אם`, and compares the vowel-only-form hit set against
 `../MAM-basics/out/mam-qere-words.json` as a sanity check.
+
+The final-hiriq script is a narrower verse-text search used to confirm the
+issue-67-style edge case. It reuses `verse_texts_by_location`, keeps CGJ and
+joiners inside Hebrew tokens, strips accents plus meteg before matching, and
+prints all final-hiriq hits along with the tokens from Tsefaniah 2:9.
+
+Shared helpers for future ending-pattern searches live in:
+
+- `py/python_modules/qere_projection.py`
+- `py/python_modules/qere_ending_search.py`
+
+Shared helpers for verse-text token searches live in:
+
+- `py/python_modules/hebrew_text_tokens.py`
+
+To create another ending-pattern search, copy `py/search_holam_he_qere.py` and
+change `SEARCH_SPEC`.
 
 Run it from the repo root with:
 

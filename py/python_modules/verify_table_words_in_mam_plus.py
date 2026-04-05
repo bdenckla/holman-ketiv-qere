@@ -6,6 +6,7 @@ import re
 
 from pycmn import bib_locales
 from python_modules.extract_docx_notes import standard_book_name
+from python_modules.hebrew_text_tokens import HEBREW_TOKEN_CHAR_CLASS
 from python_modules.json_io import load_json
 from python_modules.mam_plus_verse_data import (
     verse_template_argument_records_by_location,
@@ -19,16 +20,7 @@ VERSE_PATTERN = re.compile(
     r"^(?P<book_token>.*) (?P<chapter>\d+):(?P<verse>\d+)\.(?P<segment>\d+)$"
 )
 # Hebrew token chars: letters + pointing/cantillation marks (exclude punctuation like maqaf/sof-pasuq).
-HEBREW_CHAR_CLASS = (
-    "\u0591-\u05BD"
-    "\u05BF"
-    "\u05C1-\u05C2"
-    "\u05C4-\u05C5"
-    "\u05C7"
-    "\u05D0-\u05EA"
-    "\u05F0-\u05F2"
-    "\uFB1D-\uFB4F"
-)
+HEBREW_CHAR_CLASS = HEBREW_TOKEN_CHAR_CLASS
 
 
 @lru_cache(maxsize=1024)
