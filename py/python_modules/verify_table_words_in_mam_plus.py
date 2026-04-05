@@ -111,8 +111,8 @@ def verify_table_words_in_mam_plus(
 
     row_reports: list[dict[str, object]] = []
     missing_any: list[dict[str, object]] = []
-    missing_expected: list[dict[str, object]] = []
-    doc_note_target_rows: list[dict[str, object]] = []
+    missing_mpp_verse_text: list[dict[str, object]] = []
+    mpp_verse_nusach_target_rows: list[dict[str, object]] = []
 
     for row in rows:
         if not isinstance(row, dict):
@@ -174,18 +174,18 @@ def verify_table_words_in_mam_plus(
         matching_nusach_targets = [
             target for target in expected_verse_nusach_targets if word in target
         ]
-        found_in_expected_nusach_target = len(matching_nusach_targets) > 0
+        found_in_mpp_verse_nusach_target = len(matching_nusach_targets) > 0
 
         report_row = {
             "row_number": row_number,
             "verse": verse,
             "word": word,
-            "expected_plus_file": expected_file,
+            "mpp_file_for_verse": expected_file,
             "found_in_any_plus_file": found_in_any,
-            "found_in_expected_plus_file": found_in_expected,
-            "expected_nusach_targets": expected_verse_nusach_targets,
-            "found_in_expected_nusach_target": found_in_expected_nusach_target,
-            "matching_expected_nusach_targets": matching_nusach_targets,
+            "found_in_mpp_verse_text": found_in_expected,
+            "nusach_targets_in_mpp_verse": expected_verse_nusach_targets,
+            "found_in_mpp_verse_nusach_target": found_in_mpp_verse_nusach_target,
+            "matching_nusach_targets_in_mpp_verse": matching_nusach_targets,
             "hit_files": hit_files,
         }
         row_reports.append(report_row)
@@ -193,22 +193,22 @@ def verify_table_words_in_mam_plus(
         if not found_in_any:
             missing_any.append(report_row)
         if not found_in_expected:
-            missing_expected.append(report_row)
-        if found_in_expected_nusach_target:
-            doc_note_target_rows.append(report_row)
+            missing_mpp_verse_text.append(report_row)
+        if found_in_mpp_verse_nusach_target:
+            mpp_verse_nusach_target_rows.append(report_row)
 
     summary = {
         "row_count": len(rows),
         "unique_word_count": len({row["word"] for row in rows if isinstance(row, dict) and "word" in row}),
         "missing_any_plus_count": len(missing_any),
-        "missing_expected_plus_count": len(missing_expected),
-        "rows_matching_expected_nusach_target_count": len(doc_note_target_rows),
+        "missing_mpp_verse_text_count": len(missing_mpp_verse_text),
+        "rows_matching_mpp_verse_nusach_target_count": len(mpp_verse_nusach_target_rows),
     }
 
     return {
         "summary": summary,
         "rows": row_reports,
         "missing_any_plus": missing_any,
-        "missing_expected_plus": missing_expected,
-        "rows_matching_expected_nusach_target": doc_note_target_rows,
+        "missing_mpp_verse_text_rows": missing_mpp_verse_text,
+        "rows_matching_mpp_verse_nusach_target": mpp_verse_nusach_target_rows,
     }

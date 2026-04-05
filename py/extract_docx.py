@@ -61,12 +61,12 @@ def persist_verify_summary(table_json_path: Path, verify_report: dict[str, objec
     if not isinstance(verify_summary, dict):
         raise ValueError("verification summary is invalid")
 
-    doc_note_rows = verify_report.get("rows_matching_expected_nusach_target")
+    doc_note_rows = verify_report.get("rows_matching_mpp_verse_nusach_target")
     if not isinstance(doc_note_rows, list):
-        raise ValueError("verification rows_matching_expected_nusach_target is invalid")
+        raise ValueError("verification rows_matching_mpp_verse_nusach_target is invalid")
 
     table_data["mam_plus_verify"] = verify_summary
-    table_data["mam_plus_rows_matching_expected_nusach_target"] = doc_note_rows
+    table_data["mam_plus_rows_matching_mpp_verse_nusach_target"] = doc_note_rows
     write_json(table_json_path, table_data)
 
 
@@ -108,7 +108,7 @@ def main() -> None:
         raise ValueError("verification summary is invalid")
 
     missing_any = verify_summary["missing_any_plus_count"]
-    missing_expected = verify_summary["missing_expected_plus_count"]
+    missing_mpp_verse_text = verify_summary["missing_mpp_verse_text_count"]
     summary["mam_plus_verify"] = verify_summary
     persist_verify_summary(table_json_path=table_json_path, verify_report=verify_report)
     render_table_data_findings_html(
@@ -117,11 +117,11 @@ def main() -> None:
     )
     summary["findings_html_path"] = findings_html_path.as_posix()
 
-    if missing_any or missing_expected:
+    if missing_any or missing_mpp_verse_text:
         raise ValueError(
             "post-extraction verification failed: "
             f"missing_any_plus_count={missing_any}, "
-            f"missing_expected_plus_count={missing_expected}"
+            f"missing_mpp_verse_text_count={missing_mpp_verse_text}"
         )
 
     print(json.dumps(summary, ensure_ascii=False, indent=2))
