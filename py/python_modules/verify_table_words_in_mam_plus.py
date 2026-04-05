@@ -3,26 +3,10 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+from pycmn import bib_locales
+
 
 EXPECTED_ROW_COUNT = 77
-
-EXPECTED_PLUS_FILE_BY_BOOK_ABBREVIATION = {
-    "Josh": "B1-Joshua.json",
-    "Judg": "B2-Judges.json",
-    "1Sa": "BA-Samuel.json",
-    "2Sa": "BA-Samuel.json",
-    "1Ki": "BC-Kings.json",
-    "2Ki": "BC-Kings.json",
-    "1Ch": "FC-Chronicles.json",
-    "2Ch": "FC-Chronicles.json",
-    "Isa": "C1-Isaiah.json",
-    "Jer": "C2-Jeremiah.json",
-    "Eze": "C3-Ezekiel.json",
-    "Job": "D3-Job.json",
-    "Prov": "D2-Proverbs.json",
-    "Ps": "D1-Psalms.json",
-    "Zeph": "CA-The-12-Minor-Prophets.json",
-}
 
 
 def load_json(path: Path) -> object:
@@ -35,6 +19,30 @@ def book_abbreviation_from_verse(verse: str) -> str:
     if len(parts) != 2:
         raise ValueError(f"unexpected verse format: {verse!r}")
     return parts[0]
+
+
+def expected_plus_files_by_book_abbreviation(table: dict[str, object]) -> dict[str, str]:
+    verse_book_name_by_abbreviation = table.get("verse_book_name_by_abbreviation")
+    if not isinstance(verse_book_name_by_abbreviation, dict):
+        raise ValueError(
+            "table JSON missing object key 'verse_book_name_by_abbreviation'"
+        )
+
+    expected: dict[str, str] = {}
+    for abbreviation, std_book_name in verse_book_name_by_abbreviation.items():
+        if not isinstance(abbreviation, str) or not isinstance(std_book_name, str):
+            raise ValueError(
+                "table.verse_book_name_by_abbreviation must map strings to strings"
+            )
+        try:
+            bk24id = bib_locales.bk24id(std_book_name)
+        except KeyError as exc:
+            raise ValueError(
+                f"unknown standard book name {std_book_name!r} for abbreviation {abbreviation!r}"
+            ) from exc
+        expected[abbreviation] = f"{bib_locales.ordered_short_dash_full_24(bk24id)}.json"
+
+    return expected
 
 
 def verify_table_words_in_mam_plus(
@@ -52,6 +60,10 @@ def verify_table_words_in_mam_plus(
     rows = table.get("rows")
     if not isinstance(rows, list):
         raise ValueError("table JSON missing list key 'rows'")
+
+    expected_plus_file_by_book_abbreviation = expected_plus_files_by_book_abbreviation(
+        table
+    )
 
     if len(rows) != EXPECTED_ROW_COUNT:
         raise ValueError(
@@ -93,7 +105,7 @@ def verify_table_words_in_mam_plus(
         ]
 
         book_abbreviation = book_abbreviation_from_verse(verse)
-        expected_file = EXPECTED_PLUS_FILE_BY_BOOK_ABBREVIATION.get(book_abbreviation)
+        expected_file = expected_plus_file_by_book_abbreviation.get(book_abbreviation)
         if expected_file is None:
             raise ValueError(
                 f"unmapped verse book abbreviation {book_abbreviation!r} at row {row_number}"
