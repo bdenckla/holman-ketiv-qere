@@ -42,7 +42,7 @@ UXLC_YATIR_PATTERN = re.compile(r"^(?P<uxlc>.*)\n\((?P<yatir>[^)]+)\)$", re.DOTA
 NOTES_TARGETED_FIXES_BY_ROW_NUMBER = {
     37: {
         "original": "MAM - No Comments | UXLC - מַה־לִּי־פֹה֙ מי־לי־",
-        "fixed": "MAM - No Comments | UXLC - לי־ מַה־לִּי־פֹה֙",
+        "fixed": "MAM - No Comments | UXLC - מי־לי־ מַה־לִּי־",
     },
 }
 
