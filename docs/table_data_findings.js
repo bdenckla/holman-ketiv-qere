@@ -1,10 +1,15 @@
 (() => {
-  const activeFindingIds = new Set();
+  const activeFilterIds = new Set();
   const cards = Array.from(document.querySelectorAll('.record-card'));
-  const filterButtons = Array.from(document.querySelectorAll('.filter-btn[data-finding-id]'));
-  const summaryRows = Array.from(document.querySelectorAll('.summary tr[data-finding-id]'));
+  const filterButtons = Array.from(document.querySelectorAll('.filter-btn[data-filter-id]'));
+  const summaryRows = Array.from(document.querySelectorAll('.summary tr[data-filter-id]'));
   const visibleCountEl = document.getElementById('visible-count');
   const showAllBtn = document.getElementById('show-all-btn');
+
+  function cardFilterIds(card) {
+    const raw = card.dataset.filterIds || card.dataset.findingId || '';
+    return raw.split(/\s+/).filter(Boolean);
+  }
 
   function applyNativeScaleTweaks() {
     const images = Array.from(document.querySelectorAll('img.image-thumb[data-native-scale]'));
@@ -34,8 +39,8 @@
   function updateVisibility() {
     let visibleCount = 0;
     for (const card of cards) {
-      const findingId = card.dataset.findingId;
-      const visible = activeFindingIds.size === 0 || activeFindingIds.has(findingId);
+      const filterIds = cardFilterIds(card);
+      const visible = activeFilterIds.size === 0 || filterIds.some((id) => activeFilterIds.has(id));
       card.classList.toggle('hidden', !visible);
       if (visible) visibleCount += 1;
     }
@@ -45,32 +50,32 @@
     }
 
     for (const button of filterButtons) {
-      button.classList.toggle('active', activeFindingIds.has(button.dataset.findingId));
+      button.classList.toggle('active', activeFilterIds.has(button.dataset.filterId));
     }
     for (const row of summaryRows) {
-      row.classList.toggle('active', activeFindingIds.has(row.dataset.findingId));
+      row.classList.toggle('active', activeFilterIds.has(row.dataset.filterId));
     }
   }
 
-  function toggleFinding(findingId) {
-    if (activeFindingIds.has(findingId)) {
-      activeFindingIds.delete(findingId);
+  function toggleFilter(filterId) {
+    if (activeFilterIds.has(filterId)) {
+      activeFilterIds.delete(filterId);
     } else {
-      activeFindingIds.add(findingId);
+      activeFilterIds.add(filterId);
     }
     updateVisibility();
   }
 
   for (const button of filterButtons) {
-    button.addEventListener('click', () => toggleFinding(button.dataset.findingId));
+    button.addEventListener('click', () => toggleFilter(button.dataset.filterId));
   }
   for (const row of summaryRows) {
-    row.addEventListener('click', () => toggleFinding(row.dataset.findingId));
+    row.addEventListener('click', () => toggleFilter(row.dataset.filterId));
   }
 
   if (showAllBtn) {
     showAllBtn.addEventListener('click', () => {
-      activeFindingIds.clear();
+      activeFilterIds.clear();
       updateVisibility();
     });
   }

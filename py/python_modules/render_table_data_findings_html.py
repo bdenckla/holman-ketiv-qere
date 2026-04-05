@@ -28,6 +28,8 @@ ASSETS_DIR = Path(__file__).resolve().parent / "assets"
 CSS_TEMPLATE_PATH = ASSETS_DIR / "table_data_findings.css"
 JS_TEMPLATE_PATH = ASSETS_DIR / "table_data_findings.js"
 CSS_COLOR_PLACEHOLDER = "/* __FINDING_COLORS__ */"
+MPP_TEMPLATE_FILTER_ID = "has-mpp-template"
+MPP_TEMPLATE_FILTER_LABEL = "Has matching MPP template"
 FINDING_INVARIANT_SUFFIX = " | L - Qere"
 FINDING_DISPLAY_MAP = {
     "A and L - Qere": "A - Qere note",
@@ -80,10 +82,25 @@ def render_table_data_findings_html(table_json_path: Path, output_html_path: Pat
         _summary_row_html(finding=finding, count=count, finding_id=finding_ids[finding])
         for finding, count in sorted_findings
     )
-    filter_buttons = "\n".join(
-        _filter_button_html(finding=finding, count=count, finding_id=finding_ids[finding])
+    mpp_template_filter_count = sum(
+        1
+        for row in rows
+        if matching_template_arguments_by_row_number.get(_as_text(row.get("row_number", "")), [])
+    )
+    finding_filter_buttons = "\n".join(
+        _filter_button_html(
+            label=_finding_display_text(finding),
+            count=count,
+            filter_id=finding_ids[finding],
+        )
         for finding, count in sorted_findings
     )
+    mpp_template_filter_button = _filter_button_html(
+        label=MPP_TEMPLATE_FILTER_LABEL,
+        count=mpp_template_filter_count,
+        filter_id=MPP_TEMPLATE_FILTER_ID,
+    )
+    filter_buttons = "\n".join([finding_filter_buttons, mpp_template_filter_button])
     cards = "\n".join(
         _record_card_html(
             row=row,
@@ -157,17 +174,16 @@ def _write_report_assets(
 def _summary_row_html(finding: str, count: int, finding_id: str) -> str:
     finding_display = _finding_display_text(finding)
     return (
-        f"<tr data-finding-id=\"{finding_id}\">"
+        f"<tr data-finding-id=\"{finding_id}\" data-filter-id=\"{finding_id}\">"
         f"<td><span class=\"cat-swatch cat-{finding_id}\"></span>{escape(finding_display)}</td>"
         f"<td>{count}</td></tr>"
     )
 
 
-def _filter_button_html(finding: str, count: int, finding_id: str) -> str:
-    finding_display = _finding_display_text(finding)
+def _filter_button_html(label: str, count: int, filter_id: str) -> str:
     return (
-        f"<button type=\"button\" class=\"filter-btn\" data-finding-id=\"{finding_id}\">"
-        f"{escape(finding_display)} ({count})</button>"
+        f"<button type=\"button\" class=\"filter-btn\" data-filter-id=\"{filter_id}\">"
+        f"{escape(label)} ({count})</button>"
     )
 
 
@@ -191,6 +207,10 @@ def _record_card_html(
     matching_template_args_in_mpp_verse = matching_template_arguments_by_row_number.get(
         row_number, []
     )
+    filter_ids = [finding_id]
+    if matching_template_args_in_mpp_verse:
+        filter_ids.append(MPP_TEMPLATE_FILTER_ID)
+    filter_ids_attr = " ".join(filter_ids)
 
     yatir_html = "" if notes_uxlc_yatir is None else (
         f"<div class=\"note-line\"><span class=\"label\">UXLC yatir:</span><bdi class=\"pointed-heb\">{escape(notes_uxlc_yatir)}</bdi></div>"
@@ -225,7 +245,7 @@ def _record_card_html(
         repo_root=repo_root,
     )
 
-    return f"""<article class="record-card" data-finding-id="{finding_id}">
+    return f"""<article class="record-card" data-finding-id="{finding_id}" data-filter-ids="{escape(filter_ids_attr)}">
 <div class="record-head"><span class="record-ref">#{escape(row_number)}</span><span class="record-verse">{escape(verse)}</span><span class="finding-badge cat-{finding_id}">{escape(finding_display)}</span></div>
 <div class="record-grid"><div>
 <div class="note-line"><span class="label">MAM Word:</span><bdi class="pointed-heb">{escape(word)}</bdi></div>
