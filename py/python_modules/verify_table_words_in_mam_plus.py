@@ -5,6 +5,7 @@ from pathlib import Path
 import re
 
 from pycmn import bib_locales
+from python_modules.extract_docx_notes import standard_book_name
 from python_modules.json_io import load_json
 from python_modules.mam_plus_verse_data import (
     verse_template_argument_records_by_location,
@@ -15,7 +16,7 @@ from python_modules.mam_plus_verse_data import (
 EXPECTED_ROW_COUNT = 77
 
 VERSE_PATTERN = re.compile(
-    r"^(?P<book_abbreviation>.*) (?P<chapter>\d+):(?P<verse>\d+)\.(?P<segment>\d+)$"
+    r"^(?P<book_token>.*) (?P<chapter>\d+):(?P<verse>\d+)\.(?P<segment>\d+)$"
 )
 # Hebrew token chars: letters + pointing/cantillation marks (exclude punctuation like maqaf/sof-pasuq).
 HEBREW_CHAR_CLASS = (
@@ -48,48 +49,70 @@ def parse_table_verse(verse: str) -> tuple[str, int, int]:
     if match is None:
         raise ValueError(f"unexpected verse format: {verse!r}")
     return (
-        match.group("book_abbreviation"),
+        match.group("book_token"),
         int(match.group("chapter")),
         int(match.group("verse")),
     )
 
 
-def expected_plus_locations_by_book_abbreviation(
+def standard_book_name_by_abbreviation(
     table: dict[str, object],
-) -> dict[str, tuple[str, int]]:
+) -> dict[str, str]:
     verse_book_name_by_abbreviation = table.get("verse_book_name_by_abbreviation")
+    if verse_book_name_by_abbreviation is None:
+        return {}
     if not isinstance(verse_book_name_by_abbreviation, dict):
         raise ValueError(
-            "table JSON missing object key 'verse_book_name_by_abbreviation'"
+            "table JSON key 'verse_book_name_by_abbreviation' must be an object when present"
         )
 
-    expected: dict[str, tuple[str, int]] = {}
+    normalized: dict[str, str] = {}
     for abbreviation, std_book_name in verse_book_name_by_abbreviation.items():
         if not isinstance(abbreviation, str) or not isinstance(std_book_name, str):
             raise ValueError(
                 "table.verse_book_name_by_abbreviation must map strings to strings"
             )
-        try:
-            bk24id = bib_locales.bk24id(std_book_name)
-        except KeyError as exc:
-            raise ValueError(
-                f"unknown standard book name {std_book_name!r} for abbreviation {abbreviation!r}"
-            ) from exc
+        normalized[abbreviation] = std_book_name
 
-        bk39ids = bib_locales.bk39ids_of_bk24(bk24id)
-        try:
-            book39_index = bk39ids.index(std_book_name)
-        except ValueError as exc:
-            raise ValueError(
-                f"standard book name {std_book_name!r} not found in bk24 {bk24id!r}"
-            ) from exc
+    return normalized
 
-        expected[abbreviation] = (
-            f"{bib_locales.ordered_short_dash_full_24(bk24id)}.json",
-            book39_index,
-        )
 
-    return expected
+def standard_book_name_for_table_verse(
+    book_token: str,
+    std_book_name_by_abbrev: dict[str, str],
+    row_number: int,
+) -> str:
+    mapped = std_book_name_by_abbrev.get(book_token)
+    if mapped is not None:
+        return mapped
+
+    try:
+        return standard_book_name(book_token)
+    except ValueError as exc:
+        raise ValueError(
+            f"unknown verse book token {book_token!r} at row {row_number}"
+        ) from exc
+
+
+@lru_cache(maxsize=64)
+def expected_plus_location_for_standard_book_name(std_book_name: str) -> tuple[str, int]:
+    try:
+        bk24id = bib_locales.bk24id(std_book_name)
+    except KeyError as exc:
+        raise ValueError(f"unknown standard book name {std_book_name!r}") from exc
+
+    bk39ids = bib_locales.bk39ids_of_bk24(bk24id)
+    try:
+        book39_index = bk39ids.index(std_book_name)
+    except ValueError as exc:
+        raise ValueError(
+            f"standard book name {std_book_name!r} not found in bk24 {bk24id!r}"
+        ) from exc
+
+    return (
+        f"{bib_locales.ordered_short_dash_full_24(bk24id)}.json",
+        book39_index,
+    )
 
 
 def verify_table_words_in_mam_plus(
@@ -108,9 +131,7 @@ def verify_table_words_in_mam_plus(
     if not isinstance(rows, list):
         raise ValueError("table JSON missing list key 'rows'")
 
-    expected_plus_location_by_book_abbreviation = (
-        expected_plus_locations_by_book_abbreviation(table)
-    )
+    std_book_name_by_abbrev = standard_book_name_by_abbreviation(table)
 
     if len(rows) != EXPECTED_ROW_COUNT:
         raise ValueError(
@@ -161,15 +182,13 @@ def verify_table_words_in_mam_plus(
             if word in search_text
         ]
 
-        book_abbreviation, chapter_num, verse_num = parse_table_verse(verse)
-        expected_location = expected_plus_location_by_book_abbreviation.get(
-            book_abbreviation
+        book_token, chapter_num, verse_num = parse_table_verse(verse)
+        std_book_name = standard_book_name_for_table_verse(
+            book_token=book_token,
+            std_book_name_by_abbrev=std_book_name_by_abbrev,
+            row_number=row_number,
         )
-        if expected_location is None:
-            raise ValueError(
-                f"unmapped verse book abbreviation {book_abbreviation!r} at row {row_number}"
-            )
-
+        expected_location = expected_plus_location_for_standard_book_name(std_book_name)
         expected_file, expected_book39_index = expected_location
 
         expected_verse_texts = plus_verse_texts_by_name.get(expected_file)

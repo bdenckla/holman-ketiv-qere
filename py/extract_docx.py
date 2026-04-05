@@ -29,7 +29,7 @@ def extract(docx_path: Path, output_dir: Path) -> dict[str, object]:
     image_dir.mkdir(parents=True, exist_ok=True)
 
     with zipfile.ZipFile(docx_path) as archive:
-        parsed = parse_docx_archive(archive=archive, image_dir=image_dir)
+        parsed = parse_docx_archive(archive=archive, image_dir=image_dir, repo_root=REPO_ROOT)
 
     intro_path, json_path = write_extract_files(
         output_dir=output_dir,

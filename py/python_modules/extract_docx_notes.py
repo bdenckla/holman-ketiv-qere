@@ -6,7 +6,7 @@ import re
 from pycmn import bib_locales
 
 VERSE_PATTERN = re.compile(
-    r"^(?P<book_abbreviation>.*) (?P<chapter>\d+):(?P<verse>\d+)\.(?P<segment>\d+)$"
+    r"^(?P<book_token>.*) (?P<chapter>\d+):(?P<verse>\d+)\.(?P<segment>\d+)$"
 )
 
 STANDARD_BOOK_NAME_BY_ABBREVIATION = {
@@ -49,18 +49,38 @@ NOTES_TARGETED_FIXES_BY_ROW_NUMBER = {
 ALLOWED_LENINGRAD_TEXT_VALUES = {"", "’"}
 
 
-def verse_book_abbreviation(verse: str) -> str:
+def parse_verse_reference(verse: str) -> tuple[str, str, str, str]:
     match = VERSE_PATTERN.fullmatch(verse)
     if match is None:
         raise ValueError(f"unexpected verse format: {verse!r}")
-    return match.group("book_abbreviation")
+    return (
+        match.group("book_token"),
+        match.group("chapter"),
+        match.group("verse"),
+        match.group("segment"),
+    )
 
 
-def standard_book_name(book_abbreviation: str) -> str:
+def verse_book_name(verse: str) -> str:
+    book_token, *_ = parse_verse_reference(verse)
+    return standard_book_name(book_token)
+
+
+def standard_book_name(book_token: str) -> str:
+    mapped = STANDARD_BOOK_NAME_BY_ABBREVIATION.get(book_token)
+    if mapped is not None:
+        return mapped
+
     try:
-        return STANDARD_BOOK_NAME_BY_ABBREVIATION[book_abbreviation]
+        bib_locales.bk24id(book_token)
     except KeyError as exc:
-        raise ValueError(f"unknown book abbreviation: {book_abbreviation!r}") from exc
+        raise ValueError(f"unknown verse book token: {book_token!r}") from exc
+    return book_token
+
+
+def standardize_verse_book_name(verse: str) -> str:
+    book_token, chapter, verse_num, segment = parse_verse_reference(verse)
+    return f"{standard_book_name(book_token)} {chapter}:{verse_num}.{segment}"
 
 
 def strip_known_notes_junk(notes: str) -> str:

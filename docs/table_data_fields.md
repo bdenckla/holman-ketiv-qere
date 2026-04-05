@@ -120,12 +120,12 @@ It distinguishes between:
 - Meaning: number of rows whose parsed notes components equal this structured signature
 - Source: grouped count over parsed notes components
 
-### `verse_book_name_by_abbreviation`
+### `verse_book_names`
 
-- Type: object mapping strings to strings
-- Meaning: mapping from each observed `verse` book abbreviation to a standard 39-book name
-- Source: extractor lookup table aligned to the vendored copy of `MAM-basics/py/pycmn/bib_locales.py`
-- Current data observation: includes mappings like `Josh -> Joshua`, `1Sa -> 1Samuel`, and `Zeph -> Tsefaniah`
+- Type: array of strings
+- Meaning: distinct standard 39-book names observed in `rows[].verse`
+- Source: extracted `verse` values normalized to the vendored `pycmn/bib_locales.py` standard names
+- Current data observation: includes names like `Joshua`, `1Samuel`, and `Tsefaniah`
 
 ### `rows`
 
@@ -148,8 +148,8 @@ It distinguishes between:
 
 - Type: string
 - Meaning: verse reference from the second table column
-- Source: source-table content
-- Current data observation: values like `Josh 3:4.5`
+- Source: source-table content normalized to `pycmn/bib_locales.py` standard 39-book names
+- Current data observation: values like `Joshua 3:4.5`
 
 ### `word`
 
@@ -224,7 +224,7 @@ It distinguishes between:
 - `entry` text is asserted to equal the string form of `row_number`, then omitted from row output.
 - `finding_value_counts` summarizes each distinct `finding` label and its row count.
 - `notes_structured_counts` summarizes `notes-UXLC`, `notes-UXLC-yatir`, and `notes-HaKeter` signatures with row counts.
-- `verse_book_name_by_abbreviation` maps those observed abbreviations to standard MAM 39-book names.
+- `verse_book_names` lists the distinct standard MAM 39-book names observed in `rows[].verse`.
 - `aleppo` and `leningrad` text fields are dropped from `rows` after extractor assertions (`aleppo` must be empty; `leningrad` must be empty or a single `’` marker).
 - Aleppo/Leningrad screenshots or embedded figures remain under `image_files`.
 - `mam_plus_verify` summarizes post-extraction presence checks in plus verse text, excluding נוסח argument 2 documentation.

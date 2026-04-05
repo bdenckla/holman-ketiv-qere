@@ -12,8 +12,8 @@ from python_modules.extract_docx_notes import (
     assert_text_columns_before_drop,
     notes_structured_signature,
     split_notes_components,
-    standard_book_name,
-    verse_book_abbreviation,
+    standardize_verse_book_name,
+    verse_book_name,
 )
 from python_modules.extract_docx_xml_utils import (
     NS,
@@ -34,10 +34,10 @@ class ParsedExtract:
     data_rows: list[dict[str, object]]
     finding_value_counts: list[dict[str, object]]
     notes_structured_counts: list[dict[str, object]]
-    verse_book_name_by_abbreviation: dict[str, str]
+    verse_book_names: list[str]
 
 
-def parse_docx_archive(archive: zipfile.ZipFile, image_dir: Path) -> ParsedExtract:
+def parse_docx_archive(archive: zipfile.ZipFile, image_dir: Path, repo_root: Path) -> ParsedExtract:
     body, rel_map = _docx_body_and_relationships(archive)
     intro_paragraphs, table_element = _intro_and_table(body)
     table_rows = _table_rows(table_element, rel_map)
@@ -53,16 +53,11 @@ def parse_docx_archive(archive: zipfile.ZipFile, image_dir: Path) -> ParsedExtra
         table_rows=table_rows,
         column_keys=column_keys,
         image_dir=image_dir,
+        repo_root=repo_root,
     )
     _validate_leningrad_quote_count(leningrad_quote_count)
 
-    verse_book_abbreviations = sorted(
-        {verse_book_abbreviation(str(row["verse"])) for row in data_rows}
-    )
-    verse_book_name_by_abbreviation = {
-        abbreviation: standard_book_name(abbreviation)
-        for abbreviation in verse_book_abbreviations
-    }
+    verse_book_names = sorted({verse_book_name(str(row["verse"])) for row in data_rows})
     finding_value_counts = [
         {
             "finding": finding,
@@ -92,7 +87,7 @@ def parse_docx_archive(archive: zipfile.ZipFile, image_dir: Path) -> ParsedExtra
         data_rows=data_rows,
         finding_value_counts=finding_value_counts,
         notes_structured_counts=notes_structured_counts,
-        verse_book_name_by_abbreviation=verse_book_name_by_abbreviation,
+        verse_book_names=verse_book_names,
     )
 
 
@@ -113,7 +108,7 @@ def write_extract_files(
             "row_count": len(parsed.data_rows),
             "finding_value_counts": parsed.finding_value_counts,
             "notes_structured_counts": parsed.notes_structured_counts,
-            "verse_book_name_by_abbreviation": parsed.verse_book_name_by_abbreviation,
+            "verse_book_names": parsed.verse_book_names,
             "rows": parsed.data_rows,
         },
     }
@@ -173,6 +168,7 @@ def _parse_data_rows(
     table_rows: list[list[dict[str, object]]],
     column_keys: list[str],
     image_dir: Path,
+    repo_root: Path,
 ) -> tuple[
     list[dict[str, object]],
     list[tuple[str, str | None, str | None]],
@@ -189,6 +185,7 @@ def _parse_data_rows(
             row=row,
             column_keys=column_keys,
             image_dir=image_dir,
+            repo_root=repo_root,
         )
         data_rows.append(ordered_row_data)
         notes_signatures.append(notes_signature)
@@ -203,6 +200,7 @@ def _ordered_row_data(
     row: list[dict[str, object]],
     column_keys: list[str],
     image_dir: Path,
+    repo_root: Path,
 ) -> tuple[dict[str, object], tuple[str, str | None, str | None], int]:
     row_data: dict[str, object] = {
         "row_number": row_index,
@@ -231,6 +229,7 @@ def _ordered_row_data(
                 column_key=key,
                 targets=targets,
                 image_dir=image_dir,
+                repo_root=repo_root,
             )
 
     if image_refs:
@@ -238,6 +237,11 @@ def _ordered_row_data(
 
     quote_count_increment = assert_text_columns_before_drop(row_data)
     apply_notes_fixes(row_data)
+
+    verse_text = row_data.get("verse")
+    if not isinstance(verse_text, str):
+        raise ValueError(f"unexpected verse type at row {row_index}: {verse_text!r}")
+    row_data["verse"] = standardize_verse_book_name(verse_text)
 
     notes = str(row_data["notes"])
     notes_uxlc, notes_uxlc_yatir, notes_haketer = split_notes_components(notes)

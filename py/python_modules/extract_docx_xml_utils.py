@@ -91,6 +91,7 @@ def export_images(
     column_key: str,
     targets: list[str],
     image_dir: Path,
+    repo_root: Path,
 ) -> list[str]:
     exported_paths = []
     for image_index, target in enumerate(targets, start=1):
@@ -98,5 +99,13 @@ def export_images(
         filename = f"row{row_number:03d}_{column_key}_{image_index:02d}{extension}"
         output_path = image_dir / filename
         output_path.write_bytes(archive.read(f"word/{target}"))
-        exported_paths.append(output_path.as_posix())
+
+        try:
+            rel_output_path = output_path.resolve().relative_to(repo_root.resolve())
+        except ValueError as exc:
+            raise ValueError(
+                f"image path {output_path!s} is outside repo root {repo_root!s}"
+            ) from exc
+
+        exported_paths.append(rel_output_path.as_posix())
     return exported_paths
