@@ -1,0 +1,102 @@
+from __future__ import annotations
+
+from pathlib import Path
+import re
+import zipfile
+from xml.etree import ElementTree as ET
+
+NS = {
+    "a": "http://schemas.openxmlformats.org/drawingml/2006/main",
+    "r": "http://schemas.openxmlformats.org/officeDocument/2006/relationships",
+    "w": "http://schemas.openxmlformats.org/wordprocessingml/2006/main",
+}
+
+CONTROL_CHARS = {
+    "\u00a0": " ",
+}
+
+
+def normalize_text(text: str) -> str:
+    for old, new in CONTROL_CHARS.items():
+        text = text.replace(old, new)
+    text = text.replace("\r\n", "\n").replace("\r", "\n")
+    return text.strip()
+
+
+def paragraph_text(paragraph: ET.Element) -> str:
+    texts = [node.text or "" for node in paragraph.findall(".//w:t", NS)]
+    return normalize_text("".join(texts))
+
+
+def cell_payload(cell: ET.Element, rel_map: dict[str, str]) -> dict[str, object]:
+    parts = []
+    for para in cell.findall("./w:p", NS):
+        text = paragraph_text(para)
+        if text:
+            parts.append(text)
+
+    image_targets = []
+    for blip in cell.findall(".//a:blip", NS):
+        rel_id = blip.attrib.get(f"{{{NS['r']}}}embed")
+        if rel_id is not None:
+            image_targets.append(rel_map[rel_id])
+
+    return {
+        "text": "\n".join(parts),
+        "image_targets": image_targets,
+    }
+
+
+def slugify(label: str) -> str:
+    text = label.strip().lower()
+    text = re.sub(r"[^0-9a-z]+", "_", text)
+    return text.strip("_") or "entry"
+
+
+def intro_markdown(paragraphs: list[str]) -> str:
+    if not paragraphs:
+        return ""
+
+    title = paragraphs[0]
+    body = paragraphs[1:]
+    lines = [f"# {title}", ""]
+    bullet_mode = False
+    for paragraph in body:
+        if paragraph == "Breakdown of the 77 Readings:":
+            lines.append("## Breakdown of the 77 Readings")
+            lines.append("")
+            bullet_mode = True
+            continue
+
+        if bullet_mode and re.match(r"^[0-9]+ Instances?:", paragraph):
+            lines.append(f"- {paragraph}")
+            continue
+
+        if paragraph == "Sincerely,":
+            bullet_mode = False
+            if lines and lines[-1] != "":
+                lines.append("")
+
+        lines.append(paragraph)
+        lines.append("")
+
+    while lines and lines[-1] == "":
+        lines.pop()
+    return "\n".join(lines) + "\n"
+
+
+def export_images(
+    archive: zipfile.ZipFile,
+    row_number: int,
+    column_key: str,
+    targets: list[str],
+    image_dir: Path,
+) -> list[str]:
+    exported_paths = []
+    for image_index, target in enumerate(targets, start=1):
+        extension = Path(target).suffix or ".bin"
+        filename = f"row{row_number:03d}_{column_key}_{image_index:02d}{extension}"
+        output_path = image_dir / filename
+        output_path.write_bytes(archive.read(f"word/{target}"))
+        exported_paths.append(output_path.as_posix())
+    return exported_paths

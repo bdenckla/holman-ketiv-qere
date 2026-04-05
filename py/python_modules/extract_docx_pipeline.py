@@ -1,0 +1,275 @@
+from __future__ import annotations
+
+from collections import Counter
+from dataclasses import dataclass
+import json
+from pathlib import Path
+from typing import cast
+import zipfile
+from xml.etree import ElementTree as ET
+
+from python_modules.extract_docx_notes import (
+    apply_notes_fixes,
+    assert_text_columns_before_drop,
+    notes_structured_signature,
+    split_notes_components,
+    standard_book_name,
+    verse_book_abbreviation,
+)
+from python_modules.extract_docx_xml_utils import (
+    NS,
+    cell_payload,
+    export_images,
+    intro_markdown,
+    paragraph_text,
+    slugify,
+)
+
+
+@dataclass(frozen=True)
+class ParsedExtract:
+    intro_paragraphs: list[str]
+    headers: list[object]
+    column_keys: list[str]
+    data_rows: list[dict[str, object]]
+    finding_value_counts: list[dict[str, object]]
+    notes_structured_counts: list[dict[str, object]]
+    verse_book_name_by_abbreviation: dict[str, str]
+
+
+def parse_docx_archive(archive: zipfile.ZipFile, image_dir: Path) -> ParsedExtract:
+    body, rel_map = _docx_body_and_relationships(archive)
+    intro_paragraphs, table_element = _intro_and_table(body)
+    table_rows = _table_rows(table_element, rel_map)
+    if not table_rows:
+        raise ValueError("table has no rows")
+
+    header_row = table_rows[0]
+    headers = [cell["text"] for cell in header_row]
+    column_keys = [slugify(header if isinstance(header, str) else "") for header in headers]
+
+    data_rows, notes_signatures, leningrad_quote_count = _parse_data_rows(
+        archive=archive,
+        table_rows=table_rows,
+        column_keys=column_keys,
+        image_dir=image_dir,
+    )
+    _validate_leningrad_quote_count(leningrad_quote_count)
+
+    verse_book_abbreviations = sorted(
+        {verse_book_abbreviation(str(row["verse"])) for row in data_rows}
+    )
+    verse_book_name_by_abbreviation = {
+        abbreviation: standard_book_name(abbreviation)
+        for abbreviation in verse_book_abbreviations
+    }
+    finding_value_counts = [
+        {
+            "finding": finding,
+            "count": count,
+        }
+        for finding, count in sorted(
+            Counter(str(row["finding"]) for row in data_rows).items()
+        )
+    ]
+    notes_structured_counts = [
+        {
+            "notes-UXLC": notes_uxlc,
+            "notes-UXLC-yatir": notes_uxlc_yatir,
+            "notes-HaKeter": notes_haketer,
+            "count": count,
+        }
+        for (notes_uxlc, notes_uxlc_yatir, notes_haketer), count in sorted(
+            Counter(notes_signatures).items(),
+            key=lambda item: (-item[1], item[0]),
+        )
+    ]
+
+    return ParsedExtract(
+        intro_paragraphs=intro_paragraphs,
+        headers=headers,
+        column_keys=column_keys,
+        data_rows=data_rows,
+        finding_value_counts=finding_value_counts,
+        notes_structured_counts=notes_structured_counts,
+        verse_book_name_by_abbreviation=verse_book_name_by_abbreviation,
+    )
+
+
+def write_extract_files(
+    output_dir: Path,
+    source_document: str,
+    parsed: ParsedExtract,
+) -> tuple[Path, Path]:
+    intro_path = output_dir / "introduction.md"
+    intro_path.write_text(intro_markdown(parsed.intro_paragraphs), encoding="utf-8")
+
+    json_payload = {
+        "source_document": source_document,
+        "introduction_paragraph_count": len(parsed.intro_paragraphs),
+        "table": {
+            "header_labels": parsed.headers,
+            "column_keys": parsed.column_keys,
+            "row_count": len(parsed.data_rows),
+            "finding_value_counts": parsed.finding_value_counts,
+            "notes_structured_counts": parsed.notes_structured_counts,
+            "verse_book_name_by_abbreviation": parsed.verse_book_name_by_abbreviation,
+            "rows": parsed.data_rows,
+        },
+    }
+    json_path = output_dir / "table_data.json"
+    json_path.write_text(
+        json.dumps(json_payload, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8",
+    )
+    return intro_path, json_path
+
+
+def _docx_body_and_relationships(
+    archive: zipfile.ZipFile,
+) -> tuple[ET.Element, dict[str, str]]:
+    document = ET.fromstring(archive.read("word/document.xml"))
+    relationships = ET.fromstring(archive.read("word/_rels/document.xml.rels"))
+
+    rel_map = {
+        rel.attrib["Id"]: rel.attrib["Target"]
+        for rel in relationships
+        if rel.tag.endswith("Relationship")
+    }
+    body = document.find("w:body", NS)
+    if body is None:
+        raise ValueError("document body not found")
+    return body, rel_map
+
+
+def _intro_and_table(body: ET.Element) -> tuple[list[str], ET.Element]:
+    intro_paragraphs: list[str] = []
+    table_element: ET.Element | None = None
+    for child in body:
+        tag = child.tag.rsplit("}", 1)[-1]
+        if tag == "p" and table_element is None:
+            text = paragraph_text(child)
+            if text:
+                intro_paragraphs.append(text)
+            continue
+        if tag == "tbl":
+            table_element = child
+            break
+
+    if table_element is None:
+        raise ValueError("no table found in document")
+    return intro_paragraphs, table_element
+
+
+def _table_rows(table_element: ET.Element, rel_map: dict[str, str]) -> list[list[dict[str, object]]]:
+    table_rows = []
+    for row in table_element.findall("./w:tr", NS):
+        row_cells = []
+        for cell in row.findall("./w:tc", NS):
+            row_cells.append(cell_payload(cell, rel_map))
+        table_rows.append(row_cells)
+    return table_rows
+
+
+def _parse_data_rows(
+    archive: zipfile.ZipFile,
+    table_rows: list[list[dict[str, object]]],
+    column_keys: list[str],
+    image_dir: Path,
+) -> tuple[
+    list[dict[str, object]],
+    list[tuple[str, str | None, str | None]],
+    int,
+]:
+    data_rows = []
+    notes_signatures: list[tuple[str, str | None, str | None]] = []
+    leningrad_quote_count = 0
+
+    for row_index, row in enumerate(table_rows[1:], start=1):
+        ordered_row_data, notes_signature, quote_count_increment = _ordered_row_data(
+            archive=archive,
+            row_index=row_index,
+            row=row,
+            column_keys=column_keys,
+            image_dir=image_dir,
+        )
+        data_rows.append(ordered_row_data)
+        notes_signatures.append(notes_signature)
+        leningrad_quote_count += quote_count_increment
+
+    return data_rows, notes_signatures, leningrad_quote_count
+
+
+def _ordered_row_data(
+    archive: zipfile.ZipFile,
+    row_index: int,
+    row: list[dict[str, object]],
+    column_keys: list[str],
+    image_dir: Path,
+) -> tuple[dict[str, object], tuple[str, str | None, str | None], int]:
+    row_data: dict[str, object] = {
+        "row_number": row_index,
+    }
+    image_refs: dict[str, list[str]] = {}
+
+    for column_index, key in enumerate(column_keys):
+        if column_index >= len(row):
+            row_data[key] = ""
+            continue
+
+        payload = row[column_index]
+        text = payload["text"]
+        row_data[key] = text
+
+        targets_obj = payload["image_targets"]
+        if not isinstance(targets_obj, list):
+            raise ValueError(
+                f"unexpected image target payload type at row {row_index}: {targets_obj!r}"
+            )
+        targets = cast(list[str], targets_obj)
+        if targets:
+            image_refs[key] = export_images(
+                archive=archive,
+                row_number=row_index,
+                column_key=key,
+                targets=targets,
+                image_dir=image_dir,
+            )
+
+    if image_refs:
+        row_data["image_files"] = image_refs
+
+    quote_count_increment = assert_text_columns_before_drop(row_data)
+    apply_notes_fixes(row_data)
+
+    notes = str(row_data["notes"])
+    notes_uxlc, notes_uxlc_yatir, notes_haketer = split_notes_components(notes)
+
+    # Preserve column order and place notes-* exactly where notes used to be.
+    ordered_row_data: dict[str, object] = {
+        "row_number": row_data["row_number"],
+    }
+    for key in column_keys:
+        if key in {"entry", "aleppo", "leningrad"}:
+            continue
+        if key == "notes":
+            ordered_row_data["notes-UXLC"] = notes_uxlc
+            ordered_row_data["notes-UXLC-yatir"] = notes_uxlc_yatir
+            ordered_row_data["notes-HaKeter"] = notes_haketer
+            continue
+        ordered_row_data[key] = row_data[key]
+
+    if "image_files" in row_data:
+        ordered_row_data["image_files"] = row_data["image_files"]
+    if "notes_orig" in row_data:
+        ordered_row_data["notes_orig"] = row_data["notes_orig"]
+
+    return ordered_row_data, notes_structured_signature(notes), quote_count_increment
+
+
+def _validate_leningrad_quote_count(leningrad_quote_count: int) -> None:
+    if leningrad_quote_count > 1:
+        raise ValueError(
+            "unexpected multiple non-empty leningrad text values; expected at most one "
+            f"meaningless quote marker, found {leningrad_quote_count}"
+        )
