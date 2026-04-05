@@ -2,7 +2,6 @@ from __future__ import annotations
 
 from collections import Counter
 from dataclasses import dataclass
-import json
 from pathlib import Path
 from typing import cast
 import zipfile
@@ -24,6 +23,7 @@ from python_modules.extract_docx_xml_utils import (
     paragraph_text,
     slugify,
 )
+from python_modules.json_io import write_json
 
 
 @dataclass(frozen=True)
@@ -118,10 +118,7 @@ def write_extract_files(
         },
     }
     json_path = output_dir / "table_data.json"
-    json_path.write_text(
-        json.dumps(json_payload, ensure_ascii=False, indent=2) + "\n",
-        encoding="utf-8",
-    )
+    write_json(json_path, json_payload)
     return intro_path, json_path
 
 

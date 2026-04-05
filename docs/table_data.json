@@ -1388,5 +1388,69 @@
         }
       }
     ]
-  }
+  },
+  "mam_plus_verify": {
+    "row_count": 77,
+    "unique_word_count": 72,
+    "missing_any_plus_count": 0,
+    "missing_expected_plus_count": 0,
+    "rows_matching_expected_nusach_target_count": 3
+  },
+  "mam_plus_rows_matching_expected_nusach_target": [
+    {
+      "row_number": 52,
+      "verse": "Eze 40:24.9",
+      "word": "אֵילָו֙",
+      "expected_plus_file": "C3-Ezekiel.json",
+      "found_in_any_plus_file": true,
+      "found_in_expected_plus_file": true,
+      "expected_nusach_targets": [
+        "אֵילָו֙ל-קרי=אֵילָיו֙",
+        "וְאֵ֣ילַמָּ֔ול-קרי=וְאֵ֣ילַמָּ֔יו"
+      ],
+      "found_in_expected_nusach_target": true,
+      "matching_expected_nusach_targets": [
+        "אֵילָו֙ל-קרי=אֵילָיו֙"
+      ],
+      "hit_files": [
+        "C3-Ezekiel.json"
+      ]
+    },
+    {
+      "row_number": 53,
+      "verse": "Eze 40:25.3",
+      "word": "וּלְאֵֽילַמָּו֙",
+      "expected_plus_file": "C3-Ezekiel.json",
+      "found_in_any_plus_file": true,
+      "found_in_expected_plus_file": true,
+      "expected_nusach_targets": [
+        "וּלְאֵֽילַמָּו֙ל-קרי=וּלְאֵֽילַמָּיו֙"
+      ],
+      "found_in_expected_nusach_target": true,
+      "matching_expected_nusach_targets": [
+        "וּלְאֵֽילַמָּו֙ל-קרי=וּלְאֵֽילַמָּיו֙"
+      ],
+      "hit_files": [
+        "C3-Ezekiel.json"
+      ]
+    },
+    {
+      "row_number": 54,
+      "verse": "Eze 40:26.4",
+      "word": "וְאֵלַמָּ֖ו",
+      "expected_plus_file": "C3-Ezekiel.json",
+      "found_in_any_plus_file": true,
+      "found_in_expected_plus_file": true,
+      "expected_nusach_targets": [
+        "וְאֵלַמָּ֖ול-קרי=וְאֵֽלַמָּ֖יו"
+      ],
+      "found_in_expected_nusach_target": true,
+      "matching_expected_nusach_targets": [
+        "וְאֵלַמָּ֖ול-קרי=וְאֵֽלַמָּ֖יו"
+      ],
+      "hit_files": [
+        "C3-Ezekiel.json"
+      ]
+    }
+  ]
 }

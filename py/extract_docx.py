@@ -5,6 +5,7 @@ import json
 import zipfile
 from pathlib import Path
 
+from python_modules.json_io import load_json, write_json
 from python_modules.extract_docx_pipeline import parse_docx_archive, write_extract_files
 from python_modules.verify_table_words_in_mam_plus import verify_table_words_in_mam_plus
 
@@ -49,16 +50,23 @@ def extract(docx_path: Path, output_dir: Path) -> dict[str, object]:
     }
 
 
-def persist_verify_summary(table_json_path: Path, verify_summary: dict[str, object]) -> None:
+def persist_verify_summary(table_json_path: Path, verify_report: dict[str, object]) -> None:
     """Persist verification output inside extracted table_data.json."""
-    table_data = json.loads(table_json_path.read_text(encoding="utf-8"))
+    table_data = load_json(table_json_path)
     if not isinstance(table_data, dict):
         raise ValueError("extracted table_data.json root must be an object")
+
+    verify_summary = verify_report.get("summary")
+    if not isinstance(verify_summary, dict):
+        raise ValueError("verification summary is invalid")
+
+    doc_note_rows = verify_report.get("rows_matching_expected_nusach_target")
+    if not isinstance(doc_note_rows, list):
+        raise ValueError("verification rows_matching_expected_nusach_target is invalid")
+
     table_data["mam_plus_verify"] = verify_summary
-    table_json_path.write_text(
-        json.dumps(table_data, ensure_ascii=False, indent=2) + "\n",
-        encoding="utf-8",
-    )
+    table_data["mam_plus_rows_matching_expected_nusach_target"] = doc_note_rows
+    write_json(table_json_path, table_data)
 
 
 def main() -> None:
@@ -100,7 +108,7 @@ def main() -> None:
     missing_any = verify_summary["missing_any_plus_count"]
     missing_expected = verify_summary["missing_expected_plus_count"]
     summary["mam_plus_verify"] = verify_summary
-    persist_verify_summary(table_json_path=table_json_path, verify_summary=verify_summary)
+    persist_verify_summary(table_json_path=table_json_path, verify_report=verify_report)
 
     if missing_any or missing_expected:
         raise ValueError(

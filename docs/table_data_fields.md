@@ -28,6 +28,20 @@ It distinguishes between:
 - Type: object
 - Meaning: the extracted table payload
 
+### `mam_plus_verify`
+
+- Type: object
+- Meaning: post-extraction verification summary against MAM-parsed-plus verse text
+- Source: `py/python_modules/verify_table_words_in_mam_plus.py`
+- Current data observation: all `77` rows are found in their expected plus verse text
+
+### `mam_plus_rows_matching_expected_nusach_target`
+
+- Type: array of objects
+- Meaning: rows whose `word` appears inside at least one נוסח template first argument in the expected plus verse
+- Source: post-extraction verification scan of נוסח template targets
+- Current data observation: `3` rows
+
 ## `table` object
 
 ### `header_labels`
@@ -212,3 +226,5 @@ It distinguishes between:
 - `verse_book_name_by_abbreviation` maps those observed abbreviations to standard MAM 39-book names.
 - `aleppo` and `leningrad` text fields are dropped from `rows` after extractor assertions (`aleppo` must be empty; `leningrad` must be empty or a single `’` marker).
 - Aleppo/Leningrad screenshots or embedded figures remain under `image_files`.
+- `mam_plus_verify` summarizes post-extraction presence checks in plus verse text, excluding נוסח argument 2 documentation.
+- `mam_plus_rows_matching_expected_nusach_target` captures rows where the table `word` is also present in נוסח first-argument target text.

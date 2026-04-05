@@ -1,10 +1,14 @@
 from __future__ import annotations
 
-import json
 from pathlib import Path
 import re
 
 from pycmn import bib_locales
+from python_modules.json_io import load_json
+from python_modules.mam_plus_verse_data import (
+    verse_nusach_targets_by_location,
+    verse_texts_by_location,
+)
 
 
 EXPECTED_ROW_COUNT = 77
@@ -12,13 +16,6 @@ EXPECTED_ROW_COUNT = 77
 VERSE_PATTERN = re.compile(
     r"^(?P<book_abbreviation>.*) (?P<chapter>\d+):(?P<verse>\d+)\.(?P<segment>\d+)$"
 )
-
-
-def load_json(path: Path) -> object:
-    with path.open("r", encoding="utf-8") as fp:
-        return json.load(fp)
-
-
 def parse_table_verse(verse: str) -> tuple[str, int, int]:
     match = VERSE_PATTERN.fullmatch(verse)
     if match is None:
@@ -68,72 +65,6 @@ def expected_plus_locations_by_book_abbreviation(
     return expected
 
 
-def _collect_text_fragments(node: object, out_parts: list[str]) -> None:
-    if isinstance(node, str):
-        out_parts.append(node)
-        return
-    if isinstance(node, list):
-        for item in node:
-            _collect_text_fragments(item, out_parts)
-        return
-    if isinstance(node, dict):
-        tmpl_params = node.get("tmpl_params")
-        if isinstance(tmpl_params, dict):
-            for value in tmpl_params.values():
-                _collect_text_fragments(value, out_parts)
-
-
-def _verse_texts_by_location(
-    plus_json: object,
-) -> dict[tuple[int, int, int], str]:
-    if not isinstance(plus_json, dict):
-        raise ValueError("plus JSON root must be an object")
-
-    header = plus_json.get("header")
-    if not isinstance(header, dict):
-        raise ValueError("plus JSON missing object key 'header'")
-
-    he_to_int = header.get("he_to_int")
-    if not isinstance(he_to_int, dict):
-        raise ValueError("plus JSON header missing object key 'he_to_int'")
-
-    book39s = plus_json.get("book39s")
-    if not isinstance(book39s, list):
-        raise ValueError("plus JSON missing list key 'book39s'")
-
-    out: dict[tuple[int, int, int], str] = {}
-    for book39_index, book39 in enumerate(book39s):
-        if not isinstance(book39, dict):
-            raise ValueError(f"book39 entry must be object, got {type(book39)}")
-        chapters = book39.get("chapters")
-        if not isinstance(chapters, dict):
-            raise ValueError("book39 entry missing object key 'chapters'")
-
-        for he_chapter, verse_map in chapters.items():
-            if not isinstance(he_chapter, str):
-                raise ValueError(f"chapter key must be string, got {type(he_chapter)}")
-            chapter_num = he_to_int.get(he_chapter)
-            if not isinstance(chapter_num, int):
-                raise ValueError(f"chapter {he_chapter!r} missing in header.he_to_int")
-            if not isinstance(verse_map, dict):
-                raise ValueError(f"chapter value must be object, got {type(verse_map)}")
-
-            for he_verse, verse_payload in verse_map.items():
-                if not isinstance(he_verse, str):
-                    raise ValueError(f"verse key must be string, got {type(he_verse)}")
-                if he_verse in ("0", "תתת"):
-                    continue
-                verse_num = he_to_int.get(he_verse)
-                if not isinstance(verse_num, int):
-                    raise ValueError(f"verse {he_verse!r} missing in header.he_to_int")
-
-                text_parts: list[str] = []
-                _collect_text_fragments(verse_payload, text_parts)
-                out[(book39_index, chapter_num, verse_num)] = "".join(text_parts)
-
-    return out
-
-
 def verify_table_words_in_mam_plus(
     table_json_path: Path,
     mam_parsed_path: Path,
@@ -165,9 +96,14 @@ def verify_table_words_in_mam_plus(
     if not plus_files:
         raise ValueError(f"no plus JSON files found at: {plus_dir}")
 
-    plus_verse_texts_by_name = {
-        path.name: _verse_texts_by_location(load_json(path)) for path in plus_files
-    }
+    plus_verse_texts_by_name = {}
+    plus_verse_nusach_targets_by_name = {}
+    for path in plus_files:
+        plus_json = load_json(path)
+        plus_verse_texts_by_name[path.name] = verse_texts_by_location(plus_json)
+        plus_verse_nusach_targets_by_name[path.name] = verse_nusach_targets_by_location(
+            plus_json
+        )
     plus_search_text_by_name = {
         file_name: "\n".join(verse_texts.values())
         for file_name, verse_texts in plus_verse_texts_by_name.items()
@@ -176,6 +112,7 @@ def verify_table_words_in_mam_plus(
     row_reports: list[dict[str, object]] = []
     missing_any: list[dict[str, object]] = []
     missing_expected: list[dict[str, object]] = []
+    doc_note_target_rows: list[dict[str, object]] = []
 
     for row in rows:
         if not isinstance(row, dict):
@@ -222,8 +159,22 @@ def verify_table_words_in_mam_plus(
                 f"chapter={chapter_num}, verse={verse_num}, row={row_number}"
             )
 
+        expected_verse_nusach_targets = plus_verse_nusach_targets_by_name[expected_file].get(
+            (expected_book39_index, chapter_num, verse_num)
+        )
+        if expected_verse_nusach_targets is None:
+            raise ValueError(
+                "expected verse missing נוסח targets in plus data: "
+                f"file={expected_file}, book39_index={expected_book39_index}, "
+                f"chapter={chapter_num}, verse={verse_num}, row={row_number}"
+            )
+
         found_in_any = len(hit_files) > 0
         found_in_expected = word in expected_verse_text
+        matching_nusach_targets = [
+            target for target in expected_verse_nusach_targets if word in target
+        ]
+        found_in_expected_nusach_target = len(matching_nusach_targets) > 0
 
         report_row = {
             "row_number": row_number,
@@ -232,6 +183,9 @@ def verify_table_words_in_mam_plus(
             "expected_plus_file": expected_file,
             "found_in_any_plus_file": found_in_any,
             "found_in_expected_plus_file": found_in_expected,
+            "expected_nusach_targets": expected_verse_nusach_targets,
+            "found_in_expected_nusach_target": found_in_expected_nusach_target,
+            "matching_expected_nusach_targets": matching_nusach_targets,
             "hit_files": hit_files,
         }
         row_reports.append(report_row)
@@ -240,12 +194,15 @@ def verify_table_words_in_mam_plus(
             missing_any.append(report_row)
         if not found_in_expected:
             missing_expected.append(report_row)
+        if found_in_expected_nusach_target:
+            doc_note_target_rows.append(report_row)
 
     summary = {
         "row_count": len(rows),
         "unique_word_count": len({row["word"] for row in rows if isinstance(row, dict) and "word" in row}),
         "missing_any_plus_count": len(missing_any),
         "missing_expected_plus_count": len(missing_expected),
+        "rows_matching_expected_nusach_target_count": len(doc_note_target_rows),
     }
 
     return {
@@ -253,4 +210,5 @@ def verify_table_words_in_mam_plus(
         "rows": row_reports,
         "missing_any_plus": missing_any,
         "missing_expected_plus": missing_expected,
+        "rows_matching_expected_nusach_target": doc_note_target_rows,
     }
