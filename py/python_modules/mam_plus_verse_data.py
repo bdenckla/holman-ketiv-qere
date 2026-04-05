@@ -69,6 +69,40 @@ def _collect_text_fragments(node: object, out_parts: list[str]) -> None:
                 _collect_text_fragments(value, out_parts)
 
 
+def _render_template_like_text(node: object) -> str:
+    if isinstance(node, str):
+        return node
+
+    if isinstance(node, list):
+        return "".join(_render_template_like_text(item) for item in node)
+
+    if isinstance(node, dict):
+        tmpl_name = node.get("tmpl_name")
+        tmpl_params = node.get("tmpl_params")
+        if isinstance(tmpl_name, str) and isinstance(tmpl_params, dict):
+            return _render_template_call(tmpl_name, tmpl_params)
+
+        # Fallback for non-template container nodes.
+        return "".join(_render_template_like_text(value) for value in node.values())
+
+    return ""
+
+
+def _render_template_call(tmpl_name: str, tmpl_params: dict[object, object]) -> str:
+    rendered_args: list[str] = []
+    for key, value in tmpl_params.items():
+        rendered_value = _render_template_like_text(value)
+        if isinstance(key, str) and key.isdigit():
+            rendered_args.append(rendered_value)
+        else:
+            rendered_args.append(f"{key}={rendered_value}")
+
+    if not rendered_args:
+        return f"{{{{{tmpl_name}}}}}"
+
+    return f"{{{{{tmpl_name}|{'|'.join(rendered_args)}}}}}"
+
+
 def _collect_nusach_targets(node: object, out_targets: list[str]) -> None:
     if isinstance(node, list):
         for item in node:
@@ -80,9 +114,7 @@ def _collect_nusach_targets(node: object, out_targets: list[str]) -> None:
         tmpl_params = node.get("tmpl_params")
         if isinstance(tmpl_params, dict):
             if tmpl_name == "נוסח":
-                target_parts: list[str] = []
-                _collect_text_fragments(tmpl_params.get("1"), target_parts)
-                target_text = "".join(target_parts).strip()
+                target_text = _render_template_like_text(tmpl_params.get("1")).strip()
                 if target_text:
                     out_targets.append(target_text)
 

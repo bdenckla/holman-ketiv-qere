@@ -1405,12 +1405,12 @@
       "found_in_any_plus_file": true,
       "found_in_expected_plus_file": true,
       "expected_nusach_targets": [
-        "אֵילָו֙ל-קרי=אֵילָיו֙",
-        "וְאֵ֣ילַמָּ֔ול-קרי=וְאֵ֣ילַמָּ֔יו"
+        "{{קו\"כ-אם|אֵילָו֙|ל-קרי=אֵילָיו֙}}",
+        "{{קו\"כ-אם|וְאֵ֣ילַמָּ֔ו|ל-קרי=וְאֵ֣ילַמָּ֔יו}}"
       ],
       "found_in_expected_nusach_target": true,
       "matching_expected_nusach_targets": [
-        "אֵילָו֙ל-קרי=אֵילָיו֙"
+        "{{קו\"כ-אם|אֵילָו֙|ל-קרי=אֵילָיו֙}}"
       ],
       "hit_files": [
         "C3-Ezekiel.json"
@@ -1424,11 +1424,11 @@
       "found_in_any_plus_file": true,
       "found_in_expected_plus_file": true,
       "expected_nusach_targets": [
-        "וּלְאֵֽילַמָּו֙ל-קרי=וּלְאֵֽילַמָּיו֙"
+        "{{קו\"כ-אם|וּלְאֵֽילַמָּו֙|ל-קרי=וּלְאֵֽילַמָּיו֙}}"
       ],
       "found_in_expected_nusach_target": true,
       "matching_expected_nusach_targets": [
-        "וּלְאֵֽילַמָּו֙ל-קרי=וּלְאֵֽילַמָּיו֙"
+        "{{קו\"כ-אם|וּלְאֵֽילַמָּו֙|ל-קרי=וּלְאֵֽילַמָּיו֙}}"
       ],
       "hit_files": [
         "C3-Ezekiel.json"
@@ -1442,11 +1442,11 @@
       "found_in_any_plus_file": true,
       "found_in_expected_plus_file": true,
       "expected_nusach_targets": [
-        "וְאֵלַמָּ֖ול-קרי=וְאֵֽלַמָּ֖יו"
+        "{{קו\"כ-אם|וְאֵלַמָּ֖ו|ל-קרי=וְאֵֽלַמָּ֖יו}}"
       ],
       "found_in_expected_nusach_target": true,
       "matching_expected_nusach_targets": [
-        "וְאֵלַמָּ֖ול-קרי=וְאֵֽלַמָּ֖יו"
+        "{{קו\"כ-אם|וְאֵלַמָּ֖ו|ל-קרי=וְאֵֽלַמָּ֖יו}}"
       ],
       "hit_files": [
         "C3-Ezekiel.json"
