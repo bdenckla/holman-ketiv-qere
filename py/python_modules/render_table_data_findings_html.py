@@ -201,7 +201,7 @@ def _record_card_html(row: dict[str, Any], finding_id: str, output_html_path: Pa
     return f"""<article class="record-card" data-finding-id="{finding_id}">
 <div class="record-head"><span class="record-ref">#{escape(row_number)}</span><span class="record-verse">{escape(verse)}</span><span class="finding-badge cat-{finding_id}">{escape(finding_display)}</span></div>
 <div class="record-grid"><div>
-<div class="note-line"><span class="label">MAM Word:</span></div><div class="hebrew-word pointed-heb">{escape(word)}</div>
+<div class="note-line"><span class="label">MAM Word:</span><bdi class="pointed-heb">{escape(word)}</bdi></div>
 <div class="note-line"><span class="label">UXLC:</span><bdi class="pointed-heb">{escape(notes_uxlc)}</bdi></div>
 {yatir_html}{haketer_html}
 </div><div>
