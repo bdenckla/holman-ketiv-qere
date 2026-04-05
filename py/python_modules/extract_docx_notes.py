@@ -141,6 +141,10 @@ def fix_row_37_notes(notes: str) -> str:
 
 
 def apply_notes_fixes(row_data: dict[str, object]) -> None:
+    row_number = cast(int, row_data["row_number"])
+    if row_number == 37 and row_data.get("word") == "":
+        row_data["word"] = "מַה־לִּי־"
+
     current_notes = row_data.get("notes")
     if not isinstance(current_notes, str):
         return
@@ -148,7 +152,6 @@ def apply_notes_fixes(row_data: dict[str, object]) -> None:
     fixed_notes = strip_known_notes_junk(current_notes)
     targeted_fix_applied = False
 
-    row_number = cast(int, row_data["row_number"])
     if row_number == 37:
         updated_notes = fix_row_37_notes(fixed_notes)
         targeted_fix_applied = updated_notes != fixed_notes

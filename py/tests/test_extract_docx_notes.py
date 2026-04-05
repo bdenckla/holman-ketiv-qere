@@ -9,11 +9,13 @@ class ExtractDocxNotesTests(unittest.TestCase):
     def test_row_37_targeted_fix_uses_explicit_ketiv_qere_pair(self) -> None:
         row_data = {
             "row_number": 37,
+            "word": "",
             "notes": "MAM - No Comments | UXLC - מַה־לִּי־פֹה֙ מי־לי־",
         }
 
         apply_notes_fixes(row_data)
 
+        self.assertEqual(row_data["word"], "מַה־לִּי־")
         self.assertEqual(
             row_data["notes"],
             "MAM - No Comments | UXLC - מי־לי־ מַה־לִּי־",
