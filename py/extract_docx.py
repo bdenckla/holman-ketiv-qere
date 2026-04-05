@@ -7,6 +7,7 @@ from pathlib import Path
 
 from python_modules.json_io import load_json, write_json
 from python_modules.extract_docx_pipeline import parse_docx_archive, write_extract_files
+from python_modules.render_table_data_findings_html import render_table_data_findings_html
 from python_modules.verify_table_words_in_mam_plus import verify_table_words_in_mam_plus
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -96,6 +97,7 @@ def main() -> None:
 
     summary = extract(docx_path=args.docx_path, output_dir=args.output_dir)
     table_json_path = args.output_dir / "table_data.json"
+    findings_html_path = args.output_dir / "table_data_findings.html"
     verify_report = verify_table_words_in_mam_plus(
         table_json_path=table_json_path,
         mam_parsed_path=args.mam_parsed_path,
@@ -109,6 +111,11 @@ def main() -> None:
     missing_expected = verify_summary["missing_expected_plus_count"]
     summary["mam_plus_verify"] = verify_summary
     persist_verify_summary(table_json_path=table_json_path, verify_report=verify_report)
+    render_table_data_findings_html(
+        table_json_path=table_json_path,
+        output_html_path=findings_html_path,
+    )
+    summary["findings_html_path"] = findings_html_path.as_posix()
 
     if missing_any or missing_expected:
         raise ValueError(

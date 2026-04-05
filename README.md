@@ -18,6 +18,18 @@ Run extraction with:
 python py/extract_docx.py
 ```
 
+This also generates:
+
+- `docs/table_data_findings.html` (finding-based HTML report with summary counts and filtering)
+- `docs/table_data_findings.css` (report styles)
+- `docs/table_data_findings.js` (report filtering behavior)
+
+To regenerate the HTML report from an existing JSON extract:
+
+```powershell
+python py/render_table_data_findings_html.py
+```
+
 The extractor performs MPP verification as a mandatory part of extraction.
 There is no separate standalone verifier command.
 
@@ -25,6 +37,7 @@ Default extraction behavior includes:
 
 - Post-extraction verification against `../MAM-parsed/plus/*.json`
 - Verification summary embedded in `docs/table_data.json` under `mam_plus_verify`
+- Finding-filterable report generated at `docs/table_data_findings.html` with external `docs/table_data_findings.css` and `docs/table_data_findings.js`
 - Fail-fast error if verification finds missing matches
 
 ## Verification Module
