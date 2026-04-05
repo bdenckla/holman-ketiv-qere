@@ -10,6 +10,7 @@ from python_modules.json_io import load_json
 from python_modules.mpp_matching_template_args import (
     matching_template_arguments_in_mpp_verse_by_row_number,
 )
+from python_modules.table_data_external_links import verse_external_links
 
 PALETTE = [
     "#1f5f8b",
@@ -196,6 +197,7 @@ def _record_card_html(
 ) -> str:
     row_number = _as_text(row.get("row_number", ""))
     verse = _as_text(row.get("verse", ""))
+    verse_ref_html = _verse_ref_html(verse)
     word = _as_text(row.get("word", ""))
     finding = _as_text(row.get("finding", ""))
     finding_display = _finding_display_text(finding)
@@ -246,7 +248,7 @@ def _record_card_html(
     )
 
     return f"""<article class="record-card" data-finding-id="{finding_id}" data-filter-ids="{escape(filter_ids_attr)}">
-<div class="record-head"><span class="record-ref">#{escape(row_number)}</span><span class="record-verse">{escape(verse)}</span><span class="finding-badge cat-{finding_id}">{escape(finding_display)}</span></div>
+<div class="record-head"><span class="record-ref">#{escape(row_number)}</span><span class="record-verse">{verse_ref_html}</span><span class="finding-badge cat-{finding_id}">{escape(finding_display)}</span></div>
 <div class="record-grid"><div>
 <div class="note-line"><span class="label">MAM Word:</span><bdi class="pointed-heb">{escape(word)}</bdi></div>
 <div class="note-line"><span class="label">UXLC:</span><bdi class="pointed-heb">{escape(notes_uxlc)}</bdi></div>
@@ -288,6 +290,16 @@ def _image_paths_html(
     if not rendered:
         return f"<span class=\"label\">No {escape(label)} image</span>"
     return "".join(rendered)
+
+
+def _verse_ref_html(verse: str) -> str:
+    links = verse_external_links(verse)
+    return (
+        f"{escape(verse)} "
+        f'<a href="{escape(links.mgketer_url)}" target="_blank" rel="noopener">mgketer</a>'
+        f' <a href="{escape(links.mwd_url)}" target="_blank" rel="noopener">MwD</a>'
+        f' <a href="{escape(links.mam_ws_url)}" target="_blank" rel="noopener">MAM-ws</a>'
+    )
 
 
 def _as_text(value: object) -> str:

@@ -16,14 +16,14 @@ class RenderTableDataFindingsHtmlTests(unittest.TestCase):
                 "rows": [
                     {
                         "row_number": 1,
-                        "verse": "Josh 1:1",
+                        "verse": "Joshua 1:1.1",
                         "word": "א",
                         "finding": "Finding A",
                         "notes-UXLC": "א",
                     },
                     {
                         "row_number": 2,
-                        "verse": "Josh 1:2",
+                        "verse": "1Samuel 2:9.2",
                         "word": "ב",
                         "finding": "Finding B",
                         "notes-UXLC": "ב",
@@ -77,6 +77,14 @@ class RenderTableDataFindingsHtmlTests(unittest.TestCase):
         )
         self.assertIn(
             '<article class="record-card" data-finding-id="f01" data-filter-ids="f01">',
+            html,
+        )
+        self.assertIn(
+            'Joshua 1:1.1 <a href="https://www.mgketer.org/mikra/6/1/1/mg/106" target="_blank" rel="noopener">mgketer</a> <a href="https://bdenckla.github.io/MAM-with-doc/B1-Joshua.html#c1v1" target="_blank" rel="noopener">MwD</a> <a href="https://he.wikisource.org/wiki/%D7%99%D7%94%D7%95%D7%A9%D7%A2_%D7%90/%D7%98%D7%A2%D7%9E%D7%99%D7%9D" target="_blank" rel="noopener">MAM-ws</a>',
+            html,
+        )
+        self.assertIn(
+            '1Samuel 2:9.2 <a href="https://www.mgketer.org/mikra/8/2/1/mg/106" target="_blank" rel="noopener">mgketer</a> <a href="https://bdenckla.github.io/MAM-with-doc/BA-1Samuel.html#c2v9" target="_blank" rel="noopener">MwD</a> <a href="https://he.wikisource.org/wiki/%D7%A9%D7%9E%D7%95%D7%90%D7%9C%20%D7%90_%D7%91/%D7%98%D7%A2%D7%9E%D7%99%D7%9D" target="_blank" rel="noopener">MAM-ws</a>',
             html,
         )
         self.assertIn(".filter-btn[data-filter-id]", js)

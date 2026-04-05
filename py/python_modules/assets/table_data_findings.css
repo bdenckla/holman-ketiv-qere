@@ -36,6 +36,8 @@ p { margin: .3rem 0; }
 .record-head { display: flex; gap: .4rem; align-items: baseline; flex-wrap: wrap; }
 .record-ref { font-weight: 600; }
 .record-verse { color: var(--muted); }
+.record-verse a { color: inherit; }
+.record-verse a:hover { color: var(--accent); }
 .finding-badge { color: #fff; border-radius: 999px; padding: .12rem .55rem; font-size: .72rem; }
 .record-grid { display: grid; grid-template-columns: 1.15fr 1fr; gap: .6rem; margin-top: .45rem; }
 .pointed-heb {
