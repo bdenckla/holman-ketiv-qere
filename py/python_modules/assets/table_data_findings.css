@@ -48,10 +48,9 @@ p { margin: .3rem 0; }
 .label { color: var(--muted); margin-right: .25rem; }
 .image-panel { border: 1px solid var(--border); border-radius: 6px; background: var(--img-bg); padding: .4rem; }
 .image-strip { display: flex; gap: .35rem; flex-wrap: wrap; margin-top: .3rem; }
-.image-thumb { display: block; width: 140px; max-width: 100%; border: 1px solid #cfc7ba; border-radius: 4px; background: #fff; }
+.image-thumb { display: block; max-width: 100%; border: 1px solid #cfc7ba; border-radius: 4px; background: #fff; }
 .image-caption { font-size: .78rem; color: var(--muted); text-transform: uppercase; }
 @media (max-width: 850px) {
   .record-grid { grid-template-columns: 1fr; }
-  .image-thumb { width: 120px; }
 }
 /* __FINDING_COLORS__ */

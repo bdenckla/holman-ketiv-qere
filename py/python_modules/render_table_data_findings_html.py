@@ -29,6 +29,15 @@ FINDING_INVARIANT_SUFFIX = " | L - Qere"
 FINDING_DISPLAY_MAP = {
     "A and L - Qere": "A - Qere note",
 }
+# Per-image display-size tweaks measured against each image's native width.
+# Key format: (row_number, witness, image_index_1_based)
+IMAGE_NATIVE_SCALE_TWEAKS: dict[tuple[str, str, int], float] = {
+    ("4", "aleppo", 1): 0.5,
+    ("5", "aleppo", 1): 0.5,
+    ("6", "aleppo", 1): 0.5,
+    ("7", "aleppo", 1): 0.5,
+    ("74", "aleppo", 1): 0.5,
+}
 
 
 def render_table_data_findings_html(table_json_path: Path, output_html_path: Path) -> Path:
@@ -172,8 +181,22 @@ def _record_card_html(row: dict[str, Any], finding_id: str, output_html_path: Pa
     haketer_html = "" if notes_haketer is None else (
         f"<div class=\"note-line\"><span class=\"label\">HaKeter:</span><bdi class=\"pointed-heb\">{escape(notes_haketer)}</bdi></div>"
     )
-    aleppo = _image_paths_html(images.get("aleppo"), "Aleppo", output_html_path, repo_root)
-    leningrad = _image_paths_html(images.get("leningrad"), "Leningrad", output_html_path, repo_root)
+    aleppo = _image_paths_html(
+        image_paths=images.get("aleppo"),
+        witness="aleppo",
+        label="Aleppo",
+        row_number=row_number,
+        output_html_path=output_html_path,
+        repo_root=repo_root,
+    )
+    leningrad = _image_paths_html(
+        image_paths=images.get("leningrad"),
+        witness="leningrad",
+        label="Leningrad",
+        row_number=row_number,
+        output_html_path=output_html_path,
+        repo_root=repo_root,
+    )
 
     return f"""<article class="record-card" data-finding-id="{finding_id}">
 <div class="record-head"><span class="record-ref">#{escape(row_number)}</span><span class="record-verse">{escape(verse)}</span><span class="finding-badge cat-{finding_id}">{escape(finding_display)}</span></div>
@@ -187,7 +210,14 @@ def _record_card_html(row: dict[str, Any], finding_id: str, output_html_path: Pa
 </div></div></article>"""
 
 
-def _image_paths_html(image_paths: object, label: str, output_html_path: Path, repo_root: Path) -> str:
+def _image_paths_html(
+    image_paths: object,
+    witness: str,
+    label: str,
+    row_number: str,
+    output_html_path: Path,
+    repo_root: Path,
+) -> str:
     if not isinstance(image_paths, list):
         return f"<span class=\"label\">No {escape(label)} image</span>"
 
@@ -199,9 +229,13 @@ def _image_paths_html(image_paths: object, label: str, output_html_path: Path, r
         absolute_asset = (repo_root / path_obj.replace("\\", "/")).resolve()
         rel_asset = os.path.relpath(absolute_asset, output_dir).replace("\\", "/")
         rel_asset_html = escape(rel_asset)
+        native_scale = IMAGE_NATIVE_SCALE_TWEAKS.get((row_number, witness, index))
+        native_scale_attr = ""
+        if native_scale is not None:
+            native_scale_attr = f' data-native-scale="{native_scale:g}"'
         rendered.append(
             f"<a href=\"{rel_asset_html}\" target=\"_blank\" rel=\"noopener\">"
-            f"<img class=\"image-thumb\" src=\"{rel_asset_html}\" alt=\"{escape(label)} image {index}\"></a>"
+            f"<img class=\"image-thumb\" src=\"{rel_asset_html}\" alt=\"{escape(label)} image {index}\"{native_scale_attr}></a>"
         )
 
     if not rendered:

@@ -6,6 +6,31 @@
   const visibleCountEl = document.getElementById('visible-count');
   const showAllBtn = document.getElementById('show-all-btn');
 
+  function applyNativeScaleTweaks() {
+    const images = Array.from(document.querySelectorAll('img.image-thumb[data-native-scale]'));
+
+    for (const image of images) {
+      const scale = Number(image.dataset.nativeScale);
+      if (!Number.isFinite(scale) || scale <= 0) {
+        continue;
+      }
+
+      const applyScale = () => {
+        if (!image.naturalWidth) {
+          return;
+        }
+        const widthPx = Math.max(1, Math.round(image.naturalWidth * scale));
+        image.style.width = `${widthPx}px`;
+      };
+
+      if (image.complete) {
+        applyScale();
+      } else {
+        image.addEventListener('load', applyScale, { once: true });
+      }
+    }
+  }
+
   function updateVisibility() {
     let visibleCount = 0;
     for (const card of cards) {
@@ -50,5 +75,6 @@
     });
   }
 
+  applyNativeScaleTweaks();
   updateVisibility();
 })();
