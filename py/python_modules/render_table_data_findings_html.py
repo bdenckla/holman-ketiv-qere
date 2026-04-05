@@ -7,6 +7,9 @@ from pathlib import Path
 from typing import Any
 
 from python_modules.json_io import load_json
+from python_modules.mpp_matching_nusach_targets import (
+    matching_nusach_targets_in_mpp_verse_by_row_number,
+)
 
 PALETTE = [
     "#1f5f8b",
@@ -55,6 +58,10 @@ def render_table_data_findings_html(table_json_path: Path, output_html_path: Pat
     if len(rows) != len(rows_obj):
         raise ValueError("table_data.json table.rows must contain only objects")
 
+    matching_nusach_targets_by_row_number = matching_nusach_targets_in_mpp_verse_by_row_number(
+        payload
+    )
+
     total_count = len(rows)
     source_document = _as_text(payload.get("source_document", ""))
     finding_counts = Counter(_as_text(row.get("finding", "")) for row in rows)
@@ -83,6 +90,7 @@ def render_table_data_findings_html(table_json_path: Path, output_html_path: Pat
             finding_id=finding_ids[_as_text(row.get("finding", ""))],
             output_html_path=output_html_path,
             repo_root=table_json_path.parent.parent,
+            matching_nusach_targets_by_row_number=matching_nusach_targets_by_row_number,
         )
         for row in rows
     )
@@ -163,7 +171,13 @@ def _filter_button_html(finding: str, count: int, finding_id: str) -> str:
     )
 
 
-def _record_card_html(row: dict[str, Any], finding_id: str, output_html_path: Path, repo_root: Path) -> str:
+def _record_card_html(
+    row: dict[str, Any],
+    finding_id: str,
+    output_html_path: Path,
+    repo_root: Path,
+    matching_nusach_targets_by_row_number: dict[str, list[str]],
+) -> str:
     row_number = _as_text(row.get("row_number", ""))
     verse = _as_text(row.get("verse", ""))
     word = _as_text(row.get("word", ""))
@@ -174,12 +188,19 @@ def _record_card_html(row: dict[str, Any], finding_id: str, output_html_path: Pa
     notes_haketer = _as_optional_text(row.get("notes-HaKeter"))
     raw_images = row.get("image_files")
     images: dict[str, object] = raw_images if isinstance(raw_images, dict) else {}
+    matching_nusach_targets_in_mpp_verse = matching_nusach_targets_by_row_number.get(
+        row_number, []
+    )
 
     yatir_html = "" if notes_uxlc_yatir is None else (
         f"<div class=\"note-line\"><span class=\"label\">UXLC yatir:</span><bdi class=\"pointed-heb\">{escape(notes_uxlc_yatir)}</bdi></div>"
     )
     haketer_html = "" if notes_haketer is None else (
         f"<div class=\"note-line\"><span class=\"label\">HaKeter:</span><bdi class=\"pointed-heb\">{escape(notes_haketer)}</bdi></div>"
+    )
+    mpp_matching_nusach_html = "".join(
+        f"<div class=\"note-line\"><span class=\"label\">MPP matching נוסח:</span><bdi class=\"pointed-heb\">{escape(target)}</bdi></div>"
+        for target in matching_nusach_targets_in_mpp_verse
     )
     aleppo = _image_paths_html(
         image_paths=images.get("aleppo"),
@@ -203,7 +224,7 @@ def _record_card_html(row: dict[str, Any], finding_id: str, output_html_path: Pa
 <div class="record-grid"><div>
 <div class="note-line"><span class="label">MAM Word:</span><bdi class="pointed-heb">{escape(word)}</bdi></div>
 <div class="note-line"><span class="label">UXLC:</span><bdi class="pointed-heb">{escape(notes_uxlc)}</bdi></div>
-{yatir_html}{haketer_html}
+{yatir_html}{haketer_html}{mpp_matching_nusach_html}
 </div><div>
 <div class="image-panel"><div class="image-caption">Aleppo</div><div class="image-strip">{aleppo}</div></div>
 <div class="image-panel" style="margin-top:.45rem;"><div class="image-caption">Leningrad</div><div class="image-strip">{leningrad}</div></div>
