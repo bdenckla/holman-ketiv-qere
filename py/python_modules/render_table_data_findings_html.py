@@ -25,6 +25,10 @@ ASSETS_DIR = Path(__file__).resolve().parent / "assets"
 CSS_TEMPLATE_PATH = ASSETS_DIR / "table_data_findings.css"
 JS_TEMPLATE_PATH = ASSETS_DIR / "table_data_findings.js"
 CSS_COLOR_PLACEHOLDER = "/* __FINDING_COLORS__ */"
+FINDING_INVARIANT_SUFFIX = " | L - Qere"
+FINDING_DISPLAY_MAP = {
+    "A and L - Qere": "A - Qere note",
+}
 
 
 def render_table_data_findings_html(table_json_path: Path, output_html_path: Path) -> Path:
@@ -134,17 +138,19 @@ def _write_report_assets(
 
 
 def _summary_row_html(finding: str, count: int, finding_id: str) -> str:
+    finding_display = _finding_display_text(finding)
     return (
         f"<tr data-finding-id=\"{finding_id}\">"
-        f"<td><span class=\"cat-swatch cat-{finding_id}\"></span>{escape(finding)}</td>"
+        f"<td><span class=\"cat-swatch cat-{finding_id}\"></span>{escape(finding_display)}</td>"
         f"<td>{count}</td></tr>"
     )
 
 
 def _filter_button_html(finding: str, count: int, finding_id: str) -> str:
+    finding_display = _finding_display_text(finding)
     return (
         f"<button type=\"button\" class=\"filter-btn\" data-finding-id=\"{finding_id}\">"
-        f"{escape(finding)} ({count})</button>"
+        f"{escape(finding_display)} ({count})</button>"
     )
 
 
@@ -153,6 +159,7 @@ def _record_card_html(row: dict[str, Any], finding_id: str, output_html_path: Pa
     verse = _as_text(row.get("verse", ""))
     word = _as_text(row.get("word", ""))
     finding = _as_text(row.get("finding", ""))
+    finding_display = _finding_display_text(finding)
     notes_uxlc = _as_text(row.get("notes-UXLC", ""))
     notes_uxlc_yatir = _as_optional_text(row.get("notes-UXLC-yatir"))
     notes_haketer = _as_optional_text(row.get("notes-HaKeter"))
@@ -160,19 +167,19 @@ def _record_card_html(row: dict[str, Any], finding_id: str, output_html_path: Pa
     images: dict[str, object] = raw_images if isinstance(raw_images, dict) else {}
 
     yatir_html = "" if notes_uxlc_yatir is None else (
-        f"<div class=\"note-line\"><span class=\"label\">UXLC yatir:</span>{escape(notes_uxlc_yatir)}</div>"
+        f"<div class=\"note-line\"><span class=\"label\">UXLC yatir:</span><bdi class=\"pointed-heb\">{escape(notes_uxlc_yatir)}</bdi></div>"
     )
     haketer_html = "" if notes_haketer is None else (
-        f"<div class=\"note-line\"><span class=\"label\">HaKeter:</span>{escape(notes_haketer)}</div>"
+        f"<div class=\"note-line\"><span class=\"label\">HaKeter:</span><bdi class=\"pointed-heb\">{escape(notes_haketer)}</bdi></div>"
     )
     aleppo = _image_paths_html(images.get("aleppo"), "Aleppo", output_html_path, repo_root)
     leningrad = _image_paths_html(images.get("leningrad"), "Leningrad", output_html_path, repo_root)
 
     return f"""<article class="record-card" data-finding-id="{finding_id}">
-<div class="record-head"><span class="record-ref">#{escape(row_number)}</span><span class="record-verse">{escape(verse)}</span><span class="finding-badge cat-{finding_id}">{escape(finding)}</span></div>
+<div class="record-head"><span class="record-ref">#{escape(row_number)}</span><span class="record-verse">{escape(verse)}</span><span class="finding-badge cat-{finding_id}">{escape(finding_display)}</span></div>
 <div class="record-grid"><div>
-<div class="note-line"><span class="label">Word:</span></div><div class="hebrew-word">{escape(word)}</div>
-<div class="note-line"><span class="label">UXLC:</span>{escape(notes_uxlc)}</div>
+<div class="note-line"><span class="label">MAM Word:</span></div><div class="hebrew-word pointed-heb">{escape(word)}</div>
+<div class="note-line"><span class="label">UXLC:</span><bdi class="pointed-heb">{escape(notes_uxlc)}</bdi></div>
 {yatir_html}{haketer_html}
 </div><div>
 <div class="image-panel"><div class="image-caption">Aleppo</div><div class="image-strip">{aleppo}</div></div>
@@ -204,6 +211,12 @@ def _image_paths_html(image_paths: object, label: str, output_html_path: Path, r
 
 def _as_text(value: object) -> str:
     return "" if value is None else str(value)
+
+
+def _finding_display_text(finding: str) -> str:
+    if finding.endswith(FINDING_INVARIANT_SUFFIX):
+        finding = finding[: -len(FINDING_INVARIANT_SUFFIX)]
+    return FINDING_DISPLAY_MAP.get(finding, finding)
 
 
 def _as_optional_text(value: object) -> str | None:
