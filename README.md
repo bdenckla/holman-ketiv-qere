@@ -47,3 +47,24 @@ Verification logic lives in:
 - `py/python_modules/verify_table_words_in_mam_plus.py`
 
 This module is import-only and is called by the extractor.
+
+## Search Scripts
+
+Tracked phenomenon-search scripts live under `py/` when they are useful to
+reuse or adapt.
+
+Current example:
+
+- `py/search_holam_he_qere.py`
+
+This script traverses MPP qere readings directly, reports which hits come from
+the first argument of `קו"כ-אם`, and compares the vowel-only-form hit set against
+`../MAM-basics/out/mam-qere-words.json` as a sanity check.
+
+Run it from the repo root with:
+
+```powershell
+python py/search_holam_he_qere.py
+```
+
+It writes its report to `.novc/holam_he_qere_report.json`.
