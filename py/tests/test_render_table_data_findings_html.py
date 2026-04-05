@@ -9,6 +9,48 @@ from python_modules.render_table_data_findings_html import render_table_data_fin
 
 
 class RenderTableDataFindingsHtmlTests(unittest.TestCase):
+    def test_renders_yatir_note_without_hebrew_styling_for_latin_text(self) -> None:
+        payload = {
+            "source_document": "sample.docx",
+            "table": {
+                "rows": [
+                    {
+                        "row_number": 1,
+                        "verse": "Joshua 1:1.1",
+                        "word": "א",
+                        "finding": "Finding A",
+                        "notes-UXLC": "א",
+                        "notes-UXLC-yatir": "yatir aleph",
+                    }
+                ]
+            },
+            "mam_plus_rows_matching_mpp_verse_template_arg": [],
+        }
+
+        with TemporaryDirectory() as tmp_dir:
+            tmp_path = Path(tmp_dir)
+            docs_dir = tmp_path / "docs"
+            docs_dir.mkdir(parents=True, exist_ok=True)
+            table_json_path = docs_dir / "table_data.json"
+            output_html_path = docs_dir / "table_data_findings.html"
+
+            table_json_path.write_text(
+                json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8"
+            )
+
+            render_table_data_findings_html(
+                table_json_path=table_json_path,
+                output_html_path=output_html_path,
+            )
+
+            html = output_html_path.read_text(encoding="utf-8")
+
+        self.assertIn(
+            '<div class="note-line"><span class="label">UXLC yatir:</span> <span>aleph</span></div>',
+            html,
+        )
+        self.assertNotIn('UXLC yatir:</span><bdi class="pointed-heb">yatir aleph</bdi>', html)
+
     def test_renders_non_exclusive_mpp_template_filter(self) -> None:
         payload = {
             "source_document": "sample.docx",

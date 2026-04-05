@@ -44,6 +44,7 @@ IMAGE_NATIVE_SCALE_TWEAKS: dict[tuple[str, str, int], float] = {
     ("7", "aleppo", 1): 0.5,
     ("74", "aleppo", 1): 0.5,
 }
+HEBREW_CHAR_RANGES = (("\u0590", "\u05FF"), ("\uFB1D", "\uFB4F"))
 
 
 def render_table_data_findings_html(table_json_path: Path, output_html_path: Path) -> Path:
@@ -214,8 +215,10 @@ def _record_card_html(
         filter_ids.append(MPP_TEMPLATE_FILTER_ID)
     filter_ids_attr = " ".join(filter_ids)
 
-    yatir_html = "" if notes_uxlc_yatir is None else (
-        f"<div class=\"note-line\"><span class=\"label\">UXLC yatir:</span><bdi class=\"pointed-heb\">{escape(notes_uxlc_yatir)}</bdi></div>"
+    yatir_html = "" if notes_uxlc_yatir is None else _note_line_html(
+        label="UXLC yatir:",
+        value=notes_uxlc_yatir,
+        strip_prefix="yatir ",
     )
     haketer_html = "" if notes_haketer is None else (
         f"<div class=\"note-line\"><span class=\"label\">HaKeter:</span><bdi class=\"pointed-heb\">{escape(notes_haketer)}</bdi></div>"
@@ -300,6 +303,23 @@ def _verse_ref_html(verse: str) -> str:
         f' <a href="{escape(links.mwd_url)}" target="_blank" rel="noopener">MwD</a>'
         f' <a href="{escape(links.mam_ws_url)}" target="_blank" rel="noopener">MAM-ws</a>'
     )
+
+
+def _note_line_html(label: str, value: str, strip_prefix: str | None = None) -> str:
+    display_value = value.strip()
+    if strip_prefix is not None and display_value.startswith(strip_prefix):
+        display_value = display_value[len(strip_prefix) :].lstrip()
+
+    if _contains_hebrew_char(display_value):
+        value_html = f'<bdi class="pointed-heb">{escape(display_value)}</bdi>'
+    else:
+        value_html = f'<span>{escape(display_value)}</span>'
+
+    return f'<div class="note-line"><span class="label">{escape(label)}</span> {value_html}</div>'
+
+
+def _contains_hebrew_char(text: str) -> bool:
+    return any(start <= char <= end for char in text for start, end in HEBREW_CHAR_RANGES)
 
 
 def _as_text(value: object) -> str:
