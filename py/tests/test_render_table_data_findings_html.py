@@ -114,11 +114,11 @@ class RenderTableDataFindingsHtmlTests(unittest.TestCase):
             html,
         )
         self.assertIn(
-            '<article class="record-card" data-finding-id="f00" data-filter-ids="f00 has-mpp-template">',
+            '<article id="row01" class="record-card" data-finding-id="f00" data-filter-ids="f00 has-mpp-template">',
             html,
         )
         self.assertIn(
-            '<article class="record-card" data-finding-id="f01" data-filter-ids="f01">',
+            '<article id="row02" class="record-card" data-finding-id="f01" data-filter-ids="f01">',
             html,
         )
         self.assertIn(

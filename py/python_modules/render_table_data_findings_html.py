@@ -197,6 +197,7 @@ def _record_card_html(
     matching_template_arguments_by_row_number: dict[str, list[dict[str, str]]],
 ) -> str:
     row_number = _as_text(row.get("row_number", ""))
+    row_fragment_id = _row_fragment_id(row_number)
     verse = _as_text(row.get("verse", ""))
     verse_ref_html = _verse_ref_html(verse)
     word = _as_text(row.get("word", ""))
@@ -250,7 +251,7 @@ def _record_card_html(
         repo_root=repo_root,
     )
 
-    return f"""<article class="record-card" data-finding-id="{finding_id}" data-filter-ids="{escape(filter_ids_attr)}">
+    return f"""<article id="{row_fragment_id}" class="record-card" data-finding-id="{finding_id}" data-filter-ids="{escape(filter_ids_attr)}">
 <div class="record-head"><span class="record-ref">#{escape(row_number)}</span><span class="record-verse">{verse_ref_html}</span><span class="finding-badge cat-{finding_id}">{escape(finding_display)}</span></div>
 <div class="record-grid"><div>
 <div class="note-line"><span class="label">MAM Word:</span><bdi class="pointed-heb">{escape(word)}</bdi></div>
@@ -320,6 +321,10 @@ def _note_line_html(label: str, value: str, strip_prefix: str | None = None) -> 
 
 def _contains_hebrew_char(text: str) -> bool:
     return any(start <= char <= end for char in text for start, end in HEBREW_CHAR_RANGES)
+
+
+def _row_fragment_id(row_number: str) -> str:
+    return f"row{int(row_number):02d}"
 
 
 def _as_text(value: object) -> str:
