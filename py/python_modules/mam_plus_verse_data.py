@@ -142,6 +142,55 @@ def verse_nusach_targets_by_location(
     return out
 
 
+def _collect_template_argument_records(
+    node: object,
+    out_records: list[dict[str, str]],
+) -> None:
+    if isinstance(node, list):
+        for item in node:
+            _collect_template_argument_records(item, out_records)
+        return
+
+    if isinstance(node, dict):
+        tmpl_name = node.get("tmpl_name")
+        tmpl_params = node.get("tmpl_params")
+        if isinstance(tmpl_name, str) and isinstance(tmpl_params, dict):
+            for key, value in tmpl_params.items():
+                argument_key = str(key)
+                # In plus JSON, נוסח param 2 is documentation, not verse text.
+                if tmpl_name == "נוסח" and argument_key == "2":
+                    continue
+
+                argument_text = _render_template_like_text(value).strip()
+                if argument_text:
+                    out_records.append(
+                        {
+                            "template_name": tmpl_name,
+                            "argument_key": argument_key,
+                            "argument_text": argument_text,
+                        }
+                    )
+
+                _collect_template_argument_records(value, out_records)
+            return
+
+        for value in node.values():
+            _collect_template_argument_records(value, out_records)
+
+
+def verse_template_argument_records_by_location(
+    plus_json: object,
+) -> dict[tuple[int, int, int], list[dict[str, str]]]:
+    out: dict[tuple[int, int, int], list[dict[str, str]]] = {}
+    for book39_index, chapter_num, verse_num, verse_payload in _iter_plus_verse_payloads(
+        plus_json
+    ):
+        records: list[dict[str, str]] = []
+        _collect_template_argument_records(verse_payload, records)
+        out[(book39_index, chapter_num, verse_num)] = records
+    return out
+
+
 def verse_texts_by_location(
     plus_json: object,
 ) -> dict[tuple[int, int, int], str]:

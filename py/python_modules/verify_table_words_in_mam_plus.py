@@ -1,12 +1,13 @@
 from __future__ import annotations
 
+from functools import lru_cache
 from pathlib import Path
 import re
 
 from pycmn import bib_locales
 from python_modules.json_io import load_json
 from python_modules.mam_plus_verse_data import (
-    verse_nusach_targets_by_location,
+    verse_template_argument_records_by_location,
     verse_texts_by_location,
 )
 
@@ -16,6 +17,32 @@ EXPECTED_ROW_COUNT = 77
 VERSE_PATTERN = re.compile(
     r"^(?P<book_abbreviation>.*) (?P<chapter>\d+):(?P<verse>\d+)\.(?P<segment>\d+)$"
 )
+# Hebrew token chars: letters + pointing/cantillation marks (exclude punctuation like maqaf/sof-pasuq).
+HEBREW_CHAR_CLASS = (
+    "\u0591-\u05BD"
+    "\u05BF"
+    "\u05C1-\u05C2"
+    "\u05C4-\u05C5"
+    "\u05C7"
+    "\u05D0-\u05EA"
+    "\u05F0-\u05F2"
+    "\uFB1D-\uFB4F"
+)
+
+
+@lru_cache(maxsize=1024)
+def _word_boundary_pattern(word: str) -> re.Pattern[str]:
+    return re.compile(
+        rf"(?<![{HEBREW_CHAR_CLASS}]){re.escape(word)}(?![{HEBREW_CHAR_CLASS}])"
+    )
+
+
+def contains_word_as_hebrew_token(text: str, word: str) -> bool:
+    if not word:
+        return False
+    return _word_boundary_pattern(word).search(text) is not None
+
+
 def parse_table_verse(verse: str) -> tuple[str, int, int]:
     match = VERSE_PATTERN.fullmatch(verse)
     if match is None:
@@ -97,12 +124,12 @@ def verify_table_words_in_mam_plus(
         raise ValueError(f"no plus JSON files found at: {plus_dir}")
 
     plus_verse_texts_by_name = {}
-    plus_verse_nusach_targets_by_name = {}
+    plus_verse_template_args_by_name = {}
     for path in plus_files:
         plus_json = load_json(path)
         plus_verse_texts_by_name[path.name] = verse_texts_by_location(plus_json)
-        plus_verse_nusach_targets_by_name[path.name] = verse_nusach_targets_by_location(
-            plus_json
+        plus_verse_template_args_by_name[path.name] = (
+            verse_template_argument_records_by_location(plus_json)
         )
     plus_search_text_by_name = {
         file_name: "\n".join(verse_texts.values())
@@ -112,7 +139,7 @@ def verify_table_words_in_mam_plus(
     row_reports: list[dict[str, object]] = []
     missing_any: list[dict[str, object]] = []
     missing_mpp_verse_text: list[dict[str, object]] = []
-    mpp_verse_nusach_target_rows: list[dict[str, object]] = []
+    mpp_verse_template_arg_rows: list[dict[str, object]] = []
 
     for row in rows:
         if not isinstance(row, dict):
@@ -159,22 +186,24 @@ def verify_table_words_in_mam_plus(
                 f"chapter={chapter_num}, verse={verse_num}, row={row_number}"
             )
 
-        expected_verse_nusach_targets = plus_verse_nusach_targets_by_name[expected_file].get(
+        expected_verse_template_args = plus_verse_template_args_by_name[expected_file].get(
             (expected_book39_index, chapter_num, verse_num)
         )
-        if expected_verse_nusach_targets is None:
+        if expected_verse_template_args is None:
             raise ValueError(
-                "expected verse missing נוסח targets in plus data: "
+                "expected verse missing template arguments in plus data: "
                 f"file={expected_file}, book39_index={expected_book39_index}, "
                 f"chapter={chapter_num}, verse={verse_num}, row={row_number}"
             )
 
         found_in_any = len(hit_files) > 0
         found_in_expected = word in expected_verse_text
-        matching_nusach_targets = [
-            target for target in expected_verse_nusach_targets if word in target
+        matching_template_args = [
+            arg
+            for arg in expected_verse_template_args
+            if contains_word_as_hebrew_token(arg["argument_text"], word)
         ]
-        found_in_mpp_verse_nusach_target = len(matching_nusach_targets) > 0
+        found_in_mpp_verse_template_arg = len(matching_template_args) > 0
 
         report_row = {
             "row_number": row_number,
@@ -183,9 +212,9 @@ def verify_table_words_in_mam_plus(
             "mpp_file_for_verse": expected_file,
             "found_in_any_plus_file": found_in_any,
             "found_in_mpp_verse_text": found_in_expected,
-            "nusach_targets_in_mpp_verse": expected_verse_nusach_targets,
-            "found_in_mpp_verse_nusach_target": found_in_mpp_verse_nusach_target,
-            "matching_nusach_targets_in_mpp_verse": matching_nusach_targets,
+            "template_args_in_mpp_verse": expected_verse_template_args,
+            "found_in_mpp_verse_template_arg": found_in_mpp_verse_template_arg,
+            "matching_template_args_in_mpp_verse": matching_template_args,
             "hit_files": hit_files,
         }
         row_reports.append(report_row)
@@ -194,15 +223,15 @@ def verify_table_words_in_mam_plus(
             missing_any.append(report_row)
         if not found_in_expected:
             missing_mpp_verse_text.append(report_row)
-        if found_in_mpp_verse_nusach_target:
-            mpp_verse_nusach_target_rows.append(report_row)
+        if found_in_mpp_verse_template_arg:
+            mpp_verse_template_arg_rows.append(report_row)
 
     summary = {
         "row_count": len(rows),
         "unique_word_count": len({row["word"] for row in rows if isinstance(row, dict) and "word" in row}),
         "missing_any_plus_count": len(missing_any),
         "missing_mpp_verse_text_count": len(missing_mpp_verse_text),
-        "rows_matching_mpp_verse_nusach_target_count": len(mpp_verse_nusach_target_rows),
+        "rows_matching_mpp_verse_template_arg_count": len(mpp_verse_template_arg_rows),
     }
 
     return {
@@ -210,5 +239,5 @@ def verify_table_words_in_mam_plus(
         "rows": row_reports,
         "missing_any_plus": missing_any,
         "missing_mpp_verse_text_rows": missing_mpp_verse_text,
-        "rows_matching_mpp_verse_nusach_target": mpp_verse_nusach_target_rows,
+        "rows_matching_mpp_verse_template_arg": mpp_verse_template_arg_rows,
     }

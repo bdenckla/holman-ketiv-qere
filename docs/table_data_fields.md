@@ -35,13 +35,13 @@ It distinguishes between:
 - Source: `py/python_modules/verify_table_words_in_mam_plus.py`
 - Current data observation: all `77` rows are found in their mapped MPP verse text
 
-### `mam_plus_rows_matching_mpp_verse_nusach_target`
+### `mam_plus_rows_matching_mpp_verse_template_arg`
 
 - Type: array of objects
-- Meaning: rows whose `word` appears inside at least one נוסח template first argument in the mapped MPP verse
-- Source: post-extraction verification scan of נוסח template targets
-- Current data observation: `3` rows
-- Row payload note: each row includes `nusach_targets_in_mpp_verse`, which is the extracted נוסח target list for that MAM-plus verse, retained for traceable verification context.
+- Meaning: rows whose `word` appears as an exact token inside at least one template argument in the mapped MPP verse
+- Source: post-extraction verification scan of template arguments, with explicit exclusion of נוסח argument `2`
+- Current data observation: `7` rows
+- Row payload note: each row includes `template_args_in_mpp_verse`, an extracted list of template argument records for that MAM-plus verse (`template_name`, `argument_key`, `argument_text`) retained for traceable verification context.
 
 ## `table` object
 
@@ -228,4 +228,4 @@ It distinguishes between:
 - `aleppo` and `leningrad` text fields are dropped from `rows` after extractor assertions (`aleppo` must be empty; `leningrad` must be empty or a single `’` marker).
 - Aleppo/Leningrad screenshots or embedded figures remain under `image_files`.
 - `mam_plus_verify` summarizes post-extraction presence checks in plus verse text, excluding נוסח argument 2 documentation.
-- `mam_plus_rows_matching_mpp_verse_nusach_target` captures rows where the table `word` is also present in נוסח first-argument target text.
+- `mam_plus_rows_matching_mpp_verse_template_arg` captures rows where the table `word` appears as a whole token in any template argument text, excluding נוסח argument `2`.

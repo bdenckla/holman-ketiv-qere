@@ -61,12 +61,12 @@ def persist_verify_summary(table_json_path: Path, verify_report: dict[str, objec
     if not isinstance(verify_summary, dict):
         raise ValueError("verification summary is invalid")
 
-    doc_note_rows = verify_report.get("rows_matching_mpp_verse_nusach_target")
+    doc_note_rows = verify_report.get("rows_matching_mpp_verse_template_arg")
     if not isinstance(doc_note_rows, list):
-        raise ValueError("verification rows_matching_mpp_verse_nusach_target is invalid")
+        raise ValueError("verification rows_matching_mpp_verse_template_arg is invalid")
 
     table_data["mam_plus_verify"] = verify_summary
-    table_data["mam_plus_rows_matching_mpp_verse_nusach_target"] = doc_note_rows
+    table_data["mam_plus_rows_matching_mpp_verse_template_arg"] = doc_note_rows
     write_json(table_json_path, table_data)
 
 

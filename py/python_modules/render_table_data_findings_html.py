@@ -7,8 +7,8 @@ from pathlib import Path
 from typing import Any
 
 from python_modules.json_io import load_json
-from python_modules.mpp_matching_nusach_targets import (
-    matching_nusach_targets_in_mpp_verse_by_row_number,
+from python_modules.mpp_matching_template_args import (
+    matching_template_arguments_in_mpp_verse_by_row_number,
 )
 
 PALETTE = [
@@ -58,7 +58,7 @@ def render_table_data_findings_html(table_json_path: Path, output_html_path: Pat
     if len(rows) != len(rows_obj):
         raise ValueError("table_data.json table.rows must contain only objects")
 
-    matching_nusach_targets_by_row_number = matching_nusach_targets_in_mpp_verse_by_row_number(
+    matching_template_arguments_by_row_number = matching_template_arguments_in_mpp_verse_by_row_number(
         payload
     )
 
@@ -90,7 +90,7 @@ def render_table_data_findings_html(table_json_path: Path, output_html_path: Pat
             finding_id=finding_ids[_as_text(row.get("finding", ""))],
             output_html_path=output_html_path,
             repo_root=table_json_path.parent.parent,
-            matching_nusach_targets_by_row_number=matching_nusach_targets_by_row_number,
+            matching_template_arguments_by_row_number=matching_template_arguments_by_row_number,
         )
         for row in rows
     )
@@ -176,7 +176,7 @@ def _record_card_html(
     finding_id: str,
     output_html_path: Path,
     repo_root: Path,
-    matching_nusach_targets_by_row_number: dict[str, list[str]],
+    matching_template_arguments_by_row_number: dict[str, list[dict[str, str]]],
 ) -> str:
     row_number = _as_text(row.get("row_number", ""))
     verse = _as_text(row.get("verse", ""))
@@ -188,7 +188,7 @@ def _record_card_html(
     notes_haketer = _as_optional_text(row.get("notes-HaKeter"))
     raw_images = row.get("image_files")
     images: dict[str, object] = raw_images if isinstance(raw_images, dict) else {}
-    matching_nusach_targets_in_mpp_verse = matching_nusach_targets_by_row_number.get(
+    matching_template_args_in_mpp_verse = matching_template_arguments_by_row_number.get(
         row_number, []
     )
 
@@ -198,9 +198,15 @@ def _record_card_html(
     haketer_html = "" if notes_haketer is None else (
         f"<div class=\"note-line\"><span class=\"label\">HaKeter:</span><bdi class=\"pointed-heb\">{escape(notes_haketer)}</bdi></div>"
     )
-    mpp_matching_nusach_html = "".join(
-        f"<div class=\"note-line\"><span class=\"label\">MPP matching נוסח:</span><bdi class=\"pointed-heb\">{escape(target)}</bdi></div>"
-        for target in matching_nusach_targets_in_mpp_verse
+    mpp_matching_template_arg_html = "".join(
+        (
+            f"<div class=\"note-line\"><span class=\"label\">"
+            f"MPP matching template arg ({escape(_as_text(match.get('template_name')))}"
+            f"[{escape(_as_text(match.get('argument_key')))}]):"
+            f"</span><bdi class=\"pointed-heb\">"
+            f"{escape(_as_text(match.get('argument_text')))}</bdi></div>"
+        )
+        for match in matching_template_args_in_mpp_verse
     )
     aleppo = _image_paths_html(
         image_paths=images.get("aleppo"),
@@ -224,7 +230,7 @@ def _record_card_html(
 <div class="record-grid"><div>
 <div class="note-line"><span class="label">MAM Word:</span><bdi class="pointed-heb">{escape(word)}</bdi></div>
 <div class="note-line"><span class="label">UXLC:</span><bdi class="pointed-heb">{escape(notes_uxlc)}</bdi></div>
-{yatir_html}{haketer_html}{mpp_matching_nusach_html}
+{yatir_html}{haketer_html}{mpp_matching_template_arg_html}
 </div><div>
 <div class="image-panel"><div class="image-caption">Aleppo</div><div class="image-strip">{aleppo}</div></div>
 <div class="image-panel" style="margin-top:.45rem;"><div class="image-caption">Leningrad</div><div class="image-strip">{leningrad}</div></div>
