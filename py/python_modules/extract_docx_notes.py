@@ -39,13 +39,6 @@ NOTES_PREFIX = "MAM - No Comments | UXLC - "
 HAKETER_SEPARATOR = " | HaKeter - "
 UXLC_YATIR_PATTERN = re.compile(r"^(?P<uxlc>.*)\n\((?P<yatir>[^)]+)\)$", re.DOTALL)
 
-NOTES_TARGETED_FIXES_BY_ROW_NUMBER = {
-    37: {
-        "original": "MAM - No Comments | UXLC - מַה־לִּי־פֹה֙ מי־לי־",
-        "fixed": "MAM - No Comments | UXLC - מי־לי־ מַה־לִּי־",
-    },
-}
-
 ALLOWED_LENINGRAD_TEXT_VALUES = {"", "’"}
 
 
@@ -132,6 +125,21 @@ def notes_structured_signature(notes: str) -> tuple[str, str | None, str | None]
     )
 
 
+def fix_row_37_notes(notes: str) -> str:
+    expected_notes = "MAM - No Comments | UXLC - מַה־לִּי־פֹה֙ מי־לי־"
+    if notes != expected_notes:
+        return notes
+
+    fixed_notes = notes.replace("פֹה֙", "")
+    parts = fixed_notes.split(" ")
+    if len(parts) != 9:
+        raise ValueError(f"unexpected row 37 notes tokenization: {fixed_notes!r}")
+
+    # After stripping פֹה֙, the ketiv and qere land in reverse order.
+    parts[7], parts[8] = parts[8], parts[7]
+    return " ".join(parts)
+
+
 def apply_notes_fixes(row_data: dict[str, object]) -> None:
     current_notes = row_data.get("notes")
     if not isinstance(current_notes, str):
@@ -141,10 +149,10 @@ def apply_notes_fixes(row_data: dict[str, object]) -> None:
     targeted_fix_applied = False
 
     row_number = cast(int, row_data["row_number"])
-    fix = NOTES_TARGETED_FIXES_BY_ROW_NUMBER.get(row_number)
-    if fix is not None and fixed_notes == fix["original"]:
-        fixed_notes = fix["fixed"]
-        targeted_fix_applied = True
+    if row_number == 37:
+        updated_notes = fix_row_37_notes(fixed_notes)
+        targeted_fix_applied = updated_notes != fixed_notes
+        fixed_notes = updated_notes
 
     if fixed_notes == current_notes:
         return
