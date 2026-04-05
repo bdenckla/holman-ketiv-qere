@@ -12,6 +12,15 @@
         "/^Set-Location C:/Users/BenDe/GitRepos/holman-ketiv-qere; c:/Users/BenDe/GitRepos/holman-ketiv-qere/\\.venv/Scripts/python\\.exe py/extract_docx\\.py$/": {
             "approve": true,
             "matchCommandLine": true
-        }
+        },
+        "/^git config --get remote\\.origin\\.url$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "git rev-parse": true,
+        "git remote": true,
+        "c:/Users/BenDe/GitRepos/holman-ketiv-qere/.venv/Scripts/python.exe": true,
+        "git add": true,
+        "git commit": true
     }
 }
