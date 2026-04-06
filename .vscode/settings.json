@@ -21,6 +21,8 @@
         "git remote": true,
         "c:/Users/BenDe/GitRepos/holman-ketiv-qere/.venv/Scripts/python.exe": true,
         "git add": true,
-        "git commit": true
+        "git commit": true,
+        ".venv/Scripts/python.exe": true,
+        "..\\..\\holman-ketiv-qere\\.venv\\Scripts\\python.exe": true
     }
 }
