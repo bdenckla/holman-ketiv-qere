@@ -62,7 +62,7 @@ def _with_source(
     return {
         "template_name": template_name,
         "argument_key": argument_key,
-        "is_qoq_if_arg1": template_name == 'קו"כ-אם' and argument_key == "1",
+        "is_trivq_arg1": template_name == 'קו"כ-אם' and argument_key == "1",
         "parent_source": source,
     }
 
@@ -158,7 +158,7 @@ def flatten_sources(source: dict[str, object] | None) -> list[dict[str, object]]
             {
                 "template_name": current.get("template_name"),
                 "argument_key": current.get("argument_key"),
-                "is_qoq_if_arg1": bool(current.get("is_qoq_if_arg1")),
+                "is_trivq_arg1": bool(current.get("is_trivq_arg1")),
             }
         )
         current = current.get("parent_source")

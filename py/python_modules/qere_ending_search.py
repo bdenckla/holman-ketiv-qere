@@ -73,8 +73,8 @@ def load_mpp_hits_for_spec(
                         and isinstance(item.get("argument_key"), str)
                     }
                 )
-                is_qoq_if_arg1 = any(
-                    bool(item.get("is_qoq_if_arg1"))
+                is_trivq_arg1 = any(
+                    bool(item.get("is_trivq_arg1"))
                     for item in sources
                     if isinstance(item, dict)
                 )
@@ -89,7 +89,7 @@ def load_mpp_hits_for_spec(
                         "verse": verse_info["verse"],
                         "word": word,
                         "vowel_only_form": to_vowel_only_form(word),
-                        "is_qoq_if_arg1": is_qoq_if_arg1,
+                        "is_trivq_arg1": is_trivq_arg1,
                         "source_templates": source_templates,
                         "source_argument_keys": source_argument_keys,
                         "is_plain_text_hit": len(source_templates) == 0,
@@ -122,26 +122,26 @@ def load_wordlist_hits_for_spec(
 
 def summarize_mpp_hits(hits: list[dict[str, object]]) -> dict[str, object]:
     vowel_only_counter = Counter(hit["vowel_only_form"] for hit in hits)
-    qoq_if_hits = [hit for hit in hits if hit["is_qoq_if_arg1"]]
-    other_hits = [hit for hit in hits if not hit["is_qoq_if_arg1"]]
+    trivq_hits = [hit for hit in hits if hit["is_trivq_arg1"]]
+    other_hits = [hit for hit in hits if not hit["is_trivq_arg1"]]
     plain_hits = [hit for hit in hits if hit["is_plain_text_hit"]]
-    templated_non_qoq_if_hits = [
-        hit for hit in hits if not hit["is_qoq_if_arg1"] and not hit["is_plain_text_hit"]
+    templated_non_trivq_hits = [
+        hit for hit in hits if not hit["is_trivq_arg1"] and not hit["is_plain_text_hit"]
     ]
 
     return {
         "hit_count": len(hits),
         "unique_vowel_only_form_count": len(vowel_only_counter),
-        "qoq_if_arg1_hit_count": len(qoq_if_hits),
-        "qoq_if_arg1_unique_vowel_only_form_count": len(
-            {hit["vowel_only_form"] for hit in qoq_if_hits}
+        "trivq_arg1_hit_count": len(trivq_hits),
+        "trivq_arg1_unique_vowel_only_form_count": len(
+            {hit["vowel_only_form"] for hit in trivq_hits}
         ),
         "other_hit_count": len(other_hits),
         "other_unique_vowel_only_form_count": len(
             {hit["vowel_only_form"] for hit in other_hits}
         ),
         "plain_text_hit_count": len(plain_hits),
-        "templated_non_qoq_if_hit_count": len(templated_non_qoq_if_hits),
+        "templated_non_trivq_hit_count": len(templated_non_trivq_hits),
         "source_template_hit_counts": dict(
             sorted(
                 Counter(
@@ -156,8 +156,8 @@ def summarize_mpp_hits(hits: list[dict[str, object]]) -> dict[str, object]:
 
 
 def hit_source_category(hit: dict[str, object]) -> str:
-    if hit["is_qoq_if_arg1"]:
-        return "qoq_if_arg1"
+    if hit["is_trivq_arg1"]:
+        return "trivq_arg1"
     if hit["is_plain_text_hit"]:
         return "plain_text"
     return "templated_other"
@@ -244,8 +244,8 @@ def build_ending_pattern_report(
                 mpp_vowel_only_forms & wordlist_vowel_only_forms
             ),
         },
-        "mpp_hits_qoq_if_arg1": [hit for hit in mpp_hits if hit["is_qoq_if_arg1"]],
-        "mpp_hits_other": [hit for hit in mpp_hits if not hit["is_qoq_if_arg1"]],
+        "mpp_hits_trivq_arg1": [hit for hit in mpp_hits if hit["is_trivq_arg1"]],
+        "mpp_hits_other": [hit for hit in mpp_hits if not hit["is_trivq_arg1"]],
         "mpp_hits_plain_text": [hit for hit in mpp_hits if hit["is_plain_text_hit"]],
         "mpp_hits_by_verse": verse_indexed_hits(mpp_hits),
         "mpp_templated_hits_by_verse": verse_indexed_hits(
