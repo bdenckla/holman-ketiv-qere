@@ -49,6 +49,27 @@ def _iter_plus_verse_payloads(
                 yield (book39_index, chapter_num, verse_num, verse_payload)
 
 
+# ---------------------------------------------------------------------------
+# VARIANT-SELECTION (POSSIBLE MISSED HITS) WARNING
+#
+# This function renders a single flat verse string by picking ONE canonical
+# param from each variant-storing template and ignoring the others:
+#
+#   מ:דחי / מ:צינור — uses param "1" (canonical accent); ignores param "2"
+#                      (stress-helper duplicate).  A token that appears ONLY
+#                      in param "2" would be silently missed.
+#   מ:קמץ            — uses param "ד" (Ashkenazic qamats distinction); ignores
+#                      param "ס" (Sephardic).  A vowel difference in the
+#                      Sephardic param would not be seen.
+#   מ:כפול           — uses param "כפול" (combined form); ignores params "א"
+#                      and "ב" (individual alef/bet cantillation readings for
+#                      dual-cantillation verses: Decalogue, Saga of Reuben).
+#                      A token that differs between the two readings (e.g.
+#                      accent-based vowel variants) might not appear in כפול.
+#
+# Callers that scan the resulting text for specific features should be aware
+# that hits present only in the ignored params will not be found.
+# ---------------------------------------------------------------------------
 # Per-template extraction rules below mirror those in:
 #   MAM-parsed/doc-under-readme/reading-mam-parsed-plus.md (extract_text example)
 #   mgketer/documentation/mpp-parsing.md (Template dispatch section)
