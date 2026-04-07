@@ -6,7 +6,7 @@ Put reusable Python scripts that should be tracked under `py/`.
 
 When a throwaway Python script is needed for this repo, write it under `.novc/` and run it from there. Do not use `python -c` or temporary files outside the repo.
 
-**Git commit messages** — write to a `.novc/` file (e.g. `.novc/commit_msg.txt`) and commit with `git commit -F .novc/commit_msg.txt`. Never pass a multi-line or Hebrew-containing commit message as a `-m` string — the Windows shell will mangle it.
+**Git commit messages** — write to a **uniquely-named** `.novc/` file and commit with `git commit -F .novc/commit_msg_<slug>.txt`. Never pass a multi-line or Hebrew-containing commit message as a `-m` string — the Windows shell will mangle it. Use a unique slug per commit (e.g. `commit_msg_add_hiriq_check.txt`) — a stale generic filename silently produces the wrong message.
 
 ## UTF-8
 
@@ -26,7 +26,7 @@ def main() -> None:
     ...
 ```
 
-- Use `$env:PYTHONIOENCODING="utf-8"` only for `.novc/` throwaway scripts where changing the code is not an option.
+- Use `$env:PYTHONUTF8="1"` only for `.novc/` throwaway scripts where changing the code is not an option. (`PYTHONIOENCODING` is deprecated in favor of `PYTHONUTF8`.)
 
 ## Data Extraction Style
 
@@ -60,6 +60,56 @@ def main() -> None:
 - For file discovery, use PowerShell-native commands such as `Get-ChildItem`.
 - For text search, use PowerShell-native commands such as `Select-String`.
 - If `rg` is ever considered, first verify availability with `Get-Command rg -ErrorAction SilentlyContinue` and only use it when present.
+
+## Python Environment
+
+Always use `.venv/` for Python work. **Never run bare `python`, `python3`, `pip`, or `pip3`** — always use the explicit venv path: `.venv\Scripts\python.exe` / `.venv\Scripts\pip.exe`.
+
+## No `python -c`
+
+**Never use `python -c`** for any reason — shell escaping of multi-line strings and Hebrew Unicode text is unreliable. Write a `.py` file in `.novc/` and run it.
+
+## Fail Fast — No Silent Error Smoothing
+
+Do **not** write defensive code that swallows errors or returns `None` on unexpected conditions. Only catch exceptions when there is a concrete recovery strategy. These are batch pipelines; a crash with a clear traceback is the correct response.
+
+## Dict Access Style
+
+- `d[key]` — when the key is **required** (a `KeyError` is a bug you want immediately)
+- `d.get(key)` — when the key is **genuinely optional** and `None` is meaningful
+- `d.get(key, default)` — when the key is optional and there is a natural default
+
+## JSON Lists: Prepend, Don't Append
+
+When adding to a semantically unordered JSON array, **prepend** rather than append. Appending requires a two-line diff; prepending is a clean one-line diff.
+
+## No Unsolicited Git Operations
+
+Never run `git commit` or `git push` without explicit permission from the user. Staging and status checks are fine.
+
+## Never Amend Commits
+
+Never use `git commit --amend` or `git rebase` unless the user explicitly asks. Always make new commits.
+
+## Don't Close Issues Prematurely
+
+Never close a GitHub issue until work is both committed **and** pushed.
+
+## Format Python with Black
+
+After writing or editing any Python file, run black before committing. Format only files you changed:
+
+```
+.venv\Scripts\python.exe -m black py\python_modules\foo.py
+```
+
+## GitHub Repository Owner
+
+The owner is **bdenckla**. Use this for GitHub MCP queries.
+
+## Local Sibling Repositories
+
+Most repos are cloned as siblings at `../repo-name`. Use relative paths when referencing other repos — do not hard-code absolute paths.
 
 ## Aleppo Codex Location Lookup
 
