@@ -229,16 +229,17 @@ def build_ending_pattern_report(
             "vowel_only_suffixes": list(spec.vowel_only_suffixes),
         },
         "notes": [
-            (
-                "VARIANT-TEMPLATE MULTIPLICITY: certain MAM-plus templates store multiple "
-                "textual variants as separate params, and the search path recurses into ALL "
-                "of them. A word inside such a template therefore produces multiple "
-                "indistinguishable hits — one per variant param. Known templates: "
-                "מ:דחי (2 params), מ:צינור (2 params), מ:קמץ (2 params: Ashkenazic/Sephardic), "
-                "מ:כפול (3 params: combined/alef/bet — dual-cantillation verses only: "
-                "Decalogue, Saga of Reuben). Additionally, any unrecognised template "
-                "encountered at runtime will also produce one hit per param, silently."
-            )
+            "VARIANT-TEMPLATE MULTIPLICITY: certain MAM-plus templates store multiple",
+            "textual variants as separate params, and the search path recurses into ALL",
+            "of them. A word inside such a template therefore produces multiple",
+            "indistinguishable hits — one per variant param. Known templates:",
+            "  מ:דחי   — 2 params: canonical accent (used) + stress-helper duplicate (ignored for dedup)",
+            "  מ:צינור — 2 params: canonical accent (used) + stress-helper duplicate (ignored for dedup)",
+            "  מ:קמץ  — 2 params: Ashkenazic qamats (used) + Sephardic (ignored for dedup)",
+            "  מ:כפול — 3 params: combined/alef/bet — dual-cantillation verses only",
+            "           (Decalogue, Saga of Reuben)",
+            "Additionally, any unrecognised template encountered at runtime will also",
+            "produce one hit per param, silently."
         ],
         "summary": {
             "mpp": summarize_mpp_hits(mpp_hits),

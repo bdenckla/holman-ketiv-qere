@@ -87,21 +87,19 @@ def main() -> None:
     report = {
         "total_hits": len(hits),
         "notes": [
-            (
-                "VARIANT-SELECTION (POSSIBLE MISSED HITS): verse text is rendered by "
-                "_collect_text_fragments, which picks ONE canonical param from each "
-                "variant-storing template and silently ignores the rest. Tokens present "
-                "only in an ignored param will not appear in the search results. "
-                "Known selective templates: "
-                "\u05de:\u05d3\u05d7\u05d9 and \u05de:\u05e6\u05d9\u05e0\u05d5\u05e8 "
-                "(use param \"1\", ignore param \"2\"); "
-                "\u05de:\u05e7\u05de\u05e5 "
-                "(use Ashkenazic param \"\u05d3\", ignore Sephardic param \"\u05e1\"); "
-                "\u05de:\u05db\u05e4\u05d5\u05dc "
-                "(use combined param \"\u05db\u05e4\u05d5\u05dc\", ignore alef/bet "
-                "individual cantillation params \"\u05d0\"/\"\u05d1\" "
-                "\u2014 dual-cantillation verses only: Decalogue, Saga of Reuben)."
-            )
+            "VARIANT-SELECTION (POSSIBLE MISSED HITS): verse text is rendered by",
+            "_collect_text_fragments, which picks ONE canonical param from each",
+            "variant-storing template and silently ignores the rest. Tokens present",
+            "only in an ignored param will not appear in the search results.",
+            "Known selective templates:",
+            "  מ:דחי / מ:צינור — use param '1' (canonical accent); ignore param '2' (stress-helper).",
+            "                    A token present only in param '2' would be missed.",
+            "  מ:קמץ           — use param 'ד' (Ashkenazic); ignore param 'ס' (Sephardic).",
+            "                    A vowel distinction only in the Sephardic reading would be missed.",
+            "  מ:כפול          — use param 'כפול' (combined); ignore params 'א'/'ב'",
+            "                    (alef/bet cantillation — dual-cantillation verses only:",
+            "                    Decalogue, Saga of Reuben). A token differing between",
+            "                    the two readings might not appear in the combined form."
         ],
         "hits": hits,
         "target_verse": target_verse_str,
