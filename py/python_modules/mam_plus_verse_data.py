@@ -49,6 +49,11 @@ def _iter_plus_verse_payloads(
                 yield (book39_index, chapter_num, verse_num, verse_payload)
 
 
+# Per-template extraction rules below mirror those in:
+#   MAM-parsed/doc-under-readme/reading-mam-parsed-plus.md (extract_text example)
+#   mgketer/documentation/mpp-parsing.md (Template dispatch section)
+#   qere_projection.py (project_qere_atoms)
+# When changing a rule here, check all four locations.
 def _collect_text_fragments(node: object, out_parts: list[str]) -> None:
     if isinstance(node, str):
         out_parts.append(node)
@@ -61,9 +66,42 @@ def _collect_text_fragments(node: object, out_parts: list[str]) -> None:
         tmpl_name = node.get("tmpl_name")
         tmpl_params = node.get("tmpl_params")
         if isinstance(tmpl_params, dict):
-            if tmpl_name == "נוסח":
-                # In plus JSON, param 1 is the in-verse target; param 2 is documentation.
+            if tmpl_name == "נוסח" or tmpl_name == 'מ:הערה-2':
+                # Param 1 is the in-verse target; param 2 is documentation.
                 _collect_text_fragments(tmpl_params.get("1"), out_parts)
+                return
+            if tmpl_name == "מ:הערה":
+                # Suppressed note — no verse text.
+                return
+            if tmpl_name in ("מ:דחי", "מ:צינור"):
+                # Two-param stress-variant template.  Param "1" is the canonical
+                # (clean) form; param "2" adds a stress-helper duplicate accent.
+                _collect_text_fragments(tmpl_params.get("1"), out_parts)
+                return
+            if tmpl_name == "מ:קמץ":
+                # Two-param qamats template.  Param "ד" (dikduk) is the canonical
+                # qamats-gadol/qamats-qatan distinction; param "ס" is Sephardic.
+                _collect_text_fragments(tmpl_params.get("ד"), out_parts)
+                return
+            if tmpl_name == "מ:כפול":
+                # "Double-cantillation" template.  Param "כפול" is the combined form.
+                _collect_text_fragments(tmpl_params.get("כפול"), out_parts)
+                return
+            if tmpl_name == "כתיב ולא קרי":
+                # Written-but-not-read: contributes nothing to the reading text.
+                return
+            if tmpl_name == "קרי ולא כתיב":
+                # Read-but-not-written: param 2 is the qere text.
+                _collect_text_fragments(tmpl_params.get("2"), out_parts)
+                return
+            if tmpl_name == 'קו"כ-אם':
+                # Trivial qere: param 1 is the word; param 2 is a documentation
+                # string (e.g. "א-קרי=..."), not verse text.
+                _collect_text_fragments(tmpl_params.get("1"), out_parts)
+                return
+            if "כו\"ק" in (tmpl_name or "") or "קו\"כ" in (tmpl_name or ""):
+                # Ketiv-qere: param 1 is ketiv (written), param 2 is qere (read).
+                _collect_text_fragments(tmpl_params.get("2"), out_parts)
                 return
             for value in tmpl_params.values():
                 _collect_text_fragments(value, out_parts)
