@@ -6,6 +6,8 @@ Put reusable Python scripts that should be tracked under `py/`.
 
 When a throwaway Python script is needed for this repo, write it under `.novc/` and run it from there. Do not use `python -c` or temporary files outside the repo.
 
+The same rule applies to PowerShell: **never write multi-line scripts inline on the command line**. Write a `.ps1` file under `.novc/` and run it with `.\.novc\script.ps1`. Inline multi-line PowerShell causes quoting, escaping, and line-continuation problems just like `python -c`.
+
 **Git commit messages** — write to a **uniquely-named** `.novc/` file and commit with `git commit -F .novc/commit_msg_<slug>.txt`. Never pass a multi-line or Hebrew-containing commit message as a `-m` string — the Windows shell will mangle it. Use a unique slug per commit (e.g. `commit_msg_add_hiriq_check.txt`) — a stale generic filename silently produces the wrong message.
 
 ## UTF-8
