@@ -24,6 +24,34 @@ IN_WORD_RECURSE_TEMPLATE_NAMES = {
     "מ:אות תלויה",
     "מ:אות-מיוחדת-במילה",
 }
+# ---------------------------------------------------------------------------
+# VARIANT-TEMPLATE MULTIPLICITY WARNING
+#
+# The four templates below store multiple textual variants as separate params.
+# When word_atoms_from_qere_atoms() processes them it recurses into EVERY param
+# list, so a single word that appears inside one of these templates will produce
+# MULTIPLE word-atom hits — one per variant param — that are otherwise
+# INDISTINGUISHABLE in the output (same word text, same sources list).
+#
+# Known templates and their variant params:
+#   מ:דחי   — "1" (canonical accent) + "2" (stress-helper duplicate accent)
+#   מ:צינור — "1" (canonical accent) + "2" (stress-helper duplicate accent)
+#   מ:קמץ   — "ד" (qamats gadol/qatan, Ashkenazic) + "ס" (Sephardic)
+#   מ:כפול  — "כפול" (combined) + "א" (alef cantillation) + "ב" (bet cantillation)
+#              (applies to dual-cantillation verses: Decalogue, Saga of Reuben)
+#
+# Additionally, the fall-through path at the bottom of project_qere_atoms()
+# recurses into ALL params of any template not explicitly recognised here,
+# so future novel multi-param templates would silently exhibit the same
+# multiplicity.
+#
+# Callers that count or deduplicate hits must account for this behaviour.
+# ---------------------------------------------------------------------------
+# Per-template extraction rules below mirror those in:
+#   MAM-parsed/doc-under-readme/reading-mam-parsed-plus.md (extract_text example)
+#   mgketer/documentation/mpp-parsing.md (Template dispatch section)
+#   mam_plus_verse_data._collect_text_fragments
+# When changing a rule here, check all four locations.
 PARAM_BOUNDARY_TEMPLATE_NAMES = {
     "מ:דחי",
     "מ:צינור",
@@ -134,6 +162,11 @@ def project_qere_atoms(
         return project_qere_atoms(tmpl_params.get("1"), source=source)
 
     if tmpl_name in PARAM_BOUNDARY_TEMPLATE_NAMES:
+        # NOTE: all variant params are projected and returned as separate atom
+        # lists.  word_atoms_from_qere_atoms() will recurse into every one of
+        # them, producing one hit per variant (see VARIANT-TEMPLATE MULTIPLICITY
+        # WARNING above).  The template name is recorded in the _template_atom
+        # wrapper but NOT propagated into the per-word sources chain.
         return [
             _template_atom(
                 tmpl_name,
@@ -144,6 +177,10 @@ def project_qere_atoms(
             )
         ]
 
+    # Fall-through: unrecognised template — recurse into all param values.
+    # WARNING: if an unrecognised template stores multiple textual variants as
+    # separate params this will silently produce multiple word-atom hits in the
+    # same way as PARAM_BOUNDARY_TEMPLATE_NAMES (see warning above).
     out: list[dict[str, object]] = []
     for value in tmpl_params.values():
         out.extend(project_qere_atoms(value, source=source))
