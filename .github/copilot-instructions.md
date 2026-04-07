@@ -6,6 +6,8 @@ Put reusable Python scripts that should be tracked under `py/`.
 
 When a throwaway Python script is needed for this repo, write it under `.novc/` and run it from there. Do not use `python -c` or temporary files outside the repo.
 
+**Git commit messages** — write to a `.novc/` file (e.g. `.novc/commit_msg.txt`) and commit with `git commit -F .novc/commit_msg.txt`. Never pass a multi-line or Hebrew-containing commit message as a `-m` string — the Windows shell will mangle it.
+
 ## UTF-8
 
 This repo contains Hebrew text.
@@ -13,6 +15,18 @@ This repo contains Hebrew text.
 - Always pass `encoding="utf-8"` to `open()`.
 - Always use `ensure_ascii=False` when writing JSON.
 - Preserve Hebrew text and other meaningful Unicode characters.
+- Prefer writing non-ASCII output to a file rather than stdout/stderr. When a script genuinely must print Hebrew, reconfigure the streams at the top of `main()` — the Windows console defaults to cp1252 and will raise `UnicodeEncodeError` on any `print()` containing Hebrew:
+
+```python
+import sys
+
+def main() -> None:
+    sys.stdout.reconfigure(encoding="utf-8")
+    sys.stderr.reconfigure(encoding="utf-8")
+    ...
+```
+
+- Use `$env:PYTHONIOENCODING="utf-8"` only for `.novc/` throwaway scripts where changing the code is not an option.
 
 ## Data Extraction Style
 
