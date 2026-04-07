@@ -103,10 +103,6 @@ Before any destructive git operation (`git reset`, `git checkout -- .`, `git sta
 
 Before a series of experiments that might need to be thrown away, ask the user to commit the current clean state first so there is a safe baseline to return to.
 
-## Don't Redundantly Re-assert the Repo Directory
-
-The terminal's working directory is already the project root. Run `git` directly without `cd` or `git -C <this-repo>`. For a sibling repo, use `git -C <path>`.
-
 After writing or editing any Python file, run black before committing. Format only files you changed:
 
 ```
