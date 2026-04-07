@@ -4,9 +4,9 @@
 
 Put reusable Python scripts that should be tracked under `py/`.
 
-When a throwaway Python script is needed for this repo, write it under `.novc/` and run it from there. Do not use `python -c` or temporary files outside the repo.
+When a throwaway Python script is needed that imports from `py/` modules (e.g. `python_modules`, `pycmn`), create it as `py/novc_bar.py` and run it from the repo root: `.venv\Scripts\python.exe py\novc_bar.py`. Files matching `novc_*.py` are gitignored via `py/.gitignore`. The `novc_` prefix sorts these files apart from tracked `main_*` scripts. Do not use `python -c` or temporary files outside the repo.
 
-The same rule applies to PowerShell: **never write multi-line scripts inline on the command line**. Write a `.ps1` file under `.novc/` and run it with `.\.novc\script.ps1`. Inline multi-line PowerShell causes quoting, escaping, and line-continuation problems just like `python -c`.
+For PowerShell throwaway scripts and non-Python artifacts (commit messages, issue bodies, etc.), use `.novc/` as before. **Never write multi-line PowerShell scripts inline on the command line**. Write a `.ps1` file under `.novc/` and run it with `.\.novc\script.ps1`. Inline multi-line PowerShell causes quoting, escaping, and line-continuation problems just like `python -c`.
 
 **Git commit messages** — write to a **uniquely-named** `.novc/` file and commit with `git commit -F .novc/commit_msg_<slug>.txt`. Never pass a multi-line or Hebrew-containing commit message as a `-m` string — the Windows shell will mangle it. Use a unique slug per commit (e.g. `commit_msg_add_hiriq_check.txt`) — a stale generic filename silently produces the wrong message.
 
@@ -69,7 +69,7 @@ Always use `.venv/` for Python work. **Never run bare `python`, `python3`, `pip`
 
 ## No `python -c`
 
-**Never use `python -c`** for any reason — shell escaping of multi-line strings and Hebrew Unicode text is unreliable. Write a `.py` file in `.novc/` and run it.
+**Never use `python -c`** for any reason — shell escaping of multi-line strings and Hebrew Unicode text is unreliable. Write a `py/novc_bar.py` file and run it from the repo root.
 
 ## Fail Fast — No Silent Error Smoothing
 
