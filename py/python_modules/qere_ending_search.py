@@ -18,7 +18,7 @@ DEFAULT_MAM_PARSED_PLUS_DIR = REPO_ROOT.parent / "MAM-parsed" / "plus"
 DEFAULT_MAM_BASICS_QERE_WORDS_PATH = (
     REPO_ROOT.parent / "MAM-basics" / "out" / "mam-qere-words.json"
 )
-DEFAULT_OUTPUT_DIR = REPO_ROOT / ".novc"
+DEFAULT_OUTPUT_DIR = REPO_ROOT / "out"
 
 
 @dataclass(frozen=True)
@@ -228,6 +228,18 @@ def build_ending_pattern_report(
             "label": spec.label,
             "vowel_only_suffixes": list(spec.vowel_only_suffixes),
         },
+        "notes": [
+            (
+                "VARIANT-TEMPLATE MULTIPLICITY: certain MAM-plus templates store multiple "
+                "textual variants as separate params, and the search path recurses into ALL "
+                "of them. A word inside such a template therefore produces multiple "
+                "indistinguishable hits — one per variant param. Known templates: "
+                "מ:דחי (2 params), מ:צינור (2 params), מ:קמץ (2 params: Ashkenazic/Sephardic), "
+                "מ:כפול (3 params: combined/alef/bet — dual-cantillation verses only: "
+                "Decalogue, Saga of Reuben). Additionally, any unrecognised template "
+                "encountered at runtime will also produce one hit per param, silently."
+            )
+        ],
         "summary": {
             "mpp": summarize_mpp_hits(mpp_hits),
             "mam_basics_wordlist_hit_count": len(wordlist_hits),

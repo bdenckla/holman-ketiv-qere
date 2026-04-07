@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+import sys
 
 from pycmn import bib_locales
 from python_modules.hebrew_text_tokens import (
@@ -14,6 +15,8 @@ from python_modules.mam_plus_verse_data import verse_texts_by_location
 REPO_ROOT = Path(__file__).resolve().parents[1]
 PLUS_DIR = (REPO_ROOT.parent / "mam-parsed" / "plus").resolve()
 TARGET_VERSE = ("Tsefaniah", 2, 9)
+OUTPUT_DIR = REPO_ROOT / "out"
+OUTPUT_PATH = OUTPUT_DIR / "final_hiriq_verse_text_report.json"
 
 
 def book_names_for_plus_file(path: Path, plus_json: dict[str, object]) -> list[str]:
@@ -75,7 +78,40 @@ def find_final_hiriq_hits() -> tuple[list[dict[str, object]], list[str]]:
 
 
 def main() -> None:
+    sys.stdout.reconfigure(encoding="utf-8")
     hits, target_tokens = find_final_hiriq_hits()
+
+    target_verse_str = f"{TARGET_VERSE[0]} {TARGET_VERSE[1]}:{TARGET_VERSE[2]}"
+    final_hiriq_target_tokens = [t for t in target_tokens if is_final_hiriq_token(t)]
+
+    report = {
+        "total_hits": len(hits),
+        "notes": [
+            (
+                "VARIANT-SELECTION (POSSIBLE MISSED HITS): verse text is rendered by "
+                "_collect_text_fragments, which picks ONE canonical param from each "
+                "variant-storing template and silently ignores the rest. Tokens present "
+                "only in an ignored param will not appear in the search results. "
+                "Known selective templates: "
+                "\u05de:\u05d3\u05d7\u05d9 and \u05de:\u05e6\u05d9\u05e0\u05d5\u05e8 "
+                "(use param \"1\", ignore param \"2\"); "
+                "\u05de:\u05e7\u05de\u05e5 "
+                "(use Ashkenazic param \"\u05d3\", ignore Sephardic param \"\u05e1\"); "
+                "\u05de:\u05db\u05e4\u05d5\u05dc "
+                "(use combined param \"\u05db\u05e4\u05d5\u05dc\", ignore alef/bet "
+                "individual cantillation params \"\u05d0\"/\"\u05d1\" "
+                "\u2014 dual-cantillation verses only: Decalogue, Saga of Reuben)."
+            )
+        ],
+        "hits": hits,
+        "target_verse": target_verse_str,
+        "target_verse_tokens": target_tokens,
+        "target_verse_final_hiriq_tokens": final_hiriq_target_tokens,
+    }
+
+    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+    with open(OUTPUT_PATH, "w", encoding="utf-8") as handle:
+        json.dump(report, handle, ensure_ascii=False, indent=2)
 
     print(f"total_hits={len(hits)}")
     for hit in hits:
@@ -88,7 +124,7 @@ def main() -> None:
     print(" ".join(target_tokens))
 
     print("target_verse_final_hiriq_tokens=")
-    print(" ".join(token for token in target_tokens if is_final_hiriq_token(token)))
+    print(" ".join(final_hiriq_target_tokens))
 
 
 if __name__ == "__main__":

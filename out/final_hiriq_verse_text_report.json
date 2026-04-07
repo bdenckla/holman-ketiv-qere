@@ -1,0 +1,50 @@
+{
+  "total_hits": 1,
+  "notes": [
+    "VARIANT-SELECTION (POSSIBLE MISSED HITS): verse text is rendered by _collect_text_fragments, which picks ONE canonical param from each variant-storing template and silently ignores the rest. Tokens present only in an ignored param will not appear in the search results. Known selective templates: מ:דחי and מ:צינור (use param \"1\", ignore param \"2\"); מ:קמץ (use Ashkenazic param \"ד\", ignore Sephardic param \"ס\"); מ:כפול (use combined param \"כפול\", ignore alef/bet individual cantillation params \"א\"/\"ב\" — dual-cantillation verses only: Decalogue, Saga of Reuben)."
+  ],
+  "hits": [
+    {
+      "book": "Tsefaniah",
+      "chapter": 2,
+      "verse": 9,
+      "token": "גּוֹיִ֖",
+      "deaccented": "גּוֹיִ",
+      "file": "CA-The-12-Minor-Prophets.json"
+    }
+  ],
+  "target_verse": "Tsefaniah 2:9",
+  "target_verse_tokens": [
+    "לָכֵ֣ן",
+    "חַי",
+    "אָ֡נִי",
+    "נְאֻם֩",
+    "יְהֹוָ֨ה",
+    "צְבָא֜וֹת",
+    "אֱלֹהֵ֣י",
+    "יִשְׂרָאֵ֗ל",
+    "כִּי",
+    "מוֹאָ֞ב",
+    "כִּסְדֹ֤ם",
+    "תִּֽהְיֶה֙",
+    "וּבְנֵ֤י",
+    "עַמּוֹן֙",
+    "כַּעֲמֹרָ֔ה",
+    "מִמְשַׁ֥ק",
+    "חָר֛וּל",
+    "וּמִכְרֵה",
+    "מֶ֥לַח",
+    "וּשְׁמָמָ֖ה",
+    "עַד",
+    "עוֹלָ֑ם",
+    "שְׁאֵרִ֤ית",
+    "עַמִּי֙",
+    "יְבׇזּ֔וּם",
+    "וְיֶ֥תֶר",
+    "גּוֹיִ֖",
+    "יִנְחָלֽוּם"
+  ],
+  "target_verse_final_hiriq_tokens": [
+    "גּוֹיִ֖"
+  ]
+}
