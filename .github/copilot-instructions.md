@@ -39,6 +39,24 @@ def main() -> None:
 - Put extracted images under `docs/img/`.
 - Keep scratch or inspection artifacts in `.novc/` only.
 
+## CSS Light/Dark Mode
+
+For any authored HTML/CSS, always support both light and dark mode based on the user's OS preference. Use `color-scheme: light dark` on `:root` and the CSS `light-dark()` function for all color values. Do **not** use `@media (prefers-color-scheme: dark)` blocks.
+
+Define all colors as CSS custom properties in `:root` so dark-mode adjustments are centralized there, not scattered through the rules:
+
+```css
+:root {
+  color-scheme: light dark;
+  --bg:      light-dark(#f7f6f2, #1e1c1a);
+  --card-bg: light-dark(#ffffff, #272421);
+  --border:  light-dark(#d9d3c9, #3d3836);
+  --text:    light-dark(#2d2a27, #e8e4e0);
+  --muted:   light-dark(#666059, #9a938c);
+  --accent:  light-dark(#1f5f8b, #5ba3cb);
+}
+```
+
 ## Python File Size
 
 - Prefer a soft limit of about 300 lines for any Python file.
