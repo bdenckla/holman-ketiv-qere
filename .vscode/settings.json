@@ -23,6 +23,9 @@
         "git add": true,
         "git commit": true,
         ".venv/Scripts/python.exe": true,
-        "..\\..\\holman-ketiv-qere\\.venv\\Scripts\\python.exe": true
+        "..\\..\\holman-ketiv-qere\\.venv\\Scripts\\python.exe": true,
+        "..\\.venv\\Scripts\\python.exe": true,
+        ".vscode/settings.json": true,
+        "git push": true
     }
 }
