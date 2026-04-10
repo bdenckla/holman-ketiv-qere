@@ -7,12 +7,18 @@ from pathlib import Path
 
 from python_modules.json_io import load_json, write_json
 from python_modules.extract_docx_pipeline import parse_docx_archive, write_extract_files
-from python_modules.render_table_data_findings_html import render_table_data_findings_html
+from python_modules.render_table_data_findings_html import (
+    render_table_data_findings_html,
+)
 from python_modules.verify_table_words_in_mam_plus import verify_table_words_in_mam_plus
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_DOCX_PATH = REPO_ROOT / "Review of Qere and Kethib readings in the Aleppo and Leningrad.docx"
+DEFAULT_DOCX_PATH = (
+    REPO_ROOT / "Review of Qere and Kethib readings in the Aleppo and Leningrad.docx"
+)
 DEFAULT_MAM_PARSED_PATH = REPO_ROOT.parent / "MAM-parsed"
+DEFAULT_SERVED_DOCS_DIR = REPO_ROOT / "docs"
+DEFAULT_NONSERVED_DOCS_DIR = REPO_ROOT / "docs-not-served"
 
 
 def source_document_reference(docx_path: Path) -> str:
@@ -24,15 +30,21 @@ def source_document_reference(docx_path: Path) -> str:
     return relative.as_posix()
 
 
-def extract(docx_path: Path, output_dir: Path) -> dict[str, object]:
-    image_dir = output_dir / "img"
+def extract(
+    docx_path: Path,
+    served_docs_dir: Path,
+    nonserved_docs_dir: Path,
+) -> dict[str, object]:
+    image_dir = served_docs_dir / "img"
     image_dir.mkdir(parents=True, exist_ok=True)
 
     with zipfile.ZipFile(docx_path) as archive:
-        parsed = parse_docx_archive(archive=archive, image_dir=image_dir, repo_root=REPO_ROOT)
+        parsed = parse_docx_archive(
+            archive=archive, image_dir=image_dir, repo_root=REPO_ROOT
+        )
 
     intro_path, json_path = write_extract_files(
-        output_dir=output_dir,
+        nonserved_output_dir=nonserved_docs_dir,
         source_document=source_document_reference(docx_path),
         parsed=parsed,
     )
@@ -51,7 +63,9 @@ def extract(docx_path: Path, output_dir: Path) -> dict[str, object]:
     }
 
 
-def persist_verify_summary(table_json_path: Path, verify_report: dict[str, object]) -> None:
+def persist_verify_summary(
+    table_json_path: Path, verify_report: dict[str, object]
+) -> None:
     """Persist verification output inside extracted table_data.json."""
     table_data = load_json(table_json_path)
     if not isinstance(table_data, dict):
@@ -82,10 +96,16 @@ def main() -> None:
         help="Source DOCX to extract. Defaults to the tracked repo copy at repo top level.",
     )
     parser.add_argument(
-        "--output-dir",
+        "--served-docs-dir",
         type=Path,
-        default=Path("docs"),
-        help="Directory where introduction.md, table_data.json, and img/ will be written.",
+        default=DEFAULT_SERVED_DOCS_DIR,
+        help="Directory where served HTML, CSS, JS, and img/ assets will be written.",
+    )
+    parser.add_argument(
+        "--docs-not-served-dir",
+        type=Path,
+        default=DEFAULT_NONSERVED_DOCS_DIR,
+        help="Directory where introduction.md and table_data.json will be written.",
     )
     parser.add_argument(
         "--mam-parsed-path",
@@ -95,9 +115,13 @@ def main() -> None:
     )
     args = parser.parse_args()
 
-    summary = extract(docx_path=args.docx_path, output_dir=args.output_dir)
-    table_json_path = args.output_dir / "table_data.json"
-    findings_html_path = args.output_dir / "table_data_findings.html"
+    summary = extract(
+        docx_path=args.docx_path,
+        served_docs_dir=args.served_docs_dir,
+        nonserved_docs_dir=args.docs_not_served_dir,
+    )
+    table_json_path = args.docs_not_served_dir / "table_data.json"
+    findings_html_path = args.served_docs_dir / "table_data_findings.html"
     verify_report = verify_table_words_in_mam_plus(
         table_json_path=table_json_path,
         mam_parsed_path=args.mam_parsed_path,

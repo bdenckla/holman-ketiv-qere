@@ -6,12 +6,12 @@ from pathlib import Path
 
 def main() -> None:
     parser = argparse.ArgumentParser(
-        description="Render a finding-filterable HTML report from docs/table_data.json."
+        description="Render a finding-filterable HTML report from docs-not-served/table_data.json."
     )
     parser.add_argument(
         "--table-json-path",
         type=Path,
-        default=Path("docs/table_data.json"),
+        default=Path("docs-not-served/table_data.json"),
         help="Path to table_data.json input.",
     )
     parser.add_argument(

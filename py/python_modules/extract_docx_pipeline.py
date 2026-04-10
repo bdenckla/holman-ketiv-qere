@@ -37,7 +37,9 @@ class ParsedExtract:
     verse_book_names: list[str]
 
 
-def parse_docx_archive(archive: zipfile.ZipFile, image_dir: Path, repo_root: Path) -> ParsedExtract:
+def parse_docx_archive(
+    archive: zipfile.ZipFile, image_dir: Path, repo_root: Path
+) -> ParsedExtract:
     body, rel_map = _docx_body_and_relationships(archive)
     intro_paragraphs, table_element = _intro_and_table(body)
     table_rows = _table_rows(table_element, rel_map)
@@ -46,7 +48,9 @@ def parse_docx_archive(archive: zipfile.ZipFile, image_dir: Path, repo_root: Pat
 
     header_row = table_rows[0]
     headers = [cell["text"] for cell in header_row]
-    column_keys = [slugify(header if isinstance(header, str) else "") for header in headers]
+    column_keys = [
+        slugify(header if isinstance(header, str) else "") for header in headers
+    ]
 
     data_rows, notes_signatures, leningrad_quote_count = _parse_data_rows(
         archive=archive,
@@ -92,11 +96,12 @@ def parse_docx_archive(archive: zipfile.ZipFile, image_dir: Path, repo_root: Pat
 
 
 def write_extract_files(
-    output_dir: Path,
+    nonserved_output_dir: Path,
     source_document: str,
     parsed: ParsedExtract,
 ) -> tuple[Path, Path]:
-    intro_path = output_dir / "introduction.md"
+    nonserved_output_dir.mkdir(parents=True, exist_ok=True)
+    intro_path = nonserved_output_dir / "introduction.md"
     intro_path.write_text(intro_markdown(parsed.intro_paragraphs), encoding="utf-8")
 
     json_payload = {
@@ -112,7 +117,7 @@ def write_extract_files(
             "rows": parsed.data_rows,
         },
     }
-    json_path = output_dir / "table_data.json"
+    json_path = nonserved_output_dir / "table_data.json"
     write_json(json_path, json_payload)
     return intro_path, json_path
 
@@ -153,7 +158,9 @@ def _intro_and_table(body: ET.Element) -> tuple[list[str], ET.Element]:
     return intro_paragraphs, table_element
 
 
-def _table_rows(table_element: ET.Element, rel_map: dict[str, str]) -> list[list[dict[str, object]]]:
+def _table_rows(
+    table_element: ET.Element, rel_map: dict[str, str]
+) -> list[list[dict[str, object]]]:
     table_rows = []
     for row in table_element.findall("./w:tr", NS):
         row_cells = []

@@ -1,6 +1,6 @@
 # table_data.json field guide
 
-This document describes the fields in `docs/table_data.json` as produced by `py/extract_docx.py`.
+This document describes the fields in `docs-not-served/table_data.json` as produced by `py/extract_docx.py`.
 
 It distinguishes between:
 
