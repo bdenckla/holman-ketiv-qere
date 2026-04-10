@@ -17,7 +17,7 @@ DEFAULT_DOCX_PATH = (
     REPO_ROOT / "Review of Qere and Kethib readings in the Aleppo and Leningrad.docx"
 )
 DEFAULT_MAM_PARSED_PATH = REPO_ROOT.parent / "MAM-parsed"
-DEFAULT_SERVED_DOCS_DIR = REPO_ROOT / "docs"
+DEFAULT_SERVED_DOCS_DIR = REPO_ROOT / "gh-pages"
 DEFAULT_NONSERVED_DOCS_DIR = REPO_ROOT / "docs-not-served"
 
 

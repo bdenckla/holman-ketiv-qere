@@ -17,7 +17,7 @@ def main() -> None:
     parser.add_argument(
         "--output-html-path",
         type=Path,
-        default=Path("docs/table_data_findings.html"),
+        default=Path("gh-pages/table_data_findings.html"),
         help="Path for generated HTML output.",
     )
     parser.add_argument(

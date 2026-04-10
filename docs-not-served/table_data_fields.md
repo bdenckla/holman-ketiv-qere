@@ -209,14 +209,14 @@ It distinguishes between:
 - Type: array of strings
 - Meaning: exported image paths for embedded images from the Aleppo cell
 - Current data observation: one image path per row
-- Path format: `docs/img/rowNNN_aleppo_XX.ext`
+- Path format: `gh-pages/img/rowNNN_aleppo_XX.ext`
 
 ### `image_files.leningrad`
 
 - Type: array of strings
 - Meaning: exported image paths for embedded images from the Leningrad cell
 - Current data observation: one image path per row
-- Path format: `docs/img/rowNNN_leningrad_XX.ext`
+- Path format: `gh-pages/img/rowNNN_leningrad_XX.ext`
 
 ## Short conclusions
 

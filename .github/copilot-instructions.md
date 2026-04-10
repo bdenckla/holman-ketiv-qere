@@ -35,8 +35,8 @@ def main() -> None:
 - Prefer straightforward, fail-fast extraction scripts over defensive wrappers.
 - Keep reusable extraction scripts under `py/`.
 - Keep tracked source documents at the repo top level when they should live in the repo.
-- Keep tracked outputs under `docs/`.
-- Put extracted images under `docs/img/`.
+- Keep tracked outputs under `gh-pages/`.
+- Put extracted images under `gh-pages/img/`.
 - Keep scratch or inspection artifacts in `.novc/` only.
 
 ## CSS Light/Dark Mode

@@ -20,9 +20,9 @@ python py/extract_docx.py
 
 This also generates:
 
-- `docs/table_data_findings.html` (finding-based HTML report with summary counts and filtering)
-- `docs/table_data_findings.css` (report styles)
-- `docs/table_data_findings.js` (report filtering behavior)
+- `gh-pages/table_data_findings.html` (finding-based HTML report with summary counts and filtering)
+- `gh-pages/table_data_findings.css` (report styles)
+- `gh-pages/table_data_findings.js` (report filtering behavior)
 - `docs-not-served/introduction.md` (extracted source introduction)
 - `docs-not-served/table_data.json` (extracted source table data)
 
@@ -43,7 +43,7 @@ Default extraction behavior includes:
 
 - Post-extraction verification against `../MAM-parsed/plus/*.json`
 - Verification summary embedded in `docs-not-served/table_data.json` under `mam_plus_verify`
-- Finding-filterable report generated at `docs/table_data_findings.html` with external `docs/table_data_findings.css` and `docs/table_data_findings.js`
+- Finding-filterable report generated at `gh-pages/table_data_findings.html` with external `gh-pages/table_data_findings.css` and `gh-pages/table_data_findings.js`
 - Fail-fast error if verification finds missing matches
 
 ## Verification Module

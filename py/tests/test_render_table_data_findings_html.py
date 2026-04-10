@@ -15,10 +15,10 @@ class RenderTableDataFindingsHtmlTests(unittest.TestCase):
     def _render(self, payload: dict[str, object]) -> tuple[str, str, str]:
         with TemporaryDirectory() as tmp_dir:
             tmp_path = Path(tmp_dir)
-            docs_dir = tmp_path / "docs"
-            docs_dir.mkdir(parents=True, exist_ok=True)
-            table_json_path = docs_dir / "table_data.json"
-            output_html_path = docs_dir / "table_data_findings.html"
+            gh_pages_dir = tmp_path / "gh-pages"
+            gh_pages_dir.mkdir(parents=True, exist_ok=True)
+            table_json_path = gh_pages_dir / "table_data.json"
+            output_html_path = gh_pages_dir / "table_data_findings.html"
 
             table_json_path.write_text(
                 json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8"
