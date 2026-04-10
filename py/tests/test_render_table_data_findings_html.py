@@ -9,25 +9,44 @@ import unittest
 from python_modules.render_table_data_findings_html import (
     render_table_data_findings_html,
 )
+from python_modules.table_row_github_issues import reload_row_github_issues
 
 
 class RenderTableDataFindingsHtmlTests(unittest.TestCase):
-    def _render(self, payload: dict[str, object]) -> tuple[str, str, str]:
+    def _render(
+        self,
+        payload: dict[str, object],
+        row_github_issues_payload: dict[str, dict[str, object]],
+    ) -> tuple[str, str, str]:
         with TemporaryDirectory() as tmp_dir:
             tmp_path = Path(tmp_dir)
             gh_pages_dir = tmp_path / "gh-pages"
             gh_pages_dir.mkdir(parents=True, exist_ok=True)
             table_json_path = gh_pages_dir / "table_data.json"
             output_html_path = gh_pages_dir / "table_data_findings.html"
+            row_github_issues_json_path = tmp_path / "table_row_github_issues.json"
 
             table_json_path.write_text(
                 json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8"
             )
 
-            render_table_data_findings_html(
-                table_json_path=table_json_path,
-                output_html_path=output_html_path,
+            row_github_issues_json_path.write_text(
+                json.dumps(
+                    row_github_issues_payload,
+                    ensure_ascii=False,
+                    indent=2,
+                ),
+                encoding="utf-8",
             )
+
+            try:
+                reload_row_github_issues(row_github_issues_json_path)
+                render_table_data_findings_html(
+                    table_json_path=table_json_path,
+                    output_html_path=output_html_path,
+                )
+            finally:
+                reload_row_github_issues()
 
             main_html = output_html_path.read_text(encoding="utf-8")
             suppressed_html = output_html_path.with_name(
@@ -55,7 +74,18 @@ class RenderTableDataFindingsHtmlTests(unittest.TestCase):
             "mam_plus_rows_matching_mpp_verse_template_arg": [],
         }
 
-        main_html, _suppressed_html, _js = self._render(payload)
+        row_github_issues_payload = {
+            "1": {
+                "issue_number": 12,
+                "is_closed": False,
+                "tags": [],
+            }
+        }
+
+        main_html, _suppressed_html, _js = self._render(
+            payload,
+            row_github_issues_payload,
+        )
 
         self.assertIn(
             '<div class="note-line"><span class="label">UXLC yatir:</span> <span>aleph</span></div>',
@@ -97,7 +127,28 @@ class RenderTableDataFindingsHtmlTests(unittest.TestCase):
             "mam_plus_rows_matching_mpp_verse_template_arg": [],
         }
 
-        main_html, suppressed_html, js = self._render(payload)
+        row_github_issues_payload = {
+            "1": {
+                "issue_number": 12,
+                "is_closed": False,
+                "tags": [],
+            },
+            "4": {
+                "issue_number": 7,
+                "is_closed": False,
+                "tags": ["qyv"],
+            },
+            "37": {
+                "issue_number": 36,
+                "is_closed": True,
+                "tags": [],
+            },
+        }
+
+        main_html, suppressed_html, js = self._render(
+            payload,
+            row_github_issues_payload,
+        )
 
         self.assertIn("<title>Holman k/q</title>", main_html)
         self.assertIn("<h1>Holman ketiv/qere review</h1>", main_html)
@@ -177,7 +228,33 @@ class RenderTableDataFindingsHtmlTests(unittest.TestCase):
             ],
         }
 
-        main_html, _suppressed_html, _js = self._render(payload)
+        row_github_issues_payload = {
+            "4": {
+                "issue_number": 7,
+                "is_closed": False,
+                "tags": ["qyv"],
+            },
+            "12": {
+                "issue_number": 8,
+                "is_closed": False,
+                "tags": ["boa-sans-aleph"],
+            },
+            "13": {
+                "issue_number": 4,
+                "is_closed": False,
+                "tags": ["rafe"],
+            },
+            "21": {
+                "issue_number": 40,
+                "is_closed": False,
+                "tags": ["holam-he"],
+            },
+        }
+
+        main_html, _suppressed_html, _js = self._render(
+            payload,
+            row_github_issues_payload,
+        )
 
         self.assertIn("Has matching MPP template (1)", main_html)
         self.assertIn("QyV (1)", main_html)

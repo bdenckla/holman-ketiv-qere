@@ -77,14 +77,14 @@
   },
   "13": {
     "issue_number": 4,
-    "is_closed": false,
+    "is_closed": true,
     "tags": [
       "rafe"
     ]
   },
   "14": {
     "issue_number": 11,
-    "is_closed": false,
+    "is_closed": true,
     "tags": [
       "rafe"
     ]
