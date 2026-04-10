@@ -11,9 +11,10 @@ from python_modules.table_row_github_issues import (
     ISSUE_TAG_DISPLAY_TEXT,
     REPO_NAME,
     REPO_OWNER,
-    ROW_GITHUB_ISSUES,
     ROW_GITHUB_ISSUES_JSON_PATH,
     RowGitHubIssueMetadata,
+    load_row_github_issues,
+    reload_row_github_issues,
 )
 
 GITHUB_ISSUE_LIST_LIMIT = 500
@@ -22,13 +23,16 @@ GITHUB_ISSUE_LIST_LIMIT = 500
 def refresh_row_github_issue_metadata(
     json_path: Path = ROW_GITHUB_ISSUES_JSON_PATH,
 ) -> Path:
-    issue_numbers = {metadata.issue_number for metadata in ROW_GITHUB_ISSUES.values()}
+    existing_rows = load_row_github_issues(json_path)
+    issue_numbers = {metadata.issue_number for metadata in existing_rows.values()}
     live_issues = fetch_live_github_issues(issue_numbers=issue_numbers)
     refreshed_rows = build_refreshed_row_github_issues(
-        existing_rows=ROW_GITHUB_ISSUES,
+        existing_rows=existing_rows,
         live_issues=live_issues,
     )
     write_json(json_path, row_github_issues_payload(refreshed_rows))
+    if json_path == ROW_GITHUB_ISSUES_JSON_PATH:
+        reload_row_github_issues(json_path)
     return json_path
 
 

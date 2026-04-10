@@ -334,21 +334,21 @@
   },
   "52": {
     "issue_number": 53,
-    "is_closed": false,
+    "is_closed": true,
     "tags": [
       "qyv"
     ]
   },
   "53": {
     "issue_number": 56,
-    "is_closed": false,
+    "is_closed": true,
     "tags": [
       "qyv"
     ]
   },
   "54": {
     "issue_number": 59,
-    "is_closed": false,
+    "is_closed": true,
     "tags": [
       "qyv"
     ]

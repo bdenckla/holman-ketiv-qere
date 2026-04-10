@@ -14,6 +14,8 @@ from python_modules.json_io import write_json
 from python_modules.table_row_github_issues import (
     RowGitHubIssueMetadata,
     load_row_github_issues,
+    reload_row_github_issues,
+    row_github_issue_is_closed,
 )
 
 
@@ -91,6 +93,50 @@ class RefreshTableRowGitHubIssuesTests(unittest.TestCase):
                 )
             },
         )
+
+    def test_reloads_module_cache_after_json_update(self) -> None:
+        with TemporaryDirectory() as tmp_dir:
+            json_path = Path(tmp_dir) / "table_row_github_issues.json"
+            baseline_rows = load_row_github_issues()
+            try:
+                write_json(
+                    json_path,
+                    {
+                        "1": {
+                            "issue_number": 12,
+                            "is_closed": False,
+                            "tags": ["holam-he"],
+                        }
+                    },
+                )
+                reload_row_github_issues(json_path)
+                self.assertFalse(row_github_issue_is_closed("1"))
+
+                write_json(
+                    json_path,
+                    {
+                        "1": {
+                            "issue_number": 12,
+                            "is_closed": True,
+                            "tags": ["holam-he"],
+                        }
+                    },
+                )
+                reload_row_github_issues(json_path)
+                self.assertTrue(row_github_issue_is_closed("1"))
+            finally:
+                write_json(
+                    json_path,
+                    {
+                        row_number: {
+                            "issue_number": metadata.issue_number,
+                            "is_closed": metadata.is_closed,
+                            "tags": list(metadata.tags),
+                        }
+                        for row_number, metadata in baseline_rows.items()
+                    },
+                )
+                reload_row_github_issues()
 
 
 if __name__ == "__main__":

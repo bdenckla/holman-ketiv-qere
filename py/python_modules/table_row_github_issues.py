@@ -65,7 +65,15 @@ def load_row_github_issues(
     return row_metadata
 
 
-ROW_GITHUB_ISSUES: dict[str, RowGitHubIssueMetadata] = load_row_github_issues()
+def reload_row_github_issues(
+    path: Path = ROW_GITHUB_ISSUES_JSON_PATH,
+) -> dict[str, RowGitHubIssueMetadata]:
+    global ROW_GITHUB_ISSUES
+    ROW_GITHUB_ISSUES = load_row_github_issues(path)
+    return ROW_GITHUB_ISSUES
+
+
+ROW_GITHUB_ISSUES: dict[str, RowGitHubIssueMetadata] = reload_row_github_issues()
 
 
 def issue_url_from_number(issue_number: int) -> str:
