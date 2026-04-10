@@ -2,8 +2,11 @@ from __future__ import annotations
 
 import unittest
 
-from python_modules.hebrew_text_tokens import find_hebrew_tokens, strip_ignorable_token_marks
-from search_final_hiriq_verse_text import (
+from python_modules.hebrew_text_tokens import (
+    find_hebrew_tokens,
+    strip_ignorable_token_marks,
+)
+from main_search_final_hiriq_verse_text import (
     is_final_hiriq_token,
     strip_ignorable_marks,
 )

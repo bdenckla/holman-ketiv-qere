@@ -15,7 +15,7 @@ The extracted table is intentionally treated as a fixed project scope:
 Run extraction with:
 
 ```powershell
-python py/extract_docx.py
+.venv\Scripts\python.exe py/main_extract_docx.py
 ```
 
 This also generates:
@@ -33,7 +33,7 @@ Checked-in issue metadata used by the findings report lives in:
 To regenerate the HTML report from an existing JSON extract:
 
 ```powershell
-python py/render_table_data_findings_html.py
+.venv\Scripts\python.exe py/main_render_table_data_findings_html.py
 ```
 
 The extractor performs MPP verification as a mandatory part of extraction.
@@ -61,8 +61,8 @@ reuse or adapt.
 
 Current example:
 
-- `py/search_holam_he_qere.py`
-- `py/search_final_hiriq_verse_text.py`
+- `py/main_search_holam_he_qere.py`
+- `py/main_search_final_hiriq_verse_text.py`
 
 This script traverses MPP qere readings directly, reports which hits come from
 the first argument of `קו"כ-אם`, and compares the vowel-only-form hit set against
@@ -82,13 +82,28 @@ Shared helpers for verse-text token searches live in:
 
 - `py/python_modules/hebrew_text_tokens.py`
 
-To create another ending-pattern search, copy `py/search_holam_he_qere.py` and
+To create another ending-pattern search, copy `py/main_search_holam_he_qere.py` and
 change `SEARCH_SPEC`.
 
 Run it from the repo root with:
 
 ```powershell
-python py/search_holam_he_qere.py
+.venv\Scripts\python.exe py/main_search_holam_he_qere.py
 ```
 
 It writes its report to `.novc/holam_he_qere_report.json`.
+
+## Tests
+
+Run all tracked tests from the repo root with:
+
+```powershell
+.venv\Scripts\python.exe py/main_test.py
+```
+
+Run a focused subset with flags such as:
+
+```powershell
+.venv\Scripts\python.exe py/main_test.py --render-table-data-findings-html
+.venv\Scripts\python.exe py/main_test.py --refresh-table-row-github-issues
+```
