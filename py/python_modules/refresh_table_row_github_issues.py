@@ -5,23 +5,22 @@ import json
 from pathlib import Path
 import subprocess
 
+from python_modules.json_io import write_json
 from python_modules.table_row_github_issues import (
     ISSUE_LABEL_TO_TAG,
     ISSUE_TAG_DISPLAY_TEXT,
     REPO_NAME,
     REPO_OWNER,
     ROW_GITHUB_ISSUES,
+    ROW_GITHUB_ISSUES_JSON_PATH,
     RowGitHubIssueMetadata,
 )
 
-TABLE_ROW_GITHUB_ISSUES_MODULE_PATH = (
-    Path(__file__).resolve().with_name("table_row_github_issues.py")
-)
 GITHUB_ISSUE_LIST_LIMIT = 500
 
 
 def refresh_row_github_issue_metadata(
-    module_path: Path = TABLE_ROW_GITHUB_ISSUES_MODULE_PATH,
+    json_path: Path = ROW_GITHUB_ISSUES_JSON_PATH,
 ) -> Path:
     issue_numbers = {metadata.issue_number for metadata in ROW_GITHUB_ISSUES.values()}
     live_issues = fetch_live_github_issues(issue_numbers=issue_numbers)
@@ -29,9 +28,8 @@ def refresh_row_github_issue_metadata(
         existing_rows=ROW_GITHUB_ISSUES,
         live_issues=live_issues,
     )
-    module_text = render_table_row_github_issues_module_text(refreshed_rows)
-    module_path.write_text(module_text, encoding="utf-8")
-    return module_path
+    write_json(json_path, row_github_issues_payload(refreshed_rows))
+    return json_path
 
 
 def fetch_live_github_issues(
@@ -111,76 +109,14 @@ def normalize_issue_tags(label_names: list[str]) -> tuple[str, ...]:
     return tuple(tag for tag in ISSUE_TAG_DISPLAY_TEXT if tag in normalized_tags)
 
 
-def render_table_row_github_issues_module_text(
+def row_github_issues_payload(
     rows: dict[str, RowGitHubIssueMetadata],
-) -> str:
-    label_lines = "\n".join(
-        f"    {label!r}: {tag!r}," for label, tag in ISSUE_LABEL_TO_TAG.items()
-    )
-    display_lines = "\n".join(
-        f"    {tag!r}: {display_text!r},"
-        for tag, display_text in ISSUE_TAG_DISPLAY_TEXT.items()
-    )
-    row_lines = "\n".join(
-        f"    {row_number!r}: RowGitHubIssueMetadata(issue_number={metadata.issue_number}, is_closed={metadata.is_closed}, tags={metadata.tags!r}),"
+) -> dict[str, dict[str, object]]:
+    return {
+        row_number: {
+            "issue_number": metadata.issue_number,
+            "is_closed": metadata.is_closed,
+            "tags": list(metadata.tags),
+        }
         for row_number, metadata in sorted(rows.items(), key=lambda item: int(item[0]))
-    )
-    return (
-        "from __future__ import annotations\n\n"
-        "from dataclasses import dataclass\n"
-        "from typing import Final\n\n"
-        f"REPO_OWNER: Final = {REPO_OWNER!r}\n"
-        f"REPO_NAME: Final = {REPO_NAME!r}\n\n"
-        "ISSUE_LABEL_TO_TAG: Final[dict[str, str]] = {\n"
-        f"{label_lines}\n"
-        "}\n\n"
-        "ISSUE_TAG_DISPLAY_TEXT: Final[dict[str, str]] = {\n"
-        f"{display_lines}\n"
-        "}\n\n"
-        "\n"
-        "@dataclass(frozen=True)\n"
-        "class RowGitHubIssueMetadata:\n"
-        "    issue_number: int\n"
-        "    is_closed: bool\n"
-        "    tags: tuple[str, ...] = ()\n\n"
-        "\n"
-        "ROW_GITHUB_ISSUES: dict[str, RowGitHubIssueMetadata] = {\n"
-        f"{row_lines}\n"
-        "}\n\n"
-        "\n"
-        "def issue_url_from_number(issue_number: int) -> str:\n"
-        '    return f"https://github.com/{REPO_OWNER}/{REPO_NAME}/issues/{issue_number}"\n\n'
-        "\n"
-        "def row_github_issue_metadata(row_number: str) -> RowGitHubIssueMetadata | None:\n"
-        "    return ROW_GITHUB_ISSUES.get(str(row_number))\n\n"
-        "\n"
-        "def require_row_github_issue_metadata(row_number: str) -> RowGitHubIssueMetadata:\n"
-        "    metadata = row_github_issue_metadata(row_number)\n"
-        "    if metadata is None:\n"
-        '        raise KeyError(f"missing GitHub issue metadata for table row {row_number}")\n'
-        "    return metadata\n\n"
-        "\n"
-        "def row_github_issue_number(row_number: str) -> int | None:\n"
-        "    metadata = row_github_issue_metadata(row_number)\n"
-        "    if metadata is None:\n"
-        "        return None\n"
-        "    return metadata.issue_number\n\n"
-        "\n"
-        "def row_github_issue_url(row_number: str) -> str | None:\n"
-        "    issue_number = row_github_issue_number(row_number)\n"
-        "    if issue_number is None:\n"
-        "        return None\n"
-        "    return issue_url_from_number(issue_number)\n\n"
-        "\n"
-        "def row_github_issue_is_closed(row_number: str) -> bool | None:\n"
-        "    metadata = row_github_issue_metadata(row_number)\n"
-        "    if metadata is None:\n"
-        "        return None\n"
-        "    return metadata.is_closed\n\n"
-        "\n"
-        "def row_github_issue_tags(row_number: str) -> tuple[str, ...]:\n"
-        "    metadata = row_github_issue_metadata(row_number)\n"
-        "    if metadata is None:\n"
-        "        return ()\n"
-        "    return metadata.tags\n"
-    )
+    }

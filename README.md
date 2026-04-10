@@ -6,7 +6,7 @@ This repository tracks a focused extraction from:
 
 The extracted table is intentionally treated as a fixed project scope:
 
-- We expect exactly 77 rows in `docs/table_data.json`.
+- We expect exactly 77 rows in `docs-not-served/table_data.json`.
 - We do not expect the dataset to expand materially.
 - Favor straightforward, fail-fast scripts over highly flexible tooling.
 
@@ -23,6 +23,12 @@ This also generates:
 - `docs/table_data_findings.html` (finding-based HTML report with summary counts and filtering)
 - `docs/table_data_findings.css` (report styles)
 - `docs/table_data_findings.js` (report filtering behavior)
+- `docs-not-served/introduction.md` (extracted source introduction)
+- `docs-not-served/table_data.json` (extracted source table data)
+
+Checked-in issue metadata used by the findings report lives in:
+
+- `io/table_row_github_issues.json`
 
 To regenerate the HTML report from an existing JSON extract:
 
@@ -36,7 +42,7 @@ There is no separate standalone verifier command.
 Default extraction behavior includes:
 
 - Post-extraction verification against `../MAM-parsed/plus/*.json`
-- Verification summary embedded in `docs/table_data.json` under `mam_plus_verify`
+- Verification summary embedded in `docs-not-served/table_data.json` under `mam_plus_verify`
 - Finding-filterable report generated at `docs/table_data_findings.html` with external `docs/table_data_findings.css` and `docs/table_data_findings.js`
 - Fail-fast error if verification finds missing matches
 
