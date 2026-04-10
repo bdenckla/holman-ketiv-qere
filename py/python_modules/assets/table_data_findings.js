@@ -3,7 +3,7 @@
   const cards = Array.from(document.querySelectorAll('.record-card'));
   const filterButtons = Array.from(document.querySelectorAll('.filter-btn[data-filter-id]'));
   const summaryRows = Array.from(document.querySelectorAll('.summary tr[data-filter-id]'));
-  const visibleCountEl = document.getElementById('visible-count');
+  const visibleFilteredCountEl = document.getElementById('visible-filtered-count');
   const showAllBtn = document.getElementById('show-all-btn');
 
   function cardFilterIds(card) {
@@ -45,8 +45,8 @@
       if (visible) visibleCount += 1;
     }
 
-    if (visibleCountEl) {
-      visibleCountEl.textContent = String(visibleCount);
+    if (visibleFilteredCountEl) {
+      visibleFilteredCountEl.textContent = `${visibleCount}/${cards.length - visibleCount}`;
     }
 
     for (const button of filterButtons) {

@@ -13,6 +13,10 @@
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { font: 15px/1.5 "Segoe UI", system-ui, sans-serif; background: var(--bg); color: var(--text); max-width: 1180px; margin: 0 auto; padding: 1rem; }
+.top-nav { display: flex; gap: .55rem; flex-wrap: wrap; margin-bottom: .8rem; }
+.nav-link { color: var(--muted); text-decoration: none; border: 1px solid var(--border); background: var(--card-bg); border-radius: 999px; padding: .2rem .7rem; }
+.nav-link:hover { background: var(--hover-bg); color: var(--text); }
+.nav-link.active { border-color: var(--accent); background: var(--active-bg); color: var(--text); }
 h1 { font-size: 1.6rem; margin-bottom: .25rem; }
 p { margin: .3rem 0; }
 .subtitle { color: var(--muted); margin-bottom: 1rem; }
@@ -21,11 +25,11 @@ p { margin: .3rem 0; }
 .meta-label { font-size: .72rem; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; }
 .meta-value { font-size: 1.2rem; font-weight: 600; }
 .section-title { font-size: 1.1rem; margin: 1rem 0 .5rem; }
-.summary { width: 100%; border-collapse: collapse; background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+.summary { width: min(100%, 20rem); border-collapse: collapse; background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; margin-bottom: 1rem; }
 .summary th, .summary td { text-align: left; padding: .45rem .65rem; border-bottom: 1px solid var(--border); }
 .summary th { background: var(--th-bg); font-size: .85rem; }
-.summary tr[data-finding-id] { cursor: pointer; }
-.summary tr[data-finding-id]:hover { background: var(--hover-bg); }
+.summary tr[data-filter-id] { cursor: pointer; }
+.summary tr[data-filter-id]:hover { background: var(--hover-bg); }
 .summary tr.active { background: var(--active-bg); }
 .summary tr:last-child td { border-bottom: none; }
 .total-row { font-weight: 600; }
@@ -56,6 +60,11 @@ p { margin: .3rem 0; }
 .image-strip { display: flex; gap: .35rem; flex-wrap: wrap; margin-top: .3rem; }
 .image-thumb { display: block; max-width: 100%; border: 1px solid var(--border); border-radius: 4px; background: var(--card-bg); }
 .image-caption { font-size: .78rem; color: var(--muted); text-transform: uppercase; }
+.cat-has-mpp-template { background: #5b7c2f; }
+.cat-issue-tag-holam-he { background: #7b9f35; }
+.cat-issue-tag-qyv { background: #d67b2c; }
+.cat-issue-tag-boa-sans-aleph { background: #4b8b54; }
+.cat-issue-tag-rafe { background: #9b6b18; }
 @media (max-width: 850px) {
   .record-grid { grid-template-columns: 1fr; }
 }

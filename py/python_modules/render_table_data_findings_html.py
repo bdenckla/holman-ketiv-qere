@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from collections import Counter
+from dataclasses import dataclass
 from html import escape
 import os
 from pathlib import Path
@@ -11,7 +12,11 @@ from python_modules.mpp_matching_template_args import (
     matching_template_arguments_in_mpp_verse_by_row_number,
 )
 from python_modules.table_data_external_links import verse_external_links
-from python_modules.table_row_github_issues import row_github_issue_url
+from python_modules.table_row_github_issues import (
+    ISSUE_TAG_DISPLAY_TEXT,
+    require_row_github_issue_metadata,
+    row_github_issue_url,
+)
 
 PALETTE = [
     "#1f5f8b",
@@ -36,6 +41,19 @@ FINDING_INVARIANT_SUFFIX = " | L - Qere"
 FINDING_DISPLAY_MAP = {
     "A and L - Qere": "A - Qere note",
 }
+ISSUE_TAG_ORDER = (
+    "holam-he",
+    "qyv",
+    "boa-sans-aleph",
+    "rafe",
+)
+MAIN_NAV_LABEL = "Review"
+SUPPRESSED_NAV_LABEL = "Suppressed"
+MAIN_PAGE_TITLE = "Holman k/q"
+SUPPRESSED_PAGE_TITLE = "Holman k/q - Suppressed"
+MAIN_PAGE_HEADING = "Holman ketiv/qere review"
+SUPPRESSED_PAGE_HEADING = "Suppressed"
+
 # Per-image display-size tweaks measured against each image's native width.
 # Key format: (row_number, witness, image_index_1_based)
 IMAGE_NATIVE_SCALE_TWEAKS: dict[tuple[str, str, int], float] = {
@@ -45,10 +63,19 @@ IMAGE_NATIVE_SCALE_TWEAKS: dict[tuple[str, str, int], float] = {
     ("7", "aleppo", 1): 0.5,
     ("74", "aleppo", 1): 0.5,
 }
-HEBREW_CHAR_RANGES = (("\u0590", "\u05FF"), ("\uFB1D", "\uFB4F"))
+HEBREW_CHAR_RANGES = (("\u0590", "\u05ff"), ("\ufb1d", "\ufb4f"))
 
 
-def render_table_data_findings_html(table_json_path: Path, output_html_path: Path) -> Path:
+@dataclass(frozen=True)
+class FilterCategory:
+    filter_id: str
+    label: str
+    count: int
+
+
+def render_table_data_findings_html(
+    table_json_path: Path, output_html_path: Path
+) -> Path:
     payload = load_json(table_json_path)
     if not isinstance(payload, dict):
         raise ValueError("table_data.json root must be an object")
@@ -63,15 +90,17 @@ def render_table_data_findings_html(table_json_path: Path, output_html_path: Pat
     if len(rows) != len(rows_obj):
         raise ValueError("table_data.json table.rows must contain only objects")
 
-    matching_template_arguments_by_row_number = matching_template_arguments_in_mpp_verse_by_row_number(
-        payload
+    matching_template_arguments_by_row_number = (
+        matching_template_arguments_in_mpp_verse_by_row_number(payload)
     )
-
-    total_count = len(rows)
     source_document = _as_text(payload.get("source_document", ""))
     finding_counts = Counter(_as_text(row.get("finding", "")) for row in rows)
-    sorted_findings = sorted(finding_counts.items(), key=lambda item: (-item[1], item[0]))
-    finding_ids = {finding: f"f{idx:02d}" for idx, (finding, _count) in enumerate(sorted_findings)}
+    sorted_findings = sorted(
+        finding_counts.items(), key=lambda item: (-item[1], item[0])
+    )
+    finding_ids = {
+        finding: f"f{idx:02d}" for idx, (finding, _count) in enumerate(sorted_findings)
+    }
 
     css_output_path = output_html_path.with_suffix(".css")
     js_output_path = output_html_path.with_suffix(".js")
@@ -81,68 +110,123 @@ def render_table_data_findings_html(table_json_path: Path, output_html_path: Pat
         finding_ids=list(finding_ids.values()),
     )
 
-    summary_rows = "\n".join(
-        _summary_row_html(finding=finding, count=count, finding_id=finding_ids[finding])
-        for finding, count in sorted_findings
+    active_rows, suppressed_rows = _partition_rows(rows)
+    suppressed_output_path = _suppressed_output_path(output_html_path)
+
+    _write_report_page(
+        page_title=MAIN_PAGE_TITLE,
+        page_heading=MAIN_PAGE_HEADING,
+        page_subtitle=f"Source: {source_document}",
+        rows=active_rows,
+        sorted_findings=sorted_findings,
+        finding_ids=finding_ids,
+        matching_template_arguments_by_row_number=matching_template_arguments_by_row_number,
+        output_html_path=output_html_path,
+        css_output_path=css_output_path,
+        js_output_path=js_output_path,
+        repo_root=table_json_path.parent.parent,
+        main_output_path=output_html_path,
+        suppressed_output_path=suppressed_output_path,
+        active_nav_label=MAIN_NAV_LABEL,
+        records_heading="Records",
     )
-    mpp_template_filter_count = sum(
-        1
-        for row in rows
-        if matching_template_arguments_by_row_number.get(_as_text(row.get("row_number", "")), [])
+    _write_report_page(
+        page_title=SUPPRESSED_PAGE_TITLE,
+        page_heading=SUPPRESSED_PAGE_HEADING,
+        page_subtitle=f"Source: {source_document} | Closed issues only",
+        rows=suppressed_rows,
+        sorted_findings=sorted_findings,
+        finding_ids=finding_ids,
+        matching_template_arguments_by_row_number=matching_template_arguments_by_row_number,
+        output_html_path=suppressed_output_path,
+        css_output_path=css_output_path,
+        js_output_path=js_output_path,
+        repo_root=table_json_path.parent.parent,
+        main_output_path=output_html_path,
+        suppressed_output_path=suppressed_output_path,
+        active_nav_label=SUPPRESSED_NAV_LABEL,
+        records_heading="Suppressed Records",
     )
-    finding_filter_buttons = "\n".join(
-        _filter_button_html(
-            label=_finding_display_text(finding),
-            count=count,
-            filter_id=finding_ids[finding],
-        )
-        for finding, count in sorted_findings
+    return output_html_path
+
+
+def _write_report_page(
+    *,
+    page_title: str,
+    page_heading: str,
+    page_subtitle: str,
+    rows: list[dict[str, Any]],
+    sorted_findings: list[tuple[str, int]],
+    finding_ids: dict[str, str],
+    matching_template_arguments_by_row_number: dict[str, list[dict[str, str]]],
+    output_html_path: Path,
+    css_output_path: Path,
+    js_output_path: Path,
+    repo_root: Path,
+    main_output_path: Path,
+    suppressed_output_path: Path,
+    active_nav_label: str,
+    records_heading: str,
+) -> None:
+    categories = _filter_categories(
+        rows=rows,
+        sorted_findings=sorted_findings,
+        finding_ids=finding_ids,
+        matching_template_arguments_by_row_number=matching_template_arguments_by_row_number,
     )
-    mpp_template_filter_button = _filter_button_html(
-        label=MPP_TEMPLATE_FILTER_LABEL,
-        count=mpp_template_filter_count,
-        filter_id=MPP_TEMPLATE_FILTER_ID,
-    )
-    filter_buttons = "\n".join([finding_filter_buttons, mpp_template_filter_button])
+    summary_rows = "\n".join(_summary_row_html(category) for category in categories)
+    filter_buttons = "\n".join(_filter_button_html(category) for category in categories)
     cards = "\n".join(
         _record_card_html(
             row=row,
             finding_id=finding_ids[_as_text(row.get("finding", ""))],
             output_html_path=output_html_path,
-            repo_root=table_json_path.parent.parent,
+            repo_root=repo_root,
             matching_template_arguments_by_row_number=matching_template_arguments_by_row_number,
         )
         for row in rows
     )
 
-    css_href = escape(css_output_path.name)
-    js_src = escape(js_output_path.name)
+    css_href = escape(
+        os.path.relpath(css_output_path, output_html_path.parent).replace("\\", "/")
+    )
+    js_src = escape(
+        os.path.relpath(js_output_path, output_html_path.parent).replace("\\", "/")
+    )
+    nav_html = _top_nav_html(
+        current_output_path=output_html_path,
+        main_output_path=main_output_path,
+        suppressed_output_path=suppressed_output_path,
+        active_nav_label=active_nav_label,
+    )
+    page_total = len(rows)
+    summary_html = (
+        f'<table class="summary">{summary_rows}'
+        f'<tr class="total-row"><td>Rows on page</td><td>{page_total}</td></tr></table>'
+    )
 
     html = f"""<!DOCTYPE html>
 <html lang=\"he\" dir=\"ltr\">
 <head>
 <meta charset=\"utf-8\">
 <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">
-<title>Table Findings</title>
+<title>{escape(page_title)}</title>
 <link rel=\"stylesheet\" href=\"{css_href}\">
 </head>
 <body>
-<h1>Finding-Based Table Report</h1>
-<p class=\"subtitle\">Source: {escape(source_document)}</p>
+{nav_html}
+<h1>{escape(page_heading)}</h1>
+<p class=\"subtitle\">{escape(page_subtitle)}</p>
 <div class=\"meta-grid\">
-  <div class=\"meta-box\"><div class=\"meta-label\">Total Records</div><div class=\"meta-value\">{total_count}</div></div>
-  <div class=\"meta-box\"><div class=\"meta-label\">Visible Records</div><div class=\"meta-value\" id=\"visible-count\">{total_count}</div></div>
-  <div class=\"meta-box\"><div class=\"meta-label\">Unique Finding Values</div><div class=\"meta-value\">{len(sorted_findings)}</div></div>
+  <div class=\"meta-box\"><div class=\"meta-label\">Total Records</div><div class=\"meta-value\">{page_total}</div></div>
+  <div class=\"meta-box\"><div class=\"meta-label\">Visible/Filtered-out records</div><div class=\"meta-value\" id=\"visible-filtered-count\">{page_total}/0</div></div>
 </div>
-<h2 class=\"section-title\">Summary by finding</h2>
-<table class=\"summary\"><tr><th>Finding</th><th>Count</th></tr>
-{summary_rows}
-<tr class=\"total-row\"><td>Total</td><td>{total_count}</td></tr></table>
+{summary_html}
 <h2 class=\"section-title\">Filter</h2>
 <div class=\"filter-bar\"><button type=\"button\" class=\"filter-btn\" id=\"show-all-btn\">Show all</button>
 {filter_buttons}
 </div>
-<h2 class=\"section-title\">Records</h2>
+<h2 class=\"section-title\">{escape(records_heading)}</h2>
 <div class=\"records\">{cards}</div>
 <script src=\"{js_src}\" defer></script>
 </body>
@@ -151,7 +235,112 @@ def render_table_data_findings_html(table_json_path: Path, output_html_path: Pat
 
     output_html_path.parent.mkdir(parents=True, exist_ok=True)
     output_html_path.write_text(html, encoding="utf-8")
-    return output_html_path
+
+
+def _partition_rows(
+    rows: list[dict[str, Any]],
+) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+    active_rows: list[dict[str, Any]] = []
+    suppressed_rows: list[dict[str, Any]] = []
+    for row in rows:
+        row_number = _as_text(row.get("row_number", ""))
+        metadata = require_row_github_issue_metadata(row_number)
+        if metadata.is_closed:
+            suppressed_rows.append(row)
+        else:
+            active_rows.append(row)
+    return active_rows, suppressed_rows
+
+
+def _filter_categories(
+    *,
+    rows: list[dict[str, Any]],
+    sorted_findings: list[tuple[str, int]],
+    finding_ids: dict[str, str],
+    matching_template_arguments_by_row_number: dict[str, list[dict[str, str]]],
+) -> list[FilterCategory]:
+    categories: list[FilterCategory] = []
+    finding_counts = Counter(_as_text(row.get("finding", "")) for row in rows)
+    for finding, _count in sorted_findings:
+        count = finding_counts.get(finding, 0)
+        if count == 0:
+            continue
+        categories.append(
+            FilterCategory(
+                filter_id=finding_ids[finding],
+                label=_finding_display_text(finding),
+                count=count,
+            )
+        )
+
+    mpp_template_filter_count = sum(
+        1
+        for row in rows
+        if matching_template_arguments_by_row_number.get(
+            _as_text(row.get("row_number", "")), []
+        )
+    )
+    if mpp_template_filter_count:
+        categories.append(
+            FilterCategory(
+                filter_id=MPP_TEMPLATE_FILTER_ID,
+                label=MPP_TEMPLATE_FILTER_LABEL,
+                count=mpp_template_filter_count,
+            )
+        )
+
+    for issue_tag in ISSUE_TAG_ORDER:
+        count = sum(
+            1
+            for row in rows
+            if issue_tag
+            in require_row_github_issue_metadata(
+                _as_text(row.get("row_number", ""))
+            ).tags
+        )
+        if count == 0:
+            continue
+        categories.append(
+            FilterCategory(
+                filter_id=_issue_tag_filter_id(issue_tag),
+                label=ISSUE_TAG_DISPLAY_TEXT[issue_tag],
+                count=count,
+            )
+        )
+    return categories
+
+
+def _suppressed_output_path(output_html_path: Path) -> Path:
+    return output_html_path.with_name(
+        f"{output_html_path.stem}_suppressed{output_html_path.suffix}"
+    )
+
+
+def _top_nav_html(
+    *,
+    current_output_path: Path,
+    main_output_path: Path,
+    suppressed_output_path: Path,
+    active_nav_label: str,
+) -> str:
+    main_href = escape(
+        os.path.relpath(main_output_path, current_output_path.parent).replace("\\", "/")
+    )
+    suppressed_href = escape(
+        os.path.relpath(suppressed_output_path, current_output_path.parent).replace(
+            "\\", "/"
+        )
+    )
+    main_class = "nav-link active" if active_nav_label == MAIN_NAV_LABEL else "nav-link"
+    suppressed_class = (
+        "nav-link active" if active_nav_label == SUPPRESSED_NAV_LABEL else "nav-link"
+    )
+    return (
+        '<nav class="top-nav">'
+        f'<a class="{main_class}" href="{main_href}">{MAIN_NAV_LABEL}</a>'
+        f'<a class="{suppressed_class}" href="{suppressed_href}">{SUPPRESSED_NAV_LABEL}</a>'
+        "</nav>"
+    )
 
 
 def _write_report_assets(
@@ -174,19 +363,18 @@ def _write_report_assets(
     js_output_path.write_text(js_text, encoding="utf-8")
 
 
-def _summary_row_html(finding: str, count: int, finding_id: str) -> str:
-    finding_display = _finding_display_text(finding)
+def _summary_row_html(category: FilterCategory) -> str:
     return (
-        f"<tr data-finding-id=\"{finding_id}\" data-filter-id=\"{finding_id}\">"
-        f"<td><span class=\"cat-swatch cat-{finding_id}\"></span>{escape(finding_display)}</td>"
-        f"<td>{count}</td></tr>"
+        f'<tr data-filter-id="{escape(category.filter_id)}">'
+        f'<td><span class="cat-swatch cat-{escape(category.filter_id)}"></span>{escape(category.label)}</td>'
+        f"<td>{category.count}</td></tr>"
     )
 
 
-def _filter_button_html(label: str, count: int, filter_id: str) -> str:
+def _filter_button_html(category: FilterCategory) -> str:
     return (
-        f"<button type=\"button\" class=\"filter-btn\" data-filter-id=\"{filter_id}\">"
-        f"{escape(label)} ({count})</button>"
+        f'<button type="button" class="filter-btn" data-filter-id="{escape(category.filter_id)}">'
+        f"{escape(category.label)} ({category.count})</button>"
     )
 
 
@@ -198,6 +386,7 @@ def _record_card_html(
     matching_template_arguments_by_row_number: dict[str, list[dict[str, str]]],
 ) -> str:
     row_number = _as_text(row.get("row_number", ""))
+    metadata = require_row_github_issue_metadata(row_number)
     row_fragment_id = _row_fragment_id(row_number)
     verse = _as_text(row.get("verse", ""))
     verse_ref_html = _verse_ref_html(verse=verse, row_number=row_number)
@@ -215,23 +404,32 @@ def _record_card_html(
     filter_ids = [finding_id]
     if matching_template_args_in_mpp_verse:
         filter_ids.append(MPP_TEMPLATE_FILTER_ID)
+    filter_ids.extend(_issue_tag_filter_id(issue_tag) for issue_tag in metadata.tags)
     filter_ids_attr = " ".join(filter_ids)
 
-    yatir_html = "" if notes_uxlc_yatir is None else _note_line_html(
-        label="UXLC yatir:",
-        value=notes_uxlc_yatir,
-        strip_prefix="yatir ",
+    yatir_html = (
+        ""
+        if notes_uxlc_yatir is None
+        else _note_line_html(
+            label="UXLC yatir:",
+            value=notes_uxlc_yatir,
+            strip_prefix="yatir ",
+        )
     )
-    haketer_html = "" if notes_haketer is None else (
-        f"<div class=\"note-line\"><span class=\"label\">HaKeter:</span><bdi class=\"pointed-heb\">{escape(notes_haketer)}</bdi></div>"
+    haketer_html = (
+        ""
+        if notes_haketer is None
+        else (
+            f'<div class="note-line"><span class="label">HaKeter:</span><bdi class="pointed-heb">{escape(notes_haketer)}</bdi></div>'
+        )
     )
     mpp_matching_template_arg_html = "".join(
         (
-            f"<div class=\"note-line\"><span class=\"label\">"
-            f"MPP matching template arg ({escape(_as_text(match.get('template_name')))}"
-            f"[{escape(_as_text(match.get('argument_key')))}]):"
-            f"</span><bdi class=\"pointed-heb\">"
-            f"{escape(_as_text(match.get('argument_text')))}</bdi></div>"
+            f'<div class="note-line"><span class="label">'
+            f'MPP matching template arg ({escape(_as_text(match.get("template_name")))}'
+            f'[{escape(_as_text(match.get("argument_key")))}]):'
+            f'</span><bdi class="pointed-heb">'
+            f'{escape(_as_text(match.get("argument_text")))}</bdi></div>'
         )
         for match in matching_template_args_in_mpp_verse
     )
@@ -273,7 +471,7 @@ def _image_paths_html(
     repo_root: Path,
 ) -> str:
     if not isinstance(image_paths, list):
-        return f"<span class=\"label\">No {escape(label)} image</span>"
+        return f'<span class="label">No {escape(label)} image</span>'
 
     output_dir = output_html_path.parent.resolve()
     rendered: list[str] = []
@@ -288,12 +486,12 @@ def _image_paths_html(
         if native_scale is not None:
             native_scale_attr = f' data-native-scale="{native_scale:g}"'
         rendered.append(
-            f"<a href=\"{rel_asset_html}\" target=\"_blank\" rel=\"noopener\">"
-            f"<img class=\"image-thumb\" src=\"{rel_asset_html}\" alt=\"{escape(label)} image {index}\"{native_scale_attr}></a>"
+            f'<a href="{rel_asset_html}" target="_blank" rel="noopener">'
+            f'<img class="image-thumb" src="{rel_asset_html}" alt="{escape(label)} image {index}"{native_scale_attr}></a>'
         )
 
     if not rendered:
-        return f"<span class=\"label\">No {escape(label)} image</span>"
+        return f'<span class="label">No {escape(label)} image</span>'
     return "".join(rendered)
 
 
@@ -322,17 +520,23 @@ def _note_line_html(label: str, value: str, strip_prefix: str | None = None) -> 
     if _contains_hebrew_char(display_value):
         value_html = f'<bdi class="pointed-heb">{escape(display_value)}</bdi>'
     else:
-        value_html = f'<span>{escape(display_value)}</span>'
+        value_html = f"<span>{escape(display_value)}</span>"
 
     return f'<div class="note-line"><span class="label">{escape(label)}</span> {value_html}</div>'
 
 
 def _contains_hebrew_char(text: str) -> bool:
-    return any(start <= char <= end for char in text for start, end in HEBREW_CHAR_RANGES)
+    return any(
+        start <= char <= end for char in text for start, end in HEBREW_CHAR_RANGES
+    )
 
 
 def _row_fragment_id(row_number: str) -> str:
     return f"row{int(row_number):02d}"
+
+
+def _issue_tag_filter_id(issue_tag: str) -> str:
+    return f"issue-tag-{issue_tag}"
 
 
 def _as_text(value: object) -> str:
