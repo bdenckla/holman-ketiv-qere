@@ -175,7 +175,6 @@ def _write_report_page(
         matching_template_arguments_by_row_number=matching_template_arguments_by_row_number,
     )
     summary_rows = "\n".join(_summary_row_html(category) for category in categories)
-    filter_buttons = "\n".join(_filter_button_html(category) for category in categories)
     cards = "\n".join(
         _record_card_html(
             row=row,
@@ -200,10 +199,7 @@ def _write_report_page(
         active_nav_label=active_nav_label,
     )
     page_total = len(rows)
-    summary_html = (
-        f'<table class="summary">{summary_rows}'
-        f'<tr class="total-row"><td>Rows on page</td><td>{page_total}</td></tr></table>'
-    )
+    summary_html = f'<table class="summary">{summary_rows}</table>'
 
     html = f"""<!DOCTYPE html>
 <html lang=\"he\" dir=\"ltr\">
@@ -218,14 +214,10 @@ def _write_report_page(
 <h1>{escape(page_heading)}</h1>
 <p class=\"subtitle\">{escape(page_subtitle)}</p>
 <div class=\"meta-grid\">
-  <div class=\"meta-box\"><div class=\"meta-label\">Total Records</div><div class=\"meta-value\">{page_total}</div></div>
-  <div class=\"meta-box\"><div class=\"meta-label\">Visible/Filtered-out records</div><div class=\"meta-value\" id=\"visible-filtered-count\">{page_total}/0</div></div>
+    <div class=\"meta-box\"><div class=\"meta-label\">Total Records</div><div class=\"meta-value\">{page_total}</div></div>
+    <div class=\"meta-box\"><div class=\"meta-label\">Visible/Filtered-out records</div><div class=\"meta-value\" id=\"visible-filtered-count\">{page_total}/0</div></div>
 </div>
 {summary_html}
-<h2 class=\"section-title\">Filter</h2>
-<div class=\"filter-bar\"><button type=\"button\" class=\"filter-btn\" id=\"show-all-btn\">Show all</button>
-{filter_buttons}
-</div>
 <h2 class=\"section-title\">{escape(records_heading)}</h2>
 <div class=\"records\">{cards}</div>
 <script src=\"{js_src}\" defer></script>
@@ -303,7 +295,7 @@ def _filter_categories(
         categories.append(
             FilterCategory(
                 filter_id=_issue_tag_filter_id(issue_tag),
-                label=ISSUE_TAG_DISPLAY_TEXT[issue_tag],
+                label=_issue_tag_display_text(issue_tag),
                 count=count,
             )
         )
@@ -371,13 +363,6 @@ def _summary_row_html(category: FilterCategory) -> str:
     )
 
 
-def _filter_button_html(category: FilterCategory) -> str:
-    return (
-        f'<button type="button" class="filter-btn" data-filter-id="{escape(category.filter_id)}">'
-        f"{escape(category.label)} ({category.count})</button>"
-    )
-
-
 def _record_card_html(
     row: dict[str, Any],
     finding_id: str,
@@ -401,11 +386,21 @@ def _record_card_html(
     matching_template_args_in_mpp_verse = matching_template_arguments_by_row_number.get(
         row_number, []
     )
-    filter_ids = [finding_id]
+    record_categories: list[tuple[str, str]] = [(finding_id, finding_display)]
     if matching_template_args_in_mpp_verse:
-        filter_ids.append(MPP_TEMPLATE_FILTER_ID)
-    filter_ids.extend(_issue_tag_filter_id(issue_tag) for issue_tag in metadata.tags)
-    filter_ids_attr = " ".join(filter_ids)
+        record_categories.append((MPP_TEMPLATE_FILTER_ID, MPP_TEMPLATE_FILTER_LABEL))
+    record_categories.extend(
+        (
+            _issue_tag_filter_id(issue_tag),
+            _issue_tag_display_text(issue_tag),
+        )
+        for issue_tag in _ordered_issue_tags(metadata.tags)
+    )
+    filter_ids_attr = " ".join(filter_id for filter_id, _label in record_categories)
+    category_badges_html = "".join(
+        _record_category_badge_html(filter_id=filter_id, label=label)
+        for filter_id, label in record_categories
+    )
 
     yatir_html = (
         ""
@@ -451,7 +446,7 @@ def _record_card_html(
     )
 
     return f"""<article id="{row_fragment_id}" class="record-card" data-finding-id="{finding_id}" data-filter-ids="{escape(filter_ids_attr)}">
-<div class="record-head"><span class="record-ref">#{escape(row_number)}</span><span class="record-verse">{verse_ref_html}</span><span class="finding-badge cat-{finding_id}">{escape(finding_display)}</span></div>
+<div class="record-head"><span class="record-ref">#{escape(row_number)}</span><span class="record-verse">{verse_ref_html}</span><span class="category-badges">{category_badges_html}</span></div>
 <div class="record-grid"><div>
 <div class="note-line"><span class="label">MAM Word:</span><bdi class="pointed-heb">{escape(word)}</bdi></div>
 <div class="note-line"><span class="label">UXLC:</span><bdi class="pointed-heb">{escape(notes_uxlc)}</bdi></div>
@@ -537,6 +532,25 @@ def _row_fragment_id(row_number: str) -> str:
 
 def _issue_tag_filter_id(issue_tag: str) -> str:
     return f"issue-tag-{issue_tag}"
+
+
+def _issue_tag_display_text(issue_tag: str) -> str:
+    return ISSUE_TAG_DISPLAY_TEXT.get(issue_tag, issue_tag)
+
+
+def _ordered_issue_tags(issue_tags: list[str]) -> list[str]:
+    known_tags = [issue_tag for issue_tag in ISSUE_TAG_ORDER if issue_tag in issue_tags]
+    extra_tags = sorted(
+        issue_tag for issue_tag in issue_tags if issue_tag not in ISSUE_TAG_ORDER
+    )
+    return known_tags + extra_tags
+
+
+def _record_category_badge_html(*, filter_id: str, label: str) -> str:
+    return (
+        f'<span class="finding-badge cat-{escape(filter_id)}">'
+        f"{escape(label)}</span>"
+    )
 
 
 def _as_text(value: object) -> str:

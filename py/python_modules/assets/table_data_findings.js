@@ -1,10 +1,8 @@
 (() => {
   const activeFilterIds = new Set();
   const cards = Array.from(document.querySelectorAll('.record-card'));
-  const filterButtons = Array.from(document.querySelectorAll('.filter-btn[data-filter-id]'));
   const summaryRows = Array.from(document.querySelectorAll('.summary tr[data-filter-id]'));
   const visibleFilteredCountEl = document.getElementById('visible-filtered-count');
-  const showAllBtn = document.getElementById('show-all-btn');
 
   function cardFilterIds(card) {
     const raw = card.dataset.filterIds || card.dataset.findingId || '';
@@ -49,9 +47,6 @@
       visibleFilteredCountEl.textContent = `${visibleCount}/${cards.length - visibleCount}`;
     }
 
-    for (const button of filterButtons) {
-      button.classList.toggle('active', activeFilterIds.has(button.dataset.filterId));
-    }
     for (const row of summaryRows) {
       row.classList.toggle('active', activeFilterIds.has(row.dataset.filterId));
     }
@@ -66,18 +61,8 @@
     updateVisibility();
   }
 
-  for (const button of filterButtons) {
-    button.addEventListener('click', () => toggleFilter(button.dataset.filterId));
-  }
   for (const row of summaryRows) {
     row.addEventListener('click', () => toggleFilter(row.dataset.filterId));
-  }
-
-  if (showAllBtn) {
-    showAllBtn.addEventListener('click', () => {
-      activeFilterIds.clear();
-      updateVisibility();
-    });
   }
 
   applyNativeScaleTweaks();

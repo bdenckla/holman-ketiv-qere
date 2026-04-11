@@ -152,8 +152,12 @@ class RenderTableDataFindingsHtmlTests(unittest.TestCase):
 
         self.assertIn("<title>Holman k/q</title>", main_html)
         self.assertIn("<h1>Holman ketiv/qere review</h1>", main_html)
+        self.assertIn("Total Records", main_html)
         self.assertIn("Visible/Filtered-out records", main_html)
         self.assertIn('id="visible-filtered-count">2/0</div>', main_html)
+        self.assertNotIn("Rows on Page", main_html)
+        self.assertNotIn('<h2 class="section-title">Filter</h2>', main_html)
+        self.assertNotIn("filter-btn", main_html)
         self.assertNotIn("Unique Finding Values", main_html)
         self.assertNotIn("Summary by finding", main_html)
         self.assertNotIn("<th>Finding</th>", main_html)
@@ -256,11 +260,25 @@ class RenderTableDataFindingsHtmlTests(unittest.TestCase):
             row_github_issues_payload,
         )
 
-        self.assertIn("Has matching MPP template (1)", main_html)
-        self.assertIn("QyV (1)", main_html)
-        self.assertIn("בו״א sans א (1)", main_html)
-        self.assertIn("rafe (1)", main_html)
-        self.assertIn("ḥolam he (1)", main_html)
+        self.assertIn("Has matching MPP template</td><td>1", main_html)
+        self.assertIn("QyV</td><td>1", main_html)
+        self.assertIn("בו״א sans א</td><td>1", main_html)
+        self.assertIn("rafe</td><td>1", main_html)
+        self.assertIn("ḥolam he</td><td>1", main_html)
+        self.assertRegex(
+            main_html,
+            re.compile(
+                r'<article id="row04".*?<span class="category-badges">.*?Finding A.*?Has matching MPP template.*?QyV.*?</span>',
+                re.DOTALL,
+            ),
+        )
+        self.assertRegex(
+            main_html,
+            re.compile(
+                r'<article id="row21".*?<span class="category-badges">.*?Finding D.*?ḥolam he.*?</span>',
+                re.DOTALL,
+            ),
+        )
         self.assertRegex(
             main_html,
             re.compile(
