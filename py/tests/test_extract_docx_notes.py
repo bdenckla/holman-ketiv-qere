@@ -2,7 +2,11 @@ from __future__ import annotations
 
 import unittest
 
-from python_modules.extract_docx_notes import apply_notes_fixes, split_notes_components
+from python_modules.extract_docx_notes import (
+    apply_notes_fixes,
+    split_notes_components,
+    split_uxlc_pointed_prefix_atoms,
+)
 
 
 class ExtractDocxNotesTests(unittest.TestCase):
@@ -60,6 +64,35 @@ class ExtractDocxNotesTests(unittest.TestCase):
         self.assertEqual(notes_uxlc, "ההלכוא הֶהָלְכ֣וּ")
         self.assertEqual(notes_uxlc_yatir, "yatir aleph")
         self.assertIsNone(notes_haketer)
+
+    def test_split_uxlc_pointed_prefix_atoms_strips_single_prefix_atom(self) -> None:
+        notes_uxlc, pointed_prefix_atoms = split_uxlc_pointed_prefix_atoms(
+            notes_uxlc="עַל־בנו בָּנָ֣יו",
+            mam_word="בָּנָ֣ו",
+        )
+
+        self.assertEqual(notes_uxlc, "בנו בָּנָ֣יו")
+        self.assertEqual(pointed_prefix_atoms, "עַל־")
+
+    def test_split_uxlc_pointed_prefix_atoms_strips_multiple_prefix_atoms(self) -> None:
+        notes_uxlc, pointed_prefix_atoms = split_uxlc_pointed_prefix_atoms(
+            notes_uxlc="עַל־כָּל־המונה הֲמוֹנ֑וֹ",
+            mam_word="הֲמוֹנֹ֑ה",
+        )
+
+        self.assertEqual(notes_uxlc, "המונה הֲמוֹנ֑וֹ")
+        self.assertEqual(pointed_prefix_atoms, "עַל־כָּל־")
+
+    def test_split_uxlc_pointed_prefix_atoms_keeps_non_prefix_ketiv_intact(
+        self,
+    ) -> None:
+        notes_uxlc, pointed_prefix_atoms = split_uxlc_pointed_prefix_atoms(
+            notes_uxlc="מי־לי־ מַה־לִּי־",
+            mam_word="מַה־לִּי־",
+        )
+
+        self.assertEqual(notes_uxlc, "מי־לי־ מַה־לִּי־")
+        self.assertIsNone(pointed_prefix_atoms)
 
 
 if __name__ == "__main__":

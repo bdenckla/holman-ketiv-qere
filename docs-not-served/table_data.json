@@ -42,18 +42,28 @@
     "notes_structured_counts": [
       {
         "notes-UXLC": "<HEB> <HEB>",
+        "notes-UXLC-pointed-prefix-atoms": null,
         "notes-UXLC-yatir": null,
         "notes-HaKeter": null,
-        "count": 71
+        "count": 61
       },
       {
         "notes-UXLC": "<HEB> <HEB>",
+        "notes-UXLC-pointed-prefix-atoms": "<HEB>",
+        "notes-UXLC-yatir": null,
+        "notes-HaKeter": null,
+        "count": 10
+      },
+      {
+        "notes-UXLC": "<HEB> <HEB>",
+        "notes-UXLC-pointed-prefix-atoms": null,
         "notes-UXLC-yatir": null,
         "notes-HaKeter": "<HEB> <HEB>",
         "count": 4
       },
       {
         "notes-UXLC": "<HEB> <HEB>",
+        "notes-UXLC-pointed-prefix-atoms": null,
         "notes-UXLC-yatir": "yatir aleph",
         "notes-HaKeter": null,
         "count": 2
@@ -202,7 +212,8 @@
         "verse": "1Samuel 30:6.15",
         "word": "בָּנָ֣ו",
         "finding": "A - Masorah Circle | L - Qere",
-        "notes-UXLC": "עַל־בנו בָּנָ֣יו",
+        "notes-UXLC": "בנו בָּנָ֣יו",
+        "notes-UXLC-pointed-prefix-atoms": "עַל־",
         "notes-UXLC-yatir": null,
         "notes-HaKeter": null,
         "image_files": {
@@ -389,7 +400,8 @@
         "verse": "1Kings 6:38.14",
         "word": "מִשְׁפָּטָ֑ו",
         "finding": "A - Masorah Circle | L - Qere",
-        "notes-UXLC": "וּלְכָל־משפטו מִשְׁפָּטָ֑יו",
+        "notes-UXLC": "משפטו מִשְׁפָּטָ֑יו",
+        "notes-UXLC-pointed-prefix-atoms": "וּלְכָל־",
         "notes-UXLC-yatir": null,
         "notes-HaKeter": null,
         "image_files": {
@@ -406,7 +418,8 @@
         "verse": "2Kings 4:34.14",
         "word": "כַּפָּ֔ו",
         "finding": "A - Masorah Circle | L - Qere",
-        "notes-UXLC": "עַל־כפו כַּפָּ֔יו",
+        "notes-UXLC": "כפו כַּפָּ֔יו",
+        "notes-UXLC-pointed-prefix-atoms": "עַל־",
         "notes-UXLC-yatir": null,
         "notes-HaKeter": null,
         "image_files": {
@@ -627,7 +640,8 @@
         "verse": "Job 42:11.6",
         "word": "אַחְיֹתָ֜יו",
         "finding": "A - Masorah Circle | L - Qere",
-        "notes-UXLC": "וְכָל־אחיתיו אַחְיוֹתָ֜יו",
+        "notes-UXLC": "אחיתיו אַחְיוֹתָ֜יו",
+        "notes-UXLC-pointed-prefix-atoms": "וְכָל־",
         "notes-UXLC-yatir": null,
         "notes-HaKeter": null,
         "image_files": {
@@ -866,7 +880,8 @@
         "verse": "Ezekiel 17:21.3",
         "word": "מִבְרָחָ֤ו",
         "finding": "A - Masorah Circle | L - Qere",
-        "notes-UXLC": "כָּל־מברחו מִבְרָחָ֤יו",
+        "notes-UXLC": "מברחו מִבְרָחָ֤יו",
+        "notes-UXLC-pointed-prefix-atoms": "כָּל־",
         "notes-UXLC-yatir": null,
         "notes-HaKeter": null,
         "image_files": {
@@ -900,7 +915,8 @@
         "verse": "Ezekiel 32:31.7",
         "word": "הֲמוֹנֹ֑ה",
         "finding": "A - Masorah Circle | L - Qere",
-        "notes-UXLC": "עַל־כָּל־המונה הֲמוֹנ֑וֹ",
+        "notes-UXLC": "המונה הֲמוֹנ֑וֹ",
+        "notes-UXLC-pointed-prefix-atoms": "עַל־כָּל־",
         "notes-UXLC-yatir": null,
         "notes-HaKeter": null,
         "image_files": {
@@ -1002,7 +1018,8 @@
         "verse": "Ezekiel 40:26.13",
         "word": "אֵילָֽו׃",
         "finding": "A - No Masorah Circle | L - Qere",
-        "notes-UXLC": "אֶל־אילו אֵילָֽיו׃",
+        "notes-UXLC": "אילו אֵילָֽיו׃",
+        "notes-UXLC-pointed-prefix-atoms": "אֶל־",
         "notes-UXLC-yatir": null,
         "notes-HaKeter": null,
         "image_files": {
@@ -1087,7 +1104,8 @@
         "verse": "Ezekiel 40:31.7",
         "word": "אֵילָ֑ו",
         "finding": "A - No Masorah Circle | L - Qere",
-        "notes-UXLC": "אֶל־אילו אֵילָ֑יו",
+        "notes-UXLC": "אילו אֵילָ֑יו",
+        "notes-UXLC-pointed-prefix-atoms": "אֶל־",
         "notes-UXLC-yatir": null,
         "notes-HaKeter": null,
         "image_files": {
@@ -1189,7 +1207,8 @@
         "verse": "Ezekiel 40:34.6",
         "word": "אֵלָ֖ו",
         "finding": "A - Masorah Circle | L - Qere",
-        "notes-UXLC": "אֶל־אלו אֵלָ֖יו",
+        "notes-UXLC": "אלו אֵלָ֖יו",
+        "notes-UXLC-pointed-prefix-atoms": "אֶל־",
         "notes-UXLC-yatir": null,
         "notes-HaKeter": null,
         "image_files": {
@@ -1291,7 +1310,8 @@
         "verse": "Ezekiel 40:37.6",
         "word": "אֵילָ֖ו",
         "finding": "A - No Masorah Circle | L - Qere",
-        "notes-UXLC": "אֶל־אילו אֵילָ֖יו",
+        "notes-UXLC": "אילו אֵילָ֖יו",
+        "notes-UXLC-pointed-prefix-atoms": "אֶל־",
         "notes-UXLC-yatir": null,
         "notes-HaKeter": null,
         "image_files": {

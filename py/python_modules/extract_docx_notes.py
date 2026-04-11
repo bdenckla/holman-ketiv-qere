@@ -35,9 +35,11 @@ NOTES_JUNK_REPLACEMENTS = (
 # Strip known invisible format marks before pattern counting.
 INVISIBLE_MARK_PATTERN = re.compile(r"[\u034F\u200C-\u200F\u202A-\u202E\u2066-\u2069]")
 HEBREW_RUN_PATTERN = re.compile(r"[\u0590-\u05FF\uFB1D-\uFB4F]+")
+HEBREW_LETTER_PATTERN = re.compile(r"[\u05D0-\u05EA]+")
 NOTES_PREFIX = "MAM - No Comments | UXLC - "
 HAKETER_SEPARATOR = " | HaKeter - "
 UXLC_YATIR_PATTERN = re.compile(r"^(?P<uxlc>.*)\n\((?P<yatir>[^)]+)\)$", re.DOTALL)
+MAQAF = "\u05be"
 
 ALLOWED_LENINGRAD_TEXT_VALUES = {"", "’"}
 
@@ -129,6 +131,63 @@ def notes_structured_signature(notes: str) -> tuple[str, str | None, str | None]
     )
 
 
+def split_uxlc_pointed_prefix_atoms(
+    notes_uxlc: str,
+    mam_word: str,
+) -> tuple[str, str | None]:
+    notes_tokens = notes_uxlc.split()
+    if len(notes_tokens) != 2:
+        raise ValueError(f"expected exactly 2 UXLC note tokens, got {notes_tokens!r}")
+
+    ketiv_token, qere_token = notes_tokens
+    if MAQAF not in ketiv_token:
+        return notes_uxlc, None
+
+    mam_letters = _hebrew_letters_only(mam_word)
+    if not mam_letters:
+        return notes_uxlc, None
+
+    ketiv_atoms = _split_maqaf_atoms(ketiv_token)
+    matching_splits = []
+    for split_index in range(1, len(ketiv_atoms)):
+        prefix_atoms = "".join(ketiv_atoms[:split_index])
+        stripped_ketiv = "".join(ketiv_atoms[split_index:])
+        if _hebrew_letters_only(stripped_ketiv) == mam_letters:
+            matching_splits.append((prefix_atoms, stripped_ketiv))
+
+    if not matching_splits:
+        return notes_uxlc, None
+    if len(matching_splits) > 1:
+        raise ValueError(
+            "ambiguous UXLC pointed-prefix split for "
+            f"notes {notes_uxlc!r} and MAM word {mam_word!r}: {matching_splits!r}"
+        )
+
+    prefix_atoms, stripped_ketiv = matching_splits[0]
+    return f"{stripped_ketiv} {qere_token}", prefix_atoms
+
+
+def notes_structured_signature_for_row(
+    notes: str,
+    mam_word: str,
+) -> tuple[str, str | None, str | None, str | None]:
+    notes_uxlc, notes_uxlc_yatir, notes_haketer = split_notes_components(notes)
+    stripped_notes_uxlc, pointed_prefix_atoms = split_uxlc_pointed_prefix_atoms(
+        notes_uxlc=notes_uxlc,
+        mam_word=mam_word,
+    )
+    return (
+        abstract_hebrew_runs(stripped_notes_uxlc),
+        (
+            abstract_hebrew_runs(pointed_prefix_atoms)
+            if pointed_prefix_atoms is not None
+            else None
+        ),
+        notes_uxlc_yatir,
+        abstract_hebrew_runs(notes_haketer) if notes_haketer is not None else None,
+    )
+
+
 def fix_row_37_notes(notes: str) -> str:
     expected_notes = "MAM - No Comments | UXLC - מַה־לִּי־פֹה֙ מי־לי־"
     if notes != expected_notes:
@@ -213,3 +272,21 @@ def assert_text_columns_before_drop(row_data: dict[str, object]) -> int:
             f"unexpected leningrad text at row {row_number}: {leningrad_text!r}"
         )
     return 1 if leningrad_text == "’" else 0
+
+
+def _hebrew_letters_only(text: str) -> str:
+    return "".join(HEBREW_LETTER_PATTERN.findall(text))
+
+
+def _split_maqaf_atoms(text: str) -> list[str]:
+    atoms: list[str] = []
+    current_chars: list[str] = []
+    for char in text:
+        current_chars.append(char)
+        if char == MAQAF:
+            atoms.append("".join(current_chars))
+            current_chars = []
+
+    if current_chars:
+        atoms.append("".join(current_chars))
+    return atoms

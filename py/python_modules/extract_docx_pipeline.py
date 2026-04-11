@@ -10,8 +10,9 @@ from xml.etree import ElementTree as ET
 from python_modules.extract_docx_notes import (
     apply_notes_fixes,
     assert_text_columns_before_drop,
-    notes_structured_signature,
+    notes_structured_signature_for_row,
     split_notes_components,
+    split_uxlc_pointed_prefix_atoms,
     standardize_verse_book_name,
     verse_book_name,
 )
@@ -74,11 +75,17 @@ def parse_docx_archive(
     notes_structured_counts = [
         {
             "notes-UXLC": notes_uxlc,
+            "notes-UXLC-pointed-prefix-atoms": notes_uxlc_pointed_prefix_atoms,
             "notes-UXLC-yatir": notes_uxlc_yatir,
             "notes-HaKeter": notes_haketer,
             "count": count,
         }
-        for (notes_uxlc, notes_uxlc_yatir, notes_haketer), count in sorted(
+        for (
+            notes_uxlc,
+            notes_uxlc_pointed_prefix_atoms,
+            notes_uxlc_yatir,
+            notes_haketer,
+        ), count in sorted(
             Counter(notes_signatures).items(),
             key=lambda item: (-item[1], item[0]),
         )
@@ -178,11 +185,11 @@ def _parse_data_rows(
     repo_root: Path,
 ) -> tuple[
     list[dict[str, object]],
-    list[tuple[str, str | None, str | None]],
+    list[tuple[str, str | None, str | None, str | None]],
     int,
 ]:
     data_rows = []
-    notes_signatures: list[tuple[str, str | None, str | None]] = []
+    notes_signatures: list[tuple[str, str | None, str | None, str | None]] = []
     leningrad_quote_count = 0
 
     for row_index, row in enumerate(table_rows[1:], start=1):
@@ -208,7 +215,7 @@ def _ordered_row_data(
     column_keys: list[str],
     image_dir: Path,
     repo_root: Path,
-) -> tuple[dict[str, object], tuple[str, str | None, str | None], int]:
+) -> tuple[dict[str, object], tuple[str, str | None, str | None, str | None], int]:
     row_data: dict[str, object] = {
         "row_number": row_index,
     }
@@ -251,7 +258,12 @@ def _ordered_row_data(
     row_data["verse"] = standardize_verse_book_name(verse_text)
 
     notes = str(row_data["notes"])
+    word = str(row_data["word"])
     notes_uxlc, notes_uxlc_yatir, notes_haketer = split_notes_components(notes)
+    notes_uxlc, notes_uxlc_pointed_prefix_atoms = split_uxlc_pointed_prefix_atoms(
+        notes_uxlc=notes_uxlc,
+        mam_word=word,
+    )
 
     # Preserve column order and place notes-* exactly where notes used to be.
     ordered_row_data: dict[str, object] = {
@@ -262,6 +274,10 @@ def _ordered_row_data(
             continue
         if key == "notes":
             ordered_row_data["notes-UXLC"] = notes_uxlc
+            if notes_uxlc_pointed_prefix_atoms is not None:
+                ordered_row_data["notes-UXLC-pointed-prefix-atoms"] = (
+                    notes_uxlc_pointed_prefix_atoms
+                )
             ordered_row_data["notes-UXLC-yatir"] = notes_uxlc_yatir
             ordered_row_data["notes-HaKeter"] = notes_haketer
             continue
@@ -272,7 +288,11 @@ def _ordered_row_data(
     if "notes_orig" in row_data:
         ordered_row_data["notes_orig"] = row_data["notes_orig"]
 
-    return ordered_row_data, notes_structured_signature(notes), quote_count_increment
+    return (
+        ordered_row_data,
+        notes_structured_signature_for_row(notes=notes, mam_word=word),
+        quote_count_increment,
+    )
 
 
 def _validate_leningrad_quote_count(leningrad_quote_count: int) -> None:

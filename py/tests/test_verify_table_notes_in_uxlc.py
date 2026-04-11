@@ -96,7 +96,8 @@ class VerifyTableNotesInUXLCTests(unittest.TestCase):
                                 {
                                     "row_number": 8,
                                     "verse": "1Samuel 30:6.15",
-                                    "notes-UXLC": "עַל־בנו בָּנָ֣יו",
+                                    "notes-UXLC": "בנו בָּנָ֣יו",
+                                    "notes-UXLC-pointed-prefix-atoms": "עַל־",
                                 }
                             ]
                         }
@@ -114,6 +115,7 @@ class VerifyTableNotesInUXLCTests(unittest.TestCase):
         self.assertEqual(report["summary"]["rows_missing_claim_count"], 0)
         row_report = report["rows"][0]
         self.assertEqual(row_report["uxlc_verse_tokens"], ["עַל־בנו", "בָּנָ֣יו"])
+        self.assertEqual(row_report["notes_uxlc_pointed_prefix_atoms"], "עַל־")
         self.assertEqual(row_report["ketiv_match_source_tags"], ["w", "k"])
         self.assertEqual(row_report["qere_match_source_tags"], ["q"])
 

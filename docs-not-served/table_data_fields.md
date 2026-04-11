@@ -93,13 +93,20 @@ It distinguishes between:
 - Type: array of objects
 - Meaning: each distinct structured notes signature and the number of rows where it appears
 - Source: grouped count over parsed notes components
-- Current data observation: three entries
+- Current data observation: four entries
 
 ### `notes_structured_counts[].notes-UXLC`
 
 - Type: string
 - Meaning: abstracted UXLC notes payload with Hebrew runs replaced by `<HEB>`
-- Source: parsed `rows[].notes` after the constant prefix `MAM - No Comments | UXLC - `
+- Source: parsed `rows[].notes` after the constant prefix `MAM - No Comments | UXLC - `, with any leading pointed prefix atoms banished out of the ketiv token before grouping
+
+### `notes_structured_counts[].notes-UXLC-pointed-prefix-atoms`
+
+- Type: string or null
+- Meaning: abstracted leading pointed prefix atoms stripped from the UXLC ketiv token, with Hebrew runs replaced by `<HEB>`
+- Source: parsed from the leading ketiv token only when one or more maqaf-terminated prefix atoms can be removed while leaving a ketiv letter skeleton that matches `rows[].word`
+- Current data observation: `null` on most rows; `<HEB>` on 10 rows
 
 ### `notes_structured_counts[].notes-UXLC-yatir`
 
@@ -168,9 +175,17 @@ It distinguishes between:
 ### `notes-UXLC`
 
 - Type: string
-- Meaning: parsed UXLC notes payload (without the constant `MAM - No Comments | UXLC - ` prefix)
-- Source: parsed from the source-table notes column after extractor cleanup
+- Meaning: parsed UXLC notes payload (without the constant `MAM - No Comments | UXLC - ` prefix), with any leading pointed prefix atoms banished out of the ketiv token
+- Source: parsed from the source-table notes column after extractor cleanup and row-word-guided ketiv-prefix splitting
 - Current data observation: populated for all rows
+
+### `notes-UXLC-pointed-prefix-atoms`
+
+- Type: string, optional
+- Meaning: leading pointed prefix atoms stripped from the UXLC ketiv token and preserved separately
+- Source: parsed from maqaf-terminated atoms at the start of the ketiv token when the remaining ketiv letters match `word`
+- Current data observation: present on 10 rows
+- Example: row `1Samuel 30:6.15` stores `notes-UXLC` as `בנו בָּנָ֣יו` and `notes-UXLC-pointed-prefix-atoms` as `עַל־`
 
 ### `notes-UXLC-yatir`
 
@@ -191,7 +206,7 @@ It distinguishes between:
 - Type: string, optional
 - Meaning: original notes column text before a targeted note correction is applied
 - Source: copied from source-table `notes` only when a row-specific fix in `NOTES_TARGETED_FIXES_BY_ROW_NUMBER` is applied
-- Current data observation: present on `1` row (`Isa 52:5.2`)
+- Current data observation: present on `2` rows (`Joshua 10:24.19` and `Isaiah 52:5.2`)
 - Note: this is not used for routine junk-character cleanup; it is retained only when content-level correction changes the note itself
 
 ### `image_files`
@@ -223,7 +238,7 @@ It distinguishes between:
 - `row_number` is generated metadata.
 - `entry` text is asserted to equal the string form of `row_number`, then omitted from row output.
 - `finding_value_counts` summarizes each distinct `finding` label and its row count.
-- `notes_structured_counts` summarizes `notes-UXLC`, `notes-UXLC-yatir`, and `notes-HaKeter` signatures with row counts.
+- `notes_structured_counts` summarizes `notes-UXLC`, `notes-UXLC-pointed-prefix-atoms`, `notes-UXLC-yatir`, and `notes-HaKeter` signatures with row counts.
 - `verse_book_names` lists the distinct standard MAM 39-book names observed in `rows[].verse`.
 - `aleppo` and `leningrad` text fields are dropped from `rows` after extractor assertions (`aleppo` must be empty; `leningrad` must be empty or a single `’` marker).
 - Aleppo/Leningrad screenshots or embedded figures remain under `image_files`.

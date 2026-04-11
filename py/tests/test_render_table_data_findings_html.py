@@ -111,9 +111,9 @@ class RenderTableDataFindingsHtmlTests(unittest.TestCase):
                     {
                         "row_number": 4,
                         "verse": "1Samuel 2:9.2",
-                        "word": "ב",
+                        "word": "חֲסִידָו֙",
                         "finding": "Finding B",
-                        "notes-UXLC": "ב",
+                        "notes-UXLC": "חסידו חֲסִידָיו֙",
                     },
                     {
                         "row_number": 37,
@@ -193,9 +193,9 @@ class RenderTableDataFindingsHtmlTests(unittest.TestCase):
                     {
                         "row_number": 4,
                         "verse": "1Samuel 2:9.2",
-                        "word": "א",
+                        "word": "חֲסִידָו֙",
                         "finding": "Finding A",
-                        "notes-UXLC": "א",
+                        "notes-UXLC": "חסידו חֲסִידָיו֙",
                     },
                     {
                         "row_number": 12,
@@ -327,6 +327,132 @@ class RenderTableDataFindingsHtmlTests(unittest.TestCase):
             '1Samuel 2:9.2 <a href="https://www.mgketer.org/mikra/8/2/1/mg/106" target="_blank" rel="noopener">mgketer</a> <a href="https://bdenckla.github.io/MAM-with-doc/BA-1Samuel.html#c2v9" target="_blank" rel="noopener">MwD</a> <a href="https://he.wikisource.org/wiki/%D7%A9%D7%9E%D7%95%D7%90%D7%9C%20%D7%90_%D7%91/%D7%98%D7%A2%D7%9E%D7%99%D7%9D" target="_blank" rel="noopener">MAM-ws</a> <a href="https://github.com/bdenckla/holman-ketiv-qere/issues/7" target="_blank" rel="noopener">issue</a>',
             main_html,
         )
+
+    def test_rejects_qyv_tag_when_qere_is_not_yod_before_final_vav(self) -> None:
+        payload = {
+            "source_document": "sample.docx",
+            "table": {
+                "rows": [
+                    {
+                        "row_number": 4,
+                        "verse": "1Samuel 2:9.2",
+                        "word": "חֲסִידָו֙",
+                        "finding": "Finding A",
+                        "notes-UXLC": "חסידו חֲסִידָו֙",
+                    }
+                ]
+            },
+            "mam_plus_rows_matching_mpp_verse_template_arg": [],
+        }
+
+        row_github_issues_payload = {
+            "4": {
+                "issue_number": 7,
+                "is_closed": False,
+                "tags": ["qyv"],
+            }
+        }
+
+        with self.assertRaisesRegex(
+            ValueError,
+            r"row 4 .*violates expected qere.*tagged QyV in findings renderer",
+        ):
+            self._render(payload, row_github_issues_payload)
+
+    def test_accepts_qyv_tag_with_final_punctuation(self) -> None:
+        payload = {
+            "source_document": "sample.docx",
+            "table": {
+                "rows": [
+                    {
+                        "row_number": 55,
+                        "verse": "Ezekiel 40:26.13",
+                        "word": "אֵילָֽו׃",
+                        "finding": "Finding A",
+                        "notes-UXLC": "אילו אֵילָֽיו׃",
+                    }
+                ]
+            },
+            "mam_plus_rows_matching_mpp_verse_template_arg": [],
+        }
+
+        row_github_issues_payload = {
+            "55": {
+                "issue_number": 55,
+                "is_closed": False,
+                "tags": ["qyv"],
+            }
+        }
+
+        main_html, _suppressed_html, _js = self._render(
+            payload,
+            row_github_issues_payload,
+        )
+
+        self.assertIn('id="row55"', main_html)
+
+    def test_accepts_qyv_tag_with_meteg_difference(self) -> None:
+        payload = {
+            "source_document": "sample.docx",
+            "table": {
+                "rows": [
+                    {
+                        "row_number": 18,
+                        "verse": "2Samuel 24:14.14",
+                        "word": "רַחֲמָ֔ו",
+                        "finding": "Finding A",
+                        "notes-UXLC": "רחמו רַֽחֲמָ֔יו",
+                    }
+                ]
+            },
+            "mam_plus_rows_matching_mpp_verse_template_arg": [],
+        }
+
+        row_github_issues_payload = {
+            "18": {
+                "issue_number": 6,
+                "is_closed": False,
+                "tags": ["qyv"],
+            }
+        }
+
+        main_html, _suppressed_html, _js = self._render(
+            payload,
+            row_github_issues_payload,
+        )
+
+        self.assertIn('id="row18"', main_html)
+
+    def test_rejects_missing_qyv_tag_for_matching_row(self) -> None:
+        payload = {
+            "source_document": "sample.docx",
+            "table": {
+                "rows": [
+                    {
+                        "row_number": 4,
+                        "verse": "1Samuel 2:9.2",
+                        "word": "חֲסִידָו֙",
+                        "finding": "Finding A",
+                        "notes-UXLC": "חסידו חֲסִידָיו֙",
+                    }
+                ]
+            },
+            "mam_plus_rows_matching_mpp_verse_template_arg": [],
+        }
+
+        row_github_issues_payload = {
+            "4": {
+                "issue_number": 7,
+                "is_closed": False,
+                "tags": [],
+            }
+        }
+
+        with self.assertRaisesRegex(
+            ValueError,
+            r"row 4 .*matches the QyV definition but is missing the qyv tag",
+        ):
+            self._render(payload, row_github_issues_payload)
 
 
 if __name__ == "__main__":

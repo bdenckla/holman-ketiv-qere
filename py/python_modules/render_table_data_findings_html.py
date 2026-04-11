@@ -11,6 +11,7 @@ from python_modules.json_io import load_json
 from python_modules.mpp_matching_template_args import (
     matching_template_arguments_in_mpp_verse_by_row_number,
 )
+from python_modules.qyv_validation import evaluate_qyv_row, require_qyv_row_match
 from python_modules.table_data_external_links import verse_external_links
 from python_modules.table_row_github_issues import (
     ISSUE_TAG_DISPLAY_TEXT,
@@ -76,6 +77,7 @@ IMAGE_NATIVE_SCALE_TWEAKS: dict[tuple[str, str, int], float] = {
     ("74", "aleppo", 1): 0.5,
 }
 HEBREW_CHAR_RANGES = (("\u0590", "\u05ff"), ("\ufb1d", "\ufb4f"))
+QYV_TAG = "qyv"
 
 
 @dataclass(frozen=True)
@@ -101,6 +103,8 @@ def render_table_data_findings_html(
     rows = [row for row in rows_obj if isinstance(row, dict)]
     if len(rows) != len(rows_obj):
         raise ValueError("table_data.json table.rows must contain only objects")
+
+    _validate_qyv_issue_tags(rows)
 
     matching_template_arguments_by_row_number = (
         matching_template_arguments_in_mpp_verse_by_row_number(payload)
@@ -242,6 +246,20 @@ def _write_report_page(
 
     output_html_path.parent.mkdir(parents=True, exist_ok=True)
     output_html_path.write_text(html, encoding="utf-8")
+
+
+def _validate_qyv_issue_tags(rows: list[dict[str, Any]]) -> None:
+    for row in rows:
+        row_number = _as_text(row.get("row_number", ""))
+        metadata = require_row_github_issue_metadata(row_number)
+        evaluation = evaluate_qyv_row(row)
+        if QYV_TAG in metadata.tags:
+            require_qyv_row_match(row, context="tagged QyV in findings renderer")
+            continue
+        if evaluation.matches:
+            raise ValueError(
+                f"row {evaluation.row_number} {evaluation.verse} matches the QyV definition but is missing the qyv tag (findings renderer coverage check)"
+            )
 
 
 def _partition_rows(

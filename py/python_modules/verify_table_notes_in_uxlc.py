@@ -97,6 +97,7 @@ def verify_table_notes_in_uxlc(
         row_number = row.get("row_number")
         verse = row.get("verse")
         notes_uxlc = row.get("notes-UXLC")
+        notes_uxlc_pointed_prefix_atoms = row.get("notes-UXLC-pointed-prefix-atoms")
 
         if not isinstance(row_number, int):
             raise ValueError(f"row has invalid row_number: {row!r}")
@@ -104,16 +105,25 @@ def verify_table_notes_in_uxlc(
             raise ValueError(f"row has invalid verse at row {row_number}")
         if not isinstance(notes_uxlc, str):
             raise ValueError(f"row has invalid notes-UXLC at row {row_number}")
+        if not (
+            notes_uxlc_pointed_prefix_atoms is None
+            or isinstance(notes_uxlc_pointed_prefix_atoms, str)
+        ):
+            raise ValueError(
+                f"row has invalid notes-UXLC-pointed-prefix-atoms at row {row_number}"
+            )
 
         notes_tokens = notes_uxlc.split()
         if len(notes_tokens) != 2:
             raise ValueError(
                 f"expected exactly 2 UXLC note tokens at row {row_number}, got {notes_tokens!r}"
             )
-        ketiv_claim, qere_claim = (
-            _normalized_uxlc_text(notes_tokens[0]),
-            _normalized_uxlc_text(notes_tokens[1]),
-        )
+        ketiv_claim = _normalized_uxlc_text(notes_tokens[0])
+        qere_claim = _normalized_uxlc_text(notes_tokens[1])
+        if notes_uxlc_pointed_prefix_atoms is not None:
+            ketiv_claim = _normalized_uxlc_text(
+                notes_uxlc_pointed_prefix_atoms + ketiv_claim
+            )
 
         book_token, chapter_num, verse_num = parse_table_verse(verse)
         std_book_name = standard_book_name_for_table_verse(
@@ -143,6 +153,7 @@ def verify_table_notes_in_uxlc(
             "row_number": row_number,
             "verse": verse,
             "notes_uxlc": notes_uxlc,
+            "notes_uxlc_pointed_prefix_atoms": notes_uxlc_pointed_prefix_atoms,
             "ketiv_claim": ketiv_claim,
             "qere_claim": qere_claim,
             "uxlc_file_for_verse": _uxlc_xml_path(
