@@ -213,10 +213,10 @@ class RenderTableDataFindingsHtmlTests(unittest.TestCase):
                     },
                     {
                         "row_number": 21,
-                        "verse": "Joshua 1:4.1",
-                        "word": "ד",
+                        "verse": "Psalms 42:9.6",
+                        "word": "שִׁירֹ֣ה",
                         "finding": "Finding D",
-                        "notes-UXLC": "ד",
+                        "notes-UXLC": "שירה שִׁיר֣וֹ",
                     },
                 ]
             },
@@ -451,6 +451,68 @@ class RenderTableDataFindingsHtmlTests(unittest.TestCase):
         with self.assertRaisesRegex(
             ValueError,
             r"row 4 .*matches the QyV definition but is missing the qyv tag",
+        ):
+            self._render(payload, row_github_issues_payload)
+
+    def test_rejects_holam_he_tag_when_qere_is_not_final_vav(self) -> None:
+        payload = {
+            "source_document": "sample.docx",
+            "table": {
+                "rows": [
+                    {
+                        "row_number": 34,
+                        "verse": "Psalms 42:9.6",
+                        "word": "שִׁירֹ֣ה",
+                        "finding": "Finding A",
+                        "notes-UXLC": "שירה שִׁירֹ֣ה",
+                    }
+                ]
+            },
+            "mam_plus_rows_matching_mpp_verse_template_arg": [],
+        }
+
+        row_github_issues_payload = {
+            "34": {
+                "issue_number": 41,
+                "is_closed": False,
+                "tags": ["holam-he"],
+            }
+        }
+
+        with self.assertRaisesRegex(
+            ValueError,
+            r"row 34 .*violates expected qere.*tagged holam-he in findings renderer",
+        ):
+            self._render(payload, row_github_issues_payload)
+
+    def test_rejects_missing_holam_he_tag_for_matching_row(self) -> None:
+        payload = {
+            "source_document": "sample.docx",
+            "table": {
+                "rows": [
+                    {
+                        "row_number": 34,
+                        "verse": "Psalms 42:9.6",
+                        "word": "שִׁירֹ֣ה",
+                        "finding": "Finding A",
+                        "notes-UXLC": "שירה שִׁיר֣וֹ",
+                    }
+                ]
+            },
+            "mam_plus_rows_matching_mpp_verse_template_arg": [],
+        }
+
+        row_github_issues_payload = {
+            "34": {
+                "issue_number": 41,
+                "is_closed": False,
+                "tags": [],
+            }
+        }
+
+        with self.assertRaisesRegex(
+            ValueError,
+            r"row 34 .*matches the holam-he definition but is missing the holam-he tag",
         ):
             self._render(payload, row_github_issues_payload)
 
