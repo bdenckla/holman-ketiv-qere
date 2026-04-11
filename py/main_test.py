@@ -23,6 +23,11 @@ TEST_MODULE_SPECS = (
         help_text="Run extract_docx_notes unit tests.",
     ),
     TestModuleSpec(
+        flag="extract-docx-xml-utils",
+        module_name="tests.test_extract_docx_xml_utils",
+        help_text="Run extract_docx_xml_utils unit tests.",
+    ),
+    TestModuleSpec(
         flag="qere-ending-search",
         module_name="tests.test_qere_ending_search",
         help_text="Run qere ending search helper tests.",
@@ -46,6 +51,11 @@ TEST_MODULE_SPECS = (
         flag="verify-table-words-in-mam-plus",
         module_name="tests.test_verify_table_words_in_mam_plus",
         help_text="Run MAM plus table-word verification tests.",
+    ),
+    TestModuleSpec(
+        flag="verify-table-notes-in-uxlc",
+        module_name="tests.test_verify_table_notes_in_uxlc",
+        help_text="Run UXLC note verification tests.",
     ),
 )
 

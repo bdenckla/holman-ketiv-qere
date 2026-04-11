@@ -1669,5 +1669,12 @@
         "C3-Ezekiel.json"
       ]
     }
-  ]
+  ],
+  "uxlc_verify": {
+    "row_count": 77,
+    "rows_missing_claim_count": 0,
+    "rows_missing_ketiv_claim_count": 0,
+    "rows_missing_qere_claim_count": 0
+  },
+  "uxlc_rows_missing_note_claims": []
 }

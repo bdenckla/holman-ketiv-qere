@@ -10,6 +10,7 @@ from python_modules.extract_docx_pipeline import parse_docx_archive, write_extra
 from python_modules.render_table_data_findings_html import (
     render_table_data_findings_html,
 )
+from python_modules.verify_table_notes_in_uxlc import verify_table_notes_in_uxlc
 from python_modules.verify_table_words_in_mam_plus import verify_table_words_in_mam_plus
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -17,6 +18,7 @@ DEFAULT_DOCX_PATH = (
     REPO_ROOT / "Review of Qere and Kethib readings in the Aleppo and Leningrad.docx"
 )
 DEFAULT_MAM_PARSED_PATH = REPO_ROOT.parent / "MAM-parsed"
+DEFAULT_UXLC_UTILS_PATH = REPO_ROOT.parent / "UXLC-utils"
 DEFAULT_SERVED_DOCS_DIR = REPO_ROOT / "gh-pages"
 DEFAULT_NONSERVED_DOCS_DIR = REPO_ROOT / "docs-not-served"
 
@@ -64,7 +66,9 @@ def extract(
 
 
 def persist_verify_summary(
-    table_json_path: Path, verify_report: dict[str, object]
+    table_json_path: Path,
+    verify_report: dict[str, object],
+    uxlc_verify_report: dict[str, object],
 ) -> None:
     """Persist verification output inside extracted table_data.json."""
     table_data = load_json(table_json_path)
@@ -79,8 +83,18 @@ def persist_verify_summary(
     if not isinstance(doc_note_rows, list):
         raise ValueError("verification rows_matching_mpp_verse_template_arg is invalid")
 
+    uxlc_verify_summary = uxlc_verify_report.get("summary")
+    if not isinstance(uxlc_verify_summary, dict):
+        raise ValueError("UXLC verification summary is invalid")
+
+    uxlc_missing_rows = uxlc_verify_report.get("rows_missing_claims")
+    if not isinstance(uxlc_missing_rows, list):
+        raise ValueError("UXLC verification rows_missing_claims is invalid")
+
     table_data["mam_plus_verify"] = verify_summary
     table_data["mam_plus_rows_matching_mpp_verse_template_arg"] = doc_note_rows
+    table_data["uxlc_verify"] = uxlc_verify_summary
+    table_data["uxlc_rows_missing_note_claims"] = uxlc_missing_rows
     write_json(table_json_path, table_data)
 
 
@@ -113,6 +127,12 @@ def main() -> None:
         default=DEFAULT_MAM_PARSED_PATH,
         help="Path to sibling MAM-parsed repo used for mandatory post-extraction verification.",
     )
+    parser.add_argument(
+        "--uxlc-utils-path",
+        type=Path,
+        default=DEFAULT_UXLC_UTILS_PATH,
+        help="Path to sibling UXLC-utils repo used for mandatory UXLC note verification.",
+    )
     args = parser.parse_args()
 
     summary = extract(
@@ -126,26 +146,41 @@ def main() -> None:
         table_json_path=table_json_path,
         mam_parsed_path=args.mam_parsed_path,
     )
+    uxlc_verify_report = verify_table_notes_in_uxlc(
+        table_json_path=table_json_path,
+        uxlc_utils_path=args.uxlc_utils_path,
+    )
 
     verify_summary = verify_report["summary"]
     if not isinstance(verify_summary, dict):
         raise ValueError("verification summary is invalid")
 
+    uxlc_verify_summary = uxlc_verify_report["summary"]
+    if not isinstance(uxlc_verify_summary, dict):
+        raise ValueError("UXLC verification summary is invalid")
+
     missing_any = verify_summary["missing_any_plus_count"]
     missing_mpp_verse_text = verify_summary["missing_mpp_verse_text_count"]
+    missing_uxlc_claims = uxlc_verify_summary["rows_missing_claim_count"]
     summary["mam_plus_verify"] = verify_summary
-    persist_verify_summary(table_json_path=table_json_path, verify_report=verify_report)
+    summary["uxlc_verify"] = uxlc_verify_summary
+    persist_verify_summary(
+        table_json_path=table_json_path,
+        verify_report=verify_report,
+        uxlc_verify_report=uxlc_verify_report,
+    )
     render_table_data_findings_html(
         table_json_path=table_json_path,
         output_html_path=findings_html_path,
     )
     summary["findings_html_path"] = findings_html_path.as_posix()
 
-    if missing_any or missing_mpp_verse_text:
+    if missing_any or missing_mpp_verse_text or missing_uxlc_claims:
         raise ValueError(
             "post-extraction verification failed: "
             f"missing_any_plus_count={missing_any}, "
-            f"missing_mpp_verse_text_count={missing_mpp_verse_text}"
+            f"missing_mpp_verse_text_count={missing_mpp_verse_text}, "
+            f"rows_missing_uxlc_claim_count={missing_uxlc_claims}"
         )
 
     print(json.dumps(summary, ensure_ascii=False, indent=2))

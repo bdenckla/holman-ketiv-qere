@@ -15,6 +15,15 @@ CONTROL_CHARS = {
     "\u00a0": " ",
 }
 
+# These two Aleppo crops are intentional manual overrides of the DOCX-embedded
+# source image, so extraction must leave them untouched when they already exist.
+PRESERVED_EXTRACTED_IMAGE_PATHS = frozenset(
+    {
+        "gh-pages/img/row013_aleppo_01.png",
+        "gh-pages/img/row014_aleppo_01.png",
+    }
+)
+
 
 def normalize_text(text: str) -> str:
     for old, new in CONTROL_CHARS.items():
@@ -98,8 +107,6 @@ def export_images(
         extension = Path(target).suffix or ".bin"
         filename = f"row{row_number:03d}_{column_key}_{image_index:02d}{extension}"
         output_path = image_dir / filename
-        output_path.write_bytes(archive.read(f"word/{target}"))
-
         try:
             rel_output_path = output_path.resolve().relative_to(repo_root.resolve())
         except ValueError as exc:
@@ -107,5 +114,22 @@ def export_images(
                 f"image path {output_path!s} is outside repo root {repo_root!s}"
             ) from exc
 
-        exported_paths.append(rel_output_path.as_posix())
+        rel_output_path_str = rel_output_path.as_posix()
+        source_bytes = archive.read(f"word/{target}")
+        if output_path.exists():
+            if rel_output_path_str in PRESERVED_EXTRACTED_IMAGE_PATHS:
+                exported_paths.append(rel_output_path_str)
+                continue
+
+            existing_bytes = output_path.read_bytes()
+            if existing_bytes != source_bytes:
+                raise ValueError(
+                    "refusing to overwrite existing extracted image with different bytes: "
+                    f"row={row_number}, column={column_key}, target={target}, "
+                    f"output_path={output_path!s}"
+                )
+        else:
+            output_path.write_bytes(source_bytes)
+
+        exported_paths.append(rel_output_path_str)
     return exported_paths
