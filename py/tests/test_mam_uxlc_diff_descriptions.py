@@ -406,7 +406,7 @@ class SpellingSwapTests(unittest.TestCase):
         qere = "בְּמַחֲלוּיִ֣ם"
         expected = (
             "replace qubuts with shuruq; "
-            "replace ḥiriq-yod spelling with ḥiriq spelling"
+            "replace ḥiriq-yod with ḥiriq"
         )
         self.assertEqual(describe_xaser_malei_qere_change(mam, qere), expected)
         predicted = _predict_qubuts_shuruq_hiriq_haser(mam)

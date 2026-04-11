@@ -241,7 +241,7 @@ class RenderTableDataFindingsHtmlTests(unittest.TestCase):
         )
 
         self.assertIn(
-            "replace qubuts with shuruq; replace ḥiriq-yod spelling with ḥiriq spelling",
+            "replace qubuts with shuruq; replace ḥiriq-yod with ḥiriq",
             main_html,
         )
 

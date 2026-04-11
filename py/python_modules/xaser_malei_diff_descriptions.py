@@ -253,7 +253,7 @@ def _describe_qubuts_shuruq_hiriq_transition(
     if HIRIQ not in next_qere_marks:
         return None
 
-    return "replace qubuts with shuruq; replace ḥiriq-yod spelling with ḥiriq spelling"
+    return "replace qubuts with shuruq; replace ḥiriq-yod with ḥiriq"
 
 
 def _is_xaser_malei_opcode_shape(
