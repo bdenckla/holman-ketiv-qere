@@ -82,6 +82,14 @@ def describe_xaser_malei_qere_change(mam_text: str, qere_text: str) -> str | Non
     if concise_description is not None:
         return concise_description
 
+    composite_description = _describe_qubuts_shuruq_hiriq_transition(
+        mam_text,
+        qere_text,
+        opcodes,
+    )
+    if composite_description is not None:
+        return composite_description
+
     mam_suffixes: list[str] = []
     qere_suffixes: list[str] = []
     mam_positions = _skeleton_positions(mam_text)
@@ -194,6 +202,58 @@ def _describe_single_transition(
             )
         return f"replace {old_vowel} with {new_suffix}"
     return None
+
+
+def _describe_qubuts_shuruq_hiriq_transition(
+    mam_text: str,
+    qere_text: str,
+    opcodes: list[tuple[str, int, int, int, int]],
+) -> str | None:
+    non_equal_opcodes = [opcode for opcode in opcodes if opcode[0] != "equal"]
+    if len(non_equal_opcodes) != 1:
+        return None
+
+    tag, mam_start, mam_end, qere_start, qere_end = non_equal_opcodes[0]
+    if tag != "replace" or mam_end - mam_start != 1 or qere_end - qere_start != 1:
+        return None
+
+    skeleton_mam = _strip_all_points(mam_text)
+    skeleton_qere = _strip_all_points(qere_text)
+    if (
+        skeleton_mam[mam_start:mam_end] != "י"
+        or skeleton_qere[qere_start:qere_end] != "ו"
+    ):
+        return None
+    if mam_end >= len(skeleton_mam) or qere_end >= len(skeleton_qere):
+        return None
+    if skeleton_mam[mam_end] != "י" or skeleton_qere[qere_end] != "י":
+        return None
+
+    mam_positions = _skeleton_positions(mam_text)
+    qere_positions = _skeleton_positions(qere_text)
+    replaced_mam_pos = mam_positions[mam_start]
+    replaced_qere_pos = qere_positions[qere_start]
+    next_mam_pos = mam_positions[mam_end]
+    next_qere_pos = qere_positions[qere_end]
+
+    previous_mam_marks = _preceding_letter_marks(mam_text, replaced_mam_pos)
+    replaced_mam_marks = _combining_marks_after(mam_text, replaced_mam_pos)
+    replaced_qere_marks = _combining_marks_after(qere_text, replaced_qere_pos)
+    next_mam_marks = _combining_marks_after(mam_text, next_mam_pos)
+    next_qere_marks = _combining_marks_after(qere_text, next_qere_pos)
+
+    if QUBUTS not in previous_mam_marks:
+        return None
+    if HIRIQ not in replaced_mam_marks:
+        return None
+    if DAGESH not in replaced_qere_marks:
+        return None
+    if HIRIQ in next_mam_marks:
+        return None
+    if HIRIQ not in next_qere_marks:
+        return None
+
+    return "replace qubuts with shuruq; replace ḥiriq-yod spelling with ḥiriq spelling"
 
 
 def _is_xaser_malei_opcode_shape(

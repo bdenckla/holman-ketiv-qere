@@ -186,6 +186,47 @@ def _predict_spelling_replace(
     )
 
 
+def _grapheme_clusters(text: str) -> list[str]:
+    clusters: list[str] = []
+    for char in text:
+        if not clusters or not unicodedata.combining(char):
+            clusters.append(char)
+            continue
+        clusters[-1] += char
+    return clusters
+
+
+def _cluster_marks(cluster: str) -> list[str]:
+    return list(cluster[1:])
+
+
+def _predict_qubuts_shuruq_hiriq_haser(mam_text: str) -> str:
+    clusters = _grapheme_clusters(mam_text)
+    for index in range(len(clusters) - 2):
+        current_cluster = clusters[index]
+        first_yod = clusters[index + 1]
+        second_yod = clusters[index + 2]
+        current_marks = _cluster_marks(current_cluster)
+        first_yod_marks = _cluster_marks(first_yod)
+        second_yod_marks = _cluster_marks(second_yod)
+        if QUBUTS not in current_marks:
+            continue
+        if first_yod[0] != "י" or second_yod[0] != "י":
+            continue
+        if HIRIQ not in first_yod_marks or HIRIQ in second_yod_marks:
+            continue
+
+        transformed = list(clusters)
+        transformed[index] = current_cluster[0] + "".join(
+            mark for mark in current_marks if mark != QUBUTS
+        )
+        transformed[index + 1] = "ו" + DAGESH
+        transformed[index + 2] = "י" + "".join(first_yod_marks + second_yod_marks)
+        return "".join(transformed)
+
+    raise AssertionError(f"Composite qubuts/shuruq pattern not found in {mam_text!r}")
+
+
 # ---------------------------------------------------------------------------
 # Assertions
 # ---------------------------------------------------------------------------
@@ -360,15 +401,16 @@ class SpellingSwapTests(unittest.TestCase):
     """xaser↔malei where both spellings are meaningful (replace opcode at skeleton)."""
 
     def test_hiriq_yod_to_shuruq(self) -> None:
-        # Row 25 — was "MAM uses ḥiriq-yod spelling; UXLC qere uses shuruq spelling"
+        # Row 25 — the pointed text combines two adjacent subchanges.
         mam = "בְּמַחֲלֻיִ֣ים"
         qere = "בְּמַחֲלוּיִ֣ם"
-        expected = "replace ḥiriq-yod spelling with shuruq spelling"
-        self.assertEqual(describe_xaser_malei_qere_change(mam, qere), expected)
-        predicted = _predict_spelling_replace(
-            mam, qere, old_spelling="ḥiriq-yod", new_spelling="shuruq"
+        expected = (
+            "replace qubuts with shuruq; "
+            "replace ḥiriq-yod spelling with ḥiriq spelling"
         )
-        self.assertEqual(predicted, _strip_all_points(qere))
+        self.assertEqual(describe_xaser_malei_qere_change(mam, qere), expected)
+        predicted = _predict_qubuts_shuruq_hiriq_haser(mam)
+        self.assertEqual(predicted, qere)
 
 
 class LetterRemoveTests(unittest.TestCase):
