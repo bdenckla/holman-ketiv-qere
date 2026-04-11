@@ -96,6 +96,224 @@ class RenderTableDataFindingsHtmlTests(unittest.TestCase):
             main_html,
         )
 
+    def test_renders_simple_letter_descriptions_for_non_qyv_non_holam_rows(
+        self,
+    ) -> None:
+        payload = {
+            "source_document": "sample.docx",
+            "table": {
+                "rows": [
+                    {
+                        "row_number": 13,
+                        "verse": "Joshua 1:1.1",
+                        "word": "הִיא",
+                        "finding": "Finding A",
+                        "notes-UXLC": "הוא הִוא",
+                    }
+                ]
+            },
+            "mam_plus_rows_matching_mpp_verse_template_arg": [],
+        }
+
+        row_github_issues_payload = {
+            "13": {
+                "issue_number": 13,
+                "is_closed": False,
+                "tags": [],
+            }
+        }
+
+        main_html, _suppressed_html, _js = self._render(
+            payload,
+            row_github_issues_payload,
+        )
+
+        self.assertIn(
+            '<div class="note-line"><span class="label">MAM vs UXLC ketiv letters:</span> <span>replace yod with vav after he</span></div>',
+            main_html,
+        )
+        self.assertIn(
+            '<div class="note-line"><span class="label">MAM vs UXLC qere:</span> <span>replace yod with vav after he</span></div>',
+            main_html,
+        )
+
+    def test_suppresses_qere_note_when_qere_exactly_matches_mam(self) -> None:
+        payload = {
+            "source_document": "sample.docx",
+            "table": {
+                "rows": [
+                    {
+                        "row_number": 15,
+                        "verse": "Joshua 1:1.1",
+                        "word": "לִי",
+                        "finding": "Finding A",
+                        "notes-UXLC": "לו לִי",
+                    }
+                ]
+            },
+            "mam_plus_rows_matching_mpp_verse_template_arg": [],
+        }
+
+        row_github_issues_payload = {
+            "15": {
+                "issue_number": 15,
+                "is_closed": False,
+                "tags": [],
+            }
+        }
+
+        main_html, _suppressed_html, _js = self._render(
+            payload,
+            row_github_issues_payload,
+        )
+
+        self.assertIn(
+            '<div class="note-line"><span class="label">MAM vs UXLC ketiv letters:</span> <span>replace yod with vav after lamed</span></div>',
+            main_html,
+        )
+        self.assertNotIn("MAM vs UXLC qere:", main_html)
+
+    def test_prefers_pointing_aware_xaser_malei_description_for_single_insert(
+        self,
+    ) -> None:
+        payload = {
+            "source_document": "sample.docx",
+            "table": {
+                "rows": [
+                    {
+                        "row_number": 39,
+                        "verse": "Jeremiah 5:6.21",
+                        "word": "מְשֻׁבוֹתֵיהֶֽם׃",
+                        "finding": "Finding A",
+                        "notes-UXLC": "משבותיהם מְשׁוּבוֹתֵיהֶֽם׃",
+                    }
+                ]
+            },
+            "mam_plus_rows_matching_mpp_verse_template_arg": [],
+        }
+
+        row_github_issues_payload = {
+            "39": {
+                "issue_number": 39,
+                "is_closed": False,
+                "tags": [],
+            }
+        }
+
+        main_html, _suppressed_html, _js = self._render(
+            payload,
+            row_github_issues_payload,
+        )
+
+        self.assertIn("replace qubuts with shuruq after shin", main_html)
+        self.assertNotIn("add vav after shin", main_html)
+
+    def test_renders_xaser_malei_description_when_qere_diff_is_not_one_grapheme_edit(
+        self,
+    ) -> None:
+        payload = {
+            "source_document": "sample.docx",
+            "table": {
+                "rows": [
+                    {
+                        "row_number": 25,
+                        "verse": "2Chronicles 24:25.6",
+                        "word": "בְּמַחֲלֻיִ֣ים",
+                        "finding": "Finding A",
+                        "notes-UXLC": "במחליים בְּמַחֲלוּיִ֣ם",
+                    }
+                ]
+            },
+            "mam_plus_rows_matching_mpp_verse_template_arg": [],
+        }
+
+        row_github_issues_payload = {
+            "25": {
+                "issue_number": 25,
+                "is_closed": False,
+                "tags": [],
+            }
+        }
+
+        main_html, _suppressed_html, _js = self._render(
+            payload,
+            row_github_issues_payload,
+        )
+
+        self.assertIn(
+            "MAM uses ḥiriq-yod spelling; UXLC qere uses shuruq spelling",
+            main_html,
+        )
+
+    def test_renders_simple_mark_description_for_non_qyv_non_holam_rows(self) -> None:
+        payload = {
+            "source_document": "sample.docx",
+            "table": {
+                "rows": [
+                    {
+                        "row_number": 14,
+                        "verse": "Joshua 1:1.1",
+                        "word": "דָּבָר",
+                        "finding": "Finding A",
+                        "notes-UXLC": "דבר דָּבַר",
+                    }
+                ]
+            },
+            "mam_plus_rows_matching_mpp_verse_template_arg": [],
+        }
+
+        row_github_issues_payload = {
+            "14": {
+                "issue_number": 14,
+                "is_closed": False,
+                "tags": ["rafeh"],
+            }
+        }
+
+        main_html, _suppressed_html, _js = self._render(
+            payload,
+            row_github_issues_payload,
+        )
+
+        self.assertNotIn("MAM vs UXLC ketiv letters:", main_html)
+        self.assertIn(
+            '<div class="note-line"><span class="label">MAM vs UXLC qere:</span> <span>on bet, qamats in old → pataḥ in new</span></div>',
+            main_html,
+        )
+
+    def test_skips_simple_descriptions_for_qyv_rows(self) -> None:
+        payload = {
+            "source_document": "sample.docx",
+            "table": {
+                "rows": [
+                    {
+                        "row_number": 4,
+                        "verse": "1Samuel 2:9.2",
+                        "word": "חֲסִידָו֙",
+                        "finding": "Finding A",
+                        "notes-UXLC": "חסידו חֲסִידָיו֙",
+                    }
+                ]
+            },
+            "mam_plus_rows_matching_mpp_verse_template_arg": [],
+        }
+
+        row_github_issues_payload = {
+            "4": {
+                "issue_number": 7,
+                "is_closed": False,
+                "tags": ["qyv"],
+            }
+        }
+
+        main_html, _suppressed_html, _js = self._render(
+            payload,
+            row_github_issues_payload,
+        )
+
+        self.assertNotIn("MAM vs UXLC ketiv letters:", main_html)
+        self.assertNotIn("MAM vs UXLC qere:", main_html)
+
     def test_renders_page_split_navigation_and_revised_summary_copy(self) -> None:
         payload = {
             "source_document": "sample.docx",

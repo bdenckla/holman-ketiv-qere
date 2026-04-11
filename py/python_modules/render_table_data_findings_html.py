@@ -12,6 +12,7 @@ from python_modules.holam_he_validation import (
     evaluate_holam_he_row,
     require_holam_he_row_match,
 )
+from python_modules.mam_uxlc_diff_descriptions import simple_row_diff_note_lines
 from python_modules.mpp_matching_template_args import (
     matching_template_arguments_in_mpp_verse_by_row_number,
 )
@@ -500,6 +501,13 @@ def _record_card_html(
         _record_category_badge_html(filter_id=filter_id, label=label)
         for filter_id, label in record_categories
     )
+    simple_diff_notes_html = "".join(
+        _note_line_html(label=label, value=value)
+        for label, value in simple_row_diff_note_lines(
+            row,
+            issue_tags=metadata.tags,
+        )
+    )
 
     yatir_html = (
         ""
@@ -549,7 +557,7 @@ def _record_card_html(
 <div class="record-grid"><div>
 <div class="note-line"><span class="label">MAM Word:</span><bdi class="pointed-heb">{escape(word)}</bdi></div>
 <div class="note-line"><span class="label">UXLC:</span><bdi class="pointed-heb">{escape(notes_uxlc)}</bdi></div>
-{yatir_html}{haketer_html}{mpp_matching_template_arg_html}
+{simple_diff_notes_html}{yatir_html}{haketer_html}{mpp_matching_template_arg_html}
 </div><div>
 <div class="image-panel"><div class="image-caption">Aleppo</div><div class="image-strip">{aleppo}</div></div>
 <div class="image-panel" style="margin-top:.45rem;"><div class="image-caption">Leningrad</div><div class="image-strip">{leningrad}</div></div>
