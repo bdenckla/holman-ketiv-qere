@@ -129,11 +129,11 @@ class RenderTableDataFindingsHtmlTests(unittest.TestCase):
         )
 
         self.assertIn(
-            '<div class="note-line"><span class="label">MAM vs UXLC ketiv letters:</span> <span>replace yod with vav after he</span></div>',
+            '<div class="note-line"><span class="label">MAM vs UXLC ketiv letters:</span> <span>replace yod with vav</span></div>',
             main_html,
         )
         self.assertIn(
-            '<div class="note-line"><span class="label">MAM vs UXLC qere:</span> <span>replace yod with vav after he</span></div>',
+            '<div class="note-line"><span class="label">MAM vs UXLC qere:</span> <span>replace yod with vav</span></div>',
             main_html,
         )
 
@@ -168,7 +168,7 @@ class RenderTableDataFindingsHtmlTests(unittest.TestCase):
         )
 
         self.assertIn(
-            '<div class="note-line"><span class="label">MAM vs UXLC ketiv letters:</span> <span>replace yod with vav after lamed</span></div>',
+            '<div class="note-line"><span class="label">MAM vs UXLC ketiv letters:</span> <span>replace yod with vav</span></div>',
             main_html,
         )
         self.assertNotIn("MAM vs UXLC qere:", main_html)
@@ -205,7 +205,7 @@ class RenderTableDataFindingsHtmlTests(unittest.TestCase):
             row_github_issues_payload,
         )
 
-        self.assertIn("replace qubuts with shuruq after shin", main_html)
+        self.assertIn("replace qubuts with shuruq", main_html)
         self.assertNotIn("add vav after shin", main_html)
 
     def test_renders_xaser_malei_description_when_qere_diff_is_not_one_grapheme_edit(
@@ -241,7 +241,7 @@ class RenderTableDataFindingsHtmlTests(unittest.TestCase):
         )
 
         self.assertIn(
-            "MAM uses ḥiriq-yod spelling; UXLC qere uses shuruq spelling",
+            "replace ḥiriq-yod spelling with shuruq spelling",
             main_html,
         )
 

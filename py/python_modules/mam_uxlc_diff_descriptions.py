@@ -198,12 +198,13 @@ def _describe_simple_letter_sequence_change(
     if tag == "replace" and old_chunk and new_chunk:
         return (
             f"replace {_symbol_sequence_name(old_chunk)} with "
-            f"{_symbol_sequence_name(new_chunk)}{_position_phrase(old_text, start_old)}"
+            f"{_symbol_sequence_name(new_chunk)}"
+            f"{_position_phrase(old_text, start_old, subject=old_chunk)}"
         )
     if tag == "delete" and old_chunk:
         return (
             f"remove {_symbol_sequence_name(old_chunk)}"
-            f"{_position_phrase(old_text, start_old)}"
+            f"{_position_phrase(old_text, start_old, subject=old_chunk)}"
         )
     if tag == "insert" and new_chunk:
         return (
@@ -213,11 +214,15 @@ def _describe_simple_letter_sequence_change(
     return None
 
 
-def _position_phrase(reference_text: str, index: int) -> str:
+def _position_phrase(reference_text: str, index: int, subject: str = "") -> str:
     if index <= 0:
         return " at beginning"
     if index >= len(reference_text):
         return " at end"
+    # If the subject is a single character that appears only once, the
+    # position is already unambiguous — no need for "after X".
+    if len(subject) == 1 and reference_text.count(subject) == 1:
+        return ""
     previous_symbol = reference_text[index - 1]
     return f" after {_symbol_name(previous_symbol)}"
 

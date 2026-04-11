@@ -139,6 +139,12 @@ def describe_xaser_malei_qere_change(mam_text: str, qere_text: str) -> str | Non
     ):
         return None
 
+    # For the common case of a single spelling swap (e.g. ḥiriq-yod → shuruq),
+    # use a single-perspective "replace X with Y" form rather than the
+    # two-perspective "MAM uses X; UXLC uses Y" form.
+    if len(mam_remaining) == 1 and len(qere_remaining) == 1:
+        return f"replace {mam_remaining[0]} spelling with {qere_remaining[0]} spelling"
+
     descriptions = [f"MAM uses {suffix} spelling" for suffix in mam_remaining]
     descriptions.extend(
         f"UXLC qere uses {suffix} spelling" for suffix in qere_remaining
@@ -177,11 +183,16 @@ def _describe_single_transition(
         old_vowel = _primary_vowel_name(old_marks)
         if old_vowel is None:
             return None
+        old_vowel_mark = _find_primary_vowel_mark(old_marks)
         previous_letter = skeleton_mam[mam_start - 1]
-        return (
-            f"replace {old_vowel} with {new_suffix} after "
-            f"{LETTER_NAMES[previous_letter]}"
-        )
+        # If the old vowel mark appears only once in the word, the position is
+        # already unambiguous — no need for "after {letter}".
+        if old_vowel_mark is None or mam_text.count(old_vowel_mark) > 1:
+            return (
+                f"replace {old_vowel} with {new_suffix} after "
+                f"{LETTER_NAMES[previous_letter]}"
+            )
+        return f"replace {old_vowel} with {new_suffix}"
     return None
 
 
@@ -260,6 +271,13 @@ def _primary_vowel_name(marks: list[str]) -> str | None:
         name = MARK_NAMES.get(mark)
         if name is not None:
             return name
+    return None
+
+
+def _find_primary_vowel_mark(marks: list[str]) -> str | None:
+    for mark in marks:
+        if mark in MARK_NAMES:
+            return mark
     return None
 
 
