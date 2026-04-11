@@ -82,12 +82,16 @@ def strip_known_notes_junk(notes: str) -> str:
     return notes
 
 
+def clean_notes_formatting_artifacts(notes: str) -> str:
+    return INVISIBLE_MARK_PATTERN.sub("", strip_known_notes_junk(notes))
+
+
 def abstract_hebrew_runs(text: str) -> str:
     return HEBREW_RUN_PATTERN.sub("<HEB>", text)
 
 
 def split_notes_components(notes: str) -> tuple[str, str | None, str | None]:
-    normalized_notes = INVISIBLE_MARK_PATTERN.sub("", notes)
+    normalized_notes = clean_notes_formatting_artifacts(notes)
     if not normalized_notes.startswith(NOTES_PREFIX):
         raise ValueError(f"unexpected notes format: {notes!r}")
 
@@ -140,6 +144,14 @@ def fix_row_37_notes(notes: str) -> str:
     return " ".join(parts)
 
 
+def fix_row_2_notes(notes: str) -> str:
+    buggy_qere = "הֶהָלְכ֣וְּּ"
+    fixed_qere = "הֶהָלְכ֣וּ"
+    if buggy_qere not in notes:
+        return notes
+    return notes.replace(buggy_qere, fixed_qere)
+
+
 def apply_notes_fixes(row_data: dict[str, object]) -> None:
     row_number = cast(int, row_data["row_number"])
     if row_number == 37 and row_data.get("word") == "":
@@ -149,19 +161,25 @@ def apply_notes_fixes(row_data: dict[str, object]) -> None:
     if not isinstance(current_notes, str):
         return
 
-    fixed_notes = strip_known_notes_junk(current_notes)
+    cleaned_notes = clean_notes_formatting_artifacts(current_notes)
+    fixed_notes = cleaned_notes
     targeted_fix_applied = False
+
+    if row_number == 2:
+        updated_notes = fix_row_2_notes(fixed_notes)
+        targeted_fix_applied = updated_notes != fixed_notes
+        fixed_notes = updated_notes
 
     if row_number == 37:
         updated_notes = fix_row_37_notes(fixed_notes)
-        targeted_fix_applied = updated_notes != fixed_notes
+        targeted_fix_applied = targeted_fix_applied or updated_notes != fixed_notes
         fixed_notes = updated_notes
 
     if fixed_notes == current_notes:
         return
 
     if targeted_fix_applied:
-        row_data["notes_orig"] = current_notes
+        row_data["notes_orig"] = cleaned_notes
     row_data["notes"] = fixed_notes
 
 
@@ -181,11 +199,17 @@ def assert_text_columns_before_drop(row_data: dict[str, object]) -> int:
     if not isinstance(aleppo_text, str):
         raise ValueError(f"unexpected aleppo type at row {row_number}: {aleppo_text!r}")
     if aleppo_text != "":
-        raise ValueError(f"unexpected non-empty aleppo text at row {row_number}: {aleppo_text!r}")
+        raise ValueError(
+            f"unexpected non-empty aleppo text at row {row_number}: {aleppo_text!r}"
+        )
 
     leningrad_text = row_data.get("leningrad")
     if not isinstance(leningrad_text, str):
-        raise ValueError(f"unexpected leningrad type at row {row_number}: {leningrad_text!r}")
+        raise ValueError(
+            f"unexpected leningrad type at row {row_number}: {leningrad_text!r}"
+        )
     if leningrad_text not in ALLOWED_LENINGRAD_TEXT_VALUES:
-        raise ValueError(f"unexpected leningrad text at row {row_number}: {leningrad_text!r}")
+        raise ValueError(
+            f"unexpected leningrad text at row {row_number}: {leningrad_text!r}"
+        )
     return 1 if leningrad_text == "’" else 0

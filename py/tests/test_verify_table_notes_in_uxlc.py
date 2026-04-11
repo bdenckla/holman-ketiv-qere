@@ -10,7 +10,7 @@ from python_modules.verify_table_notes_in_uxlc import verify_table_notes_in_uxlc
 
 
 class VerifyTableNotesInUXLCTests(unittest.TestCase):
-    def test_verify_table_notes_in_uxlc_matches_qere_and_strips_k_note_marker(
+    def test_verify_table_notes_in_uxlc_accepts_known_buggy_joshua_qere(
         self,
     ) -> None:
         with tempfile.TemporaryDirectory() as tmp_dir_name:
@@ -41,7 +41,7 @@ class VerifyTableNotesInUXLCTests(unittest.TestCase):
                                 {
                                     "row_number": 2,
                                     "verse": "Joshua 10:24.19",
-                                    "notes-UXLC": "ההלכוא הֶהָלְכ֣וְּּ",
+                                    "notes-UXLC": "ההלכוא הֶהָלְכ֣וּ",
                                 }
                             ]
                         }
@@ -64,6 +64,7 @@ class VerifyTableNotesInUXLCTests(unittest.TestCase):
         )
         self.assertEqual(row_report["ketiv_match_source_tags"], ["k"])
         self.assertEqual(row_report["qere_match_source_tags"], ["q"])
+        self.assertTrue(row_report["found_qere_claim_via_known_uxlc_bug"])
 
     def test_verify_table_notes_in_uxlc_merges_maqaf_with_following_ketiv(
         self,

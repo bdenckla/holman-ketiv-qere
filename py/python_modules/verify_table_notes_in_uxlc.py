@@ -16,6 +16,9 @@ from python_modules.verify_table_words_in_mam_plus import (
 
 MAQAF = "\u05be"
 WORD_LIKE_TAGS = frozenset({"w", "k", "q"})
+KNOWN_UXLC_BUGGY_QERE_BY_VERSE = {
+    "Joshua 10:24.19": ("הֶהָלְכ֣וּ", "הֶהָלְכ֣וְּּ"),
+}
 UXLC_XML_BASENAME_BY_BOOK = {
     "Genesis": "Genesis",
     "Exodus": "Exodus",
@@ -127,6 +130,14 @@ def verify_table_notes_in_uxlc(
 
         ketiv_match = _find_claim_match(verse_tokens, ketiv_claim, required_tag="k")
         qere_match = _find_claim_match(verse_tokens, qere_claim, required_tag="q")
+        qere_match_known_bug = False
+        if qere_match is None:
+            qere_match = _find_known_bug_qere_match(
+                verse=verse,
+                verse_tokens=verse_tokens,
+                qere_claim=qere_claim,
+            )
+            qere_match_known_bug = qere_match is not None
 
         report_row = {
             "row_number": row_number,
@@ -141,6 +152,7 @@ def verify_table_notes_in_uxlc(
             "uxlc_verse_tokens": [token.text for token in verse_tokens],
             "found_ketiv_claim_in_uxlc": ketiv_match is not None,
             "found_qere_claim_in_uxlc": qere_match is not None,
+            "found_qere_claim_via_known_uxlc_bug": qere_match_known_bug,
             "ketiv_match_source_tags": (
                 [] if ketiv_match is None else list(ketiv_match.source_tags)
             ),
@@ -186,6 +198,22 @@ def _find_claim_match(
         if token.text == claim and required_tag in token.source_tags:
             return token
     return None
+
+
+def _find_known_bug_qere_match(
+    verse: str,
+    verse_tokens: list[VerseToken],
+    qere_claim: str,
+) -> VerseToken | None:
+    known_bug = KNOWN_UXLC_BUGGY_QERE_BY_VERSE.get(verse)
+    if known_bug is None:
+        return None
+
+    fixed_qere, buggy_qere = known_bug
+    if qere_claim != fixed_qere:
+        return None
+
+    return _find_claim_match(verse_tokens, buggy_qere, required_tag="q")
 
 
 def uxlc_verse_tokens(
