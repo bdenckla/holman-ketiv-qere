@@ -37,6 +37,8 @@ JS_TEMPLATE_PATH = ASSETS_DIR / "table_data_findings.js"
 CSS_COLOR_PLACEHOLDER = "/* __FINDING_COLORS__ */"
 MPP_TEMPLATE_FILTER_ID = "has-mpp-template"
 MPP_TEMPLATE_FILTER_LABEL = "Has matching MPP template"
+NO_ISSUE_TAG = "no-issue-tag"
+NO_ISSUE_TAG_LABEL = "no issue tag"
 FINDING_INVARIANT_SUFFIX = " | L - Qere"
 FINDING_DISPLAY_MAP = {
     "A and L - Qere": "A - Qere note",
@@ -45,9 +47,19 @@ ISSUE_TAG_ORDER = (
     "holam-he",
     "qyv",
     "boa-sans-aleph",
-    "rafe",
+    "rafeh",
+    NO_ISSUE_TAG,
 )
-MAIN_NAV_LABEL = "Review"
+SUMMARY_ISSUE_TAG_FILTER_IDS = frozenset(
+    {
+        "issue-tag-holam-he",
+        "issue-tag-qyv",
+        "issue-tag-boa-sans-aleph",
+        "issue-tag-rafeh",
+        "issue-tag-no-issue-tag",
+    }
+)
+MAIN_NAV_LABEL = "Active"
 SUPPRESSED_NAV_LABEL = "Suppressed"
 MAIN_PAGE_TITLE = "Holman k/q"
 SUPPRESSED_PAGE_TITLE = "Holman k/q - Suppressed"
@@ -116,7 +128,7 @@ def render_table_data_findings_html(
     _write_report_page(
         page_title=MAIN_PAGE_TITLE,
         page_heading=MAIN_PAGE_HEADING,
-        page_subtitle=f"Source: {source_document}",
+        page_subtitle="",
         rows=active_rows,
         sorted_findings=sorted_findings,
         finding_ids=finding_ids,
@@ -133,7 +145,7 @@ def render_table_data_findings_html(
     _write_report_page(
         page_title=SUPPRESSED_PAGE_TITLE,
         page_heading=SUPPRESSED_PAGE_HEADING,
-        page_subtitle=f"Source: {source_document} | Closed issues only",
+        page_subtitle="Closed issues only",
         rows=suppressed_rows,
         sorted_findings=sorted_findings,
         finding_ids=finding_ids,
@@ -174,7 +186,7 @@ def _write_report_page(
         finding_ids=finding_ids,
         matching_template_arguments_by_row_number=matching_template_arguments_by_row_number,
     )
-    summary_rows = "\n".join(_summary_row_html(category) for category in categories)
+    summary_rows = _summary_rows_html(categories)
     cards = "\n".join(
         _record_card_html(
             row=row,
@@ -199,7 +211,10 @@ def _write_report_page(
         active_nav_label=active_nav_label,
     )
     page_total = len(rows)
-    summary_html = f'<table class="summary">{summary_rows}</table>'
+    summary_html = f'<div class="summary-columns">{summary_rows}</div>'
+    page_subtitle_html = (
+        "" if not page_subtitle else f'<p class="subtitle">{escape(page_subtitle)}</p>'
+    )
 
     html = f"""<!DOCTYPE html>
 <html lang=\"he\" dir=\"ltr\">
@@ -212,7 +227,7 @@ def _write_report_page(
 <body>
 {nav_html}
 <h1>{escape(page_heading)}</h1>
-<p class=\"subtitle\">{escape(page_subtitle)}</p>
+{page_subtitle_html}
 <div class=\"meta-grid\">
     <div class=\"meta-box\"><div class=\"meta-label\">Total Records</div><div class=\"meta-value\">{page_total}</div></div>
     <div class=\"meta-box\"><div class=\"meta-label\">Visible/Filtered-out records</div><div class=\"meta-value\" id=\"visible-filtered-count\">{page_total}/0</div></div>
@@ -286,9 +301,11 @@ def _filter_categories(
             1
             for row in rows
             if issue_tag
-            in require_row_github_issue_metadata(
-                _as_text(row.get("row_number", ""))
-            ).tags
+            in _record_issue_tags(
+                require_row_github_issue_metadata(
+                    _as_text(row.get("row_number", ""))
+                ).tags
+            )
         )
         if count == 0:
             continue
@@ -363,6 +380,53 @@ def _summary_row_html(category: FilterCategory) -> str:
     )
 
 
+def _summary_rows_html(categories: list[FilterCategory]) -> str:
+    grouped_sections: list[str] = []
+    finding_categories = [
+        category
+        for category in categories
+        if not category.filter_id.startswith("issue-tag-")
+        and category.filter_id != MPP_TEMPLATE_FILTER_ID
+    ]
+    grouped_categories = (
+        (
+            "Aleppo notation",
+            finding_categories,
+        ),
+        (
+            "Issue tags",
+            [
+                category
+                for category in categories
+                if category.filter_id in SUMMARY_ISSUE_TAG_FILTER_IDS
+            ],
+        ),
+        (
+            "MPP",
+            [
+                category
+                for category in categories
+                if category.filter_id == MPP_TEMPLATE_FILTER_ID
+            ],
+        ),
+    )
+    for group_title, group_categories in grouped_categories:
+        if not group_categories:
+            continue
+        group_rows = "\n".join(
+            _summary_row_html(category) for category in group_categories
+        )
+        grouped_sections.append(_summary_group_html(group_title, group_rows))
+    return "\n".join(grouped_sections)
+
+
+def _summary_group_html(group_title: str, rows_html: str) -> str:
+    return (
+        f'<section class="summary-group"><h2 class="summary-group-title">{escape(group_title)}</h2>'
+        f'<table class="summary">{rows_html}</table></section>'
+    )
+
+
 def _record_card_html(
     row: dict[str, Any],
     finding_id: str,
@@ -394,7 +458,7 @@ def _record_card_html(
             _issue_tag_filter_id(issue_tag),
             _issue_tag_display_text(issue_tag),
         )
-        for issue_tag in _ordered_issue_tags(metadata.tags)
+        for issue_tag in _record_issue_tags(metadata.tags)
     )
     filter_ids_attr = " ".join(filter_id for filter_id, _label in record_categories)
     category_badges_html = "".join(
@@ -536,6 +600,11 @@ def _issue_tag_filter_id(issue_tag: str) -> str:
 
 def _issue_tag_display_text(issue_tag: str) -> str:
     return ISSUE_TAG_DISPLAY_TEXT.get(issue_tag, issue_tag)
+
+
+def _record_issue_tags(issue_tags: list[str]) -> list[str]:
+    ordered_issue_tags = _ordered_issue_tags(issue_tags)
+    return ordered_issue_tags if ordered_issue_tags else [NO_ISSUE_TAG]
 
 
 def _ordered_issue_tags(issue_tags: list[str]) -> list[str]:

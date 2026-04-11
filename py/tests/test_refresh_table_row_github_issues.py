@@ -23,7 +23,7 @@ class RefreshTableRowGitHubIssuesTests(unittest.TestCase):
     def test_normalizes_supported_labels_only(self) -> None:
         self.assertEqual(
             normalize_issue_tags(["documentation", "rafeh", "QyV"]),
-            ("qyv", "rafe"),
+            ("qyv", "rafeh"),
         )
 
     def test_builds_refreshed_row_metadata_and_json_payload(self) -> None:

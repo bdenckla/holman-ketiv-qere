@@ -25,7 +25,10 @@ p { margin: .3rem 0; }
 .meta-label { font-size: .72rem; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; }
 .meta-value { font-size: 1.2rem; font-weight: 600; }
 .section-title { font-size: 1.1rem; margin: 1rem 0 .5rem; }
-.summary { width: min(100%, 20rem); border-collapse: collapse; background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; margin-bottom: 1rem; }
+.summary-columns { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .75rem; margin-bottom: 1rem; align-items: start; }
+.summary-group { min-width: 0; }
+.summary-group-title { font-size: .75rem; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); margin: 0 0 .35rem; }
+.summary { width: 100%; border-collapse: collapse; background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; margin-bottom: 0; }
 .summary th, .summary td { text-align: left; padding: .45rem .65rem; border-bottom: 1px solid var(--border); }
 .summary th { background: var(--th-bg); font-size: .85rem; }
 .summary tr[data-filter-id] { cursor: pointer; }
@@ -60,8 +63,10 @@ p { margin: .3rem 0; }
 .cat-issue-tag-holam-he { background: #7b9f35; }
 .cat-issue-tag-qyv { background: #d67b2c; }
 .cat-issue-tag-boa-sans-aleph { background: #4b8b54; }
-.cat-issue-tag-rafe { background: #9b6b18; }
+.cat-issue-tag-rafeh { background: #9b6b18; }
+.cat-issue-tag-no-issue-tag { background: #6f7682; }
 @media (max-width: 850px) {
+  .summary-columns { grid-template-columns: 1fr; }
   .record-grid { grid-template-columns: 1fr; }
 }
 .cat-f00 { background: #1f5f8b; }

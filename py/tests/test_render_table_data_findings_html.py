@@ -152,6 +152,15 @@ class RenderTableDataFindingsHtmlTests(unittest.TestCase):
 
         self.assertIn("<title>Holman k/q</title>", main_html)
         self.assertIn("<h1>Holman ketiv/qere review</h1>", main_html)
+        self.assertIn('href="table_data_findings.html">Active</a>', suppressed_html)
+        self.assertIn(
+            'href="table_data_findings_suppressed.html">Suppressed</a>', main_html
+        )
+        self.assertNotIn(">Review<", main_html)
+        self.assertNotIn(">Review<", suppressed_html)
+        self.assertNotIn("Source: sample.docx", main_html)
+        self.assertNotIn("Source: sample.docx", suppressed_html)
+        self.assertIn("Closed issues only", suppressed_html)
         self.assertIn("Total Records", main_html)
         self.assertIn("Visible/Filtered-out records", main_html)
         self.assertIn('id="visible-filtered-count">2/0</div>', main_html)
@@ -162,10 +171,15 @@ class RenderTableDataFindingsHtmlTests(unittest.TestCase):
         self.assertNotIn("Summary by finding", main_html)
         self.assertNotIn("<th>Finding</th>", main_html)
         self.assertNotIn("<th>Count</th>", main_html)
-        self.assertIn(
-            'href="table_data_findings_suppressed.html">Suppressed</a>', main_html
+        self.assertIn("no issue tag</td><td>1", main_html)
+        self.assertIn("no issue tag</td><td>1", suppressed_html)
+        self.assertRegex(
+            main_html,
+            re.compile(
+                r'<article id="row01".*?<span class="category-badges">.*?Finding A.*?no issue tag.*?</span>',
+                re.DOTALL,
+            ),
         )
-        self.assertIn('href="table_data_findings.html">Review</a>', suppressed_html)
         self.assertIn("<h1>Suppressed</h1>", suppressed_html)
         self.assertIn('id="row37"', suppressed_html)
         self.assertNotIn('id="row37"', main_html)
@@ -246,7 +260,7 @@ class RenderTableDataFindingsHtmlTests(unittest.TestCase):
             "13": {
                 "issue_number": 4,
                 "is_closed": False,
-                "tags": ["rafe"],
+                "tags": ["rafeh"],
             },
             "21": {
                 "issue_number": 40,
@@ -260,15 +274,39 @@ class RenderTableDataFindingsHtmlTests(unittest.TestCase):
             row_github_issues_payload,
         )
 
+        self.assertRegex(
+            main_html,
+            re.compile(
+                r'<div class="summary-columns">.*?'
+                r'<section class="summary-group"><h2 class="summary-group-title">Aleppo notation</h2><table class="summary">.*?'
+                r"Finding A</td><td>1.*?Finding B</td><td>1.*?Finding C</td><td>1.*?Finding D</td><td>1.*?</table></section>.*?"
+                r'<section class="summary-group"><h2 class="summary-group-title">Issue tags</h2><table class="summary">.*?'
+                r"ḥolam he</td><td>1.*?QyV</td><td>1.*?בו״א sans א</td><td>1.*?rafeh</td><td>1.*?no issue tag</td><td>0|1.*?</table></section>.*?"
+                r'<section class="summary-group"><h2 class="summary-group-title">MPP</h2><table class="summary">.*?'
+                r"Has matching MPP template</td><td>1.*?</table></section>",
+                re.DOTALL,
+            ),
+        )
+        self.assertIn(
+            'data-filter-id="issue-tag-rafeh"><td><span class="cat-swatch cat-issue-tag-rafeh"></span>rafeh</td><td>1</td></tr>',
+            main_html,
+        )
         self.assertIn("Has matching MPP template</td><td>1", main_html)
         self.assertIn("QyV</td><td>1", main_html)
         self.assertIn("בו״א sans א</td><td>1", main_html)
-        self.assertIn("rafe</td><td>1", main_html)
+        self.assertIn("rafeh</td><td>1", main_html)
         self.assertIn("ḥolam he</td><td>1", main_html)
         self.assertRegex(
             main_html,
             re.compile(
                 r'<article id="row04".*?<span class="category-badges">.*?Finding A.*?Has matching MPP template.*?QyV.*?</span>',
+                re.DOTALL,
+            ),
+        )
+        self.assertRegex(
+            main_html,
+            re.compile(
+                r'<article id="row13".*?<span class="category-badges">.*?Finding C.*?rafeh.*?</span>',
                 re.DOTALL,
             ),
         )

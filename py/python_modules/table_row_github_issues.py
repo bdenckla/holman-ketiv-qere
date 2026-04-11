@@ -15,14 +15,15 @@ ISSUE_LABEL_TO_TAG: Final[dict[str, str]] = {
     "QyV": "qyv",
     "ḥolam he": "holam-he",
     "בו״א sans א": "boa-sans-aleph",
-    "rafeh": "rafe",
+    "rafeh": "rafeh",
 }
 
 ISSUE_TAG_DISPLAY_TEXT: Final[dict[str, str]] = {
     "holam-he": "ḥolam he",
     "qyv": "QyV",
     "boa-sans-aleph": "בו״א sans א",
-    "rafe": "rafe",
+    "rafeh": "rafeh",
+    "no-issue-tag": "no issue tag",
 }
 
 
