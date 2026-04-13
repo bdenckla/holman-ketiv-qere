@@ -7,6 +7,7 @@ import unittest
 
 from python_modules.mam_uxlc_diff_descriptions import (
     SYMBOL_NAMES,
+    describe_simple_ketiv_letters_change,
     describe_simple_qere_change,
 )
 from python_modules.xaser_malei_diff_descriptions import (
@@ -404,13 +405,21 @@ class SpellingSwapTests(unittest.TestCase):
         # Row 25 — the pointed text combines two adjacent subchanges.
         mam = "בְּמַחֲלֻיִ֣ים"
         qere = "בְּמַחֲלוּיִ֣ם"
-        expected = (
-            "replace qubuts with shuruq; "
-            "replace ḥiriq-yod with ḥiriq"
-        )
+        expected = "replace qubuts with shuruq; " "replace ḥiriq-yod with ḥiriq"
         self.assertEqual(describe_xaser_malei_qere_change(mam, qere), expected)
         predicted = _predict_qubuts_shuruq_hiriq_haser(mam)
         self.assertEqual(predicted, qere)
+
+
+class KetivFallbackTests(unittest.TestCase):
+    def test_reports_non_simple_ketiv_difference_with_full_words(self) -> None:
+        self.assertEqual(
+            describe_simple_ketiv_letters_change(
+                word="וּבֵנָ֔יו",
+                ketiv="ובינו",
+            ),
+            "MAM וּבֵנָ֔יו; UXLC ketiv ובינו",
+        )
 
 
 class LetterRemoveTests(unittest.TestCase):

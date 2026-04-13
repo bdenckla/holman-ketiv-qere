@@ -81,13 +81,18 @@ def simple_row_diff_note_lines(
 
 
 def describe_simple_ketiv_letters_change(*, word: str, ketiv: str) -> str | None:
-    if _letters_and_maqaf(word) == _letters_and_maqaf(ketiv):
+    mam_letters = _letters_and_maqaf(word)
+    ketiv_letters = _letters_and_maqaf(ketiv)
+    if mam_letters == ketiv_letters:
         return None
-    return _describe_simple_letter_sequence_change(
-        old_text=_letters_and_maqaf(word),
-        new_text=_letters_and_maqaf(ketiv),
+    description = _describe_simple_letter_sequence_change(
+        old_text=mam_letters,
+        new_text=ketiv_letters,
         same_text="same letters as MAM",
     )
+    if description is not None:
+        return description
+    return f"MAM {word}; UXLC ketiv {ketiv}"
 
 
 def describe_simple_qere_change(*, word: str, qere: str, verse: str) -> str | None:
