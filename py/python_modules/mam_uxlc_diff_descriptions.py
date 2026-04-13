@@ -181,16 +181,21 @@ def _describe_simple_letter_sequence_change(
     if old_text == new_text:
         return same_text
 
-    non_equal_ops = [
-        opcode
-        for opcode in SequenceMatcher(
-            None,
-            old_text,
-            new_text,
-            autojunk=False,
-        ).get_opcodes()
-        if opcode[0] != "equal"
-    ]
+    opcodes = SequenceMatcher(
+        None,
+        old_text,
+        new_text,
+        autojunk=False,
+    ).get_opcodes()
+    non_equal_ops = [opcode for opcode in opcodes if opcode[0] != "equal"]
+    if len(non_equal_ops) == 2:
+        transposition_description = _describe_adjacent_transposition(
+            old_text=old_text,
+            new_text=new_text,
+            opcodes=opcodes,
+        )
+        if transposition_description is not None:
+            return transposition_description
     if len(non_equal_ops) != 1:
         return None
 
@@ -217,6 +222,65 @@ def _describe_simple_letter_sequence_change(
             f"{_position_phrase(old_text, start_old)}"
         )
     return None
+
+
+def _describe_adjacent_transposition(
+    *,
+    old_text: str,
+    new_text: str,
+    opcodes: list[tuple[str, int, int, int, int]],
+) -> str | None:
+    if len(old_text) != len(new_text):
+        return None
+    for index in range(len(opcodes) - 2):
+        first, middle, third = opcodes[index : index + 3]
+        if middle[0] != "equal":
+            continue
+        if middle[2] - middle[1] != 1 or middle[4] - middle[3] != 1:
+            continue
+        if {first[0], third[0]} != {"insert", "delete"}:
+            continue
+
+        moved_chunk = _opcode_chunk(
+            opcode=first,
+            old_text=old_text,
+            new_text=new_text,
+        )
+        if moved_chunk != _opcode_chunk(
+            opcode=third,
+            old_text=old_text,
+            new_text=new_text,
+        ):
+            continue
+        if len(moved_chunk) != 1:
+            continue
+
+        middle_chunk = old_text[middle[1] : middle[2]]
+        if first[0] == "insert":
+            old_pair = middle_chunk + moved_chunk
+            new_pair = moved_chunk + middle_chunk
+        else:
+            old_pair = moved_chunk + middle_chunk
+            new_pair = middle_chunk + moved_chunk
+
+        if len(old_pair) != 2 or new_pair != old_pair[::-1]:
+            continue
+        return f"swap {_symbol_name(old_pair[0])} and {_symbol_name(old_pair[1])}"
+    return None
+
+
+def _opcode_chunk(
+    *,
+    opcode: tuple[str, int, int, int, int],
+    old_text: str,
+    new_text: str,
+) -> str:
+    tag, start_old, end_old, start_new, end_new = opcode
+    if tag == "delete":
+        return old_text[start_old:end_old]
+    if tag == "insert":
+        return new_text[start_new:end_new]
+    raise ValueError(f"Unsupported opcode tag for chunk lookup: {tag}")
 
 
 def _position_phrase(reference_text: str, index: int, subject: str = "") -> str:

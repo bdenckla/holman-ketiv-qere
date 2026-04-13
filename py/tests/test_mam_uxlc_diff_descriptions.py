@@ -411,14 +411,23 @@ class SpellingSwapTests(unittest.TestCase):
         self.assertEqual(predicted, qere)
 
 
-class KetivFallbackTests(unittest.TestCase):
-    def test_reports_non_simple_ketiv_difference_with_full_words(self) -> None:
+class KetivDescriptionTests(unittest.TestCase):
+    def test_reports_adjacent_transposition_compactly(self) -> None:
         self.assertEqual(
             describe_simple_ketiv_letters_change(
                 word="וּבֵנָ֔יו",
                 ketiv="ובינו",
             ),
-            "MAM וּבֵנָ֔יו; UXLC ketiv ובינו",
+            "swap nun and yod",
+        )
+
+    def test_reports_non_simple_ketiv_difference_with_full_words(self) -> None:
+        self.assertEqual(
+            describe_simple_ketiv_letters_change(
+                word="אַבְגָ֔ד",
+                ketiv="גבדא",
+            ),
+            "MAM אַבְגָ֔ד; UXLC ketiv גבדא",
         )
 
 

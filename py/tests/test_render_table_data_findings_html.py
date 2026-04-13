@@ -245,7 +245,7 @@ class RenderTableDataFindingsHtmlTests(unittest.TestCase):
             main_html,
         )
 
-    def test_renders_fallback_ketiv_note_for_non_simple_difference(self) -> None:
+    def test_renders_compact_ketiv_note_for_adjacent_transposition(self) -> None:
         payload = {
             "source_document": "sample.docx",
             "table": {
@@ -276,11 +276,46 @@ class RenderTableDataFindingsHtmlTests(unittest.TestCase):
         )
 
         self.assertIn(
-            '<div class="note-line"><span class="label">MAM vs UXLC ketiv letters:</span> <bdi class="pointed-heb">MAM וּבֵנָ֔יו; UXLC ketiv ובינו</bdi></div>',
+            '<div class="note-line"><span class="label">MAM vs UXLC ketiv letters:</span> <span>swap nun and yod</span></div>',
             main_html,
         )
         self.assertIn(
             '<div class="note-line"><span class="label">MAM vs UXLC qere:</span> <span>replace tsere with tsere-yod</span></div>',
+            main_html,
+        )
+
+    def test_renders_fallback_ketiv_note_for_non_simple_difference(self) -> None:
+        payload = {
+            "source_document": "sample.docx",
+            "table": {
+                "rows": [
+                    {
+                        "row_number": 1,
+                        "verse": "Joshua 3:4.5",
+                        "word": "אַבְגָ֔ד",
+                        "finding": "Finding A",
+                        "notes-UXLC": "גבדא אַבְגָ֔ד",
+                    }
+                ]
+            },
+            "mam_plus_rows_matching_mpp_verse_template_arg": [],
+        }
+
+        row_github_issues_payload = {
+            "1": {
+                "issue_number": 12,
+                "is_closed": False,
+                "tags": [],
+            }
+        }
+
+        main_html, _suppressed_html, _js = self._render(
+            payload,
+            row_github_issues_payload,
+        )
+
+        self.assertIn(
+            '<div class="note-line"><span class="label">MAM vs UXLC ketiv letters:</span> <bdi class="pointed-heb">MAM אַבְגָ֔ד; UXLC ketiv גבדא</bdi></div>',
             main_html,
         )
 
