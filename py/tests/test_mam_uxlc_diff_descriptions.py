@@ -375,6 +375,26 @@ class XaserMaleiInsertTests(unittest.TestCase):
             new_suffix="ḥolam-vav",
         )
 
+    def test_holam_to_holam_vav_preserves_extra_meteg_note(self) -> None:
+        self.assertEqual(
+            describe_simple_qere_change(
+                word="אַחְיֹתֵיהֶ֔ם",
+                qere="אַחְיֽוֹתֵיהֶ֔ם",
+                verse="Job 1:4.11",
+            ),
+            "replace ḥolam with ḥolam-vav (also add meteg on 1st yod)",
+        )
+
+    def test_relabels_misc_descriptions_for_mam_vs_uxlc_qere(self) -> None:
+        self.assertEqual(
+            describe_simple_qere_change(
+                word="דָּבָר",
+                qere="דָּבַר",
+                verse="Numbers 1:1.1",
+            ),
+            "on bet, qamats in MAM → pataḥ in UXLC qere",
+        )
+
     def test_qubuts_to_shuruq(self) -> None:
         # Row 39 — replaces qubuts (no mater) with shuruq (vav+dagesh)
         _assert_xaser_malei_insert(

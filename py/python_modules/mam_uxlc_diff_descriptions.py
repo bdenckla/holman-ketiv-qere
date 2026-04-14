@@ -11,6 +11,7 @@ from pydiff_mpp.grapheme_diff import grapheme_clusters
 from python_modules.extract_docx_notes import parse_verse_reference, standard_book_name
 from python_modules.xaser_malei_diff_descriptions import (
     describe_xaser_malei_qere_change,
+    reduce_xaser_malei_mark_differences,
 )
 
 HEBREW_LETTER_OR_MAQAF_PATTERN = re.compile(r"[א-ת\u05be]")
@@ -101,7 +102,14 @@ def describe_simple_qere_change(*, word: str, qere: str, verse: str) -> str | No
 
     xaser_malei_description = describe_xaser_malei_qere_change(word, qere)
     if xaser_malei_description is not None:
-        return xaser_malei_description
+        extra_description = _describe_extra_misc_change_after_xaser_malei(
+            word=word,
+            qere=qere,
+            verse=verse,
+        )
+        if extra_description is None:
+            return xaser_malei_description
+        return f"{xaser_malei_description} (also {extra_description})"
 
     if not _has_simple_grapheme_change(word, qere):
         return None
@@ -129,18 +137,73 @@ def describe_simple_qere_change(*, word: str, qere: str, verse: str) -> str | No
 def _describe_simple_accent_or_mark_change(
     *, word: str, qere: str, verse: str
 ) -> str | None:
+    return _describe_misc_change(
+        old_text=word,
+        new_text=qere,
+        verse=verse,
+        allow_multiple=False,
+    )
+
+
+def _describe_extra_misc_change_after_xaser_malei(
+    *, word: str, qere: str, verse: str
+) -> str | None:
+    reduced_pair = reduce_xaser_malei_mark_differences(word, qere)
+    old_text, new_text = reduced_pair if reduced_pair is not None else (word, qere)
+    description = _describe_misc_change(
+        old_text=old_text,
+        new_text=new_text,
+        verse=verse,
+        allow_multiple=True,
+    )
+    if description is None:
+        return None
+    return _format_parenthetical_extra_description(description)
+
+
+def _describe_misc_change(
+    *, old_text: str, new_text: str, verse: str, allow_multiple: bool
+) -> str | None:
     book_token, chapter_text, verse_text, _segment = parse_verse_reference(verse)
     description = describe_change(
-        word,
-        qere,
+        old_text,
+        new_text,
         "misc",
         standard_book_name(book_token),
         int(chapter_text),
         int(verse_text),
     )
-    if description is None or ";" in description:
+    if description is None:
+        return None
+    description = _contextualize_mam_uxlc_qere_misc_description(description)
+    if not allow_multiple and ";" in description:
         return None
     return description
+
+
+def _contextualize_mam_uxlc_qere_misc_description(description: str) -> str:
+    return (
+        description.replace("old has ", "MAM has ")
+        .replace("new has ", "UXLC qere has ")
+        .replace(" (old)", " (MAM)")
+        .replace(" (new)", " (UXLC qere)")
+        .replace(" in old", " in MAM")
+        .replace(" in new", " in UXLC qere")
+    )
+
+
+def _format_parenthetical_extra_description(description: str) -> str:
+    return "; ".join(
+        _format_parenthetical_extra_clause(clause) for clause in description.split("; ")
+    )
+
+
+def _format_parenthetical_extra_clause(clause: str) -> str:
+    if clause.endswith(" added"):
+        return f"add {clause[:-6]}"
+    if clause.endswith(" removed"):
+        return f"remove {clause[:-8]}"
+    return clause
 
 
 def _split_ketiv_qere(notes_uxlc: str) -> tuple[str, str] | None:

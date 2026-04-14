@@ -284,6 +284,41 @@ class RenderTableDataFindingsHtmlTests(unittest.TestCase):
             main_html,
         )
 
+    def test_renders_xaser_malei_note_with_extra_mark_detail(self) -> None:
+        payload = {
+            "source_document": "sample.docx",
+            "table": {
+                "rows": [
+                    {
+                        "row_number": 26,
+                        "verse": "Job 1:4.11",
+                        "word": "אַחְיֹתֵיהֶ֔ם",
+                        "finding": "Finding A",
+                        "notes-UXLC": "אחיתיהם אַחְיֽוֹתֵיהֶ֔ם",
+                    }
+                ]
+            },
+            "mam_plus_rows_matching_mpp_verse_template_arg": [],
+        }
+
+        row_github_issues_payload = {
+            "26": {
+                "issue_number": 26,
+                "is_closed": False,
+                "tags": [],
+            }
+        }
+
+        main_html, _suppressed_html, _js = self._render(
+            payload,
+            row_github_issues_payload,
+        )
+
+        self.assertIn(
+            '<div class="note-line"><span class="label">MAM vs UXLC qere:</span> <span>replace ḥolam with ḥolam-vav (also add meteg on 1st yod)</span></div>',
+            main_html,
+        )
+
     def test_renders_fallback_ketiv_note_for_non_simple_difference(self) -> None:
         payload = {
             "source_document": "sample.docx",
@@ -351,7 +386,7 @@ class RenderTableDataFindingsHtmlTests(unittest.TestCase):
 
         self.assertNotIn("MAM vs UXLC ketiv letters:", main_html)
         self.assertIn(
-            '<div class="note-line"><span class="label">MAM vs UXLC qere:</span> <span>on bet, qamats in old → pataḥ in new</span></div>',
+            '<div class="note-line"><span class="label">MAM vs UXLC qere:</span> <span>on bet, qamats in MAM → pataḥ in UXLC qere</span></div>',
             main_html,
         )
 

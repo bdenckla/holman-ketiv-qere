@@ -303,10 +303,18 @@ def _describe_diff(old_text, new_text, pred, name_fn, poetic=False):
                 paired = True
                 break
         if not paired:
-            descriptions.append(f"{_name(d_mark)} on {_letter_name(d_let)} removed")
+            force_ordinal = old_letter_counts.get(d_let, 0) > 1
+            descriptions.append(
+                f"{_name(d_mark)} on "
+                f"{_letter_ref(d_let, d_occ, old_letter_counts, force_ordinal=force_ordinal)} removed"
+            )
     for idx, (i_mark, i_let, i_occ) in enumerate(inserts):
         if idx not in used_inserts:
-            descriptions.append(f"{_name(i_mark)} on {_letter_name(i_let)} added")
+            force_ordinal = new_letter_counts.get(i_let, 0) > 1
+            descriptions.append(
+                f"{_name(i_mark)} on "
+                f"{_letter_ref(i_let, i_occ, new_letter_counts, force_ordinal=force_ordinal)} added"
+            )
 
     return "; ".join(descriptions) if descriptions else None
 

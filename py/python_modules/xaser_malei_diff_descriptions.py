@@ -161,6 +161,28 @@ def describe_xaser_malei_qere_change(mam_text: str, qere_text: str) -> str | Non
     return "; ".join(descriptions) if descriptions else None
 
 
+def reduce_xaser_malei_mark_differences(
+    mam_text: str,
+    qere_text: str,
+) -> tuple[str, str] | None:
+    skeleton_mam = _strip_all_points(mam_text)
+    skeleton_qere = _strip_all_points(qere_text)
+    if skeleton_mam == skeleton_qere:
+        return None
+
+    opcodes = list(
+        SequenceMatcher(None, skeleton_mam, skeleton_qere, autojunk=False).get_opcodes()
+    )
+    if not _is_xaser_malei_opcode_shape(opcodes, skeleton_mam, skeleton_qere):
+        return None
+
+    reduced_pair = _reduce_single_transition_marks(mam_text, qere_text, opcodes)
+    if reduced_pair is not None:
+        return reduced_pair
+
+    return _reduce_qubuts_shuruq_hiriq_transition_marks(mam_text, qere_text, opcodes)
+
+
 def _describe_single_transition(
     mam_text: str,
     qere_text: str,
@@ -202,6 +224,76 @@ def _describe_single_transition(
             )
         return f"replace {old_vowel} with {new_suffix}"
     return None
+
+
+def _reduce_single_transition_marks(
+    mam_text: str,
+    qere_text: str,
+    opcodes: list[tuple[str, int, int, int, int]],
+) -> tuple[str, str] | None:
+    non_equal_opcodes = [opcode for opcode in opcodes if opcode[0] != "equal"]
+    if len(non_equal_opcodes) != 1:
+        return None
+
+    tag, mam_start, mam_end, qere_start, qere_end = non_equal_opcodes[0]
+    if (
+        tag != "insert"
+        or qere_end - qere_start != 1
+        or mam_start <= 0
+        or qere_start <= 0
+    ):
+        return None
+
+    mam_positions = _skeleton_positions(mam_text)
+    qere_positions = _skeleton_positions(qere_text)
+    new_suffix = _mater_spelling_suffix(
+        text=qere_text,
+        skeleton_index=qere_start,
+        positions=qere_positions,
+    )
+    if new_suffix is None:
+        return None
+
+    old_source_index = mam_start - 1
+    old_source_pos = mam_positions[old_source_index]
+    old_source_marks = _combining_marks_after(mam_text, old_source_pos)
+    old_vowel_mark = _find_primary_vowel_mark(old_source_marks)
+    if old_vowel_mark is None:
+        return None
+
+    new_mater_pos = qere_positions[qere_start]
+    new_mater_marks = _combining_marks_after(qere_text, new_mater_pos)
+    expected_new_mark = _expected_inserted_mater_mark(
+        new_suffix=new_suffix,
+        old_vowel_mark=old_vowel_mark,
+        new_mater_marks=new_mater_marks,
+    )
+    if expected_new_mark is None:
+        return mam_text, qere_text
+
+    reduced_new = _remove_mark_from_letter_occurrence(
+        qere_text,
+        qere_text[new_mater_pos],
+        _letter_occurrence_at_position(qere_text, new_mater_pos),
+        expected_new_mark,
+    )
+    if reduced_new is None:
+        return None
+
+    new_source_pos = qere_positions[qere_start - 1]
+    new_source_marks = _combining_marks_after(qere_text, new_source_pos)
+    if old_vowel_mark in new_source_marks:
+        return mam_text, reduced_new
+
+    reduced_old = _remove_mark_from_letter_occurrence(
+        mam_text,
+        mam_text[old_source_pos],
+        _letter_occurrence_at_position(mam_text, old_source_pos),
+        old_vowel_mark,
+    )
+    if reduced_old is None:
+        return None
+    return reduced_old, reduced_new
 
 
 def _describe_qubuts_shuruq_hiriq_transition(
@@ -254,6 +346,75 @@ def _describe_qubuts_shuruq_hiriq_transition(
         return None
 
     return "replace qubuts with shuruq; replace ḥiriq-yod with ḥiriq"
+
+
+def _reduce_qubuts_shuruq_hiriq_transition_marks(
+    mam_text: str,
+    qere_text: str,
+    opcodes: list[tuple[str, int, int, int, int]],
+) -> tuple[str, str] | None:
+    non_equal_opcodes = [opcode for opcode in opcodes if opcode[0] != "equal"]
+    if len(non_equal_opcodes) != 1:
+        return None
+
+    tag, mam_start, mam_end, qere_start, qere_end = non_equal_opcodes[0]
+    if tag != "replace" or mam_end - mam_start != 1 or qere_end - qere_start != 1:
+        return None
+
+    skeleton_mam = _strip_all_points(mam_text)
+    skeleton_qere = _strip_all_points(qere_text)
+    if (
+        skeleton_mam[mam_start:mam_end] != "י"
+        or skeleton_qere[qere_start:qere_end] != "ו"
+    ):
+        return None
+    if mam_end >= len(skeleton_mam) or qere_end >= len(skeleton_qere):
+        return None
+    if skeleton_mam[mam_end] != "י" or skeleton_qere[qere_end] != "י":
+        return None
+
+    mam_positions = _skeleton_positions(mam_text)
+    qere_positions = _skeleton_positions(qere_text)
+    previous_mam_pos = mam_positions[mam_start - 1]
+    replaced_mam_pos = mam_positions[mam_start]
+    replaced_qere_pos = qere_positions[qere_start]
+    next_qere_pos = qere_positions[qere_end]
+
+    reduced_old = _remove_mark_from_letter_occurrence(
+        mam_text,
+        mam_text[previous_mam_pos],
+        _letter_occurrence_at_position(mam_text, previous_mam_pos),
+        QUBUTS,
+    )
+    if reduced_old is None:
+        return None
+    reduced_old = _remove_mark_from_letter_occurrence(
+        reduced_old,
+        mam_text[replaced_mam_pos],
+        _letter_occurrence_at_position(mam_text, replaced_mam_pos),
+        HIRIQ,
+    )
+    if reduced_old is None:
+        return None
+
+    reduced_new = _remove_mark_from_letter_occurrence(
+        qere_text,
+        qere_text[replaced_qere_pos],
+        _letter_occurrence_at_position(qere_text, replaced_qere_pos),
+        DAGESH,
+    )
+    if reduced_new is None:
+        return None
+    reduced_new = _remove_mark_from_letter_occurrence(
+        reduced_new,
+        qere_text[next_qere_pos],
+        _letter_occurrence_at_position(qere_text, next_qere_pos),
+        HIRIQ,
+    )
+    if reduced_new is None:
+        return None
+
+    return reduced_old, reduced_new
 
 
 def _is_xaser_malei_opcode_shape(
@@ -319,11 +480,58 @@ def _combining_marks_after(text: str, position: int) -> list[str]:
     return marks
 
 
+def _letter_occurrence_at_position(text: str, position: int) -> int:
+    letter = text[position]
+    count = 0
+    for index, character in enumerate(text):
+        if character != letter:
+            continue
+        count += 1
+        if index == position:
+            return count
+    raise ValueError(f"Could not determine occurrence for {letter!r} at {position}")
+
+
+def _remove_mark_from_letter_occurrence(
+    text: str,
+    letter: str,
+    occurrence: int,
+    mark: str,
+) -> str | None:
+    letter_count = 0
+    for index, character in enumerate(text):
+        if character != letter:
+            continue
+        letter_count += 1
+        if letter_count != occurrence:
+            continue
+        end = index + 1
+        while end < len(text) and unicodedata.combining(text[end]):
+            if text[end] == mark:
+                return text[:end] + text[end + 1 :]
+            end += 1
+        return None
+    return None
+
+
 def _preceding_letter_marks(text: str, position: int) -> list[str]:
     for index in range(position - 1, -1, -1):
         if text[index] in HEBREW_LETTERS:
             return _combining_marks_after(text, index)
     return []
+
+
+def _expected_inserted_mater_mark(
+    *,
+    new_suffix: str,
+    old_vowel_mark: str,
+    new_mater_marks: list[str],
+) -> str | None:
+    if new_suffix == "shuruq" and DAGESH in new_mater_marks:
+        return DAGESH
+    if old_vowel_mark in new_mater_marks:
+        return old_vowel_mark
+    return None
 
 
 def _primary_vowel_name(marks: list[str]) -> str | None:
