@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 from collections import Counter
-from dataclasses import dataclass
 from html import escape
 import os
 from pathlib import Path
@@ -17,54 +16,34 @@ from python_modules.mpp_matching_template_args import (
     matching_template_arguments_in_mpp_verse_by_row_number,
 )
 from python_modules.qyv_validation import evaluate_qyv_row, require_qyv_row_match
+from python_modules.render_table_data_findings_assets import write_report_assets
+from python_modules.render_table_data_findings_issue_tags import (
+    HOLAM_HE_TAG,
+    QYV_TAG,
+    issue_tag_display_text,
+    issue_tag_filter_id,
+    record_issue_tags,
+)
+from python_modules.render_table_data_findings_render_utils import (
+    as_optional_text,
+    as_text,
+    contains_hebrew_char,
+    finding_display_text,
+    row_fragment_id,
+    suppressed_output_path as build_suppressed_output_path,
+)
+from python_modules.render_table_data_findings_summary import (
+    MPP_TEMPLATE_FILTER_ID,
+    MPP_TEMPLATE_FILTER_LABEL,
+    filter_categories,
+    summary_rows_html,
+)
 from python_modules.table_data_external_links import verse_external_links
 from python_modules.table_row_github_issues import (
-    ISSUE_TAG_DISPLAY_TEXT,
     require_row_github_issue_metadata,
     row_github_issue_url,
 )
 
-PALETTE = [
-    "#1f5f8b",
-    "#2e8b57",
-    "#a2472f",
-    "#6a4c93",
-    "#7a5f00",
-    "#3e6b7f",
-    "#8b3a62",
-    "#4f6d2e",
-    "#505c91",
-    "#9c4a22",
-]
-
-ASSETS_DIR = Path(__file__).resolve().parent / "assets"
-CSS_TEMPLATE_PATH = ASSETS_DIR / "table_data_findings.css"
-JS_TEMPLATE_PATH = ASSETS_DIR / "table_data_findings.js"
-CSS_COLOR_PLACEHOLDER = "/* __FINDING_COLORS__ */"
-MPP_TEMPLATE_FILTER_ID = "has-mpp-template"
-MPP_TEMPLATE_FILTER_LABEL = "Has matching MPP template"
-NO_ISSUE_TAG = "no-issue-tag"
-NO_ISSUE_TAG_LABEL = "no issue tag"
-FINDING_INVARIANT_SUFFIX = " | L - Qere"
-FINDING_DISPLAY_MAP = {
-    "A and L - Qere": "A - Qere note",
-}
-ISSUE_TAG_ORDER = (
-    "holam-he",
-    "qyv",
-    "boa-sans-aleph",
-    "rafeh",
-    NO_ISSUE_TAG,
-)
-SUMMARY_ISSUE_TAG_FILTER_IDS = frozenset(
-    {
-        "issue-tag-holam-he",
-        "issue-tag-qyv",
-        "issue-tag-boa-sans-aleph",
-        "issue-tag-rafeh",
-        "issue-tag-no-issue-tag",
-    }
-)
 MAIN_NAV_LABEL = "Active"
 SUPPRESSED_NAV_LABEL = "Suppressed"
 MAIN_PAGE_TITLE = "Holman k/q"
@@ -81,16 +60,6 @@ IMAGE_NATIVE_SCALE_TWEAKS: dict[tuple[str, str, int], float] = {
     ("7", "aleppo", 1): 0.5,
     ("74", "aleppo", 1): 0.5,
 }
-HEBREW_CHAR_RANGES = (("\u0590", "\u05ff"), ("\ufb1d", "\ufb4f"))
-HOLAM_HE_TAG = "holam-he"
-QYV_TAG = "qyv"
-
-
-@dataclass(frozen=True)
-class FilterCategory:
-    filter_id: str
-    label: str
-    count: int
 
 
 def render_table_data_findings_html(
@@ -115,8 +84,8 @@ def render_table_data_findings_html(
     matching_template_arguments_by_row_number = (
         matching_template_arguments_in_mpp_verse_by_row_number(payload)
     )
-    source_document = _as_text(payload.get("source_document", ""))
-    finding_counts = Counter(_as_text(row.get("finding", "")) for row in rows)
+    source_document = as_text(payload.get("source_document", ""))
+    finding_counts = Counter(as_text(row.get("finding", "")) for row in rows)
     sorted_findings = sorted(
         finding_counts.items(), key=lambda item: (-item[1], item[0])
     )
@@ -126,14 +95,14 @@ def render_table_data_findings_html(
 
     css_output_path = output_html_path.with_suffix(".css")
     js_output_path = output_html_path.with_suffix(".js")
-    _write_report_assets(
+    write_report_assets(
         css_output_path=css_output_path,
         js_output_path=js_output_path,
         finding_ids=list(finding_ids.values()),
     )
 
     active_rows, suppressed_rows = _partition_rows(rows)
-    suppressed_output_path = _suppressed_output_path(output_html_path)
+    suppressed_output_path = build_suppressed_output_path(output_html_path)
 
     _write_report_page(
         page_title=MAIN_PAGE_TITLE,
@@ -190,17 +159,17 @@ def _write_report_page(
     active_nav_label: str,
     records_heading: str,
 ) -> None:
-    categories = _filter_categories(
+    categories = filter_categories(
         rows=rows,
         sorted_findings=sorted_findings,
         finding_ids=finding_ids,
         matching_template_arguments_by_row_number=matching_template_arguments_by_row_number,
     )
-    summary_rows = _summary_rows_html(categories)
+    summary_rows = summary_rows_html(categories)
     cards = "\n".join(
         _record_card_html(
             row=row,
-            finding_id=finding_ids[_as_text(row.get("finding", ""))],
+            finding_id=finding_ids[as_text(row.get("finding", ""))],
             output_html_path=output_html_path,
             repo_root=repo_root,
             matching_template_arguments_by_row_number=matching_template_arguments_by_row_number,
@@ -256,7 +225,7 @@ def _write_report_page(
 
 def _validate_issue_tag_definitions(rows: list[dict[str, Any]]) -> None:
     for row in rows:
-        row_number = _as_text(row.get("row_number", ""))
+        row_number = as_text(row.get("row_number", ""))
         metadata = require_row_github_issue_metadata(row_number)
 
         holam_he_evaluation = evaluate_holam_he_row(row)
@@ -286,79 +255,13 @@ def _partition_rows(
     active_rows: list[dict[str, Any]] = []
     suppressed_rows: list[dict[str, Any]] = []
     for row in rows:
-        row_number = _as_text(row.get("row_number", ""))
+        row_number = as_text(row.get("row_number", ""))
         metadata = require_row_github_issue_metadata(row_number)
         if metadata.is_closed:
             suppressed_rows.append(row)
         else:
             active_rows.append(row)
     return active_rows, suppressed_rows
-
-
-def _filter_categories(
-    *,
-    rows: list[dict[str, Any]],
-    sorted_findings: list[tuple[str, int]],
-    finding_ids: dict[str, str],
-    matching_template_arguments_by_row_number: dict[str, list[dict[str, str]]],
-) -> list[FilterCategory]:
-    categories: list[FilterCategory] = []
-    finding_counts = Counter(_as_text(row.get("finding", "")) for row in rows)
-    for finding, _count in sorted_findings:
-        count = finding_counts.get(finding, 0)
-        if count == 0:
-            continue
-        categories.append(
-            FilterCategory(
-                filter_id=finding_ids[finding],
-                label=_finding_display_text(finding),
-                count=count,
-            )
-        )
-
-    mpp_template_filter_count = sum(
-        1
-        for row in rows
-        if matching_template_arguments_by_row_number.get(
-            _as_text(row.get("row_number", "")), []
-        )
-    )
-    if mpp_template_filter_count:
-        categories.append(
-            FilterCategory(
-                filter_id=MPP_TEMPLATE_FILTER_ID,
-                label=MPP_TEMPLATE_FILTER_LABEL,
-                count=mpp_template_filter_count,
-            )
-        )
-
-    for issue_tag in ISSUE_TAG_ORDER:
-        count = sum(
-            1
-            for row in rows
-            if issue_tag
-            in _record_issue_tags(
-                require_row_github_issue_metadata(
-                    _as_text(row.get("row_number", ""))
-                ).tags
-            )
-        )
-        if count == 0:
-            continue
-        categories.append(
-            FilterCategory(
-                filter_id=_issue_tag_filter_id(issue_tag),
-                label=_issue_tag_display_text(issue_tag),
-                count=count,
-            )
-        )
-    return categories
-
-
-def _suppressed_output_path(output_html_path: Path) -> Path:
-    return output_html_path.with_name(
-        f"{output_html_path.stem}_suppressed{output_html_path.suffix}"
-    )
 
 
 def _top_nav_html(
@@ -388,81 +291,6 @@ def _top_nav_html(
     )
 
 
-def _write_report_assets(
-    css_output_path: Path,
-    js_output_path: Path,
-    finding_ids: list[str],
-) -> None:
-    color_rules = "\n".join(
-        f".cat-{finding_id} {{ background: {PALETTE[idx % len(PALETTE)]}; }}"
-        for idx, finding_id in enumerate(finding_ids)
-    )
-
-    css_template = CSS_TEMPLATE_PATH.read_text(encoding="utf-8")
-    css_text = css_template.replace(CSS_COLOR_PLACEHOLDER, color_rules)
-    js_text = JS_TEMPLATE_PATH.read_text(encoding="utf-8")
-
-    css_output_path.parent.mkdir(parents=True, exist_ok=True)
-    js_output_path.parent.mkdir(parents=True, exist_ok=True)
-    css_output_path.write_text(css_text, encoding="utf-8")
-    js_output_path.write_text(js_text, encoding="utf-8")
-
-
-def _summary_row_html(category: FilterCategory) -> str:
-    return (
-        f'<tr data-filter-id="{escape(category.filter_id)}">'
-        f'<td><span class="cat-swatch cat-{escape(category.filter_id)}"></span>{escape(category.label)}</td>'
-        f"<td>{category.count}</td></tr>"
-    )
-
-
-def _summary_rows_html(categories: list[FilterCategory]) -> str:
-    grouped_sections: list[str] = []
-    finding_categories = [
-        category
-        for category in categories
-        if not category.filter_id.startswith("issue-tag-")
-        and category.filter_id != MPP_TEMPLATE_FILTER_ID
-    ]
-    grouped_categories = (
-        (
-            "Aleppo notation",
-            finding_categories,
-        ),
-        (
-            "Issue tags",
-            [
-                category
-                for category in categories
-                if category.filter_id in SUMMARY_ISSUE_TAG_FILTER_IDS
-            ],
-        ),
-        (
-            "MPP",
-            [
-                category
-                for category in categories
-                if category.filter_id == MPP_TEMPLATE_FILTER_ID
-            ],
-        ),
-    )
-    for group_title, group_categories in grouped_categories:
-        if not group_categories:
-            continue
-        group_rows = "\n".join(
-            _summary_row_html(category) for category in group_categories
-        )
-        grouped_sections.append(_summary_group_html(group_title, group_rows))
-    return "\n".join(grouped_sections)
-
-
-def _summary_group_html(group_title: str, rows_html: str) -> str:
-    return (
-        f'<section class="summary-group"><h2 class="summary-group-title">{escape(group_title)}</h2>'
-        f'<table class="summary">{rows_html}</table></section>'
-    )
-
-
 def _record_card_html(
     row: dict[str, Any],
     finding_id: str,
@@ -470,17 +298,17 @@ def _record_card_html(
     repo_root: Path,
     matching_template_arguments_by_row_number: dict[str, list[dict[str, str]]],
 ) -> str:
-    row_number = _as_text(row.get("row_number", ""))
+    row_number = as_text(row.get("row_number", ""))
     metadata = require_row_github_issue_metadata(row_number)
-    row_fragment_id = _row_fragment_id(row_number)
-    verse = _as_text(row.get("verse", ""))
+    row_fragment_id_value = row_fragment_id(row_number)
+    verse = as_text(row.get("verse", ""))
     verse_ref_html = _verse_ref_html(verse=verse, row_number=row_number)
-    word = _as_text(row.get("word", ""))
-    finding = _as_text(row.get("finding", ""))
-    finding_display = _finding_display_text(finding)
-    notes_uxlc = _as_text(row.get("notes-UXLC", ""))
-    notes_uxlc_yatir = _as_optional_text(row.get("notes-UXLC-yatir"))
-    notes_haketer = _as_optional_text(row.get("notes-HaKeter"))
+    word = as_text(row.get("word", ""))
+    finding = as_text(row.get("finding", ""))
+    finding_display = finding_display_text(finding)
+    notes_uxlc = as_text(row.get("notes-UXLC", ""))
+    notes_uxlc_yatir = as_optional_text(row.get("notes-UXLC-yatir"))
+    notes_haketer = as_optional_text(row.get("notes-HaKeter"))
     raw_images = row.get("image_files")
     images: dict[str, object] = raw_images if isinstance(raw_images, dict) else {}
     matching_template_args_in_mpp_verse = matching_template_arguments_by_row_number.get(
@@ -491,10 +319,10 @@ def _record_card_html(
         record_categories.append((MPP_TEMPLATE_FILTER_ID, MPP_TEMPLATE_FILTER_LABEL))
     record_categories.extend(
         (
-            _issue_tag_filter_id(issue_tag),
-            _issue_tag_display_text(issue_tag),
+            issue_tag_filter_id(issue_tag),
+            issue_tag_display_text(issue_tag),
         )
-        for issue_tag in _record_issue_tags(metadata.tags)
+        for issue_tag in record_issue_tags(metadata.tags)
     )
     filter_ids_attr = " ".join(filter_id for filter_id, _label in record_categories)
     category_badges_html = "".join(
@@ -527,7 +355,7 @@ def _record_card_html(
     )
     differing_latest_mpp_words: list[str] = []
     for match in matching_template_args_in_mpp_verse:
-        argument_text = _as_text(match.get("argument_text"))
+        argument_text = as_text(match.get("argument_text"))
         if argument_text == word or argument_text in differing_latest_mpp_words:
             continue
         differing_latest_mpp_words.append(argument_text)
@@ -535,15 +363,15 @@ def _record_card_html(
     displayed_matching_template_args_in_mpp_verse = [
         match
         for match in matching_template_args_in_mpp_verse
-        if _as_text(match.get("argument_text")) not in rendered_mam_words
+        if as_text(match.get("argument_text")) not in rendered_mam_words
     ]
     mpp_matching_template_arg_html = "".join(
         (
             f'<div class="note-line"><span class="label">'
-            f'MPP matching template arg ({escape(_as_text(match.get("template_name")))}'
-            f'[{escape(_as_text(match.get("argument_key")))}]):'
+            f'MPP matching template arg ({escape(as_text(match.get("template_name")))}'
+            f'[{escape(as_text(match.get("argument_key")))}]):'
             f'</span><bdi class="pointed-heb">'
-            f'{escape(_as_text(match.get("argument_text")))}</bdi></div>'
+            f'{escape(as_text(match.get("argument_text")))}</bdi></div>'
         )
         for match in displayed_matching_template_args_in_mpp_verse
     )
@@ -576,7 +404,7 @@ def _record_card_html(
         repo_root=repo_root,
     )
 
-    return f"""<article id="{row_fragment_id}" class="record-card" data-finding-id="{finding_id}" data-filter-ids="{escape(filter_ids_attr)}">
+    return f"""<article id="{row_fragment_id_value}" class="record-card" data-finding-id="{finding_id}" data-filter-ids="{escape(filter_ids_attr)}">
 <div class="record-head"><span class="record-ref">#{escape(row_number)}</span><span class="record-verse">{verse_ref_html}</span><span class="category-badges">{category_badges_html}</span></div>
 <div class="record-grid"><div>
 {mam_word_html}
@@ -643,7 +471,7 @@ def _note_line_html(label: str, value: str, strip_prefix: str | None = None) -> 
     if strip_prefix is not None and display_value.startswith(strip_prefix):
         display_value = display_value[len(strip_prefix) :].lstrip()
 
-    if _contains_hebrew_char(display_value):
+    if contains_hebrew_char(display_value):
         value_html = f'<bdi class="pointed-heb">{escape(display_value)}</bdi>'
     else:
         value_html = f"<span>{escape(display_value)}</span>"
@@ -651,56 +479,8 @@ def _note_line_html(label: str, value: str, strip_prefix: str | None = None) -> 
     return f'<div class="note-line"><span class="label">{escape(label)}</span> {value_html}</div>'
 
 
-def _contains_hebrew_char(text: str) -> bool:
-    return any(
-        start <= char <= end for char in text for start, end in HEBREW_CHAR_RANGES
-    )
-
-
-def _row_fragment_id(row_number: str) -> str:
-    return f"row{int(row_number):02d}"
-
-
-def _issue_tag_filter_id(issue_tag: str) -> str:
-    return f"issue-tag-{issue_tag}"
-
-
-def _issue_tag_display_text(issue_tag: str) -> str:
-    return ISSUE_TAG_DISPLAY_TEXT.get(issue_tag, issue_tag)
-
-
-def _record_issue_tags(issue_tags: list[str]) -> list[str]:
-    ordered_issue_tags = _ordered_issue_tags(issue_tags)
-    return ordered_issue_tags if ordered_issue_tags else [NO_ISSUE_TAG]
-
-
-def _ordered_issue_tags(issue_tags: list[str]) -> list[str]:
-    known_tags = [issue_tag for issue_tag in ISSUE_TAG_ORDER if issue_tag in issue_tags]
-    extra_tags = sorted(
-        issue_tag for issue_tag in issue_tags if issue_tag not in ISSUE_TAG_ORDER
-    )
-    return known_tags + extra_tags
-
-
 def _record_category_badge_html(*, filter_id: str, label: str) -> str:
     return (
         f'<span class="finding-badge cat-{escape(filter_id)}">'
         f"{escape(label)}</span>"
     )
-
-
-def _as_text(value: object) -> str:
-    return "" if value is None else str(value)
-
-
-def _finding_display_text(finding: str) -> str:
-    if finding.endswith(FINDING_INVARIANT_SUFFIX):
-        finding = finding[: -len(FINDING_INVARIANT_SUFFIX)]
-    return FINDING_DISPLAY_MAP.get(finding, finding)
-
-
-def _as_optional_text(value: object) -> str | None:
-    if value is None:
-        return None
-    text = str(value)
-    return text if text else None
