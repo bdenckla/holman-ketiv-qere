@@ -1415,9 +1415,158 @@
     "unique_word_count": 72,
     "missing_any_plus_count": 0,
     "missing_mpp_verse_text_count": 0,
-    "rows_matching_mpp_verse_template_arg_count": 7
+    "rows_matching_mpp_verse_template_arg_count": 12
   },
   "mam_plus_rows_matching_mpp_verse_template_arg": [
+    {
+      "row_number": 1,
+      "verse": "Joshua 3:4.5",
+      "word": "וּבֵנָ֔יו",
+      "mpp_file_for_verse": "B1-Joshua.json",
+      "found_in_any_plus_file": true,
+      "found_in_mpp_verse_text": true,
+      "template_args_in_mpp_verse": [
+        {
+          "template_name": "נוסח",
+          "argument_key": "1",
+          "argument_text": "{{קו\"כ-אם|וּבֵנָ֔יו|ל-קרי=וּבֵינָ֔יו}}"
+        },
+        {
+          "template_name": "קו\"כ-אם",
+          "argument_key": "1",
+          "argument_text": "וּבֵנָ֔יו"
+        },
+        {
+          "template_name": "קו\"כ-אם",
+          "argument_key": "2",
+          "argument_text": "ל-קרי=וּבֵינָ֔יו"
+        }
+      ],
+      "found_in_mpp_verse_template_arg": true,
+      "matching_template_args_in_mpp_verse": [
+        {
+          "template_name": "נוסח",
+          "argument_key": "1",
+          "argument_text": "{{קו\"כ-אם|וּבֵנָ֔יו|ל-קרי=וּבֵינָ֔יו}}"
+        },
+        {
+          "template_name": "קו\"כ-אם",
+          "argument_key": "1",
+          "argument_text": "וּבֵנָ֔יו"
+        }
+      ],
+      "hit_files": [
+        "B1-Joshua.json"
+      ]
+    },
+    {
+      "row_number": 3,
+      "verse": "Judges 7:13.13",
+      "word": "צְלִ֜יל",
+      "mpp_file_for_verse": "B2-Judges.json",
+      "found_in_any_plus_file": true,
+      "found_in_mpp_verse_text": true,
+      "template_args_in_mpp_verse": [
+        {
+          "template_name": "נוסח",
+          "argument_key": "1",
+          "argument_text": "צְלִ֜יל"
+        }
+      ],
+      "found_in_mpp_verse_template_arg": true,
+      "matching_template_args_in_mpp_verse": [
+        {
+          "template_name": "נוסח",
+          "argument_key": "1",
+          "argument_text": "צְלִ֜יל"
+        }
+      ],
+      "hit_files": [
+        "B2-Judges.json"
+      ]
+    },
+    {
+      "row_number": 13,
+      "verse": "2Samuel 11:24.1",
+      "word": "וַיֹּר֨אוּ",
+      "mpp_file_for_verse": "BA-Samuel.json",
+      "found_in_any_plus_file": true,
+      "found_in_mpp_verse_text": true,
+      "template_args_in_mpp_verse": [
+        {
+          "template_name": "קו\"כ-אם",
+          "argument_key": "1",
+          "argument_text": "וַיֹּר֨אֿוּ"
+        },
+        {
+          "template_name": "קו\"כ-אם",
+          "argument_key": "2",
+          "argument_text": "ל-קרי=וַיֹּר֨וּ"
+        },
+        {
+          "template_name": "קו\"כ-אם",
+          "argument_key": "1",
+          "argument_text": "הַמּוֹרִ֤אֿים"
+        },
+        {
+          "template_name": "קו\"כ-אם",
+          "argument_key": "2",
+          "argument_text": "ל-קרי=הַמּוֹרִ֤ים"
+        }
+      ],
+      "found_in_mpp_verse_template_arg": true,
+      "matching_template_args_in_mpp_verse": [
+        {
+          "template_name": "קו\"כ-אם",
+          "argument_key": "1",
+          "argument_text": "וַיֹּר֨אֿוּ"
+        }
+      ],
+      "hit_files": [
+        "BA-Samuel.json"
+      ]
+    },
+    {
+      "row_number": 14,
+      "verse": "2Samuel 11:24.2",
+      "word": "הַמּוֹרִ֤אים",
+      "mpp_file_for_verse": "BA-Samuel.json",
+      "found_in_any_plus_file": true,
+      "found_in_mpp_verse_text": true,
+      "template_args_in_mpp_verse": [
+        {
+          "template_name": "קו\"כ-אם",
+          "argument_key": "1",
+          "argument_text": "וַיֹּר֨אֿוּ"
+        },
+        {
+          "template_name": "קו\"כ-אם",
+          "argument_key": "2",
+          "argument_text": "ל-קרי=וַיֹּר֨וּ"
+        },
+        {
+          "template_name": "קו\"כ-אם",
+          "argument_key": "1",
+          "argument_text": "הַמּוֹרִ֤אֿים"
+        },
+        {
+          "template_name": "קו\"כ-אם",
+          "argument_key": "2",
+          "argument_text": "ל-קרי=הַמּוֹרִ֤ים"
+        }
+      ],
+      "found_in_mpp_verse_template_arg": true,
+      "matching_template_args_in_mpp_verse": [
+        {
+          "template_name": "קו\"כ-אם",
+          "argument_key": "1",
+          "argument_text": "הַמּוֹרִ֤אֿים"
+        }
+      ],
+      "hit_files": [
+        "BA-Samuel.json"
+      ]
+    },
     {
       "row_number": 30,
       "verse": "Job 15:15.2",
@@ -1684,6 +1833,37 @@
           "template_name": "קו\"כ-אם",
           "argument_key": "1",
           "argument_text": "וְאֵלַמָּ֖ו"
+        }
+      ],
+      "hit_files": [
+        "C3-Ezekiel.json"
+      ]
+    },
+    {
+      "row_number": 74,
+      "verse": "Ezekiel 47:8.17",
+      "word": "וְנִרְפּ֥אוּ",
+      "mpp_file_for_verse": "C3-Ezekiel.json",
+      "found_in_any_plus_file": true,
+      "found_in_mpp_verse_text": true,
+      "template_args_in_mpp_verse": [
+        {
+          "template_name": "קו\"כ-אם",
+          "argument_key": "1",
+          "argument_text": "וְנִרְפּ֥אֿוּ"
+        },
+        {
+          "template_name": "קו\"כ-אם",
+          "argument_key": "2",
+          "argument_text": "ל-קרי=וְנִרְפּ֥וּ"
+        }
+      ],
+      "found_in_mpp_verse_template_arg": true,
+      "matching_template_args_in_mpp_verse": [
+        {
+          "template_name": "קו\"כ-אם",
+          "argument_key": "1",
+          "argument_text": "וְנִרְפּ֥אֿוּ"
         }
       ],
       "hit_files": [

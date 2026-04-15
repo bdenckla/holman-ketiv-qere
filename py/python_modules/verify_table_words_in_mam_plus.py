@@ -13,8 +13,8 @@ from python_modules.mam_plus_verse_data import (
     verse_texts_by_location,
 )
 
-
 EXPECTED_ROW_COUNT = 77
+RAFE = "\N{HEBREW POINT RAFE}"
 
 VERSE_PATTERN = re.compile(
     r"^(?P<book_token>.*) (?P<chapter>\d+):(?P<verse>\d+)\.(?P<segment>\d+)$"
@@ -30,10 +30,18 @@ def _word_boundary_pattern(word: str) -> re.Pattern[str]:
     )
 
 
+def normalize_mpp_match_text(text: str) -> str:
+    return text.replace(RAFE, "")
+
+
 def contains_word_as_hebrew_token(text: str, word: str) -> bool:
     if not word:
         return False
-    return _word_boundary_pattern(word).search(text) is not None
+    normalized_word = normalize_mpp_match_text(word)
+    if not normalized_word:
+        return False
+    normalized_text = normalize_mpp_match_text(text)
+    return _word_boundary_pattern(normalized_word).search(normalized_text) is not None
 
 
 def parse_table_verse(verse: str) -> tuple[str, int, int]:
@@ -87,7 +95,9 @@ def standard_book_name_for_table_verse(
 
 
 @lru_cache(maxsize=64)
-def expected_plus_location_for_standard_book_name(std_book_name: str) -> tuple[str, int]:
+def expected_plus_location_for_standard_book_name(
+    std_book_name: str,
+) -> tuple[str, int]:
     try:
         bk24id = bib_locales.bk24id(std_book_name)
     except KeyError as exc:
@@ -145,7 +155,7 @@ def verify_table_words_in_mam_plus(
             verse_template_argument_records_by_location(plus_json)
         )
     plus_search_text_by_name = {
-        file_name: "\n".join(verse_texts.values())
+        file_name: normalize_mpp_match_text("\n".join(verse_texts.values()))
         for file_name, verse_texts in plus_verse_texts_by_name.items()
     }
 
@@ -168,10 +178,12 @@ def verify_table_words_in_mam_plus(
         if not isinstance(word, str):
             raise ValueError(f"row has invalid word at row {row_number}")
 
+        normalized_word = normalize_mpp_match_text(word)
+
         hit_files = [
             file_name
             for file_name, search_text in plus_search_text_by_name.items()
-            if word in search_text
+            if normalized_word in search_text
         ]
 
         book_token, chapter_num, verse_num = parse_table_verse(verse)
@@ -197,9 +209,9 @@ def verify_table_words_in_mam_plus(
                 f"chapter={chapter_num}, verse={verse_num}, row={row_number}"
             )
 
-        expected_verse_template_args = plus_verse_template_args_by_name[expected_file].get(
-            (expected_book39_index, chapter_num, verse_num)
-        )
+        expected_verse_template_args = plus_verse_template_args_by_name[
+            expected_file
+        ].get((expected_book39_index, chapter_num, verse_num))
         if expected_verse_template_args is None:
             raise ValueError(
                 "expected verse missing template arguments in plus data: "
@@ -208,7 +220,9 @@ def verify_table_words_in_mam_plus(
             )
 
         found_in_any = len(hit_files) > 0
-        found_in_expected = word in expected_verse_text
+        found_in_expected = normalized_word in normalize_mpp_match_text(
+            expected_verse_text
+        )
         matching_template_args = [
             arg
             for arg in expected_verse_template_args
@@ -239,7 +253,9 @@ def verify_table_words_in_mam_plus(
 
     summary = {
         "row_count": len(rows),
-        "unique_word_count": len({row["word"] for row in rows if isinstance(row, dict) and "word" in row}),
+        "unique_word_count": len(
+            {row["word"] for row in rows if isinstance(row, dict) and "word" in row}
+        ),
         "missing_any_plus_count": len(missing_any),
         "missing_mpp_verse_text_count": len(missing_mpp_verse_text),
         "rows_matching_mpp_verse_template_arg_count": len(mpp_verse_template_arg_rows),
