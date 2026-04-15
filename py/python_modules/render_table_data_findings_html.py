@@ -525,6 +525,18 @@ def _record_card_html(
             f'<div class="note-line"><span class="label">HaKeter:</span><bdi class="pointed-heb">{escape(notes_haketer)}</bdi></div>'
         )
     )
+    differing_latest_mpp_words: list[str] = []
+    for match in matching_template_args_in_mpp_verse:
+        argument_text = _as_text(match.get("argument_text"))
+        if argument_text == word or argument_text in differing_latest_mpp_words:
+            continue
+        differing_latest_mpp_words.append(argument_text)
+    rendered_mam_words = {word, *differing_latest_mpp_words}
+    displayed_matching_template_args_in_mpp_verse = [
+        match
+        for match in matching_template_args_in_mpp_verse
+        if _as_text(match.get("argument_text")) not in rendered_mam_words
+    ]
     mpp_matching_template_arg_html = "".join(
         (
             f'<div class="note-line"><span class="label">'
@@ -533,8 +545,20 @@ def _record_card_html(
             f'</span><bdi class="pointed-heb">'
             f'{escape(_as_text(match.get("argument_text")))}</bdi></div>'
         )
-        for match in matching_template_args_in_mpp_verse
+        for match in displayed_matching_template_args_in_mpp_verse
     )
+    mam_word_label = (
+        "MAM Word (from docx):" if differing_latest_mpp_words else "MAM Word:"
+    )
+    mam_word_html = (
+        f'<div class="note-line"><span class="label">{mam_word_label}</span>'
+        f'<bdi class="pointed-heb">{escape(word)}</bdi></div>'
+    )
+    if differing_latest_mpp_words:
+        mam_word_html += (
+            f'\n<div class="note-line"><span class="label">MAM Word (from latest MPP):</span>'
+            f'<bdi class="pointed-heb">{escape(" | ".join(differing_latest_mpp_words))}</bdi></div>'
+        )
     aleppo = _image_paths_html(
         image_paths=images.get("aleppo"),
         witness="aleppo",
@@ -555,7 +579,7 @@ def _record_card_html(
     return f"""<article id="{row_fragment_id}" class="record-card" data-finding-id="{finding_id}" data-filter-ids="{escape(filter_ids_attr)}">
 <div class="record-head"><span class="record-ref">#{escape(row_number)}</span><span class="record-verse">{verse_ref_html}</span><span class="category-badges">{category_badges_html}</span></div>
 <div class="record-grid"><div>
-<div class="note-line"><span class="label">MAM Word:</span><bdi class="pointed-heb">{escape(word)}</bdi></div>
+{mam_word_html}
 <div class="note-line"><span class="label">UXLC:</span><bdi class="pointed-heb">{escape(notes_uxlc)}</bdi></div>
 {simple_diff_notes_html}{yatir_html}{haketer_html}{mpp_matching_template_arg_html}
 </div><div>

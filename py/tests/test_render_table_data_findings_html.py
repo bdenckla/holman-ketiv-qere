@@ -554,7 +554,7 @@ class RenderTableDataFindingsHtmlTests(unittest.TestCase):
                         {
                             "template_name": "q",
                             "argument_key": "1",
-                            "argument_text": "א",
+                            "argument_text": "חֲסִידָו֙",
                         }
                     ],
                 },
@@ -623,6 +623,14 @@ class RenderTableDataFindingsHtmlTests(unittest.TestCase):
         self.assertIn("בו״א sans א</td><td>1", main_html)
         self.assertIn("rafeh</td><td>1", main_html)
         self.assertIn("ḥolam he</td><td>1", main_html)
+        self.assertIn(
+            'MAM Word:</span><bdi class="pointed-heb">חֲסִידָו֙</bdi>',
+            main_html,
+        )
+        self.assertNotIn(
+            'MAM Word (from latest MPP):</span><bdi class="pointed-heb">חֲסִידָו֙</bdi>',
+            main_html,
+        )
         self.assertRegex(
             main_html,
             re.compile(
@@ -630,10 +638,21 @@ class RenderTableDataFindingsHtmlTests(unittest.TestCase):
                 re.DOTALL,
             ),
         )
+        self.assertNotIn(
+            'MPP matching template arg (q[1]):</span><bdi class="pointed-heb">חֲסִידָו֙</bdi>',
+            main_html,
+        )
         self.assertRegex(
             main_html,
             re.compile(
                 r'<article id="row13".*?<span class="category-badges">.*?Finding C.*?rafeh.*?</span>',
+                re.DOTALL,
+            ),
+        )
+        self.assertRegex(
+            main_html,
+            re.compile(
+                r'<article id="row13".*?MAM Word:</span><bdi class="pointed-heb">ג</bdi>.*?UXLC:</span><bdi class="pointed-heb">ג</bdi>',
                 re.DOTALL,
             ),
         )
@@ -652,6 +671,71 @@ class RenderTableDataFindingsHtmlTests(unittest.TestCase):
         )
         self.assertIn(
             '1Samuel 2:9.2 <a href="https://www.mgketer.org/mikra/8/2/1/mg/106" target="_blank" rel="noopener">mgketer</a> <a href="https://bdenckla.github.io/MAM-with-doc/BA-1Samuel.html#c2v9" target="_blank" rel="noopener">MwD</a> <a href="https://he.wikisource.org/wiki/%D7%A9%D7%9E%D7%95%D7%90%D7%9C%20%D7%90_%D7%91/%D7%98%D7%A2%D7%9E%D7%99%D7%9D" target="_blank" rel="noopener">MAM-ws</a> <a href="https://github.com/bdenckla/holman-ketiv-qere/issues/7" target="_blank" rel="noopener">issue</a>',
+            main_html,
+        )
+
+    def test_shows_explicit_docx_and_latest_mpp_labels_when_words_differ(self) -> None:
+        payload = {
+            "source_document": "sample.docx",
+            "table": {
+                "rows": [
+                    {
+                        "row_number": 13,
+                        "verse": "2Samuel 11:24.1",
+                        "word": "וַיֹּר֨אוּ",
+                        "finding": "Finding C",
+                        "notes-UXLC": "ויראו וַיֹּר֨וּ",
+                    }
+                ]
+            },
+            "mam_plus_rows_matching_mpp_verse_template_arg": [
+                {
+                    "row_number": 13,
+                    "matching_template_args_in_mpp_verse": [
+                        {
+                            "template_name": 'קו"כ-אם',
+                            "argument_key": "1",
+                            "argument_text": "וַיֹּר֨אֿוּ",
+                        }
+                    ],
+                }
+            ],
+        }
+
+        row_github_issues_payload = {
+            "13": {
+                "issue_number": 4,
+                "is_closed": False,
+                "tags": ["rafeh"],
+            }
+        }
+
+        main_html, _suppressed_html, _js = self._render(
+            payload,
+            row_github_issues_payload,
+        )
+
+        self.assertIn(
+            'MAM Word (from docx):</span><bdi class="pointed-heb">וַיֹּר֨אוּ</bdi>',
+            main_html,
+        )
+        self.assertIn(
+            'MAM Word (from latest MPP):</span><bdi class="pointed-heb">וַיֹּר֨אֿוּ</bdi>',
+            main_html,
+        )
+        self.assertRegex(
+            main_html,
+            re.compile(
+                r'<article id="row13".*?MAM Word \(from docx\):</span><bdi class="pointed-heb">וַיֹּר֨אוּ</bdi>.*?MAM Word \(from latest MPP\):</span><bdi class="pointed-heb">וַיֹּר֨אֿוּ</bdi>',
+                re.DOTALL,
+            ),
+        )
+        self.assertIn(
+            '</div>\n<div class="note-line"><span class="label">MAM Word (from latest MPP):</span>',
+            main_html,
+        )
+        self.assertNotIn(
+            'MPP matching template arg (קו&quot;כ-אם[1]):</span><bdi class="pointed-heb">וַיֹּר֨אֿוּ</bdi>',
             main_html,
         )
 
