@@ -1,2 +1,3 @@
 .novc/
 __pycache__/
+pytest_*.txt
