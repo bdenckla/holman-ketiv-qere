@@ -15,7 +15,7 @@ The extracted table is intentionally treated as a fixed project scope:
 Run extraction with:
 
 ```powershell
-.venv\Scripts\python.exe py/main_extract_docx.py
+.venv\Scripts\python.exe py/main_extract_docx_and_render_table.py
 ```
 
 This also generates:
@@ -33,7 +33,7 @@ Checked-in issue metadata used by the findings report lives in:
 To regenerate the HTML report from an existing JSON extract:
 
 ```powershell
-.venv\Scripts\python.exe py/main_render_table_data_findings_html.py
+.venv\Scripts\python.exe py/main_just_render_table.py
 ```
 
 The extractor performs MPP verification as a mandatory part of extraction.
