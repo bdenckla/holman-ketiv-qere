@@ -28,12 +28,12 @@ from py_render.rt_summary import (
     filter_categories,
     summary_rows_html,
 )
-from py.py_render.rt_validate_holam_he import (
+from py_render.rt_validate_holam_he import (
     evaluate_holam_he_row,
     require_holam_he_row_match,
 )
-from py.py_render.rt_mam_uxlc_diff_descriptions import simple_row_diff_note_lines
-from py.py_render.rt_validate_qyv import evaluate_qyv_row, require_qyv_row_match
+from py_render.rt_mam_uxlc_diff_descriptions import simple_row_diff_note_lines
+from py_render.rt_validate_qyv import evaluate_qyv_row, require_qyv_row_match
 from py_render.rt_external_links import verse_external_links
 from py_render.rt_matching_tmpl_args import (
     matching_template_arguments_in_mpp_verse_by_row_number,

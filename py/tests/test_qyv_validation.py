@@ -3,7 +3,7 @@ from __future__ import annotations
 
 import unittest
 
-from py.py_render.rt_validate_qyv import evaluate_qyv_row
+from py_render.rt_validate_qyv import evaluate_qyv_row
 
 
 class QyvValidationTests(unittest.TestCase):

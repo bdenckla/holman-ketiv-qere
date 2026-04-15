@@ -9,7 +9,7 @@ from pydiff_mpp.describe_diff import describe_change
 from pydiff_mpp.grapheme_diff import grapheme_clusters
 
 from python_modules.extract_docx_notes import parse_verse_reference, standard_book_name
-from py.py_render.rt_xaser_malei_diff_descriptions import (
+from py_render.rt_xaser_malei_diff_descriptions import (
     describe_xaser_malei_qere_change,
     reduce_xaser_malei_mark_differences,
 )

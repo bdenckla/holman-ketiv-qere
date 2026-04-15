@@ -3,7 +3,7 @@ from __future__ import annotations
 
 import unittest
 
-from py.py_render.rt_validate_holam_he import evaluate_holam_he_row
+from py_render.rt_validate_holam_he import evaluate_holam_he_row
 
 
 class HolamHeValidationTests(unittest.TestCase):
