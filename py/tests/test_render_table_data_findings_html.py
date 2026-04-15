@@ -557,6 +557,18 @@ class RenderTableDataFindingsHtmlTests(unittest.TestCase):
                             "argument_text": "חֲסִידָו֙",
                         }
                     ],
+                    "template_args_in_mpp_verse": [
+                        {
+                            "template_name": "נוסח",
+                            "argument_key": "1",
+                            "argument_text": "{{q|חֲסִידָו֙|ל-קרי=חֲסִידָיו֙}}",
+                        },
+                        {
+                            "template_name": "q",
+                            "argument_key": "1",
+                            "argument_text": "חֲסִידָו֙",
+                        },
+                    ],
                 },
                 {
                     "row_number": 12,
@@ -631,6 +643,17 @@ class RenderTableDataFindingsHtmlTests(unittest.TestCase):
             'MAM Word (from latest MPP):</span><bdi class="pointed-heb">חֲסִידָו֙</bdi>',
             main_html,
         )
+        self.assertIn(
+            'MAM template:</span><bdi class="pointed-heb">{{q|חֲסִידָו֙|ל-קרי=חֲסִידָיו֙}}</bdi>',
+            main_html,
+        )
+        self.assertRegex(
+            main_html,
+            re.compile(
+                r'<article id="row04".*?MAM Word:</span>.*?MAM template:</span>.*?UXLC:</span>',
+                re.DOTALL,
+            ),
+        )
         self.assertRegex(
             main_html,
             re.compile(
@@ -698,6 +721,18 @@ class RenderTableDataFindingsHtmlTests(unittest.TestCase):
                             "argument_text": "וַיֹּר֨אֿוּ",
                         }
                     ],
+                    "template_args_in_mpp_verse": [
+                        {
+                            "template_name": "נוסח",
+                            "argument_key": "1",
+                            "argument_text": '{{קו"כ-אם|וַיֹּר֨אֿוּ|ל-קרי=וַיֹּר֨וּ}}',
+                        },
+                        {
+                            "template_name": 'קו"כ-אם',
+                            "argument_key": "1",
+                            "argument_text": "וַיֹּר֨אֿוּ",
+                        },
+                    ],
                 }
             ],
         }
@@ -736,6 +771,10 @@ class RenderTableDataFindingsHtmlTests(unittest.TestCase):
         )
         self.assertNotIn(
             'MPP matching template arg (קו&quot;כ-אם[1]):</span><bdi class="pointed-heb">וַיֹּר֨אֿוּ</bdi>',
+            main_html,
+        )
+        self.assertIn(
+            'MAM template:</span><bdi class="pointed-heb">{{קו&quot;כ-אם|וַיֹּר֨אֿוּ|ל-קרי=וַיֹּר֨וּ}}</bdi>',
             main_html,
         )
 
