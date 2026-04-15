@@ -1,10 +1,16 @@
 from __future__ import annotations
 
+from pathlib import Path
+from tempfile import TemporaryDirectory
 import unittest
+from unittest.mock import patch
 
+from python_modules.json_io import write_json
 from python_modules.verify_table_words_in_mam_plus import (
     contains_word_as_hebrew_token,
+    matching_template_args_for_word,
     normalize_mpp_match_text,
+    verify_table_words_in_mam_plus,
 )
 
 
@@ -37,6 +43,119 @@ class HebrewTokenMatcherTests(unittest.TestCase):
         self.assertTrue(
             contains_word_as_hebrew_token("וְנִרְפּ֥אֿוּ הַמָּֽיִם", "וְנִרְפּ֥אוּ")
         )
+
+
+class VerifyTableWordsInMamPlusTests(unittest.TestCase):
+    def test_prefers_exact_template_arg_match_over_wrapper_match(self) -> None:
+        template_args = [
+            {
+                "template_name": 'כו"ק',
+                "argument_key": "1",
+                "argument_text": "ההלכוא",
+            },
+            {
+                "template_name": "נוסח",
+                "argument_key": "1",
+                "argument_text": '{{כו"ק|ההלכוא|הֶהָלְכ֣וּ}}',
+            },
+            {
+                "template_name": 'כו"ק',
+                "argument_key": "2",
+                "argument_text": "הֶהָלְכ֣וּ",
+            },
+        ]
+
+        self.assertEqual(
+            matching_template_args_for_word(template_args, "הֶהָלְכ֣וּ"),
+            [
+                {
+                    "template_name": 'כו"ק',
+                    "argument_key": "2",
+                    "argument_text": "הֶהָלְכ֣וּ",
+                }
+            ],
+        )
+
+    def test_known_docx_word_bug_uses_latest_mpp_word_for_verification(self) -> None:
+        with TemporaryDirectory() as tmp_dir:
+            tmp_path = Path(tmp_dir)
+            table_json_path = tmp_path / "table_data.json"
+            plus_dir = tmp_path / "MAM-parsed" / "plus"
+            plus_dir.mkdir(parents=True, exist_ok=True)
+
+            write_json(
+                table_json_path,
+                {
+                    "table": {
+                        "rows": [
+                            {
+                                "row_number": 2,
+                                "verse": "Joshua 10:24.19",
+                                "word": "הֶהָלְכ֣וּא",
+                            }
+                        ]
+                    }
+                },
+            )
+            write_json(
+                plus_dir / "B1-Joshua.json",
+                {
+                    "header": {
+                        "he_to_int": {
+                            "10": 10,
+                            "24": 24,
+                        }
+                    },
+                    "book39s": [
+                        {
+                            "chapters": {
+                                "10": {
+                                    "24": [
+                                        {
+                                            "tmpl_name": 'כו"ק',
+                                            "tmpl_params": {
+                                                "1": "ההלכוא",
+                                                "2": "הֶהָלְכ֣וּ",
+                                            },
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    ],
+                },
+            )
+
+            with patch(
+                "python_modules.verify_table_words_in_mam_plus.EXPECTED_ROW_COUNT",
+                1,
+            ):
+                report = verify_table_words_in_mam_plus(
+                    table_json_path=table_json_path,
+                    mam_parsed_path=tmp_path / "MAM-parsed",
+                )
+
+        self.assertEqual(report["summary"]["missing_any_plus_count"], 0)
+        self.assertEqual(report["summary"]["missing_mpp_verse_text_count"], 0)
+        self.assertEqual(
+            report["summary"]["rows_matching_mpp_verse_template_arg_count"],
+            1,
+        )
+        self.assertEqual(report["missing_any_plus"], [])
+        self.assertEqual(report["missing_mpp_verse_text_rows"], [])
+        self.assertEqual(
+            report["rows_matching_mpp_verse_template_arg"][0][
+                "matching_template_args_in_mpp_verse"
+            ],
+            [
+                {
+                    "template_name": 'כו"ק',
+                    "argument_key": "2",
+                    "argument_text": "הֶהָלְכ֣וּ",
+                }
+            ],
+        )
+        self.assertTrue(report["rows"][0]["found_via_known_docx_mpp_word"])
 
 
 if __name__ == "__main__":

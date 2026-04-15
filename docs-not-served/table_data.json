@@ -1415,7 +1415,7 @@
     "unique_word_count": 72,
     "missing_any_plus_count": 0,
     "missing_mpp_verse_text_count": 0,
-    "rows_matching_mpp_verse_template_arg_count": 12
+    "rows_matching_mpp_verse_template_arg_count": 14
   },
   "mam_plus_rows_matching_mpp_verse_template_arg": [
     {
@@ -1445,16 +1445,49 @@
       "found_in_mpp_verse_template_arg": true,
       "matching_template_args_in_mpp_verse": [
         {
-          "template_name": "נוסח",
-          "argument_key": "1",
-          "argument_text": "{{קו\"כ-אם|וּבֵנָ֔יו|ל-קרי=וּבֵינָ֔יו}}"
-        },
-        {
           "template_name": "קו\"כ-אם",
           "argument_key": "1",
           "argument_text": "וּבֵנָ֔יו"
         }
       ],
+      "found_via_known_docx_mpp_word": false,
+      "hit_files": [
+        "B1-Joshua.json"
+      ]
+    },
+    {
+      "row_number": 2,
+      "verse": "Joshua 10:24.19",
+      "word": "הֶהָלְכ֣וּא",
+      "mpp_file_for_verse": "B1-Joshua.json",
+      "found_in_any_plus_file": true,
+      "found_in_mpp_verse_text": true,
+      "template_args_in_mpp_verse": [
+        {
+          "template_name": "נוסח",
+          "argument_key": "1",
+          "argument_text": "{{כו\"ק|ההלכוא|הֶהָלְכ֣וּ}}"
+        },
+        {
+          "template_name": "כו\"ק",
+          "argument_key": "1",
+          "argument_text": "ההלכוא"
+        },
+        {
+          "template_name": "כו\"ק",
+          "argument_key": "2",
+          "argument_text": "הֶהָלְכ֣וּ"
+        }
+      ],
+      "found_in_mpp_verse_template_arg": true,
+      "matching_template_args_in_mpp_verse": [
+        {
+          "template_name": "כו\"ק",
+          "argument_key": "2",
+          "argument_text": "הֶהָלְכ֣וּ"
+        }
+      ],
+      "found_via_known_docx_mpp_word": true,
       "hit_files": [
         "B1-Joshua.json"
       ]
@@ -1481,6 +1514,7 @@
           "argument_text": "צְלִ֜יל"
         }
       ],
+      "found_via_known_docx_mpp_word": false,
       "hit_files": [
         "B2-Judges.json"
       ]
@@ -1522,6 +1556,7 @@
           "argument_text": "וַיֹּר֨אֿוּ"
         }
       ],
+      "found_via_known_docx_mpp_word": false,
       "hit_files": [
         "BA-Samuel.json"
       ]
@@ -1563,6 +1598,7 @@
           "argument_text": "הַמּוֹרִ֤אֿים"
         }
       ],
+      "found_via_known_docx_mpp_word": false,
       "hit_files": [
         "BA-Samuel.json"
       ]
@@ -1594,6 +1630,7 @@
           "argument_text": "בִּ֭קְדֹשָׁו"
         }
       ],
+      "found_via_known_docx_mpp_word": false,
       "hit_files": [
         "D3-Job.json"
       ]
@@ -1625,6 +1662,7 @@
           "argument_text": "וַ֭אֲבַדֹּה"
         }
       ],
+      "found_via_known_docx_mpp_word": false,
       "hit_files": [
         "D2-Proverbs.json"
       ]
@@ -1656,6 +1694,7 @@
           "argument_text": "פֹארֹתָ֛ו"
         }
       ],
+      "found_via_known_docx_mpp_word": false,
       "hit_files": [
         "C3-Ezekiel.json"
       ]
@@ -1687,6 +1726,7 @@
           "argument_text": "בְּמַעֲלוֹתָ֑ו"
         }
       ],
+      "found_via_known_docx_mpp_word": false,
       "hit_files": [
         "C3-Ezekiel.json"
       ]
@@ -1733,16 +1773,12 @@
       "found_in_mpp_verse_template_arg": true,
       "matching_template_args_in_mpp_verse": [
         {
-          "template_name": "נוסח",
-          "argument_key": "1",
-          "argument_text": "{{קו\"כ-אם|אֵילָו֙|ל-קרי=אֵילָיו֙}}"
-        },
-        {
           "template_name": "קו\"כ-אם",
           "argument_key": "1",
           "argument_text": "אֵילָו֙"
         }
       ],
+      "found_via_known_docx_mpp_word": false,
       "hit_files": [
         "C3-Ezekiel.json"
       ]
@@ -1774,16 +1810,12 @@
       "found_in_mpp_verse_template_arg": true,
       "matching_template_args_in_mpp_verse": [
         {
-          "template_name": "נוסח",
-          "argument_key": "1",
-          "argument_text": "{{קו\"כ-אם|וּלְאֵֽילַמָּו֙|ל-קרי=וּלְאֵֽילַמָּיו֙}}"
-        },
-        {
           "template_name": "קו\"כ-אם",
           "argument_key": "1",
           "argument_text": "וּלְאֵֽילַמָּו֙"
         }
       ],
+      "found_via_known_docx_mpp_word": false,
       "hit_files": [
         "C3-Ezekiel.json"
       ]
@@ -1825,16 +1857,12 @@
       "found_in_mpp_verse_template_arg": true,
       "matching_template_args_in_mpp_verse": [
         {
-          "template_name": "נוסח",
-          "argument_key": "1",
-          "argument_text": "{{קו\"כ-אם|וְאֵלַמָּ֖ו|ל-קרי=וְאֵֽלַמָּ֖יו}}"
-        },
-        {
           "template_name": "קו\"כ-אם",
           "argument_key": "1",
           "argument_text": "וְאֵלַמָּ֖ו"
         }
       ],
+      "found_via_known_docx_mpp_word": false,
       "hit_files": [
         "C3-Ezekiel.json"
       ]
@@ -1866,6 +1894,44 @@
           "argument_text": "וְנִרְפּ֥אֿוּ"
         }
       ],
+      "found_via_known_docx_mpp_word": false,
+      "hit_files": [
+        "C3-Ezekiel.json"
+      ]
+    },
+    {
+      "row_number": 75,
+      "verse": "Ezekiel 48:18.17",
+      "word": "תְבֽוּאָתֹה֙",
+      "mpp_file_for_verse": "C3-Ezekiel.json",
+      "found_in_any_plus_file": true,
+      "found_in_mpp_verse_text": true,
+      "template_args_in_mpp_verse": [
+        {
+          "template_name": "נוסח",
+          "argument_key": "1",
+          "argument_text": "{{קו\"כ-אם|תְבֽוּאָתֹה֙|ל-קרי=תְבֽוּאָתוֹ֙}}"
+        },
+        {
+          "template_name": "קו\"כ-אם",
+          "argument_key": "1",
+          "argument_text": "תְבֽוּאָתֹה֙"
+        },
+        {
+          "template_name": "קו\"כ-אם",
+          "argument_key": "2",
+          "argument_text": "ל-קרי=תְבֽוּאָתוֹ֙"
+        }
+      ],
+      "found_in_mpp_verse_template_arg": true,
+      "matching_template_args_in_mpp_verse": [
+        {
+          "template_name": "קו\"כ-אם",
+          "argument_key": "1",
+          "argument_text": "תְבֽוּאָתֹה֙"
+        }
+      ],
+      "found_via_known_docx_mpp_word": false,
       "hit_files": [
         "C3-Ezekiel.json"
       ]

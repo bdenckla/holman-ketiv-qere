@@ -15,6 +15,9 @@ from python_modules.mam_plus_verse_data import (
 
 EXPECTED_ROW_COUNT = 77
 RAFE = "\N{HEBREW POINT RAFE}"
+KNOWN_DOCX_MPP_WORD_BY_VERSE = {
+    "Joshua 10:24.19": ("הֶהָלְכ֣וּא", "הֶהָלְכ֣וּ"),
+}
 
 VERSE_PATTERN = re.compile(
     r"^(?P<book_token>.*) (?P<chapter>\d+):(?P<verse>\d+)\.(?P<segment>\d+)$"
@@ -42,6 +45,37 @@ def contains_word_as_hebrew_token(text: str, word: str) -> bool:
         return False
     normalized_text = normalize_mpp_match_text(text)
     return _word_boundary_pattern(normalized_word).search(normalized_text) is not None
+
+
+def matching_template_args_for_word(
+    template_args: list[dict[str, str]],
+    word: str,
+) -> list[dict[str, str]]:
+    normalized_word = normalize_mpp_match_text(word)
+    exact_matches = [
+        arg
+        for arg in template_args
+        if normalize_mpp_match_text(arg["argument_text"]) == normalized_word
+    ]
+    if exact_matches:
+        return exact_matches
+
+    return [
+        arg
+        for arg in template_args
+        if contains_word_as_hebrew_token(arg["argument_text"], word)
+    ]
+
+
+def latest_mpp_word_for_known_docx_word(verse: str, word: str) -> str | None:
+    known_bug = KNOWN_DOCX_MPP_WORD_BY_VERSE.get(verse)
+    if known_bug is None:
+        return None
+
+    docx_word, latest_mpp_word = known_bug
+    if normalize_mpp_match_text(word) != normalize_mpp_match_text(docx_word):
+        return None
+    return latest_mpp_word
 
 
 def parse_table_verse(verse: str) -> tuple[str, int, int]:
@@ -223,12 +257,45 @@ def verify_table_words_in_mam_plus(
         found_in_expected = normalized_word in normalize_mpp_match_text(
             expected_verse_text
         )
-        matching_template_args = [
-            arg
-            for arg in expected_verse_template_args
-            if contains_word_as_hebrew_token(arg["argument_text"], word)
-        ]
+        matching_template_args = matching_template_args_for_word(
+            expected_verse_template_args,
+            word,
+        )
         found_in_mpp_verse_template_arg = len(matching_template_args) > 0
+        found_via_known_docx_mpp_word = False
+
+        latest_mpp_word = latest_mpp_word_for_known_docx_word(verse, word)
+        if latest_mpp_word is not None:
+            normalized_latest_mpp_word = normalize_mpp_match_text(latest_mpp_word)
+
+            if not found_in_any:
+                latest_hit_files = [
+                    file_name
+                    for file_name, search_text in plus_search_text_by_name.items()
+                    if normalized_latest_mpp_word in search_text
+                ]
+                if latest_hit_files:
+                    hit_files = latest_hit_files
+                    found_in_any = True
+                    found_via_known_docx_mpp_word = True
+
+            if (
+                not found_in_expected
+                and normalized_latest_mpp_word
+                in normalize_mpp_match_text(expected_verse_text)
+            ):
+                found_in_expected = True
+                found_via_known_docx_mpp_word = True
+
+            if not found_in_mpp_verse_template_arg:
+                latest_matching_template_args = matching_template_args_for_word(
+                    expected_verse_template_args,
+                    latest_mpp_word,
+                )
+                if latest_matching_template_args:
+                    matching_template_args = latest_matching_template_args
+                    found_in_mpp_verse_template_arg = True
+                    found_via_known_docx_mpp_word = True
 
         report_row = {
             "row_number": row_number,
@@ -240,6 +307,7 @@ def verify_table_words_in_mam_plus(
             "template_args_in_mpp_verse": expected_verse_template_args,
             "found_in_mpp_verse_template_arg": found_in_mpp_verse_template_arg,
             "matching_template_args_in_mpp_verse": matching_template_args,
+            "found_via_known_docx_mpp_word": found_via_known_docx_mpp_word,
             "hit_files": hit_files,
         }
         row_reports.append(report_row)
