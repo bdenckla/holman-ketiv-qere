@@ -61,6 +61,9 @@ Define all colors as CSS custom properties in `:root` so dark-mode adjustments a
 
 - Prefer a soft limit of about 300 lines for any Python file.
 - When a file grows beyond that, prefer splitting logic into focused helper modules.
+- If a Python file grows beyond about 300 lines, spin off self-contained functions or classes into a new focused module under the appropriate package within `py/`.
+- When adding a new self-contained feature, implement it as a new module under the appropriate package within `py/` rather than appending the code to an existing file. Keep the existing file to a thin import-and-call layer when needed; the feature logic should live in the new module.
+- Add directly to an existing file only when the new code depends on private helpers in that file and extracting those helpers first would be disproportionately difficult.
 
 ## Project Scope
 
