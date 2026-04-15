@@ -16,7 +16,7 @@ PALETTE = [
     "#9c4a22",
 ]
 
-ASSETS_DIR = Path(__file__).resolve().parent / "assets"
+ASSETS_DIR = Path(__file__).resolve().parents[2] / "assets"
 CSS_TEMPLATE_PATH = ASSETS_DIR / "table_data_findings.css"
 JS_TEMPLATE_PATH = ASSETS_DIR / "table_data_findings.js"
 CSS_COLOR_PLACEHOLDER = "/* __FINDING_COLORS__ */"

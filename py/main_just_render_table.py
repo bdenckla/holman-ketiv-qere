@@ -34,7 +34,7 @@ def main() -> None:
 
         refresh_row_github_issue_metadata()
 
-    from python_modules.render_table_data_findings_html import (
+    from py_render.rt_html import (
         render_table_data_findings_html,
     )
 

@@ -5,12 +5,12 @@ import unicodedata
 from difflib import SequenceMatcher
 import unittest
 
-from python_modules.mam_uxlc_diff_descriptions import (
+from py.py_render.rt_mam_uxlc_diff_descriptions import (
     SYMBOL_NAMES,
     describe_simple_ketiv_letters_change,
     describe_simple_qere_change,
 )
-from python_modules.xaser_malei_diff_descriptions import (
+from py.py_render.rt_xaser_malei_diff_descriptions import (
     HEBREW_LETTERS,
     MARK_NAMES,
     describe_xaser_malei_qere_change,

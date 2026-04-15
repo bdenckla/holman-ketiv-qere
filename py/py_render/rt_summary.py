@@ -6,13 +6,13 @@ from dataclasses import dataclass
 from html import escape
 from typing import Any
 
-from python_modules.render_table_data_findings_issue_tags import (
+from py_render.rt_issue_tags import (
     ISSUE_TAG_ORDER,
     issue_tag_display_text,
     issue_tag_filter_id,
     record_issue_tags,
 )
-from python_modules.render_table_data_findings_render_utils import (
+from py_render.rt_render_utils import (
     as_text,
     finding_display_text,
 )

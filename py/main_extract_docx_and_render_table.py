@@ -5,11 +5,11 @@ import json
 import zipfile
 from pathlib import Path
 
-from python_modules.json_io import load_json, write_json
-from python_modules.extract_docx_pipeline import parse_docx_archive, write_extract_files
-from python_modules.render_table_data_findings_html import (
+from py_render.rt_html import (
     render_table_data_findings_html,
 )
+from python_modules.json_io import load_json, write_json
+from python_modules.extract_docx_pipeline import parse_docx_archive, write_extract_files
 from python_modules.verify_table_notes_in_uxlc import verify_table_notes_in_uxlc
 from python_modules.verify_table_words_in_mam_plus import verify_table_words_in_mam_plus
 

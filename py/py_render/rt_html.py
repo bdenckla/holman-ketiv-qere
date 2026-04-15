@@ -6,25 +6,15 @@ import os
 from pathlib import Path
 from typing import Any
 
-from python_modules.json_io import load_json
-from python_modules.holam_he_validation import (
-    evaluate_holam_he_row,
-    require_holam_he_row_match,
-)
-from python_modules.mam_uxlc_diff_descriptions import simple_row_diff_note_lines
-from python_modules.mpp_matching_template_args import (
-    matching_template_arguments_in_mpp_verse_by_row_number,
-)
-from python_modules.qyv_validation import evaluate_qyv_row, require_qyv_row_match
-from python_modules.render_table_data_findings_assets import write_report_assets
-from python_modules.render_table_data_findings_issue_tags import (
+from py_render.rt_assets import write_report_assets
+from py_render.rt_issue_tags import (
     HOLAM_HE_TAG,
     QYV_TAG,
     issue_tag_display_text,
     issue_tag_filter_id,
     record_issue_tags,
 )
-from python_modules.render_table_data_findings_render_utils import (
+from py_render.rt_render_utils import (
     as_optional_text,
     as_text,
     contains_hebrew_char,
@@ -32,13 +22,23 @@ from python_modules.render_table_data_findings_render_utils import (
     row_fragment_id,
     suppressed_output_path as build_suppressed_output_path,
 )
-from python_modules.render_table_data_findings_summary import (
+from py_render.rt_summary import (
     MPP_TEMPLATE_FILTER_ID,
     MPP_TEMPLATE_FILTER_LABEL,
     filter_categories,
     summary_rows_html,
 )
-from python_modules.table_data_external_links import verse_external_links
+from py.py_render.rt_validate_holam_he import (
+    evaluate_holam_he_row,
+    require_holam_he_row_match,
+)
+from py.py_render.rt_mam_uxlc_diff_descriptions import simple_row_diff_note_lines
+from py.py_render.rt_validate_qyv import evaluate_qyv_row, require_qyv_row_match
+from py_render.rt_external_links import verse_external_links
+from py_render.rt_matching_tmpl_args import (
+    matching_template_arguments_in_mpp_verse_by_row_number,
+)
+from python_modules.json_io import load_json
 from python_modules.table_row_github_issues import (
     require_row_github_issue_metadata,
     row_github_issue_url,
