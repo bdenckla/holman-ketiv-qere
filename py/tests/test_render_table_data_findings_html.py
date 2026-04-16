@@ -112,7 +112,7 @@ class RenderTableDataFindingsHtmlTests(unittest.TestCase):
                         "word": "א",
                         "finding": "Finding A",
                         "notes-UXLC": "א א",
-                        "notes-HaKeter": "תַּחְתָּ֑ו תַּחְתָּ֑יו",
+                        "notes-HaKeter": "תַּחְתָּ֑ו תַּחְתָּ֑יו",
                     }
                 ]
             },
@@ -140,8 +140,8 @@ class RenderTableDataFindingsHtmlTests(unittest.TestCase):
                 r'<td class="comparison-name-col">MAM Word</td><td class="comparison-value-col"><bdi class="pointed-heb">א</bdi></td><td class="comparison-symval-col"></td>.*?'
                 r'<td class="comparison-name-col">UXLC ketiv</td><td class="comparison-value-col"></td><td class="comparison-symval-col"><span>MAM Word</span></td>.*?'
                 r'<td class="comparison-name-col">UXLC qere</td><td class="comparison-value-col"></td><td class="comparison-symval-col"><span>MAM Word</span></td>.*?'
-                r'<td class="comparison-name-col">HaKeter ketiv</td><td class="comparison-value-col"><bdi class="pointed-heb">תַּחְתָּ֑ו</bdi></td><td class="comparison-symval-col"></td>.*?'
-                r'<td class="comparison-name-col">HaKeter qere</td><td class="comparison-value-col"><bdi class="pointed-heb">תַּחְתָּ֑יו</bdi></td><td class="comparison-symval-col"></td>.*?</table>',
+                r'<td class="comparison-name-col">HaKeter ketiv</td><td class="comparison-value-col"><bdi class="pointed-heb">תַּחְתָּ֑ו</bdi></td><td class="comparison-symval-col"></td>.*?'
+                r'<td class="comparison-name-col">HaKeter qere</td><td class="comparison-value-col"><bdi class="pointed-heb">תַּחְתָּ֑יו</bdi></td><td class="comparison-symval-col"></td>.*?</table>',
                 re.DOTALL,
             ),
         )
@@ -488,7 +488,7 @@ class RenderTableDataFindingsHtmlTests(unittest.TestCase):
                         "word": "בְּמַעֲלוֹתָ֑ו",
                         "finding": "Finding A",
                         "notes-UXLC": "במעלותו בְּמַֽעֲלוֹתָ֑יו",
-                        "notes-HaKeter": "בְּמַעֲלוֹתָ֑ו בְּמַעֲלוֹתָ֑יו",
+                        "notes-HaKeter": "בְּמַעֲלוֹתָ֑ו בְּמַעֲלוֹתָ֑יו",
                     }
                 ]
             },
@@ -541,8 +541,8 @@ class RenderTableDataFindingsHtmlTests(unittest.TestCase):
                 r'<td class="comparison-name-col">קו&quot;כ-אם\[ק\]</td><td class="comparison-value-col"><bdi class="pointed-heb">בְּמַעֲלוֹתָ֑יו</bdi></td><td class="comparison-symval-col"></td>.*?'
                 r'<td class="comparison-name-col">UXLC ketiv</td><td class="comparison-value-col"></td><td class="comparison-symval-col"><span>MAM Word stripped</span></td>.*?'
                 r'<td class="comparison-name-col">UXLC qere</td><td class="comparison-value-col"><bdi class="pointed-heb">בְּמַֽעֲלוֹתָ֑יו</bdi></td><td class="comparison-symval-col"></td>.*?'
-                r'<td class="comparison-name-col">HaKeter ketiv</td><td class="comparison-value-col"><bdi class="pointed-heb">בְּמַעֲלוֹתָ֑ו</bdi></td><td class="comparison-symval-col"></td>.*?'
-                r'<td class="comparison-name-col">HaKeter qere</td><td class="comparison-value-col"><bdi class="pointed-heb">בְּמַעֲלוֹתָ֑יו</bdi></td><td class="comparison-symval-col"></td>.*?</table>',
+                r'<td class="comparison-name-col">HaKeter ketiv</td><td class="comparison-value-col"></td><td class="comparison-symval-col"><span>MAM Word</span></td>.*?'
+                r'<td class="comparison-name-col">HaKeter qere</td><td class="comparison-value-col"></td><td class="comparison-symval-col"><span>קו&quot;כ-אם\[ק\]</span></td>.*?</table>',
                 re.DOTALL,
             ),
         )

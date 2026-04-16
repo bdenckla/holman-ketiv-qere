@@ -1,9 +1,11 @@
 from __future__ import annotations
 
+import unicodedata
 import unittest
 
 from python_modules.extract_docx_notes import (
     apply_notes_fixes,
+    normalize_haketer_presentation_forms,
     split_notes_components,
     split_uxlc_pointed_prefix_atoms,
 )
@@ -64,6 +66,33 @@ class ExtractDocxNotesTests(unittest.TestCase):
         self.assertEqual(notes_uxlc, "ההלכוא הֶהָלְכ֣וּ")
         self.assertEqual(notes_uxlc_yatir, "yatir aleph")
         self.assertIsNone(notes_haketer)
+
+    def test_split_notes_components_expands_haketer_alphabetic_presentation_forms(
+        self,
+    ) -> None:
+        notes_uxlc, notes_uxlc_yatir, notes_haketer = split_notes_components(
+            "MAM - No Comments | UXLC - ב ב | HaKeter - בְּמַעֲלוֹתָ֑ו מָּיִם"
+        )
+
+        self.assertEqual(notes_uxlc, "ב ב")
+        self.assertIsNone(notes_uxlc_yatir)
+        self.assertEqual(notes_haketer, "בְּמַעֲלוֹתָ֑ו מָּיִם")
+
+    def test_normalize_haketer_presentation_forms_expands_all_letter_forms(
+        self,
+    ) -> None:
+        source = "".join(
+            chr(codepoint)
+            for codepoint in range(0xFB1D, 0xFB4F + 1)
+            if unicodedata.name(chr(codepoint), "").startswith("HEBREW LETTER ")
+            and unicodedata.normalize("NFKD", chr(codepoint)) != chr(codepoint)
+        )
+
+        self.assertTrue(source)
+        self.assertEqual(
+            normalize_haketer_presentation_forms(source),
+            "".join(unicodedata.normalize("NFKD", char) for char in source),
+        )
 
     def test_split_uxlc_pointed_prefix_atoms_strips_single_prefix_atom(self) -> None:
         notes_uxlc, pointed_prefix_atoms = split_uxlc_pointed_prefix_atoms(

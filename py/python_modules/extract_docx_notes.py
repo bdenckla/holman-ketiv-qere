@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from typing import cast
 import re
+import unicodedata
 
 from pycmn import bib_locales
 
@@ -42,6 +43,22 @@ UXLC_YATIR_PATTERN = re.compile(r"^(?P<uxlc>.*)\n\((?P<yatir>[^)]+)\)$", re.DOTA
 MAQAF = "\u05be"
 
 ALLOWED_LENINGRAD_TEXT_VALUES = {"", "’"}
+
+
+def _build_haketer_presentation_form_map() -> dict[int, str]:
+    mapping: dict[int, str] = {}
+    for codepoint in range(0xFB1D, 0xFB4F + 1):
+        char = chr(codepoint)
+        normalized = unicodedata.normalize("NFKD", char)
+        if normalized == char:
+            continue
+        if not unicodedata.name(char, "").startswith("HEBREW LETTER "):
+            continue
+        mapping[codepoint] = normalized
+    return mapping
+
+
+HAKETER_PRESENTATION_FORM_MAP = str.maketrans(_build_haketer_presentation_form_map())
 
 
 def parse_verse_reference(verse: str) -> tuple[str, str, str, str]:
@@ -88,6 +105,10 @@ def clean_notes_formatting_artifacts(notes: str) -> str:
     return INVISIBLE_MARK_PATTERN.sub("", strip_known_notes_junk(notes))
 
 
+def normalize_haketer_presentation_forms(text: str) -> str:
+    return text.translate(HAKETER_PRESENTATION_FORM_MAP)
+
+
 def abstract_hebrew_runs(text: str) -> str:
     return HEBREW_RUN_PATTERN.sub("<HEB>", text)
 
@@ -115,7 +136,7 @@ def split_notes_components(notes: str) -> tuple[str, str | None, str | None]:
         raise ValueError(f"unexpected empty UXLC notes component: {notes!r}")
 
     if haketer_text is not None:
-        haketer_text = haketer_text.strip()
+        haketer_text = normalize_haketer_presentation_forms(haketer_text.strip())
         if not haketer_text:
             raise ValueError(f"unexpected empty HaKeter notes component: {notes!r}")
 
