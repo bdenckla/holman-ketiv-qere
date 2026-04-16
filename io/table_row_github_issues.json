@@ -56,7 +56,7 @@
   },
   "10": {
     "issue_number": 5,
-    "is_closed": false,
+    "is_closed": true,
     "tags": [
       "qyv"
     ]

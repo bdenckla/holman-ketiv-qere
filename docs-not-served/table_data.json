@@ -1415,7 +1415,7 @@
     "unique_word_count": 72,
     "missing_any_plus_count": 0,
     "missing_mpp_verse_text_count": 0,
-    "rows_matching_mpp_verse_template_arg_count": 14
+    "rows_matching_mpp_verse_template_arg_count": 15
   },
   "mam_plus_rows_matching_mpp_verse_template_arg": [
     {
@@ -1517,6 +1517,38 @@
       "found_via_known_docx_mpp_word": false,
       "hit_files": [
         "B2-Judges.json"
+      ]
+    },
+    {
+      "row_number": 10,
+      "verse": "2Samuel 2:23.15",
+      "word": "תַּחְתָּ֑ו",
+      "mpp_file_for_verse": "BA-Samuel.json",
+      "found_in_any_plus_file": true,
+      "found_in_mpp_verse_text": true,
+      "template_args_in_mpp_verse": [
+        {
+          "template_name": "קו\"כ-אם",
+          "argument_key": "1",
+          "argument_text": "תַּחְתָּ֑ו"
+        },
+        {
+          "template_name": "קו\"כ-אם",
+          "argument_key": "2",
+          "argument_text": "א-קרי=תַּחְתָּ֑יו"
+        }
+      ],
+      "found_in_mpp_verse_template_arg": true,
+      "matching_template_args_in_mpp_verse": [
+        {
+          "template_name": "קו\"כ-אם",
+          "argument_key": "1",
+          "argument_text": "תַּחְתָּ֑ו"
+        }
+      ],
+      "found_via_known_docx_mpp_word": false,
+      "hit_files": [
+        "BA-Samuel.json"
       ]
     },
     {
@@ -1841,7 +1873,7 @@
         {
           "template_name": "נוסח",
           "argument_key": "1",
-          "argument_text": "{{קו\"כ-אם|וְאֵלַמָּ֖ו|ל-קרי=וְאֵֽלַמָּ֖יו}}"
+          "argument_text": "{{קו\"כ-אם|וְאֵלַמָּ֖ו|ל-קרי=וְאֵלַמָּ֖יו}}"
         },
         {
           "template_name": "קו\"כ-אם",
@@ -1851,7 +1883,7 @@
         {
           "template_name": "קו\"כ-אם",
           "argument_key": "2",
-          "argument_text": "ל-קרי=וְאֵֽלַמָּ֖יו"
+          "argument_text": "ל-קרי=וְאֵלַמָּ֖יו"
         }
       ],
       "found_in_mpp_verse_template_arg": true,
