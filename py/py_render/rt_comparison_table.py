@@ -15,6 +15,11 @@ POSITIONAL_QERE_TEMPLATE_PATTERN = re.compile(
     r"^\{\{(?P<template>[^|{}]+)\|(?P<arg1>[^{}|]+)\|(?P<arg2>[^{}|]+)\}\}$"
 )
 
+COMPARISON_LABEL_TOOLTIPS = {
+    "MAM-docx": "MAM Word (from docx)",
+    "MAM-mpp": "MAM Word (from latest MPP)",
+}
+
 
 def build_comparison_rows(
     *,
@@ -24,9 +29,6 @@ def build_comparison_rows(
     template_calls: list[str],
     differing_latest_mpp_words: list[str],
 ) -> list[dict[str, str]] | None:
-    if differing_latest_mpp_words:
-        return None
-
     split_template_rows = _split_template_rows(template_calls)
     if split_template_rows is None and notes_haketer is None:
         return None
@@ -48,8 +50,15 @@ def build_comparison_rows(
             {"name": "HaKeter qere", "value": haketer_qere},
         ]
 
+    mam_rows = [{"name": "MAM Word", "value": word}]
+    if differing_latest_mpp_words:
+        mam_rows = [
+            {"name": "MAM-docx", "value": word},
+            {"name": "MAM-mpp", "value": " | ".join(differing_latest_mpp_words)},
+        ]
+
     rows = [
-        {"name": "MAM Word", "value": word},
+        *mam_rows,
         *(split_template_rows or []),
         {"name": "UXLC ketiv", "value": ketiv_qere[0]},
         {"name": "UXLC qere", "value": ketiv_qere[1]},
@@ -62,7 +71,7 @@ def comparison_table_html(rows: list[dict[str, str]]) -> str:
     body_rows_html = "\n".join(
         (
             "<tr>\n"
-            f'<td class="comparison-name-col">{escape(row["name"])}<'
+            f'<td class="comparison-name-col">{_comparison_label_html(row["name"])}<'
             "/td>\n"
             f'<td class="comparison-value-col">{_comparison_literal_value_html(row["value"])}<'
             "/td>\n"
@@ -182,4 +191,25 @@ def _comparison_literal_value_html(text: str) -> str:
 def _comparison_symval_html(text: str) -> str:
     if not text:
         return ""
-    return f"<span>{escape(text)}</span>"
+    return f"<span>{_comparison_label_html(text)}</span>"
+
+
+def _comparison_label_html(text: str) -> str:
+    label, suffix = _comparison_label_parts(text)
+    if label is None:
+        return escape(text)
+    tooltip = escape(COMPARISON_LABEL_TOOLTIPS[label])
+    return (
+        f'<abbr class="comparison-label" title="{tooltip}">{escape(label)}</abbr>'
+        f"{escape(suffix)}"
+    )
+
+
+def _comparison_label_parts(text: str) -> tuple[str | None, str]:
+    for label in COMPARISON_LABEL_TOOLTIPS:
+        if text == label:
+            return label, ""
+        prefix = f"{label} "
+        if text.startswith(prefix):
+            return label, text[len(label) :]
+    return None, ""

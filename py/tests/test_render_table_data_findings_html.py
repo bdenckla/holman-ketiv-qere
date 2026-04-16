@@ -1112,29 +1112,42 @@ class RenderTableDataFindingsHtmlTests(unittest.TestCase):
         normalized_main_html = self._normalize_html(main_html)
 
         self.assertIn(
-            'MAM Word (from docx):</span><bdi class="pointed-heb">וַיֹּר֨אוּ</bdi>',
+            '<table class="comparison-table">',
             normalized_main_html,
         )
         self.assertIn(
-            'MAM Word (from latest MPP):</span><bdi class="pointed-heb">וַיֹּר֨אֿוּ</bdi>',
+            '<abbr class="comparison-label" title="MAM Word (from docx)">MAM-docx</abbr>',
+            normalized_main_html,
+        )
+        self.assertIn(
+            '<abbr class="comparison-label" title="MAM Word (from latest MPP)">MAM-mpp</abbr>',
             normalized_main_html,
         )
         self.assertRegex(
             normalized_main_html,
             re.compile(
-                r'<article id="row13".*?MAM Word \(from docx\):</span><bdi class="pointed-heb">וַיֹּר֨אוּ</bdi>.*?MAM Word \(from latest MPP\):</span><bdi class="pointed-heb">וַיֹּר֨אֿוּ</bdi>',
+                r'<article id="row13".*?<table class="comparison-table">.*?'
+                r'<td class="comparison-name-col"><abbr class="comparison-label" title="MAM Word \(from docx\)">MAM-docx</abbr></td>.*?'
+                r'<td class="comparison-value-col"><bdi class="pointed-heb">וַיֹּר֨אוּ</bdi></td><td class="comparison-symval-col"></td>.*?'
+                r'<td class="comparison-name-col"><abbr class="comparison-label" title="MAM Word \(from latest MPP\)">MAM-mpp</abbr></td>.*?'
+                r'<td class="comparison-value-col"><bdi class="pointed-heb">וַיֹּר֨אֿוּ</bdi></td><td class="comparison-symval-col"></td>.*?'
+                r'<td class="comparison-name-col">UXLC ketiv</td><td class="comparison-value-col"></td><td class="comparison-symval-col"><span><abbr class="comparison-label" title="MAM Word \(from docx\)">MAM-docx</abbr> stripped</span></td>',
                 re.DOTALL,
             ),
-        )
-        self.assertIn(
-            '</div><div class="note-line"><span class="label">MAM Word (from latest MPP):</span>',
-            normalized_main_html,
         )
         self.assertNotIn(
             'MPP matching template arg (קו&quot;כ-אם[1]):</span><bdi class="pointed-heb">וַיֹּר֨אֿוּ</bdi>',
             normalized_main_html,
         )
-        self.assertIn(
+        self.assertNotIn(
+            'MAM Word (from docx):</span><bdi class="pointed-heb">וַיֹּר֨אוּ</bdi>',
+            normalized_main_html,
+        )
+        self.assertNotIn(
+            'MAM Word (from latest MPP):</span><bdi class="pointed-heb">וַיֹּר֨אֿוּ</bdi>',
+            normalized_main_html,
+        )
+        self.assertNotIn(
             'MAM template:</span><bdi class="pointed-heb">{{קו&quot;כ-אם|וַיֹּר֨אֿוּ|ל-קרי=וַיֹּר֨וּ}}</bdi>',
             normalized_main_html,
         )
