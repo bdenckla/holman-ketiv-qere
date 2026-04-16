@@ -7,6 +7,7 @@ import re
 from py_render.rt_render_utils import contains_hebrew_char
 from python_modules.qere_projection import qere_arg_key_for_template
 
+HEBREW_LETTER_PATTERN = re.compile(r"[\u05D0-\u05EA]+")
 SIMPLE_QERE_TEMPLATE_PATTERN = re.compile(
     r"^\{\{(?P<template>[^|{}]+)\|(?P<ketiv>[^{}|]+)\|ל-קרי=(?P<qere>[^{}|]+)\}\}$"
 )
@@ -91,9 +92,24 @@ def _split_notes_uxlc(notes_uxlc: str) -> tuple[str, str] | None:
     return tokens[0], tokens[1]
 
 
+def _hebrew_letters_only(text: str) -> str:
+    return "".join(HEBREW_LETTER_PATTERN.findall(text))
+
+
+def _find_stripped_reference_name(rows: list[dict[str, str]], value: str) -> str | None:
+    stripped_value = _hebrew_letters_only(value)
+    if not stripped_value:
+        return None
+    for prior_row in rows:
+        if _hebrew_letters_only(prior_row["value"]) == stripped_value:
+            return prior_row["name"]
+    return None
+
+
 def _with_comparison_references(rows: list[dict[str, str]]) -> list[dict[str, str]]:
     first_name_by_value: dict[str, str] = {}
     rendered_rows: list[dict[str, str]] = []
+    prior_rows: list[dict[str, str]] = []
 
     for row in rows:
         value = row["value"]
@@ -101,7 +117,17 @@ def _with_comparison_references(rows: list[dict[str, str]]) -> list[dict[str, st
         value_is_reference = ""
         reference_name = first_name_by_value.get(value)
         if reference_name is None:
-            first_name_by_value[value] = row["name"]
+            if row["name"] == "UXLC ketiv":
+                stripped_reference_name = _find_stripped_reference_name(
+                    prior_rows, value
+                )
+                if stripped_reference_name is not None:
+                    display_value = f"{stripped_reference_name} stripped"
+                    value_is_reference = "1"
+                else:
+                    first_name_by_value[value] = row["name"]
+            else:
+                first_name_by_value[value] = row["name"]
         else:
             display_value = reference_name
             value_is_reference = "1"
@@ -112,6 +138,7 @@ def _with_comparison_references(rows: list[dict[str, str]]) -> list[dict[str, st
                 "value_is_reference": value_is_reference,
             }
         )
+        prior_rows.append(row)
     return rendered_rows
 
 

@@ -421,6 +421,72 @@ class RenderTableDataFindingsHtmlTests(unittest.TestCase):
         )
         self.assertNotIn("MAM template:</span>", main_html)
 
+    def test_renders_stripped_reference_for_uxlc_ketiv(self) -> None:
+        payload = {
+            "source_document": "sample.docx",
+            "table": {
+                "rows": [
+                    {
+                        "row_number": 32,
+                        "verse": "Joshua 3:4.5",
+                        "word": "וּבֵנָ֔יו",
+                        "finding": "Finding A",
+                        "notes-UXLC": "ובניו וּבֵנָ֔יו",
+                    }
+                ]
+            },
+            "mam_plus_rows_matching_mpp_verse_template_arg": [
+                {
+                    "row_number": 32,
+                    "matching_template_args_in_mpp_verse": [
+                        {
+                            "template_name": 'כו"ק',
+                            "argument_key": "2",
+                            "argument_text": "וּבֵנָ֔יו",
+                        }
+                    ],
+                    "template_args_in_mpp_verse": [
+                        {
+                            "template_name": "נוסח",
+                            "argument_key": "1",
+                            "argument_text": '{{כו"ק|כתיב|וּבֵנָ֔יו}}',
+                        },
+                        {
+                            "template_name": 'כו"ק',
+                            "argument_key": "2",
+                            "argument_text": "וּבֵנָ֔יו",
+                        },
+                    ],
+                }
+            ],
+        }
+
+        row_github_issues_payload = {
+            "32": {
+                "issue_number": 32,
+                "is_closed": False,
+                "tags": [],
+            }
+        }
+
+        main_html, _suppressed_html, _js = self._render(
+            payload,
+            row_github_issues_payload,
+        )
+
+        self.assertRegex(
+            main_html,
+            re.compile(
+                r'<article id="row32".*?<table class="comparison-table">.*?<th>name</th><th>value</th>.*?'
+                r'<td class="comparison-name-col">MAM Word</td><td class="comparison-value-col"><bdi class="pointed-heb">וּבֵנָ֔יו</bdi></td>.*?'
+                r'<td class="comparison-name-col">כו&quot;ק\[כ\]</td><td class="comparison-value-col"><bdi class="pointed-heb">כתיב</bdi></td>.*?'
+                r'<td class="comparison-name-col">כו&quot;ק\[ק\]</td><td class="comparison-value-col"><span>MAM Word</span></td>.*?'
+                r'<td class="comparison-name-col">UXLC ketiv</td><td class="comparison-value-col"><span>MAM Word stripped</span></td>.*?'
+                r'<td class="comparison-name-col">UXLC qere</td><td class="comparison-value-col"><span>MAM Word</span></td>.*?</table>',
+                re.DOTALL,
+            ),
+        )
+
     def test_renders_xaser_malei_note_with_extra_mark_detail(self) -> None:
         payload = {
             "source_document": "sample.docx",
@@ -796,7 +862,7 @@ class RenderTableDataFindingsHtmlTests(unittest.TestCase):
                 r'<td class="comparison-name-col">MAM Word</td><td class="comparison-value-col"><bdi class="pointed-heb">חֲסִידָו֙</bdi></td>.*?'
                 r'<td class="comparison-name-col">q\[כ\]</td><td class="comparison-value-col"><span>MAM Word</span></td>.*?'
                 r'<td class="comparison-name-col">q\[ק\]</td><td class="comparison-value-col"><bdi class="pointed-heb">חֲסִידָיו֙</bdi></td>.*?'
-                r'<td class="comparison-name-col">UXLC ketiv</td><td class="comparison-value-col"><bdi class="pointed-heb">חסידו</bdi></td>.*?'
+                r'<td class="comparison-name-col">UXLC ketiv</td><td class="comparison-value-col"><span>MAM Word stripped</span></td>.*?'
                 r'<td class="comparison-name-col">UXLC qere</td><td class="comparison-value-col"><span>q\[ק\]</span></td>',
                 re.DOTALL,
             ),
