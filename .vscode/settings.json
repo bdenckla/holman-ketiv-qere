@@ -26,6 +26,10 @@
         "..\\..\\holman-ketiv-qere\\.venv\\Scripts\\python.exe": true,
         "..\\.venv\\Scripts\\python.exe": true,
         ".vscode/settings.json": true,
-        "git push": true
+        "git push": true,
+        "/^& \\.\\\\\\.venv\\\\Scripts\\\\python\\.exe -m pytest py/tests/test_render_table_data_findings_html\\.py$/": {
+            "approve": true,
+            "matchCommandLine": true
+        }
     }
 }
