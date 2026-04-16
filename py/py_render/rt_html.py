@@ -7,6 +7,10 @@ from pathlib import Path
 from typing import Any
 
 from py_render.rt_assets import write_report_assets
+from py_render.rt_comparison_table import (
+    build_comparison_rows,
+    comparison_table_html,
+)
 from py_render.rt_issue_tags import (
     HOLAM_HE_TAG,
     QYV_TAG,
@@ -383,23 +387,36 @@ def _record_card_html(
         for match in displayed_matching_template_args_in_mpp_verse
     )
     template_calls = mpp_template_calls.get(row_number, [])
-    mam_template_html = "".join(
-        f'<div class="note-line"><span class="label">MAM template:</span>'
-        f'<bdi class="pointed-heb">{escape(call)}</bdi></div>'
-        for call in template_calls
+    comparison_rows = build_comparison_rows(
+        word=word,
+        notes_uxlc=notes_uxlc,
+        template_calls=template_calls,
+        differing_latest_mpp_words=differing_latest_mpp_words,
     )
-    mam_word_label = (
-        "MAM Word (from docx):" if differing_latest_mpp_words else "MAM Word:"
-    )
-    mam_word_html = (
-        f'<div class="note-line"><span class="label">{mam_word_label}</span>'
-        f'<bdi class="pointed-heb">{escape(word)}</bdi></div>'
-    )
-    if differing_latest_mpp_words:
-        mam_word_html += (
-            f'\n<div class="note-line"><span class="label">MAM Word (from latest MPP):</span>'
-            f'<bdi class="pointed-heb">{escape(" | ".join(differing_latest_mpp_words))}</bdi></div>'
+    if comparison_rows is None:
+        mam_template_html = "".join(
+            f'<div class="note-line"><span class="label">MAM template:</span>'
+            f'<bdi class="pointed-heb">{escape(call)}</bdi></div>'
+            for call in template_calls
         )
+        mam_word_label = (
+            "MAM Word (from docx):" if differing_latest_mpp_words else "MAM Word:"
+        )
+        mam_word_html = (
+            f'<div class="note-line"><span class="label">{mam_word_label}</span>'
+            f'<bdi class="pointed-heb">{escape(word)}</bdi></div>'
+        )
+        if differing_latest_mpp_words:
+            mam_word_html += (
+                f'\n<div class="note-line"><span class="label">MAM Word (from latest MPP):</span>'
+                f'<bdi class="pointed-heb">{escape(" | ".join(differing_latest_mpp_words))}</bdi></div>'
+            )
+        mam_uxlc_html = (
+            f"{mam_word_html}{mam_template_html}\n"
+            f'<div class="note-line"><span class="label">UXLC:</span><bdi class="pointed-heb">{escape(notes_uxlc)}</bdi></div>'
+        )
+    else:
+        mam_uxlc_html = comparison_table_html(comparison_rows)
     aleppo = _image_paths_html(
         image_paths=images.get("aleppo"),
         witness="aleppo",
@@ -420,8 +437,7 @@ def _record_card_html(
     return f"""<article id="{row_fragment_id_value}" class="record-card" data-finding-id="{finding_id}" data-filter-ids="{escape(filter_ids_attr)}">
 <div class="record-head"><span class="record-ref">#{escape(row_number)}</span><span class="record-verse">{verse_ref_html}</span><span class="category-badges">{category_badges_html}</span></div>
 <div class="record-grid"><div>
-{mam_word_html}{mam_template_html}
-<div class="note-line"><span class="label">UXLC:</span><bdi class="pointed-heb">{escape(notes_uxlc)}</bdi></div>
+{mam_uxlc_html}
 {simple_diff_notes_html}{yatir_html}{haketer_html}{mpp_matching_template_arg_html}
 </div><div>
 <div class="image-panel"><div class="image-caption">Aleppo</div><div class="image-strip">{aleppo}</div></div>

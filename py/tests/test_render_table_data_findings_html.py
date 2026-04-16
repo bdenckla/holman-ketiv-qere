@@ -284,6 +284,143 @@ class RenderTableDataFindingsHtmlTests(unittest.TestCase):
             main_html,
         )
 
+    def test_renders_comparison_table_for_simple_split_template_row(self) -> None:
+        payload = {
+            "source_document": "sample.docx",
+            "table": {
+                "rows": [
+                    {
+                        "row_number": 30,
+                        "verse": "Joshua 3:4.5",
+                        "word": "וּבֵנָ֔יו",
+                        "finding": "Finding A",
+                        "notes-UXLC": "ובינו וּבֵינָ֔יו",
+                    }
+                ]
+            },
+            "mam_plus_rows_matching_mpp_verse_template_arg": [
+                {
+                    "row_number": 30,
+                    "matching_template_args_in_mpp_verse": [
+                        {
+                            "template_name": 'קו"כ-אם',
+                            "argument_key": "1",
+                            "argument_text": "וּבֵנָ֔יו",
+                        }
+                    ],
+                    "template_args_in_mpp_verse": [
+                        {
+                            "template_name": "נוסח",
+                            "argument_key": "1",
+                            "argument_text": '{{קו"כ-אם|וּבֵנָ֔יו|ל-קרי=וּבֵינָ֔יו}}',
+                        },
+                        {
+                            "template_name": 'קו"כ-אם',
+                            "argument_key": "1",
+                            "argument_text": "וּבֵנָ֔יו",
+                        },
+                    ],
+                }
+            ],
+        }
+
+        row_github_issues_payload = {
+            "30": {
+                "issue_number": 30,
+                "is_closed": False,
+                "tags": [],
+            }
+        }
+
+        main_html, _suppressed_html, _js = self._render(
+            payload,
+            row_github_issues_payload,
+        )
+
+        self.assertRegex(
+            main_html,
+            re.compile(
+                r'<article id="row30".*?<table class="comparison-table">.*?<th>long</th><th>value</th>.*?'
+                r'<td class="comparison-long-col">MAM Word</td><td class="comparison-value-col"><bdi class="pointed-heb">וּבֵנָ֔יו</bdi></td>.*?'
+                r'<td class="comparison-long-col">קו&quot;כ-אם\[כ\]</td><td class="comparison-value-col"><span>MAM Word</span></td>.*?'
+                r'<td class="comparison-long-col">קו&quot;כ-אם\[ק\]</td><td class="comparison-value-col"><bdi class="pointed-heb">וּבֵינָ֔יו</bdi></td>.*?'
+                r'<td class="comparison-long-col">UXLC ketiv</td><td class="comparison-value-col"><bdi class="pointed-heb">ובינו</bdi></td>.*?'
+                r'<td class="comparison-long-col">UXLC qere</td><td class="comparison-value-col"><span>קו&quot;כ-אם\[ק\]</span></td>.*?</table>',
+                re.DOTALL,
+            ),
+        )
+        self.assertNotIn("MAM template:</span>", main_html)
+        self.assertNotIn(
+            'UXLC:</span><bdi class="pointed-heb">ובינו וּבֵינָ֔יו</bdi>', main_html
+        )
+
+    def test_renders_comparison_table_for_positional_ku_k_template_row(self) -> None:
+        payload = {
+            "source_document": "sample.docx",
+            "table": {
+                "rows": [
+                    {
+                        "row_number": 31,
+                        "verse": "Joshua 3:4.5",
+                        "word": "הֶהָלְכ֣וּ",
+                        "finding": "Finding A",
+                        "notes-UXLC": "ההלכוא הֶהָלְכ֣וּ",
+                    }
+                ]
+            },
+            "mam_plus_rows_matching_mpp_verse_template_arg": [
+                {
+                    "row_number": 31,
+                    "matching_template_args_in_mpp_verse": [
+                        {
+                            "template_name": 'כו"ק',
+                            "argument_key": "2",
+                            "argument_text": "הֶהָלְכ֣וּ",
+                        }
+                    ],
+                    "template_args_in_mpp_verse": [
+                        {
+                            "template_name": "נוסח",
+                            "argument_key": "1",
+                            "argument_text": '{{כו"ק|ההלכוא|הֶהָלְכ֣וּ}}',
+                        },
+                        {
+                            "template_name": 'כו"ק',
+                            "argument_key": "2",
+                            "argument_text": "הֶהָלְכ֣וּ",
+                        },
+                    ],
+                }
+            ],
+        }
+
+        row_github_issues_payload = {
+            "31": {
+                "issue_number": 31,
+                "is_closed": False,
+                "tags": [],
+            }
+        }
+
+        main_html, _suppressed_html, _js = self._render(
+            payload,
+            row_github_issues_payload,
+        )
+
+        self.assertRegex(
+            main_html,
+            re.compile(
+                r'<article id="row31".*?<table class="comparison-table">.*?<th>long</th><th>value</th>.*?'
+                r'<td class="comparison-long-col">MAM Word</td><td class="comparison-value-col"><bdi class="pointed-heb">הֶהָלְכ֣וּ</bdi></td>.*?'
+                r'<td class="comparison-long-col">כו&quot;ק\[כ\]</td><td class="comparison-value-col"><bdi class="pointed-heb">ההלכוא</bdi></td>.*?'
+                r'<td class="comparison-long-col">כו&quot;ק\[ק\]</td><td class="comparison-value-col"><span>MAM Word</span></td>.*?'
+                r'<td class="comparison-long-col">UXLC ketiv</td><td class="comparison-value-col"><span>כו&quot;ק\[כ\]</span></td>.*?'
+                r'<td class="comparison-long-col">UXLC qere</td><td class="comparison-value-col"><span>MAM Word</span></td>.*?</table>',
+                re.DOTALL,
+            ),
+        )
+        self.assertNotIn("MAM template:</span>", main_html)
+
     def test_renders_xaser_malei_note_with_extra_mark_detail(self) -> None:
         payload = {
             "source_document": "sample.docx",
@@ -635,22 +772,32 @@ class RenderTableDataFindingsHtmlTests(unittest.TestCase):
         self.assertIn("בו״א sans א</td><td>1", main_html)
         self.assertIn("rafeh</td><td>1", main_html)
         self.assertIn("ḥolam he</td><td>1", main_html)
-        self.assertIn(
-            'MAM Word:</span><bdi class="pointed-heb">חֲסִידָו֙</bdi>',
-            main_html,
-        )
+        self.assertIn('<table class="comparison-table">', main_html)
         self.assertNotIn(
             'MAM Word (from latest MPP):</span><bdi class="pointed-heb">חֲסִידָו֙</bdi>',
-            main_html,
-        )
-        self.assertIn(
-            'MAM template:</span><bdi class="pointed-heb">{{q|חֲסִידָו֙|ל-קרי=חֲסִידָיו֙}}</bdi>',
             main_html,
         )
         self.assertRegex(
             main_html,
             re.compile(
-                r'<article id="row04".*?MAM Word:</span>.*?MAM template:</span>.*?UXLC:</span>',
+                r'<article id="row04".*?<table class="comparison-table">.*?'
+                r'<td class="comparison-long-col">MAM Word</td>.*?'
+                r'<td class="comparison-long-col">q\[כ\]</td>.*?'
+                r'<td class="comparison-long-col">q\[ק\]</td>.*?'
+                r'<td class="comparison-long-col">UXLC ketiv</td>.*?'
+                r'<td class="comparison-long-col">UXLC qere</td>',
+                re.DOTALL,
+            ),
+        )
+        self.assertRegex(
+            main_html,
+            re.compile(
+                r'<article id="row04".*?'
+                r'<td class="comparison-long-col">MAM Word</td><td class="comparison-value-col"><bdi class="pointed-heb">חֲסִידָו֙</bdi></td>.*?'
+                r'<td class="comparison-long-col">q\[כ\]</td><td class="comparison-value-col"><span>MAM Word</span></td>.*?'
+                r'<td class="comparison-long-col">q\[ק\]</td><td class="comparison-value-col"><bdi class="pointed-heb">חֲסִידָיו֙</bdi></td>.*?'
+                r'<td class="comparison-long-col">UXLC ketiv</td><td class="comparison-value-col"><bdi class="pointed-heb">חסידו</bdi></td>.*?'
+                r'<td class="comparison-long-col">UXLC qere</td><td class="comparison-value-col"><span>q\[ק\]</span></td>',
                 re.DOTALL,
             ),
         )
@@ -663,6 +810,10 @@ class RenderTableDataFindingsHtmlTests(unittest.TestCase):
         )
         self.assertNotIn(
             'MPP matching template arg (q[1]):</span><bdi class="pointed-heb">חֲסִידָו֙</bdi>',
+            main_html,
+        )
+        self.assertNotIn(
+            'MAM template:</span><bdi class="pointed-heb">{{q|חֲסִידָו֙|ל-קרי=חֲסִידָיו֙}}</bdi>',
             main_html,
         )
         self.assertRegex(
