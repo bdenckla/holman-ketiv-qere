@@ -20,6 +20,7 @@ def build_comparison_rows(
     *,
     word: str,
     notes_uxlc: str,
+    notes_haketer: str | None,
     template_calls: list[str],
     differing_latest_mpp_words: list[str],
 ) -> list[dict[str, str]] | None:
@@ -27,18 +28,32 @@ def build_comparison_rows(
         return None
 
     split_template_rows = _split_template_rows(template_calls)
-    if split_template_rows is None:
+    if split_template_rows is None and notes_haketer is None:
         return None
 
     ketiv_qere = _split_notes_uxlc(notes_uxlc)
     if ketiv_qere is None:
         return None
 
+    haketer_rows: list[dict[str, str]] = []
+    if notes_haketer is not None:
+        haketer_ketiv, haketer_qere = _split_notes_uxlc(notes_haketer)
+        if haketer_ketiv is None or haketer_qere is None:
+            raise ValueError(
+                "expected exactly 2 HaKeter tokens, got "
+                f"{notes_haketer.split()!r} from {notes_haketer!r}"
+            )
+        haketer_rows = [
+            {"name": "HaKeter ketiv", "value": haketer_ketiv},
+            {"name": "HaKeter qere", "value": haketer_qere},
+        ]
+
     rows = [
         {"name": "MAM Word", "value": word},
-        *split_template_rows,
+        *(split_template_rows or []),
         {"name": "UXLC ketiv", "value": ketiv_qere[0]},
         {"name": "UXLC qere", "value": ketiv_qere[1]},
+        *haketer_rows,
     ]
     return _with_comparison_references(rows)
 

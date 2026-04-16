@@ -92,6 +92,54 @@ class RenderTableDataFindingsHtmlTests(unittest.TestCase):
             main_html,
         )
 
+    def test_renders_haketer_as_comparison_table_rows_without_template_rows(
+        self,
+    ) -> None:
+        payload = {
+            "source_document": "sample.docx",
+            "table": {
+                "rows": [
+                    {
+                        "row_number": 10,
+                        "verse": "Joshua 1:1.1",
+                        "word": "א",
+                        "finding": "Finding A",
+                        "notes-UXLC": "א א",
+                        "notes-HaKeter": "תַּחְתָּ֑ו תַּחְתָּ֑יו",
+                    }
+                ]
+            },
+            "mam_plus_rows_matching_mpp_verse_template_arg": [],
+        }
+
+        row_github_issues_payload = {
+            "10": {
+                "issue_number": 10,
+                "is_closed": False,
+                "tags": [],
+            }
+        }
+
+        main_html, _suppressed_html, _js = self._render(
+            payload,
+            row_github_issues_payload,
+        )
+
+        self.assertRegex(
+            main_html,
+            re.compile(
+                r'<article id="row10".*?<table class="comparison-table">.*?<th>name</th><th>value</th><th>symval</th>.*?'
+                r'<td class="comparison-name-col">MAM Word</td><td class="comparison-value-col"><bdi class="pointed-heb">א</bdi></td><td class="comparison-symval-col"></td>.*?'
+                r'<td class="comparison-name-col">UXLC ketiv</td><td class="comparison-value-col"></td><td class="comparison-symval-col"><span>MAM Word</span></td>.*?'
+                r'<td class="comparison-name-col">UXLC qere</td><td class="comparison-value-col"></td><td class="comparison-symval-col"><span>MAM Word</span></td>.*?'
+                r'<td class="comparison-name-col">HaKeter ketiv</td><td class="comparison-value-col"><bdi class="pointed-heb">תַּחְתָּ֑ו</bdi></td><td class="comparison-symval-col"></td>.*?'
+                r'<td class="comparison-name-col">HaKeter qere</td><td class="comparison-value-col"><bdi class="pointed-heb">תַּחְתָּ֑יו</bdi></td><td class="comparison-symval-col"></td>.*?</table>',
+                re.DOTALL,
+            ),
+        )
+        self.assertNotIn('<span class="label">HaKeter ketiv:</span>', main_html)
+        self.assertNotIn('<span class="label">HaKeter qere:</span>', main_html)
+
     def test_renders_simple_letter_descriptions_for_non_qyv_non_holam_rows(
         self,
     ) -> None:
@@ -430,6 +478,7 @@ class RenderTableDataFindingsHtmlTests(unittest.TestCase):
                         "word": "בְּמַעֲלוֹתָ֑ו",
                         "finding": "Finding A",
                         "notes-UXLC": "במעלותו בְּמַֽעֲלוֹתָ֑יו",
+                        "notes-HaKeter": "בְּמַעֲלוֹתָ֑ו בְּמַעֲלוֹתָ֑יו",
                     }
                 ]
             },
@@ -480,7 +529,9 @@ class RenderTableDataFindingsHtmlTests(unittest.TestCase):
                 r'<td class="comparison-name-col">קו&quot;כ-אם\[כ\]</td><td class="comparison-value-col"></td><td class="comparison-symval-col"><span>MAM Word</span></td>.*?'
                 r'<td class="comparison-name-col">קו&quot;כ-אם\[ק\]</td><td class="comparison-value-col"><bdi class="pointed-heb">בְּמַעֲלוֹתָ֑יו</bdi></td><td class="comparison-symval-col"></td>.*?'
                 r'<td class="comparison-name-col">UXLC ketiv</td><td class="comparison-value-col"></td><td class="comparison-symval-col"><span>MAM Word stripped</span></td>.*?'
-                r'<td class="comparison-name-col">UXLC qere</td><td class="comparison-value-col"><bdi class="pointed-heb">בְּמַֽעֲלוֹתָ֑יו</bdi></td><td class="comparison-symval-col"></td>.*?</table>',
+                r'<td class="comparison-name-col">UXLC qere</td><td class="comparison-value-col"><bdi class="pointed-heb">בְּמַֽעֲלוֹתָ֑יו</bdi></td><td class="comparison-symval-col"></td>.*?'
+                r'<td class="comparison-name-col">HaKeter ketiv</td><td class="comparison-value-col"><bdi class="pointed-heb">בְּמַעֲלוֹתָ֑ו</bdi></td><td class="comparison-symval-col"></td>.*?'
+                r'<td class="comparison-name-col">HaKeter qere</td><td class="comparison-value-col"><bdi class="pointed-heb">בְּמַעֲלוֹתָ֑יו</bdi></td><td class="comparison-symval-col"></td>.*?</table>',
                 re.DOTALL,
             ),
         )
@@ -489,6 +540,7 @@ class RenderTableDataFindingsHtmlTests(unittest.TestCase):
             'UXLC:</span><bdi class="pointed-heb">במעלותו בְּמַֽעֲלוֹתָ֑יו</bdi>',
             main_html,
         )
+        self.assertNotIn('<span class="label">HaKeter ketiv:</span>', main_html)
 
     def test_renders_stripped_reference_for_uxlc_ketiv(self) -> None:
         payload = {

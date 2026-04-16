@@ -357,13 +357,6 @@ def _record_card_html(
             strip_prefix="yatir ",
         )
     )
-    haketer_html = (
-        ""
-        if notes_haketer is None
-        else (
-            f'<div class="note-line"><span class="label">HaKeter:</span><bdi class="pointed-heb">{escape(notes_haketer)}</bdi></div>'
-        )
-    )
     differing_latest_mpp_words: list[str] = []
     for match in matching_template_args_in_mpp_verse:
         argument_text = as_text(match.get("argument_text"))
@@ -390,6 +383,7 @@ def _record_card_html(
     comparison_rows = build_comparison_rows(
         word=word,
         notes_uxlc=notes_uxlc,
+        notes_haketer=notes_haketer,
         template_calls=template_calls,
         differing_latest_mpp_words=differing_latest_mpp_words,
     )
@@ -438,7 +432,7 @@ def _record_card_html(
 <div class="record-head"><span class="record-ref">#{escape(row_number)}</span><span class="record-verse">{verse_ref_html}</span><span class="category-badges">{category_badges_html}</span></div>
 <div class="record-grid"><div>
 {mam_uxlc_html}
-{simple_diff_notes_html}{yatir_html}{haketer_html}{mpp_matching_template_arg_html}
+{simple_diff_notes_html}{yatir_html}{mpp_matching_template_arg_html}
 </div><div>
 <div class="image-panel"><div class="image-caption">Aleppo</div><div class="image-strip">{aleppo}</div></div>
 <div class="image-panel" style="margin-top:.45rem;"><div class="image-caption">Leningrad</div><div class="image-strip">{leningrad}</div></div>
