@@ -340,12 +340,12 @@ class RenderTableDataFindingsHtmlTests(unittest.TestCase):
         self.assertRegex(
             main_html,
             re.compile(
-                r'<article id="row30".*?<table class="comparison-table">.*?<th>long</th><th>value</th>.*?'
-                r'<td class="comparison-long-col">MAM Word</td><td class="comparison-value-col"><bdi class="pointed-heb">וּבֵנָ֔יו</bdi></td>.*?'
-                r'<td class="comparison-long-col">קו&quot;כ-אם\[כ\]</td><td class="comparison-value-col"><span>MAM Word</span></td>.*?'
-                r'<td class="comparison-long-col">קו&quot;כ-אם\[ק\]</td><td class="comparison-value-col"><bdi class="pointed-heb">וּבֵינָ֔יו</bdi></td>.*?'
-                r'<td class="comparison-long-col">UXLC ketiv</td><td class="comparison-value-col"><bdi class="pointed-heb">ובינו</bdi></td>.*?'
-                r'<td class="comparison-long-col">UXLC qere</td><td class="comparison-value-col"><span>קו&quot;כ-אם\[ק\]</span></td>.*?</table>',
+                r'<article id="row30".*?<table class="comparison-table">.*?<th>name</th><th>value</th>.*?'
+                r'<td class="comparison-name-col">MAM Word</td><td class="comparison-value-col"><bdi class="pointed-heb">וּבֵנָ֔יו</bdi></td>.*?'
+                r'<td class="comparison-name-col">קו&quot;כ-אם\[כ\]</td><td class="comparison-value-col"><span>MAM Word</span></td>.*?'
+                r'<td class="comparison-name-col">קו&quot;כ-אם\[ק\]</td><td class="comparison-value-col"><bdi class="pointed-heb">וּבֵינָ֔יו</bdi></td>.*?'
+                r'<td class="comparison-name-col">UXLC ketiv</td><td class="comparison-value-col"><bdi class="pointed-heb">ובינו</bdi></td>.*?'
+                r'<td class="comparison-name-col">UXLC qere</td><td class="comparison-value-col"><span>קו&quot;כ-אם\[ק\]</span></td>.*?</table>',
                 re.DOTALL,
             ),
         )
@@ -410,12 +410,12 @@ class RenderTableDataFindingsHtmlTests(unittest.TestCase):
         self.assertRegex(
             main_html,
             re.compile(
-                r'<article id="row31".*?<table class="comparison-table">.*?<th>long</th><th>value</th>.*?'
-                r'<td class="comparison-long-col">MAM Word</td><td class="comparison-value-col"><bdi class="pointed-heb">הֶהָלְכ֣וּ</bdi></td>.*?'
-                r'<td class="comparison-long-col">כו&quot;ק\[כ\]</td><td class="comparison-value-col"><bdi class="pointed-heb">ההלכוא</bdi></td>.*?'
-                r'<td class="comparison-long-col">כו&quot;ק\[ק\]</td><td class="comparison-value-col"><span>MAM Word</span></td>.*?'
-                r'<td class="comparison-long-col">UXLC ketiv</td><td class="comparison-value-col"><span>כו&quot;ק\[כ\]</span></td>.*?'
-                r'<td class="comparison-long-col">UXLC qere</td><td class="comparison-value-col"><span>MAM Word</span></td>.*?</table>',
+                r'<article id="row31".*?<table class="comparison-table">.*?<th>name</th><th>value</th>.*?'
+                r'<td class="comparison-name-col">MAM Word</td><td class="comparison-value-col"><bdi class="pointed-heb">הֶהָלְכ֣וּ</bdi></td>.*?'
+                r'<td class="comparison-name-col">כו&quot;ק\[כ\]</td><td class="comparison-value-col"><bdi class="pointed-heb">ההלכוא</bdi></td>.*?'
+                r'<td class="comparison-name-col">כו&quot;ק\[ק\]</td><td class="comparison-value-col"><span>MAM Word</span></td>.*?'
+                r'<td class="comparison-name-col">UXLC ketiv</td><td class="comparison-value-col"><span>כו&quot;ק\[כ\]</span></td>.*?'
+                r'<td class="comparison-name-col">UXLC qere</td><td class="comparison-value-col"><span>MAM Word</span></td>.*?</table>',
                 re.DOTALL,
             ),
         )
@@ -781,11 +781,11 @@ class RenderTableDataFindingsHtmlTests(unittest.TestCase):
             main_html,
             re.compile(
                 r'<article id="row04".*?<table class="comparison-table">.*?'
-                r'<td class="comparison-long-col">MAM Word</td>.*?'
-                r'<td class="comparison-long-col">q\[כ\]</td>.*?'
-                r'<td class="comparison-long-col">q\[ק\]</td>.*?'
-                r'<td class="comparison-long-col">UXLC ketiv</td>.*?'
-                r'<td class="comparison-long-col">UXLC qere</td>',
+                r'<td class="comparison-name-col">MAM Word</td>.*?'
+                r'<td class="comparison-name-col">q\[כ\]</td>.*?'
+                r'<td class="comparison-name-col">q\[ק\]</td>.*?'
+                r'<td class="comparison-name-col">UXLC ketiv</td>.*?'
+                r'<td class="comparison-name-col">UXLC qere</td>',
                 re.DOTALL,
             ),
         )
@@ -793,11 +793,11 @@ class RenderTableDataFindingsHtmlTests(unittest.TestCase):
             main_html,
             re.compile(
                 r'<article id="row04".*?'
-                r'<td class="comparison-long-col">MAM Word</td><td class="comparison-value-col"><bdi class="pointed-heb">חֲסִידָו֙</bdi></td>.*?'
-                r'<td class="comparison-long-col">q\[כ\]</td><td class="comparison-value-col"><span>MAM Word</span></td>.*?'
-                r'<td class="comparison-long-col">q\[ק\]</td><td class="comparison-value-col"><bdi class="pointed-heb">חֲסִידָיו֙</bdi></td>.*?'
-                r'<td class="comparison-long-col">UXLC ketiv</td><td class="comparison-value-col"><bdi class="pointed-heb">חסידו</bdi></td>.*?'
-                r'<td class="comparison-long-col">UXLC qere</td><td class="comparison-value-col"><span>q\[ק\]</span></td>',
+                r'<td class="comparison-name-col">MAM Word</td><td class="comparison-value-col"><bdi class="pointed-heb">חֲסִידָו֙</bdi></td>.*?'
+                r'<td class="comparison-name-col">q\[כ\]</td><td class="comparison-value-col"><span>MAM Word</span></td>.*?'
+                r'<td class="comparison-name-col">q\[ק\]</td><td class="comparison-value-col"><bdi class="pointed-heb">חֲסִידָיו֙</bdi></td>.*?'
+                r'<td class="comparison-name-col">UXLC ketiv</td><td class="comparison-value-col"><bdi class="pointed-heb">חסידו</bdi></td>.*?'
+                r'<td class="comparison-name-col">UXLC qere</td><td class="comparison-value-col"><span>q\[ק\]</span></td>',
                 re.DOTALL,
             ),
         )

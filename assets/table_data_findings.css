@@ -75,7 +75,7 @@ p { margin: .3rem 0; }
   text-transform: uppercase;
 }
 .comparison-table tbody tr:last-child td { border-bottom: none; }
-.comparison-table td.comparison-long-col {
+.comparison-table td.comparison-name-col {
   color: var(--text);
   vertical-align: middle;
 }

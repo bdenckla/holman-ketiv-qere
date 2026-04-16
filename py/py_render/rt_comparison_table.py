@@ -34,10 +34,10 @@ def build_comparison_rows(
         return None
 
     rows = [
-        {"long": "MAM Word", "value": word},
+        {"name": "MAM Word", "value": word},
         *split_template_rows,
-        {"long": "UXLC ketiv", "value": ketiv_qere[0]},
-        {"long": "UXLC qere", "value": ketiv_qere[1]},
+        {"name": "UXLC ketiv", "value": ketiv_qere[0]},
+        {"name": "UXLC qere", "value": ketiv_qere[1]},
     ]
     return _with_comparison_references(rows)
 
@@ -45,14 +45,14 @@ def build_comparison_rows(
 def comparison_table_html(rows: list[dict[str, str]]) -> str:
     body_rows_html = "".join(
         "<tr>"
-        f'<td class="comparison-long-col">{escape(row["long"])}</td>'
+        f'<td class="comparison-name-col">{escape(row["name"])}</td>'
         f'<td class="comparison-value-col">{_comparison_value_html(row)}</td>'
         "</tr>"
         for row in rows
     )
     return (
         '<table class="comparison-table">'
-        "<thead><tr><th>long</th><th>value</th></tr></thead>"
+        "<thead><tr><th>name</th><th>value</th></tr></thead>"
         f"<tbody>{body_rows_html}</tbody></table>"
     )
 
@@ -66,8 +66,8 @@ def _split_template_rows(template_calls: list[str]) -> list[dict[str, str]] | No
     if match is not None:
         template_name = match.group("template")
         return [
-            {"long": f"{template_name}[כ]", "value": match.group("ketiv")},
-            {"long": f"{template_name}[ק]", "value": match.group("qere")},
+            {"name": f"{template_name}[כ]", "value": match.group("ketiv")},
+            {"name": f"{template_name}[ק]", "value": match.group("qere")},
         ]
 
     positional_match = POSITIONAL_QERE_TEMPLATE_PATTERN.fullmatch(call)
@@ -79,8 +79,8 @@ def _split_template_rows(template_calls: list[str]) -> list[dict[str, str]] | No
     if qere_arg_key != "2":
         return None
     return [
-        {"long": f"{template_name}[כ]", "value": positional_match.group("arg1")},
-        {"long": f"{template_name}[ק]", "value": positional_match.group("arg2")},
+        {"name": f"{template_name}[כ]", "value": positional_match.group("arg1")},
+        {"name": f"{template_name}[ק]", "value": positional_match.group("arg2")},
     ]
 
 
@@ -92,22 +92,22 @@ def _split_notes_uxlc(notes_uxlc: str) -> tuple[str, str] | None:
 
 
 def _with_comparison_references(rows: list[dict[str, str]]) -> list[dict[str, str]]:
-    first_long_by_value: dict[str, str] = {}
+    first_name_by_value: dict[str, str] = {}
     rendered_rows: list[dict[str, str]] = []
 
     for row in rows:
         value = row["value"]
         display_value = value
         value_is_reference = ""
-        reference_long = first_long_by_value.get(value)
-        if reference_long is None:
-            first_long_by_value[value] = row["long"]
+        reference_name = first_name_by_value.get(value)
+        if reference_name is None:
+            first_name_by_value[value] = row["name"]
         else:
-            display_value = reference_long
+            display_value = reference_name
             value_is_reference = "1"
         rendered_rows.append(
             {
-                "long": row["long"],
+                "name": row["name"],
                 "value": display_value,
                 "value_is_reference": value_is_reference,
             }
