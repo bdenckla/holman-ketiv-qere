@@ -71,6 +71,18 @@ Define all colors as CSS custom properties in `:root` so dark-mode adjustments a
 - The current table dataset has 77 rows and is expected to remain the effective scope.
 - Prefer simple, direct checks and scripts over general-purpose, highly configurable frameworks.
 
+## Testing Policy
+
+- Treat end-to-end validation on the fixed 77-row dataset as the default test for this repo.
+- For output-affecting changes, prefer rerunning `py/main_extract_docx_and_render_table.py` or `py/main_just_render_table.py` and reviewing the generated diff over adding new unit tests.
+- Do not add tests by default.
+- Add or expand tests only when the change encodes one of these and the behavior would be hard to diagnose from the final output diff alone:
+  - a known row-specific regression
+  - an external-source quirk (for example MAM+ or UXLC oddities)
+  - a narrow semantic or parsing rule whose failure would be easier to localize in an isolated test
+- When adding a test, include a short justification in the chat or commit/PR description tying it to one of the allowed categories above.
+- Keep the existing suite lean; avoid broad coverage-driven test additions for helper plumbing, HTML structure, or other behavior that is already easy to validate by rerendering the checked dataset.
+
 ## Vendoring Policy
 
 - When vendoring from neighboring repos (for example MAM-basics), vendor whole source files.

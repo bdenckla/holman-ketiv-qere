@@ -23,31 +23,6 @@ TEST_MODULE_SPECS = (
         help_text="Run extract_docx_notes unit tests.",
     ),
     TestModuleSpec(
-        flag="extract-docx-xml-utils",
-        module_name="tests.test_extract_docx_xml_utils",
-        help_text="Run extract_docx_xml_utils unit tests.",
-    ),
-    TestModuleSpec(
-        flag="qere-ending-search",
-        module_name="tests.test_qere_ending_search",
-        help_text="Run qere ending search helper tests.",
-    ),
-    TestModuleSpec(
-        flag="refresh-table-row-github-issues",
-        module_name="tests.test_refresh_table_row_github_issues",
-        help_text="Run row GitHub issue refresh tests.",
-    ),
-    TestModuleSpec(
-        flag="render-table-data-findings-html",
-        module_name="tests.test_render_table_data_findings_html",
-        help_text="Run findings report rendering tests.",
-    ),
-    TestModuleSpec(
-        flag="search-final-hiriq-verse-text",
-        module_name="tests.test_search_final_hiriq_verse_text",
-        help_text="Run final-hiriq verse-text search tests.",
-    ),
-    TestModuleSpec(
         flag="verify-table-words-in-mam-plus",
         module_name="tests.test_verify_table_words_in_mam_plus",
         help_text="Run MAM plus table-word verification tests.",
@@ -56,6 +31,16 @@ TEST_MODULE_SPECS = (
         flag="verify-table-notes-in-uxlc",
         module_name="tests.test_verify_table_notes_in_uxlc",
         help_text="Run UXLC note verification tests.",
+    ),
+    TestModuleSpec(
+        flag="qyv-validation",
+        module_name="tests.test_qyv_validation",
+        help_text="Run qere-yod-vav semantic validation tests.",
+    ),
+    TestModuleSpec(
+        flag="holam-he-validation",
+        module_name="tests.test_holam_he_validation",
+        help_text="Run holam-he semantic validation tests.",
     ),
 )
 
