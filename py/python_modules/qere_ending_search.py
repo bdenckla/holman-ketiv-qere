@@ -12,7 +12,6 @@ from python_modules.qere_projection import (
     word_atoms_from_qere_atoms,
 )
 
-
 REPO_ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_MAM_PARSED_PLUS_DIR = REPO_ROOT.parent / "MAM-parsed" / "plus"
 DEFAULT_MAM_BASICS_QERE_WORDS_PATH = (
@@ -31,8 +30,7 @@ class QereEndingSearchSpec:
     def matches_word(self, word: str) -> bool:
         vowel_only_form = to_vowel_only_form(word)
         return any(
-            vowel_only_form.endswith(suffix)
-            for suffix in self.vowel_only_suffixes
+            vowel_only_form.endswith(suffix) for suffix in self.vowel_only_suffixes
         )
 
 
@@ -239,7 +237,7 @@ def build_ending_pattern_report(
             "  מ:כפול — 3 params: combined/alef/bet — dual-cantillation verses only",
             "           (Decalogue, Saga of Reuben)",
             "Additionally, any unrecognised template encountered at runtime will also",
-            "produce one hit per param, silently."
+            "produce one hit per param, silently.",
         ],
         "summary": {
             "mpp": summarize_mpp_hits(mpp_hits),

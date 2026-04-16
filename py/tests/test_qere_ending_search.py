@@ -19,7 +19,7 @@ class QereEndingSearchHelpersTests(unittest.TestCase):
             slug="holam_he",
             label="Holam-he qere endings",
             output_file_name="unused.json",
-            vowel_only_suffixes=("\u05B9\u05D4",),
+            vowel_only_suffixes=("\u05b9\u05d4",),
         )
 
         self.assertTrue(spec.matches_word("כֹּ֣ה"))

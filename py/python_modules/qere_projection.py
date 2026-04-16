@@ -3,7 +3,6 @@ from __future__ import annotations
 from collections.abc import Iterator
 import re
 
-
 ACCENTS_AND_METEG_RE = re.compile(r"[\u0591-\u05AF\u05BD\u05BF\u05C0\u05C4\u05C5]")
 CGJ_AND_JOINERS_RE = re.compile(r"[\u034F\u200C\u200D]")
 TOKEN_SPLIT_RE = re.compile(r"[\s\u05BE\u05C0\u05C3]+")
@@ -77,7 +76,7 @@ def qere_arg_key_for_template(template_name: str) -> str | None:
         return "2"
     if template_name == "כתיב ולא קרי":
         return None
-    if "כו\"ק" in template_name or "קו\"כ" in template_name:
+    if 'כו"ק' in template_name or 'קו"כ' in template_name:
         return "2"
     return None
 
@@ -136,7 +135,7 @@ def project_qere_atoms(
     if not isinstance(tmpl_name, str) or not isinstance(tmpl_params, dict):
         return []
 
-    if tmpl_name in {"נוסח", 'מ:הערה-2'}:
+    if tmpl_name in {"נוסח", "מ:הערה-2"}:
         return project_qere_atoms(tmpl_params.get("1"), source=source)
 
     if tmpl_name in {"מ:הערה", "כתיב ולא קרי", 'מ:נו"ן הפוכה'}:
@@ -153,10 +152,10 @@ def project_qere_atoms(
         return [_text_atom(" ", source)]
 
     if tmpl_name in {"מ:פסק", "מ:לגרמיה-2"}:
-        return [_text_atom("\u05C0", source)]
+        return [_text_atom("\u05c0", source)]
 
     if tmpl_name == "מ:מקף אפור":
-        return [_text_atom("\u05BE", source)]
+        return [_text_atom("\u05be", source)]
 
     if tmpl_name in IN_WORD_RECURSE_TEMPLATE_NAMES:
         return project_qere_atoms(tmpl_params.get("1"), source=source)
@@ -219,7 +218,9 @@ def _word_atoms_from_text_atom(atom: dict[str, object]) -> list[dict[str, object
     ]
 
 
-def word_atoms_from_qere_atoms(atoms: list[dict[str, object]]) -> list[dict[str, object]]:
+def word_atoms_from_qere_atoms(
+    atoms: list[dict[str, object]],
+) -> list[dict[str, object]]:
     out: list[dict[str, object]] = []
     for atom in atoms:
         kind = atom.get("kind")

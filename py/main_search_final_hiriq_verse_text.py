@@ -11,7 +11,6 @@ from python_modules.hebrew_text_tokens import (
 )
 from python_modules.mam_plus_verse_data import verse_texts_by_location
 
-
 REPO_ROOT = Path(__file__).resolve().parents[1]
 PLUS_DIR = (REPO_ROOT.parent / "mam-parsed" / "plus").resolve()
 TARGET_VERSE = ("Tsefaniah", 2, 9)
@@ -38,7 +37,7 @@ def strip_ignorable_marks(token: str) -> str:
 
 
 def is_final_hiriq_token(token: str) -> bool:
-    return strip_ignorable_marks(token).endswith("\u05B4")
+    return strip_ignorable_marks(token).endswith("\u05b4")
 
 
 def find_final_hiriq_hits() -> tuple[list[dict[str, object]], list[str]]:
@@ -99,7 +98,7 @@ def main() -> None:
             "  מ:כפול          — use param 'כפול' (combined); ignore params 'א'/'ב'",
             "                    (alef/bet cantillation — dual-cantillation verses only:",
             "                    Decalogue, Saga of Reuben). A token differing between",
-            "                    the two readings might not appear in the combined form."
+            "                    the two readings might not appear in the combined form.",
         ],
         "hits": hits,
         "target_verse": target_verse_str,

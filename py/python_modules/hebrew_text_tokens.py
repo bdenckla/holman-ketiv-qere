@@ -2,27 +2,21 @@ from __future__ import annotations
 
 import re
 
-
 HEBREW_TOKEN_CHAR_CLASS = (
-    "\u034F"
-    "\u0591-\u05BD"
-    "\u05BF"
-    "\u05C1-\u05C2"
-    "\u05C4-\u05C5"
-    "\u05C7"
-    "\u05D0-\u05EA"
-    "\u05F0-\u05F2"
-    "\u200C-\u200D"
-    "\uFB1D-\uFB4F"
+    "\u034f"
+    "\u0591-\u05bd"
+    "\u05bf"
+    "\u05c1-\u05c2"
+    "\u05c4-\u05c5"
+    "\u05c7"
+    "\u05d0-\u05ea"
+    "\u05f0-\u05f2"
+    "\u200c-\u200d"
+    "\ufb1d-\ufb4f"
 )
 HEBREW_TOKEN_PATTERN = re.compile(f"[{HEBREW_TOKEN_CHAR_CLASS}]+")
 IGNORABLE_ACCENTS_METEG_AND_JOINERS_RE = re.compile(
-    "["
-    "\u034F"
-    "\u0591-\u05AF"
-    "\u05BD"
-    "\u200C-\u200D"
-    "]+"
+    "[" "\u034f" "\u0591-\u05af" "\u05bd" "\u200c-\u200d" "]+"
 )
 
 

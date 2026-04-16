@@ -87,7 +87,7 @@ def _collect_text_fragments(node: object, out_parts: list[str]) -> None:
         tmpl_name = node.get("tmpl_name")
         tmpl_params = node.get("tmpl_params")
         if isinstance(tmpl_params, dict):
-            if tmpl_name == "נוסח" or tmpl_name == 'מ:הערה-2':
+            if tmpl_name == "נוסח" or tmpl_name == "מ:הערה-2":
                 # Param 1 is the in-verse target; param 2 is documentation.
                 _collect_text_fragments(tmpl_params.get("1"), out_parts)
                 return
@@ -120,7 +120,7 @@ def _collect_text_fragments(node: object, out_parts: list[str]) -> None:
                 # string (e.g. "א-קרי=..."), not verse text.
                 _collect_text_fragments(tmpl_params.get("1"), out_parts)
                 return
-            if "כו\"ק" in (tmpl_name or "") or "קו\"כ" in (tmpl_name or ""):
+            if 'כו"ק' in (tmpl_name or "") or 'קו"כ' in (tmpl_name or ""):
                 # Ketiv-qere: param 1 is ketiv (written), param 2 is qere (read).
                 _collect_text_fragments(tmpl_params.get("2"), out_parts)
                 return
@@ -192,9 +192,12 @@ def verse_nusach_targets_by_location(
     plus_json: object,
 ) -> dict[tuple[int, int, int], list[str]]:
     out: dict[tuple[int, int, int], list[str]] = {}
-    for book39_index, chapter_num, verse_num, verse_payload in _iter_plus_verse_payloads(
-        plus_json
-    ):
+    for (
+        book39_index,
+        chapter_num,
+        verse_num,
+        verse_payload,
+    ) in _iter_plus_verse_payloads(plus_json):
         targets: list[str] = []
         _collect_nusach_targets(verse_payload, targets)
         out[(book39_index, chapter_num, verse_num)] = targets
@@ -241,9 +244,12 @@ def verse_template_argument_records_by_location(
     plus_json: object,
 ) -> dict[tuple[int, int, int], list[dict[str, str]]]:
     out: dict[tuple[int, int, int], list[dict[str, str]]] = {}
-    for book39_index, chapter_num, verse_num, verse_payload in _iter_plus_verse_payloads(
-        plus_json
-    ):
+    for (
+        book39_index,
+        chapter_num,
+        verse_num,
+        verse_payload,
+    ) in _iter_plus_verse_payloads(plus_json):
         records: list[dict[str, str]] = []
         _collect_template_argument_records(verse_payload, records)
         out[(book39_index, chapter_num, verse_num)] = records
@@ -254,9 +260,12 @@ def verse_texts_by_location(
     plus_json: object,
 ) -> dict[tuple[int, int, int], str]:
     out: dict[tuple[int, int, int], str] = {}
-    for book39_index, chapter_num, verse_num, verse_payload in _iter_plus_verse_payloads(
-        plus_json
-    ):
+    for (
+        book39_index,
+        chapter_num,
+        verse_num,
+        verse_payload,
+    ) in _iter_plus_verse_payloads(plus_json):
         text_parts: list[str] = []
         _collect_text_fragments(verse_payload, text_parts)
         out[(book39_index, chapter_num, verse_num)] = "".join(text_parts)
