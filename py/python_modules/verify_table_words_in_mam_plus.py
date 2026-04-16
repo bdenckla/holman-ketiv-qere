@@ -24,6 +24,7 @@ VERSE_PATTERN = re.compile(
 )
 # Hebrew token chars: letters + pointing/cantillation marks (exclude punctuation like maqaf/sof-pasuq).
 HEBREW_CHAR_CLASS = HEBREW_TOKEN_CHAR_CLASS
+TRAILING_NON_TOKEN_PUNCTUATION_RE = re.compile(rf"[^{HEBREW_CHAR_CLASS}]+$")
 
 
 @lru_cache(maxsize=1024)
@@ -35,6 +36,10 @@ def _word_boundary_pattern(word: str) -> re.Pattern[str]:
 
 def normalize_mpp_match_text(text: str) -> str:
     return text.replace(RAFE, "")
+
+
+def normalize_mpp_exact_arg_match_text(text: str) -> str:
+    return TRAILING_NON_TOKEN_PUNCTUATION_RE.sub("", normalize_mpp_match_text(text))
 
 
 def contains_word_as_hebrew_token(text: str, word: str) -> bool:
@@ -52,10 +57,12 @@ def matching_template_args_for_word(
     word: str,
 ) -> list[dict[str, str]]:
     normalized_word = normalize_mpp_match_text(word)
+    normalized_exact_word = normalize_mpp_exact_arg_match_text(word)
     exact_matches = [
         arg
         for arg in template_args
-        if normalize_mpp_match_text(arg["argument_text"]) == normalized_word
+        if normalize_mpp_exact_arg_match_text(arg["argument_text"])
+        == normalized_exact_word
     ]
     if exact_matches:
         return exact_matches

@@ -1415,7 +1415,7 @@
     "unique_word_count": 72,
     "missing_any_plus_count": 0,
     "missing_mpp_verse_text_count": 0,
-    "rows_matching_mpp_verse_template_arg_count": 15
+    "rows_matching_mpp_verse_template_arg_count": 17
   },
   "mam_plus_rows_matching_mpp_verse_template_arg": [
     {
@@ -1900,6 +1900,38 @@
       ]
     },
     {
+      "row_number": 73,
+      "verse": "Ezekiel 40:37.11",
+      "word": "מַעֲלָֽו׃",
+      "mpp_file_for_verse": "C3-Ezekiel.json",
+      "found_in_any_plus_file": true,
+      "found_in_mpp_verse_text": true,
+      "template_args_in_mpp_verse": [
+        {
+          "template_name": "קו\"כ-אם",
+          "argument_key": "1",
+          "argument_text": "מַעֲלָֽו"
+        },
+        {
+          "template_name": "קו\"כ-אם",
+          "argument_key": "2",
+          "argument_text": "ל-קרי=מַעֲלָֽיו"
+        }
+      ],
+      "found_in_mpp_verse_template_arg": true,
+      "matching_template_args_in_mpp_verse": [
+        {
+          "template_name": "קו\"כ-אם",
+          "argument_key": "1",
+          "argument_text": "מַעֲלָֽו"
+        }
+      ],
+      "found_via_known_docx_mpp_word": false,
+      "hit_files": [
+        "C3-Ezekiel.json"
+      ]
+    },
+    {
       "row_number": 74,
       "verse": "Ezekiel 47:8.17",
       "word": "וְנִרְפּ֥אוּ",
@@ -1961,6 +1993,38 @@
           "template_name": "קו\"כ-אם",
           "argument_key": "1",
           "argument_text": "תְבֽוּאָתֹה֙"
+        }
+      ],
+      "found_via_known_docx_mpp_word": false,
+      "hit_files": [
+        "C3-Ezekiel.json"
+      ]
+    },
+    {
+      "row_number": 76,
+      "verse": "Ezekiel 48:21.35",
+      "word": "בְּתוֹכֹֽה׃",
+      "mpp_file_for_verse": "C3-Ezekiel.json",
+      "found_in_any_plus_file": true,
+      "found_in_mpp_verse_text": true,
+      "template_args_in_mpp_verse": [
+        {
+          "template_name": "קו\"כ-אם",
+          "argument_key": "1",
+          "argument_text": "בְּתוֹכֹֽה"
+        },
+        {
+          "template_name": "קו\"כ-אם",
+          "argument_key": "2",
+          "argument_text": "ל-קרי=בְּתוֹכֽוֹ"
+        }
+      ],
+      "found_in_mpp_verse_template_arg": true,
+      "matching_template_args_in_mpp_verse": [
+        {
+          "template_name": "קו\"כ-אם",
+          "argument_key": "1",
+          "argument_text": "בְּתוֹכֹֽה"
         }
       ],
       "found_via_known_docx_mpp_word": false,

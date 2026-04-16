@@ -46,6 +46,26 @@ class HebrewTokenMatcherTests(unittest.TestCase):
 
 
 class VerifyTableWordsInMamPlusTests(unittest.TestCase):
+    def test_trailing_non_token_punctuation_does_not_block_exact_template_arg_match(
+        self,
+    ) -> None:
+        for word, argument_text in [
+            ("מַעֲלָֽו׃", "מַעֲלָֽו"),
+            ("בְּתוֹכֹֽה׃", "בְּתוֹכֹֽה"),
+        ]:
+            with self.subTest(word=word, argument_text=argument_text):
+                template_args = [
+                    {
+                        "template_name": 'קו"כ-אם',
+                        "argument_key": "1",
+                        "argument_text": argument_text,
+                    }
+                ]
+                self.assertEqual(
+                    matching_template_args_for_word(template_args, word),
+                    template_args,
+                )
+
     def test_prefers_exact_template_arg_match_over_wrapper_match(self) -> None:
         template_args = [
             {
