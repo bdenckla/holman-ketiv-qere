@@ -38,6 +38,10 @@
         "/^& \\.\\\\\\.venv\\\\Scripts\\\\python\\.exe py/main_test\\.py --verify-table-words-in-mam-plus; Write-Output \"EXIT:\\$LASTEXITCODE\"$/": {
             "approve": true,
             "matchCommandLine": true
+        },
+        "/^& \\.\\\\\\.venv\\\\Scripts\\\\python\\.exe py/main_just_render_table\\.py --update-issue-metadata; Write-Output \"EXIT:\\$LASTEXITCODE\"$/": {
+            "approve": true,
+            "matchCommandLine": true
         }
     }
 }
