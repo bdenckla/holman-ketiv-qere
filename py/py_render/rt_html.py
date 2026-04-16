@@ -10,6 +10,7 @@ from py_render.rt_assets import write_report_assets
 from py_render.rt_comparison_table import (
     build_comparison_rows,
     comparison_table_html,
+    template_rows_from_supported_qere_wrapper,
 )
 from py_render.rt_issue_tags import (
     HOLAM_HE_TAG,
@@ -39,7 +40,7 @@ from py_render.rt_validate_qyv import evaluate_qyv_row, require_qyv_row_match
 from py_render.rt_external_links import verse_external_links
 from py_render.rt_matching_tmpl_args import (
     matching_template_arguments_in_mpp_verse_by_row_number,
-    mpp_template_calls_by_row_number,
+    supported_qere_wrapper_by_row_number,
 )
 from python_modules.json_io import load_json
 from python_modules.table_row_github_issues import (
@@ -87,7 +88,7 @@ def render_table_data_findings_html(
     matching_template_arguments_by_row_number = (
         matching_template_arguments_in_mpp_verse_by_row_number(payload)
     )
-    mpp_template_calls = mpp_template_calls_by_row_number(payload)
+    supported_qere_wrappers = supported_qere_wrapper_by_row_number(payload)
     source_document = as_text(payload.get("source_document", ""))
     finding_counts = Counter(as_text(row.get("finding", "")) for row in rows)
     sorted_findings = sorted(
@@ -116,7 +117,7 @@ def render_table_data_findings_html(
         sorted_findings=sorted_findings,
         finding_ids=finding_ids,
         matching_template_arguments_by_row_number=matching_template_arguments_by_row_number,
-        mpp_template_calls=mpp_template_calls,
+        supported_qere_wrappers=supported_qere_wrappers,
         output_html_path=output_html_path,
         css_output_path=css_output_path,
         js_output_path=js_output_path,
@@ -134,7 +135,7 @@ def render_table_data_findings_html(
         sorted_findings=sorted_findings,
         finding_ids=finding_ids,
         matching_template_arguments_by_row_number=matching_template_arguments_by_row_number,
-        mpp_template_calls=mpp_template_calls,
+        supported_qere_wrappers=supported_qere_wrappers,
         output_html_path=suppressed_output_path,
         css_output_path=css_output_path,
         js_output_path=js_output_path,
@@ -156,7 +157,7 @@ def _write_report_page(
     sorted_findings: list[tuple[str, int]],
     finding_ids: dict[str, str],
     matching_template_arguments_by_row_number: dict[str, list[dict[str, str]]],
-    mpp_template_calls: dict[str, list[str]],
+    supported_qere_wrappers: dict[str, dict[str, str]],
     output_html_path: Path,
     css_output_path: Path,
     js_output_path: Path,
@@ -180,7 +181,7 @@ def _write_report_page(
             output_html_path=output_html_path,
             repo_root=repo_root,
             matching_template_arguments_by_row_number=matching_template_arguments_by_row_number,
-            mpp_template_calls=mpp_template_calls,
+            supported_qere_wrappers=supported_qere_wrappers,
         )
         for row in rows
     )
@@ -313,7 +314,7 @@ def _record_card_html(
     output_html_path: Path,
     repo_root: Path,
     matching_template_arguments_by_row_number: dict[str, list[dict[str, str]]],
-    mpp_template_calls: dict[str, list[str]],
+    supported_qere_wrappers: dict[str, dict[str, str]],
 ) -> str:
     row_number = as_text(row.get("row_number", ""))
     metadata = require_row_github_issue_metadata(row_number)
@@ -383,20 +384,17 @@ def _record_card_html(
         )
         for match in displayed_matching_template_args_in_mpp_verse
     )
-    template_calls = mpp_template_calls.get(row_number, [])
+    template_rows = template_rows_from_supported_qere_wrapper(
+        supported_qere_wrappers.get(row_number)
+    )
     comparison_rows = build_comparison_rows(
         word=word,
         notes_uxlc=notes_uxlc,
         notes_haketer=notes_haketer,
-        template_calls=template_calls,
+        template_rows=template_rows,
         differing_latest_mpp_words=differing_latest_mpp_words,
     )
     if comparison_rows is None:
-        mam_template_html = "\n".join(
-            f'<div class="note-line"><span class="label">MAM template:</span>'
-            f'<bdi class="pointed-heb">{escape(call)}</bdi></div>'
-            for call in template_calls
-        )
         mam_word_label = (
             "MAM Word (from docx):" if differing_latest_mpp_words else "MAM Word:"
         )
@@ -411,7 +409,6 @@ def _record_card_html(
             )
         mam_uxlc_html = _join_nonempty_html_blocks(
             mam_word_html,
-            mam_template_html,
             f'<div class="note-line"><span class="label">UXLC:</span><bdi class="pointed-heb">{escape(notes_uxlc)}</bdi></div>',
         )
     else:

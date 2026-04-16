@@ -5,15 +5,8 @@ from html import escape
 import re
 
 from py_render.rt_render_utils import contains_hebrew_char
-from python_modules.qere_projection import qere_arg_key_for_template
 
 HEBREW_LETTER_PATTERN = re.compile(r"[\u05D0-\u05EA]+")
-SIMPLE_QERE_TEMPLATE_PATTERN = re.compile(
-    r"^\{\{(?P<template>[^|{}]+)\|(?P<ketiv>[^{}|]+)\|(?:ל|א)-קרי=(?P<qere>[^{}|]+)\}\}$"
-)
-POSITIONAL_QERE_TEMPLATE_PATTERN = re.compile(
-    r"^\{\{(?P<template>[^|{}]+)\|(?P<arg1>[^{}|]+)\|(?P<arg2>[^{}|]+)\}\}$"
-)
 
 COMPARISON_LABEL_TOOLTIPS = {
     "MAM-docx": "MAM Word (from docx)",
@@ -26,10 +19,9 @@ def build_comparison_rows(
     word: str,
     notes_uxlc: str,
     notes_haketer: str | None,
-    template_calls: list[str],
+    template_rows: list[dict[str, str]] | None,
     differing_latest_mpp_words: list[str],
 ) -> list[dict[str, str]] | None:
-    split_template_rows = _split_template_rows(template_calls)
     ketiv_qere = _split_notes_uxlc(notes_uxlc)
     if ketiv_qere is None:
         return None
@@ -56,7 +48,7 @@ def build_comparison_rows(
 
     rows = [
         *mam_rows,
-        *(split_template_rows or []),
+        *(template_rows or []),
         {"name": "UXLC ketiv", "value": ketiv_qere[0]},
         {"name": "UXLC qere", "value": ketiv_qere[1]},
         *haketer_rows,
@@ -93,30 +85,19 @@ def comparison_table_html(rows: list[dict[str, str]]) -> str:
     )
 
 
-def _split_template_rows(template_calls: list[str]) -> list[dict[str, str]] | None:
-    if len(template_calls) != 1:
+def template_rows_from_supported_qere_wrapper(
+    wrapper: dict[str, str] | None,
+) -> list[dict[str, str]] | None:
+    if wrapper is None:
         return None
-
-    call = template_calls[0].strip()
-    match = SIMPLE_QERE_TEMPLATE_PATTERN.fullmatch(call)
-    if match is not None:
-        template_name = match.group("template")
-        return [
-            {"name": f"{template_name}[כ]", "value": match.group("ketiv")},
-            {"name": f"{template_name}[ק]", "value": match.group("qere")},
-        ]
-
-    positional_match = POSITIONAL_QERE_TEMPLATE_PATTERN.fullmatch(call)
-    if positional_match is None:
-        return None
-
-    template_name = positional_match.group("template")
-    qere_arg_key = qere_arg_key_for_template(template_name)
-    if qere_arg_key != "2":
+    template_name = wrapper.get("template_name")
+    ketiv = wrapper.get("ketiv")
+    qere = wrapper.get("qere")
+    if template_name is None or ketiv is None or qere is None:
         return None
     return [
-        {"name": f"{template_name}[כ]", "value": positional_match.group("arg1")},
-        {"name": f"{template_name}[ק]", "value": positional_match.group("arg2")},
+        {"name": f"{template_name}[כ]", "value": ketiv},
+        {"name": f"{template_name}[ק]", "value": qere},
     ]
 
 
