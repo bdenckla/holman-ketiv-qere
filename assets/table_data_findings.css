@@ -75,7 +75,10 @@ p { margin: .3rem 0; }
   text-transform: uppercase;
 }
 .comparison-table tbody tr:last-child td { border-bottom: none; }
-.comparison-long-col { color: var(--text); }
+.comparison-table td.comparison-long-col {
+  color: var(--text);
+  vertical-align: middle;
+}
 .image-panel { border: 1px solid var(--border); border-radius: 6px; background: var(--img-bg); padding: .4rem; }
 .image-strip { display: flex; gap: .35rem; flex-wrap: wrap; margin-top: .3rem; }
 .image-thumb { display: block; max-width: 100%; border: 1px solid var(--border); border-radius: 4px; background: var(--card-bg); }
