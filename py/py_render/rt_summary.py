@@ -18,8 +18,6 @@ from py_render.rt_render_utils import (
 )
 from python_modules.table_row_github_issues import require_row_github_issue_metadata
 
-MPP_TEMPLATE_FILTER_ID = "has-mpp-template"
-MPP_TEMPLATE_FILTER_LABEL = "Has matching MPP template"
 SUMMARY_ISSUE_TAG_FILTER_IDS = frozenset(
     {
         "issue-tag-holam-he",
@@ -59,22 +57,6 @@ def filter_categories(
             )
         )
 
-    mpp_template_filter_count = sum(
-        1
-        for row in rows
-        if matching_template_arguments_by_row_number.get(
-            as_text(row.get("row_number", "")), []
-        )
-    )
-    if mpp_template_filter_count:
-        categories.append(
-            FilterCategory(
-                filter_id=MPP_TEMPLATE_FILTER_ID,
-                label=MPP_TEMPLATE_FILTER_LABEL,
-                count=mpp_template_filter_count,
-            )
-        )
-
     for issue_tag in ISSUE_TAG_ORDER:
         count = sum(
             1
@@ -104,7 +86,6 @@ def summary_rows_html(categories: list[FilterCategory]) -> str:
         category
         for category in categories
         if not category.filter_id.startswith("issue-tag-")
-        and category.filter_id != MPP_TEMPLATE_FILTER_ID
     ]
     grouped_categories = (
         (
@@ -117,14 +98,6 @@ def summary_rows_html(categories: list[FilterCategory]) -> str:
                 category
                 for category in categories
                 if category.filter_id in SUMMARY_ISSUE_TAG_FILTER_IDS
-            ],
-        ),
-        (
-            "MPP",
-            [
-                category
-                for category in categories
-                if category.filter_id == MPP_TEMPLATE_FILTER_ID
             ],
         ),
     )

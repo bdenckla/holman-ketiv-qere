@@ -27,8 +27,6 @@ from py_render.rt_render_utils import (
     suppressed_output_path as build_suppressed_output_path,
 )
 from py_render.rt_summary import (
-    MPP_TEMPLATE_FILTER_ID,
-    MPP_TEMPLATE_FILTER_LABEL,
     filter_categories,
     summary_rows_html,
 )
@@ -334,8 +332,6 @@ def _record_card_html(
         row_number, []
     )
     record_categories: list[tuple[str, str]] = [(finding_id, finding_display)]
-    if matching_template_args_in_mpp_verse:
-        record_categories.append((MPP_TEMPLATE_FILTER_ID, MPP_TEMPLATE_FILTER_LABEL))
     record_categories.extend(
         (
             issue_tag_filter_id(issue_tag),

@@ -1083,7 +1083,7 @@ class RenderTableDataFindingsHtmlTests(unittest.TestCase):
         self.assertNotIn('id="row37"', main_html)
         self.assertIn("visible-filtered-count", js)
 
-    def test_renders_non_exclusive_mpp_and_issue_tag_filters(self) -> None:
+    def test_renders_mpp_comparison_without_mpp_filter_display(self) -> None:
         payload = {
             "source_document": "sample.docx",
             "table": {
@@ -1192,9 +1192,7 @@ class RenderTableDataFindingsHtmlTests(unittest.TestCase):
                 r'<section class="summary-group"><h2 class="summary-group-title">Aleppo notation</h2><table class="summary">.*?'
                 r"Finding A</td><td>1.*?Finding B</td><td>1.*?Finding C</td><td>1.*?Finding D</td><td>1.*?</table></section>.*?"
                 r'<section class="summary-group"><h2 class="summary-group-title">Issue tags</h2><table class="summary">.*?'
-                r"ḥolam he</td><td>1.*?QyV</td><td>1.*?בו״א sans א</td><td>1.*?rafeh</td><td>1.*?no issue tag</td><td>0|1.*?</table></section>.*?"
-                r'<section class="summary-group"><h2 class="summary-group-title">MPP</h2><table class="summary">.*?'
-                r"Has matching MPP template</td><td>1.*?</table></section>",
+                r"ḥolam he</td><td>1.*?QyV</td><td>1.*?בו״א sans א</td><td>1.*?rafeh</td><td>1.*?no issue tag</td><td>0|1.*?</table></section>",
                 re.DOTALL,
             ),
         )
@@ -1202,7 +1200,8 @@ class RenderTableDataFindingsHtmlTests(unittest.TestCase):
             'data-filter-id="issue-tag-rafeh"><td><span class="cat-swatch cat-issue-tag-rafeh"></span>rafeh</td><td>1</td></tr>',
             normalized_main_html,
         )
-        self.assertIn("Has matching MPP template</td><td>1", normalized_main_html)
+        self.assertNotIn("Has matching MPP template", normalized_main_html)
+        self.assertNotIn('summary-group-title">MPP<', normalized_main_html)
         self.assertIn("QyV</td><td>1", normalized_main_html)
         self.assertIn("בו״א sans א</td><td>1", normalized_main_html)
         self.assertIn("rafeh</td><td>1", normalized_main_html)
@@ -1239,10 +1238,11 @@ class RenderTableDataFindingsHtmlTests(unittest.TestCase):
         self.assertRegex(
             normalized_main_html,
             re.compile(
-                r'<article id="row04".*?<span class="category-badges">.*?Finding A.*?Has matching MPP template.*?QyV.*?</span>',
+                r'<article id="row04".*?<span class="category-badges">.*?Finding A.*?QyV.*?</span>',
                 re.DOTALL,
             ),
         )
+        self.assertNotIn("has-mpp-template", normalized_main_html)
         self.assertNotIn(
             'MPP matching template arg (q[1]):</span><bdi class="pointed-heb">חֲסִידָו֙</bdi>',
             normalized_main_html,
@@ -1275,7 +1275,7 @@ class RenderTableDataFindingsHtmlTests(unittest.TestCase):
         self.assertRegex(
             normalized_main_html,
             re.compile(
-                r'<article id="row04"[^>]*data-filter-ids="[^"]*has-mpp-template[^"]*issue-tag-qyv[^"]*"'
+                r'<article id="row04"[^>]*data-filter-ids="[^"]*issue-tag-qyv[^"]*"'
             ),
         )
         self.assertRegex(
