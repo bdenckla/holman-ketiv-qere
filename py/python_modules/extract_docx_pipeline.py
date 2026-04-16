@@ -13,6 +13,7 @@ from python_modules.extract_docx_notes import (
     assert_text_columns_before_drop,
     notes_structured_signature_for_row,
     split_notes_components,
+    strip_trailing_sof_pasuq_from_uxlc_qere,
     split_uxlc_pointed_prefix_atoms,
     standardize_verse_book_name,
     verse_book_name,
@@ -266,6 +267,7 @@ def _ordered_row_data(
         notes_uxlc=notes_uxlc,
         mam_word=word,
     )
+    notes_uxlc, notes_uxlc_orig = strip_trailing_sof_pasuq_from_uxlc_qere(notes_uxlc)
 
     # Preserve column order and place notes-* exactly where notes used to be.
     ordered_row_data: dict[str, object] = {
@@ -281,6 +283,8 @@ def _ordered_row_data(
             continue
         if key == "notes":
             ordered_row_data["notes-UXLC"] = notes_uxlc
+            if notes_uxlc_orig is not None:
+                ordered_row_data["notes-UXLC_orig"] = notes_uxlc_orig
             if notes_uxlc_pointed_prefix_atoms is not None:
                 ordered_row_data["notes-UXLC-pointed-prefix-atoms"] = (
                     notes_uxlc_pointed_prefix_atoms

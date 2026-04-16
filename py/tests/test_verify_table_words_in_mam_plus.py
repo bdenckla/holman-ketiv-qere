@@ -48,7 +48,7 @@ class HebrewTokenMatcherTests(unittest.TestCase):
 
 
 class VerifyTableWordsInMamPlusTests(unittest.TestCase):
-    def test_diff_note_lines_prefer_word_orig_when_present(self) -> None:
+    def test_diff_note_lines_ignore_json_only_qere_sof_pasuq_strip(self) -> None:
         self.assertIn(
             (
                 "MAM vs UXLC qere:",
@@ -60,7 +60,8 @@ class VerifyTableWordsInMamPlusTests(unittest.TestCase):
                     "verse": "Jeremiah 5:6.21",
                     "word": "מְשֻׁבוֹתֵיהֶֽם",
                     "word_orig": "מְשֻׁבוֹתֵיהֶֽם׃",
-                    "notes-UXLC": "משבותיהם מְשׁוּבוֹתֵיהֶֽם׃",
+                    "notes-UXLC": "משבותיהם מְשׁוּבוֹתֵיהֶֽם",
+                    "notes-UXLC_orig": "משבותיהם מְשׁוּבוֹתֵיהֶֽם׃",
                 },
                 issue_tags=[],
             ),

@@ -41,6 +41,7 @@ NOTES_PREFIX = "MAM - No Comments | UXLC - "
 HAKETER_SEPARATOR = " | HaKeter - "
 UXLC_YATIR_PATTERN = re.compile(r"^(?P<uxlc>.*)\n\((?P<yatir>[^)]+)\)$", re.DOTALL)
 MAQAF = "\u05be"
+SOPA = "\u05c3"
 
 ALLOWED_LENINGRAD_TEXT_VALUES = {"", "’"}
 
@@ -188,6 +189,20 @@ def split_uxlc_pointed_prefix_atoms(
     return f"{stripped_ketiv} {qere_token}", prefix_atoms
 
 
+def strip_trailing_sof_pasuq_from_uxlc_qere(
+    notes_uxlc: str,
+) -> tuple[str, str | None]:
+    notes_tokens = notes_uxlc.split()
+    if len(notes_tokens) != 2:
+        raise ValueError(f"expected exactly 2 UXLC note tokens, got {notes_tokens!r}")
+
+    ketiv_token, qere_token = notes_tokens
+    if not qere_token.endswith(SOPA):
+        return notes_uxlc, None
+
+    return f"{ketiv_token} {qere_token.removesuffix(SOPA)}", notes_uxlc
+
+
 def notes_structured_signature_for_row(
     notes: str,
     mam_word: str,
@@ -196,6 +211,9 @@ def notes_structured_signature_for_row(
     stripped_notes_uxlc, pointed_prefix_atoms = split_uxlc_pointed_prefix_atoms(
         notes_uxlc=notes_uxlc,
         mam_word=mam_word,
+    )
+    stripped_notes_uxlc, _notes_uxlc_orig = strip_trailing_sof_pasuq_from_uxlc_qere(
+        stripped_notes_uxlc
     )
     return (
         abstract_hebrew_runs(stripped_notes_uxlc),

@@ -8,6 +8,7 @@ from python_modules.extract_docx_notes import (
     normalize_haketer_presentation_forms,
     split_notes_components,
     split_uxlc_pointed_prefix_atoms,
+    strip_trailing_sof_pasuq_from_uxlc_qere,
 )
 
 
@@ -122,6 +123,26 @@ class ExtractDocxNotesTests(unittest.TestCase):
 
         self.assertEqual(notes_uxlc, "מי־לי־ מַה־לִּי־")
         self.assertIsNone(pointed_prefix_atoms)
+
+    def test_strip_trailing_sof_pasuq_from_uxlc_qere_returns_original_when_changed(
+        self,
+    ) -> None:
+        notes_uxlc, notes_uxlc_orig = strip_trailing_sof_pasuq_from_uxlc_qere(
+            "אילו אֵילָֽיו׃"
+        )
+
+        self.assertEqual(notes_uxlc, "אילו אֵילָֽיו")
+        self.assertEqual(notes_uxlc_orig, "אילו אֵילָֽיו׃")
+
+    def test_strip_trailing_sof_pasuq_from_uxlc_qere_is_noop_without_sof_pasuq(
+        self,
+    ) -> None:
+        notes_uxlc, notes_uxlc_orig = strip_trailing_sof_pasuq_from_uxlc_qere(
+            "רחמו רַֽחֲמָ֔יו"
+        )
+
+        self.assertEqual(notes_uxlc, "רחמו רַֽחֲמָ֔יו")
+        self.assertIsNone(notes_uxlc_orig)
 
 
 if __name__ == "__main__":

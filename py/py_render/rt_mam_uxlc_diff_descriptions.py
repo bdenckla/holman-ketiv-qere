@@ -5,6 +5,7 @@ from difflib import SequenceMatcher
 import re
 from typing import Mapping
 
+from pycmn.hebrew_punctuation import SOPA
 from pydiff_mpp.describe_diff import describe_change
 from pydiff_mpp.grapheme_diff import grapheme_clusters
 
@@ -104,6 +105,9 @@ def describe_simple_ketiv_letters_change(*, word: str, ketiv: str) -> str | None
 
 
 def describe_simple_qere_change(*, word: str, qere: str, verse: str) -> str | None:
+    word = word.removesuffix(SOPA)
+    qere = qere.removesuffix(SOPA)
+
     if word == qere:
         return None
 

@@ -6,6 +6,7 @@ from functools import lru_cache
 from pathlib import Path
 from xml.etree import ElementTree as ET
 
+from pycmn.hebrew_punctuation import SOPA
 from python_modules.extract_docx_notes import INVISIBLE_MARK_PATTERN
 from python_modules.json_io import load_json
 from python_modules.verify_table_words_in_mam_plus import (
@@ -290,7 +291,7 @@ def _uxlc_word_surface_text(node: ET.Element) -> str:
 
 
 def _normalized_uxlc_text(text: str) -> str:
-    return INVISIBLE_MARK_PATTERN.sub("", text)
+    return INVISIBLE_MARK_PATTERN.sub("", text).removesuffix(SOPA)
 
 
 def _should_merge_with_previous(previous: VerseToken, current_tag: str) -> bool:
