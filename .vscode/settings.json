@@ -34,6 +34,10 @@
         "/^& \\.\\\\\\.venv\\\\Scripts\\\\python\\.exe py/main_extract_docx_and_render_table\\.py; Write-Output \"EXIT:\\$LASTEXITCODE\"$/": {
             "approve": true,
             "matchCommandLine": true
+        },
+        "/^& \\.\\\\\\.venv\\\\Scripts\\\\python\\.exe py/main_test\\.py --verify-table-words-in-mam-plus; Write-Output \"EXIT:\\$LASTEXITCODE\"$/": {
+            "approve": true,
+            "matchCommandLine": true
         }
     }
 }
