@@ -73,14 +73,17 @@ def evaluate_qyv_row(row: Mapping[str, object]) -> QyvEvaluation:
             expected_qere=expected_qere,
         )
 
-    expected_qere_core = strip_accents_and_meteg(expected_qere)
-    qere_core_with_punctuation = strip_accents_and_meteg(qere)
-    if qere_core_with_punctuation != expected_qere_core:
+    expected_qere_core = HEBREW_PUNCTUATION_PATTERN.sub(
+        "",
+        strip_accents_and_meteg(expected_qere),
+    )
+    qere_core = HEBREW_PUNCTUATION_PATTERN.sub("", strip_accents_and_meteg(qere))
+    if qere_core != expected_qere_core:
         return QyvEvaluation(
             matches=False,
             reason=(
                 f"row {row_number} {verse} violates expected qere after accent stripping: "
-                f"expected {expected_qere_core!r}, got {qere_core_with_punctuation!r}"
+                f"expected {expected_qere_core!r}, got {qere_core!r}"
             ),
             row_number=row_number,
             verse=verse,
@@ -90,7 +93,6 @@ def evaluate_qyv_row(row: Mapping[str, object]) -> QyvEvaluation:
             expected_qere=expected_qere,
         )
 
-    qere_core = HEBREW_PUNCTUATION_PATTERN.sub("", qere_core_with_punctuation)
     if not qere_core.endswith(QYV_QERE_ENDING):
         return QyvEvaluation(
             matches=False,

@@ -5,9 +5,11 @@ from tempfile import TemporaryDirectory
 import unittest
 from unittest.mock import patch
 
+from py_render.rt_mam_uxlc_diff_descriptions import simple_row_diff_note_lines
 from python_modules.json_io import write_json
 from python_modules.verify_table_words_in_mam_plus import (
     contains_word_as_hebrew_token,
+    matching_mpp_surface_words_in_verse_text,
     matching_template_args_for_word,
     normalize_mpp_match_text,
     verify_table_words_in_mam_plus,
@@ -46,6 +48,35 @@ class HebrewTokenMatcherTests(unittest.TestCase):
 
 
 class VerifyTableWordsInMamPlusTests(unittest.TestCase):
+    def test_diff_note_lines_prefer_word_orig_when_present(self) -> None:
+        self.assertIn(
+            (
+                "MAM vs UXLC qere:",
+                "replace qubuts with shuruq (also ḥolam on vav in MAM, on 2nd vav in UXLC qere)",
+            ),
+            simple_row_diff_note_lines(
+                {
+                    "row_number": 39,
+                    "verse": "Jeremiah 5:6.21",
+                    "word": "מְשֻׁבוֹתֵיהֶֽם",
+                    "word_orig": "מְשֻׁבוֹתֵיהֶֽם׃",
+                    "notes-UXLC": "משבותיהם מְשׁוּבוֹתֵיהֶֽם׃",
+                },
+                issue_tags=[],
+            ),
+        )
+
+    def test_matching_mpp_surface_words_in_verse_text_preserves_trailing_sof_pasuq(
+        self,
+    ) -> None:
+        self.assertEqual(
+            matching_mpp_surface_words_in_verse_text(
+                "לפני מַעֲלָֽו׃ אחרי",
+                "מַעֲלָֽו",
+            ),
+            ["מַעֲלָֽו׃"],
+        )
+
     def test_trailing_non_token_punctuation_does_not_block_exact_template_arg_match(
         self,
     ) -> None:
@@ -176,6 +207,75 @@ class VerifyTableWordsInMamPlusTests(unittest.TestCase):
             ],
         )
         self.assertTrue(report["rows"][0]["found_via_known_docx_mpp_word"])
+
+    def test_verify_report_records_matching_mpp_surface_word_with_external_sof_pasuq(
+        self,
+    ) -> None:
+        with TemporaryDirectory() as tmp_dir:
+            tmp_path = Path(tmp_dir)
+            table_json_path = tmp_path / "table_data.json"
+            plus_dir = tmp_path / "MAM-parsed" / "plus"
+            plus_dir.mkdir(parents=True, exist_ok=True)
+
+            write_json(
+                table_json_path,
+                {
+                    "table": {
+                        "rows": [
+                            {
+                                "row_number": 1,
+                                "verse": "Joshua 10:24.19",
+                                "word": "מַעֲלָֽו",
+                            }
+                        ]
+                    }
+                },
+            )
+            write_json(
+                plus_dir / "B1-Joshua.json",
+                {
+                    "header": {
+                        "he_to_int": {
+                            "10": 10,
+                            "24": 24,
+                        }
+                    },
+                    "book39s": [
+                        {
+                            "chapters": {
+                                "10": {
+                                    "24": [
+                                        {
+                                            "tmpl_name": 'קו"כ-אם',
+                                            "tmpl_params": {
+                                                "1": "מַעֲלָֽו",
+                                                "2": "ל-קרי=מַעֲלָֽיו",
+                                            },
+                                        },
+                                        "׃",
+                                    ]
+                                }
+                            }
+                        }
+                    ],
+                },
+            )
+
+            with patch(
+                "python_modules.verify_table_words_in_mam_plus.EXPECTED_ROW_COUNT",
+                1,
+            ):
+                report = verify_table_words_in_mam_plus(
+                    table_json_path=table_json_path,
+                    mam_parsed_path=tmp_path / "MAM-parsed",
+                )
+
+        self.assertEqual(
+            report["rows_matching_mpp_verse_template_arg"][0][
+                "matching_mpp_surface_words_in_mpp_verse"
+            ],
+            ["מַעֲלָֽו׃"],
+        )
 
 
 if __name__ == "__main__":

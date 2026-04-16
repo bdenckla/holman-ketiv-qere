@@ -40,8 +40,9 @@ It distinguishes between:
 - Type: array of objects
 - Meaning: rows whose `word` appears as an exact token inside at least one template argument in the mapped MPP verse
 - Source: post-extraction verification scan of template arguments, with explicit exclusion of נוסח argument `2`
-- Current data observation: `7` rows
+- Current data observation: `17` rows
 - Row payload note: each row includes `template_args_in_mpp_verse`, an extracted list of template argument records for that MAM-plus verse (`template_name`, `argument_key`, `argument_text`) retained for traceable verification context.
+- Row payload note: matching rows also include `matching_mpp_surface_words_in_mpp_verse`, the exact projected MPP surface-word forms from verse text that match the row word after normalization. These forms can preserve trailing sof pasuq even when the matching template argument text does not.
 
 ## `table` object
 
@@ -162,8 +163,15 @@ It distinguishes between:
 
 - Type: string
 - Meaning: the Hebrew word or form under discussion
-- Source: source-table content
+- Source: source-table content, with any trailing sof pasuq stripped during extraction
 - Current data observation: populated with Hebrew strings
+
+### `word_orig`
+
+- Type: string, optional
+- Meaning: the original extracted DOCX `word` value before a trailing sof pasuq was stripped
+- Source: copied from source-table `word` only when extraction normalizes a trailing sof pasuq away from `rows[].word`
+- Current data observation: present only on rows whose source `word` ended in sof pasuq
 
 ### `finding`
 

@@ -25,7 +25,7 @@ class QyvValidationTests(unittest.TestCase):
             {
                 "row_number": 55,
                 "verse": "Ezekiel 40:26.13",
-                "word": "אֵילָֽו׃",
+                "word": "אֵילָֽו",
                 "notes-UXLC": "אילו אֵילָֽיו׃",
             }
         )

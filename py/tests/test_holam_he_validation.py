@@ -25,7 +25,7 @@ class HolamHeValidationTests(unittest.TestCase):
             {
                 "row_number": 76,
                 "verse": "Ezekiel 48:21.35",
-                "word": "בְּתוֹכֹֽה׃",
+                "word": "בְּתוֹכֹֽה",
                 "notes-UXLC": "בתוכה בְּתוֹכֽוֹ׃",
             }
         )

@@ -25,6 +25,9 @@ VERSE_PATTERN = re.compile(
 # Hebrew token chars: letters + pointing/cantillation marks (exclude punctuation like maqaf/sof-pasuq).
 HEBREW_CHAR_CLASS = HEBREW_TOKEN_CHAR_CLASS
 TRAILING_NON_TOKEN_PUNCTUATION_RE = re.compile(rf"[^{HEBREW_CHAR_CLASS}]+$")
+SURFACE_WORD_WITH_TRAILING_PUNCTUATION_RE = re.compile(
+    rf"(?P<word>[{HEBREW_CHAR_CLASS}]+)(?P<trailing>[\u05BE\u05C0\u05C3]*)"
+)
 
 
 @lru_cache(maxsize=1024)
@@ -72,6 +75,22 @@ def matching_template_args_for_word(
         for arg in template_args
         if contains_word_as_hebrew_token(arg["argument_text"], word)
     ]
+
+
+def matching_mpp_surface_words_in_verse_text(verse_text: str, word: str) -> list[str]:
+    normalized_exact_word = normalize_mpp_exact_arg_match_text(word)
+    if not normalized_exact_word:
+        return []
+
+    matching_surface_words: list[str] = []
+    for match in SURFACE_WORD_WITH_TRAILING_PUNCTUATION_RE.finditer(verse_text):
+        surface_word = f'{match.group("word")}{match.group("trailing")}'
+        if normalize_mpp_exact_arg_match_text(surface_word) != normalized_exact_word:
+            continue
+        if surface_word not in matching_surface_words:
+            matching_surface_words.append(surface_word)
+
+    return matching_surface_words
 
 
 def latest_mpp_word_for_known_docx_word(verse: str, word: str) -> str | None:
@@ -268,6 +287,7 @@ def verify_table_words_in_mam_plus(
             expected_verse_template_args,
             word,
         )
+        surface_match_word = word
         found_in_mpp_verse_template_arg = len(matching_template_args) > 0
         found_via_known_docx_mpp_word = False
 
@@ -301,8 +321,14 @@ def verify_table_words_in_mam_plus(
                 )
                 if latest_matching_template_args:
                     matching_template_args = latest_matching_template_args
+                    surface_match_word = latest_mpp_word
                     found_in_mpp_verse_template_arg = True
                     found_via_known_docx_mpp_word = True
+
+        matching_mpp_surface_words = matching_mpp_surface_words_in_verse_text(
+            expected_verse_text,
+            surface_match_word,
+        )
 
         report_row = {
             "row_number": row_number,
@@ -314,6 +340,7 @@ def verify_table_words_in_mam_plus(
             "template_args_in_mpp_verse": expected_verse_template_args,
             "found_in_mpp_verse_template_arg": found_in_mpp_verse_template_arg,
             "matching_template_args_in_mpp_verse": matching_template_args,
+            "matching_mpp_surface_words_in_mpp_verse": matching_mpp_surface_words,
             "found_via_known_docx_mpp_word": found_via_known_docx_mpp_word,
             "hit_files": hit_files,
         }

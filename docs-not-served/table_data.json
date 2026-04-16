@@ -347,7 +347,8 @@
       {
         "row_number": 16,
         "verse": "2Samuel 18:17.20",
-        "word": "לְאֹהָלָֽו׃",
+        "word": "לְאֹהָלָֽו",
+        "word_orig": "לְאֹהָלָֽו׃",
         "finding": "A - Masorah Circle | L - Qere",
         "notes-UXLC": "לאהלו לְאֹהָלָֽיו׃",
         "notes-UXLC-yatir": null,
@@ -742,7 +743,8 @@
       {
         "row_number": 39,
         "verse": "Jeremiah 5:6.21",
-        "word": "מְשֻׁבוֹתֵיהֶֽם׃",
+        "word": "מְשֻׁבוֹתֵיהֶֽם",
+        "word_orig": "מְשֻׁבוֹתֵיהֶֽם׃",
         "finding": "A - No Masorah Circle | L - Qere",
         "notes-UXLC": "משבותיהם מְשׁוּבוֹתֵיהֶֽם׃",
         "notes-UXLC-yatir": null,
@@ -1016,7 +1018,8 @@
       {
         "row_number": 55,
         "verse": "Ezekiel 40:26.13",
-        "word": "אֵילָֽו׃",
+        "word": "אֵילָֽו",
+        "word_orig": "אֵילָֽו׃",
         "finding": "A - No Masorah Circle | L - Qere",
         "notes-UXLC": "אילו אֵילָֽיו׃",
         "notes-UXLC-pointed-prefix-atoms": "אֶל־",
@@ -1223,7 +1226,8 @@
       {
         "row_number": 67,
         "verse": "Ezekiel 40:34.11",
-        "word": "מַעֲלָֽו׃",
+        "word": "מַעֲלָֽו",
+        "word_orig": "מַעֲלָֽו׃",
         "finding": "A - No Masorah Circle | L - Qere",
         "notes-UXLC": "מעלו מַעֲלָֽיו׃",
         "notes-UXLC-yatir": null,
@@ -1326,7 +1330,8 @@
       {
         "row_number": 73,
         "verse": "Ezekiel 40:37.11",
-        "word": "מַעֲלָֽו׃",
+        "word": "מַעֲלָֽו",
+        "word_orig": "מַעֲלָֽו׃",
         "finding": "A - No Masorah Circle | L - Qere",
         "notes-UXLC": "מעלו מַעֲלָֽיו׃",
         "notes-UXLC-yatir": null,
@@ -1377,7 +1382,8 @@
       {
         "row_number": 76,
         "verse": "Ezekiel 48:21.35",
-        "word": "בְּתוֹכֹֽה׃",
+        "word": "בְּתוֹכֹֽה",
+        "word_orig": "בְּתוֹכֹֽה׃",
         "finding": "A - Masorah Circle | L - Qere",
         "notes-UXLC": "בתוכה בְּתוֹכֽוֹ׃",
         "notes-UXLC-yatir": null,
@@ -1450,6 +1456,9 @@
           "argument_text": "וּבֵנָ֔יו"
         }
       ],
+      "matching_mpp_surface_words_in_mpp_verse": [
+        "וּבֵנָ֔יו"
+      ],
       "found_via_known_docx_mpp_word": false,
       "hit_files": [
         "B1-Joshua.json"
@@ -1487,6 +1496,9 @@
           "argument_text": "הֶהָלְכ֣וּ"
         }
       ],
+      "matching_mpp_surface_words_in_mpp_verse": [
+        "הֶהָלְכ֣וּ"
+      ],
       "found_via_known_docx_mpp_word": true,
       "hit_files": [
         "B1-Joshua.json"
@@ -1513,6 +1525,9 @@
           "argument_key": "1",
           "argument_text": "צְלִ֜יל"
         }
+      ],
+      "matching_mpp_surface_words_in_mpp_verse": [
+        "צְלִ֜יל"
       ],
       "found_via_known_docx_mpp_word": false,
       "hit_files": [
@@ -1545,6 +1560,9 @@
           "argument_key": "1",
           "argument_text": "תַּחְתָּ֑ו"
         }
+      ],
+      "matching_mpp_surface_words_in_mpp_verse": [
+        "תַּחְתָּ֑ו"
       ],
       "found_via_known_docx_mpp_word": false,
       "hit_files": [
@@ -1588,6 +1606,9 @@
           "argument_text": "וַיֹּר֨אֿוּ"
         }
       ],
+      "matching_mpp_surface_words_in_mpp_verse": [
+        "וַיֹּר֨אֿוּ"
+      ],
       "found_via_known_docx_mpp_word": false,
       "hit_files": [
         "BA-Samuel.json"
@@ -1630,6 +1651,9 @@
           "argument_text": "הַמּוֹרִ֤אֿים"
         }
       ],
+      "matching_mpp_surface_words_in_mpp_verse": [
+        "הַמּוֹרִ֤אֿים"
+      ],
       "found_via_known_docx_mpp_word": false,
       "hit_files": [
         "BA-Samuel.json"
@@ -1661,6 +1685,9 @@
           "argument_key": "1",
           "argument_text": "בִּ֭קְדֹשָׁו"
         }
+      ],
+      "matching_mpp_surface_words_in_mpp_verse": [
+        "בִּ֭קְדֹשָׁו"
       ],
       "found_via_known_docx_mpp_word": false,
       "hit_files": [
@@ -1694,6 +1721,9 @@
           "argument_text": "וַ֭אֲבַדֹּה"
         }
       ],
+      "matching_mpp_surface_words_in_mpp_verse": [
+        "וַ֭אֲבַדֹּה"
+      ],
       "found_via_known_docx_mpp_word": false,
       "hit_files": [
         "D2-Proverbs.json"
@@ -1726,6 +1756,9 @@
           "argument_text": "פֹארֹתָ֛ו"
         }
       ],
+      "matching_mpp_surface_words_in_mpp_verse": [
+        "פֹארֹתָ֛ו"
+      ],
       "found_via_known_docx_mpp_word": false,
       "hit_files": [
         "C3-Ezekiel.json"
@@ -1757,6 +1790,9 @@
           "argument_key": "1",
           "argument_text": "בְּמַעֲלוֹתָ֑ו"
         }
+      ],
+      "matching_mpp_surface_words_in_mpp_verse": [
+        "בְּמַעֲלוֹתָ֑ו"
       ],
       "found_via_known_docx_mpp_word": false,
       "hit_files": [
@@ -1810,6 +1846,9 @@
           "argument_text": "אֵילָו֙"
         }
       ],
+      "matching_mpp_surface_words_in_mpp_verse": [
+        "אֵילָו֙"
+      ],
       "found_via_known_docx_mpp_word": false,
       "hit_files": [
         "C3-Ezekiel.json"
@@ -1846,6 +1885,9 @@
           "argument_key": "1",
           "argument_text": "וּלְאֵֽילַמָּו֙"
         }
+      ],
+      "matching_mpp_surface_words_in_mpp_verse": [
+        "וּלְאֵֽילַמָּו֙"
       ],
       "found_via_known_docx_mpp_word": false,
       "hit_files": [
@@ -1894,6 +1936,9 @@
           "argument_text": "וְאֵלַמָּ֖ו"
         }
       ],
+      "matching_mpp_surface_words_in_mpp_verse": [
+        "וְאֵלַמָּ֖ו"
+      ],
       "found_via_known_docx_mpp_word": false,
       "hit_files": [
         "C3-Ezekiel.json"
@@ -1902,7 +1947,7 @@
     {
       "row_number": 73,
       "verse": "Ezekiel 40:37.11",
-      "word": "מַעֲלָֽו׃",
+      "word": "מַעֲלָֽו",
       "mpp_file_for_verse": "C3-Ezekiel.json",
       "found_in_any_plus_file": true,
       "found_in_mpp_verse_text": true,
@@ -1925,6 +1970,9 @@
           "argument_key": "1",
           "argument_text": "מַעֲלָֽו"
         }
+      ],
+      "matching_mpp_surface_words_in_mpp_verse": [
+        "מַעֲלָֽו׃"
       ],
       "found_via_known_docx_mpp_word": false,
       "hit_files": [
@@ -1957,6 +2005,9 @@
           "argument_key": "1",
           "argument_text": "וְנִרְפּ֥אֿוּ"
         }
+      ],
+      "matching_mpp_surface_words_in_mpp_verse": [
+        "וְנִרְפּ֥אֿוּ"
       ],
       "found_via_known_docx_mpp_word": false,
       "hit_files": [
@@ -1995,6 +2046,9 @@
           "argument_text": "תְבֽוּאָתֹה֙"
         }
       ],
+      "matching_mpp_surface_words_in_mpp_verse": [
+        "תְבֽוּאָתֹה֙"
+      ],
       "found_via_known_docx_mpp_word": false,
       "hit_files": [
         "C3-Ezekiel.json"
@@ -2003,7 +2057,7 @@
     {
       "row_number": 76,
       "verse": "Ezekiel 48:21.35",
-      "word": "בְּתוֹכֹֽה׃",
+      "word": "בְּתוֹכֹֽה",
       "mpp_file_for_verse": "C3-Ezekiel.json",
       "found_in_any_plus_file": true,
       "found_in_mpp_verse_text": true,
@@ -2026,6 +2080,9 @@
           "argument_key": "1",
           "argument_text": "בְּתוֹכֹֽה"
         }
+      ],
+      "matching_mpp_surface_words_in_mpp_verse": [
+        "בְּתוֹכֹֽה׃"
       ],
       "found_via_known_docx_mpp_word": false,
       "hit_files": [

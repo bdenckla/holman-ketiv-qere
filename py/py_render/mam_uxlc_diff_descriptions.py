@@ -59,7 +59,7 @@ def simple_row_diff_note_lines(
     if HOLAM_HE_TAG in issue_tags or QYV_TAG in issue_tags:
         return []
 
-    word = _as_text(row.get("word"))
+    word = _diff_description_word(row)
     notes_uxlc = _as_text(row.get("notes-UXLC"))
     verse = _as_text(row.get("verse"))
     if not word or not notes_uxlc or not verse:
@@ -79,6 +79,13 @@ def simple_row_diff_note_lines(
     if qere_description is not None:
         note_lines.append(("MAM vs UXLC qere:", qere_description))
     return note_lines
+
+
+def _diff_description_word(row: Mapping[str, object]) -> str:
+    word_orig = row.get("word_orig")
+    if isinstance(word_orig, str) and word_orig:
+        return word_orig
+    return _as_text(row.get("word"))
 
 
 def describe_simple_ketiv_letters_change(*, word: str, ketiv: str) -> str | None:

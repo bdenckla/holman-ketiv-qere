@@ -7,6 +7,7 @@ from typing import cast
 import zipfile
 from xml.etree import ElementTree as ET
 
+from pycmn.hebrew_punctuation import SOPA
 from python_modules.extract_docx_notes import (
     apply_notes_fixes,
     assert_text_columns_before_drop,
@@ -249,6 +250,7 @@ def _ordered_row_data(
     if image_refs:
         row_data["image_files"] = image_refs
 
+    _strip_trailing_sof_pasuq_from_word(row_data)
     quote_count_increment = assert_text_columns_before_drop(row_data)
     apply_notes_fixes(row_data)
 
@@ -272,6 +274,11 @@ def _ordered_row_data(
     for key in column_keys:
         if key in {"entry", "aleppo", "leningrad"}:
             continue
+        if key == "word":
+            ordered_row_data[key] = row_data[key]
+            if "word_orig" in row_data:
+                ordered_row_data["word_orig"] = row_data["word_orig"]
+            continue
         if key == "notes":
             ordered_row_data["notes-UXLC"] = notes_uxlc
             if notes_uxlc_pointed_prefix_atoms is not None:
@@ -293,6 +300,15 @@ def _ordered_row_data(
         notes_structured_signature_for_row(notes=notes, mam_word=word),
         quote_count_increment,
     )
+
+
+def _strip_trailing_sof_pasuq_from_word(row_data: dict[str, object]) -> None:
+    word = row_data.get("word")
+    if not isinstance(word, str) or not word.endswith(SOPA):
+        return
+
+    row_data["word_orig"] = word
+    row_data["word"] = word.removesuffix(SOPA)
 
 
 def _validate_leningrad_quote_count(leningrad_quote_count: int) -> None:
