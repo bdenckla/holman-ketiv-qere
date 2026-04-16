@@ -140,14 +140,14 @@ def summary_rows_html(categories: list[FilterCategory]) -> str:
 
 def _summary_row_html(category: FilterCategory) -> str:
     return (
-        f'<tr data-filter-id="{escape(category.filter_id)}">'
-        f'<td><span class="cat-swatch cat-{escape(category.filter_id)}"></span>{escape(category.label)}</td>'
-        f"<td>{category.count}</td></tr>"
+        f'<tr data-filter-id="{escape(category.filter_id)}">\n'
+        f'<td><span class="cat-swatch cat-{escape(category.filter_id)}"></span>{escape(category.label)}</td>\n'
+        f"<td>{category.count}</td>\n</tr>"
     )
 
 
 def _summary_group_html(group_title: str, rows_html: str) -> str:
     return (
-        f'<section class="summary-group"><h2 class="summary-group-title">{escape(group_title)}</h2>'
-        f'<table class="summary">{rows_html}</table></section>'
+        f'<section class="summary-group">\n<h2 class="summary-group-title">{escape(group_title)}</h2>\n'
+        f'<table class="summary">\n{rows_html}\n</table>\n</section>'
     )

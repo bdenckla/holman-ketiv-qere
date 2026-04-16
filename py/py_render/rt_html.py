@@ -200,7 +200,7 @@ def _write_report_page(
         active_nav_label=active_nav_label,
     )
     page_total = len(rows)
-    summary_html = f'<div class="summary-columns">{summary_rows}</div>'
+    summary_html = f'<div class="summary-columns">\n{summary_rows}\n</div>'
     page_subtitle_html = (
         "" if not page_subtitle else f'<p class="subtitle">{escape(page_subtitle)}</p>'
     )
@@ -217,13 +217,21 @@ def _write_report_page(
 {nav_html}
 <h1>{escape(page_heading)}</h1>
 {page_subtitle_html}
-<div class=\"meta-grid\">
-    <div class=\"meta-box\"><div class=\"meta-label\">Total Records</div><div class=\"meta-value\">{page_total}</div></div>
-    <div class=\"meta-box\"><div class=\"meta-label\">Visible/Filtered-out records</div><div class=\"meta-value\" id=\"visible-filtered-count\">{page_total}/0</div></div>
+<div class="meta-grid">
+    <div class="meta-box">
+        <div class="meta-label">Total Records</div>
+        <div class="meta-value">{page_total}</div>
+    </div>
+    <div class="meta-box">
+        <div class="meta-label">Visible/Filtered-out records</div>
+        <div class="meta-value" id="visible-filtered-count">{page_total}/0</div>
+    </div>
 </div>
 {summary_html}
-<h2 class=\"section-title\">{escape(records_heading)}</h2>
-<div class=\"records\">{cards}</div>
+<h2 class="section-title">{escape(records_heading)}</h2>
+<div class="records">
+{cards}
+</div>
 <script src=\"{js_src}\" defer></script>
 </body>
 </html>
@@ -294,9 +302,9 @@ def _top_nav_html(
         "nav-link active" if active_nav_label == SUPPRESSED_NAV_LABEL else "nav-link"
     )
     return (
-        '<nav class="top-nav">'
-        f'<a class="{main_class}" href="{main_href}">{MAIN_NAV_LABEL}</a>'
-        f'<a class="{suppressed_class}" href="{suppressed_href}">{SUPPRESSED_NAV_LABEL}</a>'
+        '<nav class="top-nav">\n'
+        f'<a class="{main_class}" href="{main_href}">{MAIN_NAV_LABEL}</a>\n'
+        f'<a class="{suppressed_class}" href="{suppressed_href}">{SUPPRESSED_NAV_LABEL}</a>\n'
         "</nav>"
     )
 
@@ -336,11 +344,11 @@ def _record_card_html(
         for issue_tag in record_issue_tags(metadata.tags)
     )
     filter_ids_attr = " ".join(filter_id for filter_id, _label in record_categories)
-    category_badges_html = "".join(
+    category_badges_html = "\n".join(
         _record_category_badge_html(filter_id=filter_id, label=label)
         for filter_id, label in record_categories
     )
-    simple_diff_notes_html = "".join(
+    simple_diff_notes_html = "\n".join(
         _note_line_html(label=label, value=value)
         for label, value in simple_row_diff_note_lines(
             row,
@@ -369,7 +377,7 @@ def _record_card_html(
         for match in matching_template_args_in_mpp_verse
         if as_text(match.get("argument_text")) not in rendered_mam_words
     ]
-    mpp_matching_template_arg_html = "".join(
+    mpp_matching_template_arg_html = "\n".join(
         (
             f'<div class="note-line"><span class="label">'
             f'MPP matching template arg ({escape(as_text(match.get("template_name")))}'
@@ -388,7 +396,7 @@ def _record_card_html(
         differing_latest_mpp_words=differing_latest_mpp_words,
     )
     if comparison_rows is None:
-        mam_template_html = "".join(
+        mam_template_html = "\n".join(
             f'<div class="note-line"><span class="label">MAM template:</span>'
             f'<bdi class="pointed-heb">{escape(call)}</bdi></div>'
             for call in template_calls
@@ -405,9 +413,10 @@ def _record_card_html(
                 f'\n<div class="note-line"><span class="label">MAM Word (from latest MPP):</span>'
                 f'<bdi class="pointed-heb">{escape(" | ".join(differing_latest_mpp_words))}</bdi></div>'
             )
-        mam_uxlc_html = (
-            f"{mam_word_html}{mam_template_html}\n"
-            f'<div class="note-line"><span class="label">UXLC:</span><bdi class="pointed-heb">{escape(notes_uxlc)}</bdi></div>'
+        mam_uxlc_html = _join_nonempty_html_blocks(
+            mam_word_html,
+            mam_template_html,
+            f'<div class="note-line"><span class="label">UXLC:</span><bdi class="pointed-heb">{escape(notes_uxlc)}</bdi></div>',
         )
     else:
         mam_uxlc_html = comparison_table_html(comparison_rows)
@@ -427,16 +436,48 @@ def _record_card_html(
         output_html_path=output_html_path,
         repo_root=repo_root,
     )
+    notes_html = _join_nonempty_html_blocks(
+        simple_diff_notes_html,
+        yatir_html,
+        mpp_matching_template_arg_html,
+    )
 
-    return f"""<article id="{row_fragment_id_value}" class="record-card" data-finding-id="{finding_id}" data-filter-ids="{escape(filter_ids_attr)}">
-<div class="record-head"><span class="record-ref">#{escape(row_number)}</span><span class="record-verse">{verse_ref_html}</span><span class="category-badges">{category_badges_html}</span></div>
-<div class="record-grid"><div>
+    return f"""<article
+id="{row_fragment_id_value}"
+class="record-card"
+data-finding-id="{finding_id}"
+data-filter-ids="{escape(filter_ids_attr)}"
+>
+<div class="record-head">
+<span class="record-ref">#{escape(row_number)}</span>
+<span class="record-verse">
+{verse_ref_html}
+</span>
+<span class="category-badges">
+{category_badges_html}
+</span>
+</div>
+<div class="record-grid">
+<div>
 {mam_uxlc_html}
-{simple_diff_notes_html}{yatir_html}{mpp_matching_template_arg_html}
-</div><div>
-<div class="image-panel"><div class="image-caption">Aleppo</div><div class="image-strip">{aleppo}</div></div>
-<div class="image-panel" style="margin-top:.45rem;"><div class="image-caption">Leningrad</div><div class="image-strip">{leningrad}</div></div>
-</div></div></article>"""
+{notes_html}
+</div>
+<div>
+<div class="image-panel">
+<div class="image-caption">Aleppo</div>
+<div class="image-strip">
+{aleppo}
+</div>
+</div>
+<div class="image-panel" style="margin-top:.45rem;">
+<div class="image-caption">Leningrad</div>
+<div class="image-strip">
+{leningrad}
+</div>
+</div>
+</div>
+</div>
+</article>"""
 
 
 def _image_paths_html(
@@ -461,32 +502,52 @@ def _image_paths_html(
         native_scale = IMAGE_NATIVE_SCALE_TWEAKS.get((row_number, witness, index))
         native_scale_attr = ""
         if native_scale is not None:
-            native_scale_attr = f' data-native-scale="{native_scale:g}"'
+            native_scale_attr = f'\ndata-native-scale="{native_scale:g}"'
         rendered.append(
-            f'<a href="{rel_asset_html}" target="_blank" rel="noopener">'
-            f'<img class="image-thumb" src="{rel_asset_html}" alt="{escape(label)} image {index}"{native_scale_attr}></a>'
+            f"<a\n"
+            f'href="{rel_asset_html}"\n'
+            f'target="_blank"\n'
+            f'rel="noopener"\n'
+            f">\n"
+            f"<img\n"
+            f'class="image-thumb"\n'
+            f'src="{rel_asset_html}"\n'
+            f'alt="{escape(label)} image {index}"{native_scale_attr}\n'
+            f">\n"
+            f"</a>"
         )
 
     if not rendered:
         return f'<span class="label">No {escape(label)} image</span>'
-    return "".join(rendered)
+    return "\n".join(rendered)
 
 
 def _verse_ref_html(verse: str, row_number: str) -> str:
     links = verse_external_links(verse)
+    parts = [
+        escape(verse),
+        _external_link_html(href=links.mgketer_url, label="mgketer"),
+        _external_link_html(href=links.mwd_url, label="MwD"),
+        _external_link_html(href=links.mam_ws_url, label="MAM-ws"),
+    ]
     issue_url = row_github_issue_url(row_number)
-    issue_html = ""
     if issue_url is not None:
-        issue_html = (
-            f' <a href="{escape(issue_url)}" target="_blank" rel="noopener">issue</a>'
-        )
+        parts.append(_external_link_html(href=issue_url, label="issue"))
+    return "\n".join(parts)
+
+
+def _external_link_html(*, href: str, label: str) -> str:
     return (
-        f"{escape(verse)} "
-        f'<a href="{escape(links.mgketer_url)}" target="_blank" rel="noopener">mgketer</a>'
-        f' <a href="{escape(links.mwd_url)}" target="_blank" rel="noopener">MwD</a>'
-        f' <a href="{escape(links.mam_ws_url)}" target="_blank" rel="noopener">MAM-ws</a>'
-        f"{issue_html}"
+        f"<a\n"
+        f'href="{escape(href)}"\n'
+        f'target="_blank"\n'
+        f'rel="noopener"\n'
+        f">{escape(label)}</a>"
     )
+
+
+def _join_nonempty_html_blocks(*blocks: str) -> str:
+    return "\n".join(block for block in blocks if block)
 
 
 def _note_line_html(label: str, value: str, strip_prefix: str | None = None) -> str:

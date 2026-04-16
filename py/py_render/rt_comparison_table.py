@@ -59,18 +59,31 @@ def build_comparison_rows(
 
 
 def comparison_table_html(rows: list[dict[str, str]]) -> str:
-    body_rows_html = "".join(
-        "<tr>"
-        f'<td class="comparison-name-col">{escape(row["name"])}</td>'
-        f'<td class="comparison-value-col">{_comparison_literal_value_html(row["value"])}</td>'
-        f'<td class="comparison-symval-col">{_comparison_symval_html(row["symval"])}</td>'
-        "</tr>"
+    body_rows_html = "\n".join(
+        (
+            "<tr>\n"
+            f'<td class="comparison-name-col">{escape(row["name"])}<'
+            "/td>\n"
+            f'<td class="comparison-value-col">{_comparison_literal_value_html(row["value"])}<'
+            "/td>\n"
+            f'<td class="comparison-symval-col">{_comparison_symval_html(row["symval"])}<'
+            "/td>\n"
+            "<"
+            "/tr>"
+        )
         for row in rows
     )
     return (
-        '<table class="comparison-table">'
-        "<thead><tr><th>name</th><th>value</th><th>symval</th></tr></thead>"
-        f"<tbody>{body_rows_html}</tbody></table>"
+        '<table class="comparison-table">\n'
+        "<thead>\n<tr>\n<th>name<"
+        "/th>\n<th>value<"
+        "/th>\n<th>symval<"
+        "/th>\n<"
+        "/tr>\n<"
+        "/thead>\n"
+        f"<tbody>\n{body_rows_html}\n<"
+        "/tbody>\n<"
+        "/table>"
     )
 
 

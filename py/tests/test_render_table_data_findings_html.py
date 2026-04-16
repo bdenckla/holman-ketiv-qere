@@ -13,6 +13,13 @@ from python_modules.table_row_github_issues import reload_row_github_issues
 
 
 class RenderTableDataFindingsHtmlTests(unittest.TestCase):
+    def _normalize_html(self, html: str) -> str:
+        html = re.sub(r">\s+<", "><", html)
+        html = re.sub(r"\s+>", ">", html)
+        html = re.sub(r"\s+", " ", html)
+        html = re.sub(r">\s+<", "><", html)
+        return html.strip()
+
     def _render(
         self,
         payload: dict[str, object],
@@ -124,9 +131,10 @@ class RenderTableDataFindingsHtmlTests(unittest.TestCase):
             payload,
             row_github_issues_payload,
         )
+        normalized_main_html = self._normalize_html(main_html)
 
         self.assertRegex(
-            main_html,
+            normalized_main_html,
             re.compile(
                 r'<article id="row10".*?<table class="comparison-table">.*?<th>name</th><th>value</th><th>symval</th>.*?'
                 r'<td class="comparison-name-col">MAM Word</td><td class="comparison-value-col"><bdi class="pointed-heb">א</bdi></td><td class="comparison-symval-col"></td>.*?'
@@ -380,9 +388,10 @@ class RenderTableDataFindingsHtmlTests(unittest.TestCase):
             payload,
             row_github_issues_payload,
         )
+        normalized_main_html = self._normalize_html(main_html)
 
         self.assertRegex(
-            main_html,
+            normalized_main_html,
             re.compile(
                 r'<article id="row30".*?<table class="comparison-table">.*?<th>name</th><th>value</th><th>symval</th>.*?'
                 r'<td class="comparison-name-col">MAM Word</td><td class="comparison-value-col"><bdi class="pointed-heb">וּבֵנָ֔יו</bdi></td><td class="comparison-symval-col"></td>.*?'
@@ -450,9 +459,10 @@ class RenderTableDataFindingsHtmlTests(unittest.TestCase):
             payload,
             row_github_issues_payload,
         )
+        normalized_main_html = self._normalize_html(main_html)
 
         self.assertRegex(
-            main_html,
+            normalized_main_html,
             re.compile(
                 r'<article id="row31".*?<table class="comparison-table">.*?<th>name</th><th>value</th><th>symval</th>.*?'
                 r'<td class="comparison-name-col">MAM Word</td><td class="comparison-value-col"><bdi class="pointed-heb">הֶהָלְכ֣וּ</bdi></td><td class="comparison-symval-col"></td>.*?'
@@ -520,9 +530,10 @@ class RenderTableDataFindingsHtmlTests(unittest.TestCase):
             payload,
             row_github_issues_payload,
         )
+        normalized_main_html = self._normalize_html(main_html)
 
         self.assertRegex(
-            main_html,
+            normalized_main_html,
             re.compile(
                 r'<article id="row50".*?<table class="comparison-table">.*?<th>name</th><th>value</th><th>symval</th>.*?'
                 r'<td class="comparison-name-col">MAM Word</td><td class="comparison-value-col"><bdi class="pointed-heb">בְּמַעֲלוֹתָ֑ו</bdi></td><td class="comparison-symval-col"></td>.*?'
@@ -594,9 +605,10 @@ class RenderTableDataFindingsHtmlTests(unittest.TestCase):
             payload,
             row_github_issues_payload,
         )
+        normalized_main_html = self._normalize_html(main_html)
 
         self.assertRegex(
-            main_html,
+            normalized_main_html,
             re.compile(
                 r'<article id="row32".*?<table class="comparison-table">.*?<th>name</th><th>value</th><th>symval</th>.*?'
                 r'<td class="comparison-name-col">MAM Word</td><td class="comparison-value-col"><bdi class="pointed-heb">וּבֵנָ֔יו</bdi></td><td class="comparison-symval-col"></td>.*?'
@@ -800,6 +812,8 @@ class RenderTableDataFindingsHtmlTests(unittest.TestCase):
             payload,
             row_github_issues_payload,
         )
+        normalized_main_html = self._normalize_html(main_html)
+        normalized_suppressed_html = self._normalize_html(suppressed_html)
 
         self.assertIn("<title>Holman k/q</title>", main_html)
         self.assertIn("<h1>Holman ketiv/qere review</h1>", main_html)
@@ -822,10 +836,10 @@ class RenderTableDataFindingsHtmlTests(unittest.TestCase):
         self.assertNotIn("Summary by finding", main_html)
         self.assertNotIn("<th>Finding</th>", main_html)
         self.assertNotIn("<th>Count</th>", main_html)
-        self.assertIn("no issue tag</td><td>1", main_html)
-        self.assertIn("no issue tag</td><td>1", suppressed_html)
+        self.assertIn("no issue tag</td><td>1", normalized_main_html)
+        self.assertIn("no issue tag</td><td>1", normalized_suppressed_html)
         self.assertRegex(
-            main_html,
+            normalized_main_html,
             re.compile(
                 r'<article id="row01".*?<span class="category-badges">.*?Finding A.*?no issue tag.*?</span>',
                 re.DOTALL,
@@ -936,9 +950,10 @@ class RenderTableDataFindingsHtmlTests(unittest.TestCase):
             payload,
             row_github_issues_payload,
         )
+        normalized_main_html = self._normalize_html(main_html)
 
         self.assertRegex(
-            main_html,
+            normalized_main_html,
             re.compile(
                 r'<div class="summary-columns">.*?'
                 r'<section class="summary-group"><h2 class="summary-group-title">Aleppo notation</h2><table class="summary">.*?'
@@ -952,20 +967,20 @@ class RenderTableDataFindingsHtmlTests(unittest.TestCase):
         )
         self.assertIn(
             'data-filter-id="issue-tag-rafeh"><td><span class="cat-swatch cat-issue-tag-rafeh"></span>rafeh</td><td>1</td></tr>',
-            main_html,
+            normalized_main_html,
         )
-        self.assertIn("Has matching MPP template</td><td>1", main_html)
-        self.assertIn("QyV</td><td>1", main_html)
-        self.assertIn("בו״א sans א</td><td>1", main_html)
-        self.assertIn("rafeh</td><td>1", main_html)
-        self.assertIn("ḥolam he</td><td>1", main_html)
-        self.assertIn('<table class="comparison-table">', main_html)
+        self.assertIn("Has matching MPP template</td><td>1", normalized_main_html)
+        self.assertIn("QyV</td><td>1", normalized_main_html)
+        self.assertIn("בו״א sans א</td><td>1", normalized_main_html)
+        self.assertIn("rafeh</td><td>1", normalized_main_html)
+        self.assertIn("ḥolam he</td><td>1", normalized_main_html)
+        self.assertIn('<table class="comparison-table">', normalized_main_html)
         self.assertNotIn(
             'MAM Word (from latest MPP):</span><bdi class="pointed-heb">חֲסִידָו֙</bdi>',
-            main_html,
+            normalized_main_html,
         )
         self.assertRegex(
-            main_html,
+            normalized_main_html,
             re.compile(
                 r'<article id="row04".*?<table class="comparison-table">.*?'
                 r'<td class="comparison-name-col">MAM Word</td>.*?'
@@ -977,7 +992,7 @@ class RenderTableDataFindingsHtmlTests(unittest.TestCase):
             ),
         )
         self.assertRegex(
-            main_html,
+            normalized_main_html,
             re.compile(
                 r'<article id="row04".*?'
                 r'<td class="comparison-name-col">MAM Word</td><td class="comparison-value-col"><bdi class="pointed-heb">חֲסִידָו֙</bdi></td><td class="comparison-symval-col"></td>.*?'
@@ -989,7 +1004,7 @@ class RenderTableDataFindingsHtmlTests(unittest.TestCase):
             ),
         )
         self.assertRegex(
-            main_html,
+            normalized_main_html,
             re.compile(
                 r'<article id="row04".*?<span class="category-badges">.*?Finding A.*?Has matching MPP template.*?QyV.*?</span>',
                 re.DOTALL,
@@ -997,42 +1012,49 @@ class RenderTableDataFindingsHtmlTests(unittest.TestCase):
         )
         self.assertNotIn(
             'MPP matching template arg (q[1]):</span><bdi class="pointed-heb">חֲסִידָו֙</bdi>',
-            main_html,
+            normalized_main_html,
         )
         self.assertNotIn(
             'MAM template:</span><bdi class="pointed-heb">{{q|חֲסִידָו֙|ל-קרי=חֲסִידָיו֙}}</bdi>',
-            main_html,
+            normalized_main_html,
         )
         self.assertRegex(
-            main_html,
+            normalized_main_html,
             re.compile(
                 r'<article id="row13".*?<span class="category-badges">.*?Finding C.*?rafeh.*?</span>',
                 re.DOTALL,
             ),
         )
         self.assertRegex(
-            main_html,
+            normalized_main_html,
             re.compile(
                 r'<article id="row13".*?MAM Word:</span><bdi class="pointed-heb">ג</bdi>.*?UXLC:</span><bdi class="pointed-heb">ג</bdi>',
                 re.DOTALL,
             ),
         )
         self.assertRegex(
-            main_html,
+            normalized_main_html,
             re.compile(
                 r'<article id="row21".*?<span class="category-badges">.*?Finding D.*?ḥolam he.*?</span>',
                 re.DOTALL,
             ),
         )
         self.assertRegex(
-            main_html,
+            normalized_main_html,
             re.compile(
                 r'<article id="row04"[^>]*data-filter-ids="[^"]*has-mpp-template[^"]*issue-tag-qyv[^"]*"'
             ),
         )
-        self.assertIn(
-            '1Samuel 2:9.2 <a href="https://www.mgketer.org/mikra/8/2/1/mg/106" target="_blank" rel="noopener">mgketer</a> <a href="https://bdenckla.github.io/MAM-with-doc/BA-1Samuel.html#c2v9" target="_blank" rel="noopener">MwD</a> <a href="https://he.wikisource.org/wiki/%D7%A9%D7%9E%D7%95%D7%90%D7%9C%20%D7%90_%D7%91/%D7%98%D7%A2%D7%9E%D7%99%D7%9D" target="_blank" rel="noopener">MAM-ws</a> <a href="https://github.com/bdenckla/holman-ketiv-qere/issues/7" target="_blank" rel="noopener">issue</a>',
-            main_html,
+        self.assertRegex(
+            normalized_main_html,
+            re.compile(
+                r"1Samuel 2:9\.2\s*"
+                r'<a href="https://www\.mgketer\.org/mikra/8/2/1/mg/106" target="_blank" rel="noopener">mgketer</a>\s*'
+                r'<a href="https://bdenckla\.github\.io/MAM-with-doc/BA-1Samuel\.html#c2v9" target="_blank" rel="noopener">MwD</a>\s*'
+                r'<a href="https://he\.wikisource\.org/wiki/%D7%A9%D7%9E%D7%95%D7%90%D7%9C%20%D7%90_%D7%91/%D7%98%D7%A2%D7%9E%D7%99%D7%9D" target="_blank" rel="noopener">MAM-ws</a>\s*'
+                r'<a href="https://github\.com/bdenckla/holman-ketiv-qere/issues/7" target="_blank" rel="noopener">issue</a>',
+                re.DOTALL,
+            ),
         )
 
     def test_shows_explicit_docx_and_latest_mpp_labels_when_words_differ(self) -> None:
@@ -1087,33 +1109,34 @@ class RenderTableDataFindingsHtmlTests(unittest.TestCase):
             payload,
             row_github_issues_payload,
         )
+        normalized_main_html = self._normalize_html(main_html)
 
         self.assertIn(
             'MAM Word (from docx):</span><bdi class="pointed-heb">וַיֹּר֨אוּ</bdi>',
-            main_html,
+            normalized_main_html,
         )
         self.assertIn(
             'MAM Word (from latest MPP):</span><bdi class="pointed-heb">וַיֹּר֨אֿוּ</bdi>',
-            main_html,
+            normalized_main_html,
         )
         self.assertRegex(
-            main_html,
+            normalized_main_html,
             re.compile(
                 r'<article id="row13".*?MAM Word \(from docx\):</span><bdi class="pointed-heb">וַיֹּר֨אוּ</bdi>.*?MAM Word \(from latest MPP\):</span><bdi class="pointed-heb">וַיֹּר֨אֿוּ</bdi>',
                 re.DOTALL,
             ),
         )
         self.assertIn(
-            '</div>\n<div class="note-line"><span class="label">MAM Word (from latest MPP):</span>',
-            main_html,
+            '</div><div class="note-line"><span class="label">MAM Word (from latest MPP):</span>',
+            normalized_main_html,
         )
         self.assertNotIn(
             'MPP matching template arg (קו&quot;כ-אם[1]):</span><bdi class="pointed-heb">וַיֹּר֨אֿוּ</bdi>',
-            main_html,
+            normalized_main_html,
         )
         self.assertIn(
             'MAM template:</span><bdi class="pointed-heb">{{קו&quot;כ-אם|וַיֹּר֨אֿוּ|ל-קרי=וַיֹּר֨וּ}}</bdi>',
-            main_html,
+            normalized_main_html,
         )
 
     def test_rejects_qyv_tag_when_qere_is_not_yod_before_final_vav(self) -> None:
