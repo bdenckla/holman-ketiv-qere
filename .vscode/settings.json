@@ -30,6 +30,10 @@
         "/^& \\.\\\\\\.venv\\\\Scripts\\\\python\\.exe -m pytest py/tests/test_render_table_data_findings_html\\.py$/": {
             "approve": true,
             "matchCommandLine": true
+        },
+        "/^& \\.\\\\\\.venv\\\\Scripts\\\\python\\.exe -m black py/py_render/rt_comparison_table\\.py py/tests/test_render_table_data_findings_html\\.py \\.$/": {
+            "approve": true,
+            "matchCommandLine": true
         }
     }
 }
