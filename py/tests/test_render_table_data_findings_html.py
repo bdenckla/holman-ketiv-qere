@@ -421,6 +421,79 @@ class RenderTableDataFindingsHtmlTests(unittest.TestCase):
         )
         self.assertNotIn("MAM template:</span>", main_html)
 
+    def test_renders_comparison_table_without_nusakh_wrapper_for_trivial_qere(
+        self,
+    ) -> None:
+        payload = {
+            "source_document": "sample.docx",
+            "table": {
+                "rows": [
+                    {
+                        "row_number": 50,
+                        "verse": "Ezekiel 40:6.9",
+                        "word": "בְּמַעֲלוֹתָ֑ו",
+                        "finding": "Finding A",
+                        "notes-UXLC": "במעלותו בְּמַֽעֲלוֹתָ֑יו",
+                    }
+                ]
+            },
+            "mam_plus_rows_matching_mpp_verse_template_arg": [
+                {
+                    "row_number": 50,
+                    "matching_template_args_in_mpp_verse": [
+                        {
+                            "template_name": 'קו"כ-אם',
+                            "argument_key": "1",
+                            "argument_text": "בְּמַעֲלוֹתָ֑ו",
+                        }
+                    ],
+                    "template_args_in_mpp_verse": [
+                        {
+                            "template_name": 'קו"כ-אם',
+                            "argument_key": "1",
+                            "argument_text": "בְּמַעֲלוֹתָ֑ו",
+                        },
+                        {
+                            "template_name": 'קו"כ-אם',
+                            "argument_key": "2",
+                            "argument_text": "א-קרי=בְּמַעֲלוֹתָ֑יו",
+                        },
+                    ],
+                }
+            ],
+        }
+
+        row_github_issues_payload = {
+            "50": {
+                "issue_number": 51,
+                "is_closed": False,
+                "tags": ["qyv"],
+            }
+        }
+
+        main_html, _suppressed_html, _js = self._render(
+            payload,
+            row_github_issues_payload,
+        )
+
+        self.assertRegex(
+            main_html,
+            re.compile(
+                r'<article id="row50".*?<table class="comparison-table">.*?<th>name</th><th>value</th>.*?'
+                r'<td class="comparison-name-col">MAM Word</td><td class="comparison-value-col"><bdi class="pointed-heb">בְּמַעֲלוֹתָ֑ו</bdi></td>.*?'
+                r'<td class="comparison-name-col">קו&quot;כ-אם\[כ\]</td><td class="comparison-value-col"><span>MAM Word</span></td>.*?'
+                r'<td class="comparison-name-col">קו&quot;כ-אם\[ק\]</td><td class="comparison-value-col"><bdi class="pointed-heb">בְּמַעֲלוֹתָ֑יו</bdi></td>.*?'
+                r'<td class="comparison-name-col">UXLC ketiv</td><td class="comparison-value-col"><span>MAM Word stripped</span></td>.*?'
+                r'<td class="comparison-name-col">UXLC qere</td><td class="comparison-value-col"><bdi class="pointed-heb">בְּמַֽעֲלוֹתָ֑יו</bdi></td>.*?</table>',
+                re.DOTALL,
+            ),
+        )
+        self.assertNotIn("MAM template:</span>", main_html)
+        self.assertNotIn(
+            'UXLC:</span><bdi class="pointed-heb">במעלותו בְּמַֽעֲלוֹתָ֑יו</bdi>',
+            main_html,
+        )
+
     def test_renders_stripped_reference_for_uxlc_ketiv(self) -> None:
         payload = {
             "source_document": "sample.docx",

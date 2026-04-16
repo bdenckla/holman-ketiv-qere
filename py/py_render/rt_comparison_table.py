@@ -9,7 +9,7 @@ from python_modules.qere_projection import qere_arg_key_for_template
 
 HEBREW_LETTER_PATTERN = re.compile(r"[\u05D0-\u05EA]+")
 SIMPLE_QERE_TEMPLATE_PATTERN = re.compile(
-    r"^\{\{(?P<template>[^|{}]+)\|(?P<ketiv>[^{}|]+)\|ל-קרי=(?P<qere>[^{}|]+)\}\}$"
+    r"^\{\{(?P<template>[^|{}]+)\|(?P<ketiv>[^{}|]+)\|(?:ל|א)-קרי=(?P<qere>[^{}|]+)\}\}$"
 )
 POSITIONAL_QERE_TEMPLATE_PATTERN = re.compile(
     r"^\{\{(?P<template>[^|{}]+)\|(?P<arg1>[^{}|]+)\|(?P<arg2>[^{}|]+)\}\}$"
