@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-SUPPORTED_QERE_DOC_PREFIXES = ("א-קרי=",)
+SUPPORTED_QERE_DOC_PREFIXES = ("א-קרי=", "ל-קרי=")
 
 
 def matching_template_arguments_in_mpp_verse_by_row_number(
@@ -129,6 +129,10 @@ def _nusakh_calls_for_row(matching_args: list, all_args: list) -> list[str]:
     if calls:
         return calls
 
+    anchored_calls = _synthesized_calls_for_matching_args(matching_args, all_args)
+    if anchored_calls:
+        return anchored_calls
+
     synthesized_call = _synthesized_single_template_call(all_args)
     if synthesized_call is not None:
         return [synthesized_call]
@@ -165,8 +169,97 @@ def _synthesized_single_template_call(all_args: list) -> str | None:
         return None
 
     qere_doc = args_by_key["2"]
-    if not any(qere_doc.startswith(prefix) for prefix in SUPPORTED_QERE_DOC_PREFIXES):
+    if not _is_supported_qere_doc(qere_doc):
         return None
 
     template_name = next(iter(template_names))
     return f"{{{{{template_name}|{args_by_key['1']}|{qere_doc}}}}}"
+
+
+def _synthesized_calls_for_matching_args(
+    matching_args: list, all_args: list
+) -> list[str]:
+    calls: list[str] = []
+    for match in matching_args:
+        synthesized_call = _synthesized_call_for_matching_arg(match, all_args)
+        if synthesized_call is None or synthesized_call in calls:
+            continue
+        calls.append(synthesized_call)
+    return calls
+
+
+def _synthesized_call_for_matching_arg(match: object, all_args: list) -> str | None:
+    if not isinstance(match, dict):
+        return None
+
+    template_name = match.get("template_name")
+    argument_key = match.get("argument_key")
+    argument_text = match.get("argument_text")
+    if not isinstance(template_name, str):
+        return None
+    if argument_key not in {"1", "2"} or not isinstance(argument_text, str):
+        return None
+
+    candidate_calls: list[str] = []
+    for index, raw_arg in enumerate(all_args):
+        if not isinstance(raw_arg, dict):
+            continue
+        if raw_arg.get("template_name") != template_name:
+            continue
+        if raw_arg.get("argument_key") != argument_key:
+            continue
+        if raw_arg.get("argument_text") != argument_text:
+            continue
+
+        candidate_call = _synthesized_call_from_matching_index(
+            template_name=template_name,
+            argument_key=argument_key,
+            argument_text=argument_text,
+            all_args=all_args,
+            index=index,
+        )
+        if candidate_call is None or candidate_call in candidate_calls:
+            continue
+        candidate_calls.append(candidate_call)
+
+    if len(candidate_calls) != 1:
+        return None
+    return candidate_calls[0]
+
+
+def _synthesized_call_from_matching_index(
+    *,
+    template_name: str,
+    argument_key: str,
+    argument_text: str,
+    all_args: list,
+    index: int,
+) -> str | None:
+    partner_index = index + 1 if argument_key == "1" else index - 1
+    if partner_index < 0 or partner_index >= len(all_args):
+        return None
+
+    partner = all_args[partner_index]
+    if not isinstance(partner, dict):
+        return None
+    if partner.get("template_name") != template_name:
+        return None
+
+    expected_partner_key = "2" if argument_key == "1" else "1"
+    if partner.get("argument_key") != expected_partner_key:
+        return None
+
+    partner_text = partner.get("argument_text")
+    if not isinstance(partner_text, str):
+        return None
+
+    ketiv = argument_text if argument_key == "1" else partner_text
+    qere_doc = partner_text if argument_key == "1" else argument_text
+    if not _is_supported_qere_doc(qere_doc):
+        return None
+
+    return f"{{{{{template_name}|{ketiv}|{qere_doc}}}}}"
+
+
+def _is_supported_qere_doc(text: str) -> bool:
+    return any(text.startswith(prefix) for prefix in SUPPORTED_QERE_DOC_PREFIXES)

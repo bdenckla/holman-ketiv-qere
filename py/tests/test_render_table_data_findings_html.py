@@ -553,6 +553,239 @@ class RenderTableDataFindingsHtmlTests(unittest.TestCase):
         )
         self.assertNotIn('<span class="label">HaKeter ketiv:</span>', main_html)
 
+    def test_renders_comparison_table_without_nusakh_wrapper_for_lamed_qere(
+        self,
+    ) -> None:
+        payload = {
+            "source_document": "sample.docx",
+            "table": {
+                "rows": [
+                    {
+                        "row_number": 74,
+                        "verse": "Ezekiel 47:8.17",
+                        "word": "וְנִרְפּ֥אוּ",
+                        "finding": "Finding A",
+                        "notes-UXLC": "ונרפאו וְנִרְפּ֥וּ",
+                    }
+                ]
+            },
+            "mam_plus_rows_matching_mpp_verse_template_arg": [
+                {
+                    "row_number": 74,
+                    "matching_template_args_in_mpp_verse": [
+                        {
+                            "template_name": 'קו"כ-אם',
+                            "argument_key": "1",
+                            "argument_text": "וְנִרְפּ֥אֿוּ",
+                        }
+                    ],
+                    "template_args_in_mpp_verse": [
+                        {
+                            "template_name": 'קו"כ-אם',
+                            "argument_key": "1",
+                            "argument_text": "וְנִרְפּ֥אֿוּ",
+                        },
+                        {
+                            "template_name": 'קו"כ-אם',
+                            "argument_key": "2",
+                            "argument_text": "ל-קרי=וְנִרְפּ֥וּ",
+                        },
+                    ],
+                }
+            ],
+        }
+
+        row_github_issues_payload = {
+            "74": {
+                "issue_number": 79,
+                "is_closed": True,
+                "tags": ["rafeh"],
+            }
+        }
+
+        _main_html, suppressed_html, _js = self._render(
+            payload,
+            row_github_issues_payload,
+        )
+        normalized_suppressed_html = self._normalize_html(suppressed_html)
+
+        self.assertRegex(
+            normalized_suppressed_html,
+            re.compile(
+                r'<article id="row74".*?<table class="comparison-table">.*?'
+                r'<td class="comparison-name-col"><abbr class="comparison-label" title="MAM Word \(from docx\)">MAM-docx</abbr></td>.*?'
+                r'<td class="comparison-value-col"><bdi class="pointed-heb">וְנִרְפּ֥אוּ</bdi></td><td class="comparison-symval-col"></td>.*?'
+                r'<td class="comparison-name-col"><abbr class="comparison-label" title="MAM Word \(from latest MPP\)">MAM-mpp</abbr></td>.*?'
+                r'<td class="comparison-value-col"><bdi class="pointed-heb">וְנִרְפּ֥אֿוּ</bdi></td><td class="comparison-symval-col"></td>.*?'
+                r'<td class="comparison-name-col">קו&quot;כ-אם\[כ\]</td><td class="comparison-value-col"></td><td class="comparison-symval-col"><span><abbr class="comparison-label" title="MAM Word \(from latest MPP\)">MAM-mpp</abbr></span></td>.*?'
+                r'<td class="comparison-name-col">קו&quot;כ-אם\[ק\]</td><td class="comparison-value-col"><bdi class="pointed-heb">וְנִרְפּ֥וּ</bdi></td><td class="comparison-symval-col"></td>.*?'
+                r'<td class="comparison-name-col">UXLC ketiv</td><td class="comparison-value-col"></td><td class="comparison-symval-col"><span><abbr class="comparison-label" title="MAM Word \(from docx\)">MAM-docx</abbr> stripped</span></td>.*?'
+                r'<td class="comparison-name-col">UXLC qere</td><td class="comparison-value-col"></td><td class="comparison-symval-col"><span>קו&quot;כ-אם\[ק\]</span></td>.*?</table>',
+                re.DOTALL,
+            ),
+        )
+        self.assertNotIn(
+            'MAM Word (from docx):</span><bdi class="pointed-heb">וְנִרְפּ֥אוּ</bdi>',
+            normalized_suppressed_html,
+        )
+        self.assertNotIn(
+            'MAM Word (from latest MPP):</span><bdi class="pointed-heb">וְנִרְפּ֥אֿוּ</bdi>',
+            normalized_suppressed_html,
+        )
+
+    def test_renders_anchored_comparison_tables_for_multiple_raw_template_occurrences(
+        self,
+    ) -> None:
+        payload = {
+            "source_document": "sample.docx",
+            "table": {
+                "rows": [
+                    {
+                        "row_number": 13,
+                        "verse": "2Samuel 11:24.1",
+                        "word": "וַיֹּר֨אוּ",
+                        "finding": "Finding A",
+                        "notes-UXLC": "ויראו וַיֹּר֨וּ",
+                    },
+                    {
+                        "row_number": 14,
+                        "verse": "2Samuel 11:24.2",
+                        "word": "הַמּוֹרִ֤אים",
+                        "finding": "Finding B",
+                        "notes-UXLC": "המוראים הַמּוֹרִ֤ים",
+                    },
+                ]
+            },
+            "mam_plus_rows_matching_mpp_verse_template_arg": [
+                {
+                    "row_number": 13,
+                    "matching_template_args_in_mpp_verse": [
+                        {
+                            "template_name": 'קו"כ-אם',
+                            "argument_key": "1",
+                            "argument_text": "וַיֹּר֨אֿוּ",
+                        }
+                    ],
+                    "template_args_in_mpp_verse": [
+                        {
+                            "template_name": 'קו"כ-אם',
+                            "argument_key": "1",
+                            "argument_text": "וַיֹּר֨אֿוּ",
+                        },
+                        {
+                            "template_name": 'קו"כ-אם',
+                            "argument_key": "2",
+                            "argument_text": "ל-קרי=וַיֹּר֨וּ",
+                        },
+                        {
+                            "template_name": 'קו"כ-אם',
+                            "argument_key": "1",
+                            "argument_text": "הַמּוֹרִ֤אֿים",
+                        },
+                        {
+                            "template_name": 'קו"כ-אם',
+                            "argument_key": "2",
+                            "argument_text": "ל-קרי=הַמּוֹרִ֤ים",
+                        },
+                    ],
+                },
+                {
+                    "row_number": 14,
+                    "matching_template_args_in_mpp_verse": [
+                        {
+                            "template_name": 'קו"כ-אם',
+                            "argument_key": "1",
+                            "argument_text": "הַמּוֹרִ֤אֿים",
+                        }
+                    ],
+                    "template_args_in_mpp_verse": [
+                        {
+                            "template_name": 'קו"כ-אם',
+                            "argument_key": "1",
+                            "argument_text": "וַיֹּר֨אֿוּ",
+                        },
+                        {
+                            "template_name": 'קו"כ-אם',
+                            "argument_key": "2",
+                            "argument_text": "ל-קרי=וַיֹּר֨וּ",
+                        },
+                        {
+                            "template_name": 'קו"כ-אם',
+                            "argument_key": "1",
+                            "argument_text": "הַמּוֹרִ֤אֿים",
+                        },
+                        {
+                            "template_name": 'קו"כ-אם',
+                            "argument_key": "2",
+                            "argument_text": "ל-קרי=הַמּוֹרִ֤ים",
+                        },
+                    ],
+                },
+            ],
+        }
+
+        row_github_issues_payload = {
+            "13": {
+                "issue_number": 4,
+                "is_closed": True,
+                "tags": ["rafeh"],
+            },
+            "14": {
+                "issue_number": 11,
+                "is_closed": True,
+                "tags": ["rafeh"],
+            },
+        }
+
+        _main_html, suppressed_html, _js = self._render(
+            payload,
+            row_github_issues_payload,
+        )
+        normalized_suppressed_html = self._normalize_html(suppressed_html)
+
+        self.assertRegex(
+            normalized_suppressed_html,
+            re.compile(
+                r'<article id="row13".*?<table class="comparison-table">.*?'
+                r'<td class="comparison-name-col"><abbr class="comparison-label" title="MAM Word \(from docx\)">MAM-docx</abbr></td>.*?'
+                r'<td class="comparison-value-col"><bdi class="pointed-heb">וַיֹּר֨אוּ</bdi></td><td class="comparison-symval-col"></td>.*?'
+                r'<td class="comparison-name-col"><abbr class="comparison-label" title="MAM Word \(from latest MPP\)">MAM-mpp</abbr></td>.*?'
+                r'<td class="comparison-value-col"><bdi class="pointed-heb">וַיֹּר֨אֿוּ</bdi></td><td class="comparison-symval-col"></td>.*?'
+                r'<td class="comparison-name-col">קו&quot;כ-אם\[כ\]</td><td class="comparison-value-col"></td><td class="comparison-symval-col"><span><abbr class="comparison-label" title="MAM Word \(from latest MPP\)">MAM-mpp</abbr></span></td>.*?'
+                r'<td class="comparison-name-col">קו&quot;כ-אם\[ק\]</td><td class="comparison-value-col"><bdi class="pointed-heb">וַיֹּר֨וּ</bdi></td><td class="comparison-symval-col"></td>.*?</table>',
+                re.DOTALL,
+            ),
+        )
+        self.assertRegex(
+            normalized_suppressed_html,
+            re.compile(
+                r'<article id="row14".*?<table class="comparison-table">.*?'
+                r'<td class="comparison-name-col"><abbr class="comparison-label" title="MAM Word \(from docx\)">MAM-docx</abbr></td>.*?'
+                r'<td class="comparison-value-col"><bdi class="pointed-heb">הַמּוֹרִ֤אים</bdi></td><td class="comparison-symval-col"></td>.*?'
+                r'<td class="comparison-name-col"><abbr class="comparison-label" title="MAM Word \(from latest MPP\)">MAM-mpp</abbr></td>.*?'
+                r'<td class="comparison-value-col"><bdi class="pointed-heb">הַמּוֹרִ֤אֿים</bdi></td><td class="comparison-symval-col"></td>.*?'
+                r'<td class="comparison-name-col">קו&quot;כ-אם\[כ\]</td><td class="comparison-value-col"></td><td class="comparison-symval-col"><span><abbr class="comparison-label" title="MAM Word \(from latest MPP\)">MAM-mpp</abbr></span></td>.*?'
+                r'<td class="comparison-name-col">קו&quot;כ-אם\[ק\]</td><td class="comparison-value-col"><bdi class="pointed-heb">הַמּוֹרִ֤ים</bdi></td><td class="comparison-symval-col"></td>.*?</table>',
+                re.DOTALL,
+            ),
+        )
+        self.assertNotIn(
+            'MAM Word (from docx):</span><bdi class="pointed-heb">וַיֹּר֨אוּ</bdi>',
+            normalized_suppressed_html,
+        )
+        self.assertNotIn(
+            'MAM Word (from latest MPP):</span><bdi class="pointed-heb">וַיֹּר֨אֿוּ</bdi>',
+            normalized_suppressed_html,
+        )
+        self.assertNotIn(
+            'MAM Word (from docx):</span><bdi class="pointed-heb">הַמּוֹרִ֤אים</bdi>',
+            normalized_suppressed_html,
+        )
+        self.assertNotIn(
+            'MAM Word (from latest MPP):</span><bdi class="pointed-heb">הַמּוֹרִ֤אֿים</bdi>',
+            normalized_suppressed_html,
+        )
+
     def test_renders_stripped_reference_for_uxlc_ketiv(self) -> None:
         payload = {
             "source_document": "sample.docx",
