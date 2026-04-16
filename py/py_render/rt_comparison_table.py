@@ -30,9 +30,6 @@ def build_comparison_rows(
     differing_latest_mpp_words: list[str],
 ) -> list[dict[str, str]] | None:
     split_template_rows = _split_template_rows(template_calls)
-    if split_template_rows is None and notes_haketer is None:
-        return None
-
     ketiv_qere = _split_notes_uxlc(notes_uxlc)
     if ketiv_qere is None:
         return None
