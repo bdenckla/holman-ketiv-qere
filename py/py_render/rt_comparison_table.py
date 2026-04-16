@@ -47,13 +47,14 @@ def comparison_table_html(rows: list[dict[str, str]]) -> str:
     body_rows_html = "".join(
         "<tr>"
         f'<td class="comparison-name-col">{escape(row["name"])}</td>'
-        f'<td class="comparison-value-col">{_comparison_value_html(row)}</td>'
+        f'<td class="comparison-value-col">{_comparison_literal_value_html(row["value"])}</td>'
+        f'<td class="comparison-symval-col">{_comparison_symval_html(row["symval"])}</td>'
         "</tr>"
         for row in rows
     )
     return (
         '<table class="comparison-table">'
-        "<thead><tr><th>name</th><th>value</th></tr></thead>"
+        "<thead><tr><th>name</th><th>value</th><th>symval</th></tr></thead>"
         f"<tbody>{body_rows_html}</tbody></table>"
     )
 
@@ -113,8 +114,8 @@ def _with_comparison_references(rows: list[dict[str, str]]) -> list[dict[str, st
 
     for row in rows:
         value = row["value"]
-        display_value = value
-        value_is_reference = ""
+        literal_value = value
+        symval = ""
         reference_name = first_name_by_value.get(value)
         if reference_name is None:
             if row["name"] == "UXLC ketiv":
@@ -122,30 +123,35 @@ def _with_comparison_references(rows: list[dict[str, str]]) -> list[dict[str, st
                     prior_rows, value
                 )
                 if stripped_reference_name is not None:
-                    display_value = f"{stripped_reference_name} stripped"
-                    value_is_reference = "1"
+                    literal_value = ""
+                    symval = f"{stripped_reference_name} stripped"
                 else:
                     first_name_by_value[value] = row["name"]
             else:
                 first_name_by_value[value] = row["name"]
         else:
-            display_value = reference_name
-            value_is_reference = "1"
+            literal_value = ""
+            symval = reference_name
         rendered_rows.append(
             {
                 "name": row["name"],
-                "value": display_value,
-                "value_is_reference": value_is_reference,
+                "value": literal_value,
+                "symval": symval,
             }
         )
         prior_rows.append(row)
     return rendered_rows
 
 
-def _comparison_value_html(row: dict[str, str]) -> str:
-    text = row["value"]
-    if row.get("value_is_reference") == "1":
-        return f"<span>{escape(text)}</span>"
+def _comparison_literal_value_html(text: str) -> str:
+    if not text:
+        return ""
     if contains_hebrew_char(text):
         return f'<bdi class="pointed-heb">{escape(text)}</bdi>'
+    return f"<span>{escape(text)}</span>"
+
+
+def _comparison_symval_html(text: str) -> str:
+    if not text:
+        return ""
     return f"<span>{escape(text)}</span>"
