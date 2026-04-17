@@ -190,7 +190,7 @@ data-finding-id="{finding_id}"
 data-filter-ids="{escape(filter_ids_attr)}"
 >
 <div class="record-head">
-<span class="record-ref">#{escape(row_number)}</span>
+<a class="record-ref" href="#{row_fragment_id_value}">#{escape(row_number)}</a>
 <span class="record-verse">
 {verse_ref}
 </span>

@@ -40,7 +40,8 @@ p { margin: .3rem 0; }
 .record-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; padding: .65rem .8rem; }
 .record-card.hidden { display: none; }
 .record-head { display: flex; gap: .4rem; align-items: baseline; flex-wrap: wrap; }
-.record-ref { font-weight: 600; }
+.record-ref { font-weight: 600; color: inherit; text-decoration: none; }
+.record-ref:hover { text-decoration: underline; color: var(--accent); }
 .record-verse { color: var(--muted); }
 .record-verse a { color: inherit; }
 .record-verse a:hover { color: var(--accent); }
