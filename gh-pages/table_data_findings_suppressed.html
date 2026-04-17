@@ -2,6 +2,16 @@
 <html lang="he" dir="ltr">
 <head>
 <meta charset="utf-8">
+<script>
+(function () {
+  var h = window.location.hash;
+  if (!h) return;
+  var id = h.slice(1);
+  if (!/^row\d+$/.test(id)) return;
+  var here = new Set(["row01", "row02", "row03", "row10", "row13", "row14", "row37", "row45", "row48", "row50", "row52", "row53", "row54", "row73", "row74", "row75", "row76", "row77"]);
+  if (!here.has(id)) window.location.replace("table_data_findings.html" + h);
+})();
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Holman k/q - Suppressed</title>
 <link rel="stylesheet" href="table_data_findings.css">

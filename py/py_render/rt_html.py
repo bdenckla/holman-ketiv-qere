@@ -18,6 +18,7 @@ from py_render.rt_matching_tmpl_args import (
 from py_render.rt_record_card import record_card_html
 from py_render.rt_render_utils import (
     as_text,
+    row_fragment_id,
     suppressed_output_path as build_suppressed_output_path,
 )
 from py_render.rt_summary import (
@@ -177,11 +178,35 @@ def _write_report_page(
     page_subtitle_html = (
         "" if not page_subtitle else f'<p class="subtitle">{escape(page_subtitle)}</p>'
     )
+    row_ids_on_page = sorted(
+        row_fragment_id(as_text(row.get("row_number", ""))) for row in rows
+    )
+    other_page_href = (
+        suppressed_output_path.name
+        if output_html_path == main_output_path
+        else main_output_path.name
+    )
+    row_ids_js = ", ".join(f'"{rid}"' for rid in row_ids_on_page)
+    redirect_script_html = "\n".join(
+        [
+            "<script>",
+            "(function () {",
+            "  var h = window.location.hash;",
+            "  if (!h) return;",
+            "  var id = h.slice(1);",
+            r"  if (!/^row\d+$/.test(id)) return;",
+            f"  var here = new Set([{row_ids_js}]);",
+            f'  if (!here.has(id)) window.location.replace("{other_page_href}" + h);',
+            "})();",
+            "</script>",
+        ]
+    )
 
     html = f"""<!DOCTYPE html>
 <html lang=\"he\" dir=\"ltr\">
 <head>
 <meta charset=\"utf-8\">
+{redirect_script_html}
 <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">
 <title>{escape(page_title)}</title>
 <link rel=\"stylesheet\" href=\"{css_href}\">

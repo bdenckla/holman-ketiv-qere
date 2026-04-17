@@ -2,6 +2,16 @@
 <html lang="he" dir="ltr">
 <head>
 <meta charset="utf-8">
+<script>
+(function () {
+  var h = window.location.hash;
+  if (!h) return;
+  var id = h.slice(1);
+  if (!/^row\d+$/.test(id)) return;
+  var here = new Set(["row04", "row05", "row06", "row07", "row08", "row09", "row11", "row12", "row15", "row16", "row17", "row18", "row19", "row20", "row21", "row22", "row23", "row24", "row25", "row26", "row27", "row28", "row29", "row30", "row31", "row32", "row33", "row34", "row35", "row36", "row38", "row39", "row40", "row41", "row42", "row43", "row44", "row46", "row47", "row49", "row51", "row55", "row56", "row57", "row58", "row59", "row60", "row61", "row62", "row63", "row64", "row65", "row66", "row67", "row68", "row69", "row70", "row71", "row72"]);
+  if (!here.has(id)) window.location.replace("table_data_findings_suppressed.html" + h);
+})();
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Holman k/q</title>
 <link rel="stylesheet" href="table_data_findings.css">
