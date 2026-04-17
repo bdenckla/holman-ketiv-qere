@@ -1427,8 +1427,8 @@
     "unique_word_count": 72,
     "missing_any_plus_count": 0,
     "missing_mpp_verse_text_count": 0,
-    "rows_matching_mpp_verse_template_arg_count": 18,
-    "rows_with_supported_qere_wrapper_count": 15,
+    "rows_matching_mpp_verse_template_arg_count": 19,
+    "rows_with_supported_qere_wrapper_count": 16,
     "rows_supported_qere_wrapper_mismatch_count": 0
   },
   "mam_plus_rows_matching_mpp_verse_template_arg": [
@@ -1771,6 +1771,47 @@
       "found_via_known_docx_mpp_word": false,
       "hit_files": [
         "D2-Proverbs.json"
+      ]
+    },
+    {
+      "row_number": 45,
+      "verse": "Jeremiah 51:9.1",
+      "word": "רִפִּ֤אנוּ",
+      "mpp_file_for_verse": "C2-Jeremiah.json",
+      "found_in_any_plus_file": true,
+      "found_in_mpp_verse_text": true,
+      "template_args_in_mpp_verse": [
+        {
+          "template_name": "קו\"כ-אם",
+          "argument_key": "1",
+          "argument_text": "רִפִּ֤אֿנוּ"
+        },
+        {
+          "template_name": "קו\"כ-אם",
+          "argument_key": "2",
+          "argument_text": "ל-קרי=רִפִּ֤ינוּ"
+        }
+      ],
+      "supported_qere_wrapper_in_mpp_verse": {
+        "template_name": "קו\"כ-אם",
+        "ketiv": "רִפִּ֤אֿנוּ",
+        "qere": "רִפִּ֤ינוּ"
+      },
+      "found_in_mpp_verse_template_arg": true,
+      "matching_template_args_in_mpp_verse": [
+        {
+          "template_name": "קו\"כ-אם",
+          "argument_key": "1",
+          "argument_text": "רִפִּ֤אֿנוּ"
+        }
+      ],
+      "matching_mpp_surface_words_in_mpp_verse": [
+        "רִפִּ֤אֿנוּ"
+      ],
+      "supported_qere_wrapper_word_mismatch": false,
+      "found_via_known_docx_mpp_word": false,
+      "hit_files": [
+        "C2-Jeremiah.json"
       ]
     },
     {
@@ -2479,6 +2520,47 @@
       "found_via_known_docx_mpp_word": false,
       "hit_files": [
         "BA-Samuel.json"
+      ]
+    },
+    {
+      "row_number": 45,
+      "verse": "Jeremiah 51:9.1",
+      "word": "רִפִּ֤אנוּ",
+      "mpp_file_for_verse": "C2-Jeremiah.json",
+      "found_in_any_plus_file": true,
+      "found_in_mpp_verse_text": true,
+      "template_args_in_mpp_verse": [
+        {
+          "template_name": "קו\"כ-אם",
+          "argument_key": "1",
+          "argument_text": "רִפִּ֤אֿנוּ"
+        },
+        {
+          "template_name": "קו\"כ-אם",
+          "argument_key": "2",
+          "argument_text": "ל-קרי=רִפִּ֤ינוּ"
+        }
+      ],
+      "supported_qere_wrapper_in_mpp_verse": {
+        "template_name": "קו\"כ-אם",
+        "ketiv": "רִפִּ֤אֿנוּ",
+        "qere": "רִפִּ֤ינוּ"
+      },
+      "found_in_mpp_verse_template_arg": true,
+      "matching_template_args_in_mpp_verse": [
+        {
+          "template_name": "קו\"כ-אם",
+          "argument_key": "1",
+          "argument_text": "רִפִּ֤אֿנוּ"
+        }
+      ],
+      "matching_mpp_surface_words_in_mpp_verse": [
+        "רִפִּ֤אֿנוּ"
+      ],
+      "supported_qere_wrapper_word_mismatch": false,
+      "found_via_known_docx_mpp_word": false,
+      "hit_files": [
+        "C2-Jeremiah.json"
       ]
     },
     {

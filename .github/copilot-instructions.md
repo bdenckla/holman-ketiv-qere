@@ -37,6 +37,7 @@ Never save Hebrew text in NFC or NFD form. This project uses MAM-standard combin
 - **Never** call `unicodedata.normalize("NFC", …)` or `unicodedata.normalize("NFD", …)` on Hebrew strings — not even as a workaround for string comparison. If two Hebrew strings that should be equal aren't matching, the fix is to ensure both use MAM-standard order, not to paper over with normalization.
 - When writing Hebrew string literals in Python source, use MAM-standard order: base letter → shin/sin dot → dagesh (U+05BC) → rafeh → vowels/meteg/accents.
 - If a source file editor saves a literal in NFC order (dagesh after vowel), correct the literal to MAM order rather than normalizing at runtime.
+- To convert a Hebrew string to MAM-standard order at runtime, use `give_std_mark_order` from `pycmn.uni_denorm` (vendored from MAM-basics). Do **not** write a hand-rolled mark-order sort; this function is the canonical implementation.
 
 ## Data Extraction Style
 

@@ -6,6 +6,7 @@ import re
 
 from pycmn import bib_locales
 from pycmn.hebrew_points import RAFE
+from pycmn.uni_denorm import give_std_mark_order as to_mam_mark_order
 from python_modules.extract_docx_notes import standard_book_name
 from python_modules.hebrew_text_tokens import HEBREW_TOKEN_CHAR_CLASS
 from python_modules.json_io import load_json
@@ -20,8 +21,8 @@ from python_modules.supported_qere_wrapper import (
 
 EXPECTED_ROW_COUNT = 77
 KNOWN_DOCX_MPP_WORD_BY_VERSE = {
-    "Joshua 10:24.19": ("הֶהָלְכ֣וּא", "הֶהָלְכ֣וּ"),
-    "Tsefaniah 2:9.27": ("גּוֹיִ֖", "גּוֹיִ֖י"),
+    "Joshua 10:24.19": (to_mam_mark_order("הֶהָלְכ֣וּא"), "הֶהָלְכ֣וּ"),
+    "Tsefaniah 2:9.27": (to_mam_mark_order("גּוֹיִ֖"), "גּוֹיִ֖י"),
 }
 # Rows where the verse contains a supported qere wrapper for a DIFFERENT word than
 # the docx word. Confirmed by UXLC k/q elements and neighbour-context matching.
@@ -29,13 +30,16 @@ KNOWN_DOCX_WORD_NOT_WRAPPED_IN_MPP_VERSE: frozenset[tuple[str, str]] = frozenset
     {
         (
             "2Samuel 5:2.12",
-            "וְהַמֵּבִ֖י",
+            to_mam_mark_order("וְהַמֵּבִ֖י"),
         ),  # 3 k/q in verse; MPP templates only first two
-        ("Job 26:14.4", "דְּרָכָ֗ו"),  # 2 k/q in verse; MPP templates גבורתו
-        ("Ezekiel 40:21.1", "וְתָאָ֗ו"),  # verse k/q is וְאֵֽלַמָּו֙
-        ("Ezekiel 40:31.7", "אֵילָ֑ו"),  # verse k/q is מַעֲלָֽו
-        ("Ezekiel 40:37.1", "וְאֵילָ֗ו"),  # verse k/q is מַעֲלָֽו
-        ("Ezekiel 40:37.6", "אֵילָ֖ו"),  # verse k/q is מַעֲלָֽו
+        (
+            "Job 26:14.4",
+            to_mam_mark_order("דְּרָכָ֗ו"),
+        ),  # 2 k/q in verse; MPP templates גבורתו
+        ("Ezekiel 40:21.1", to_mam_mark_order("וְתָאָ֗ו")),  # verse k/q is וְאֵֽלַמָּו֙
+        ("Ezekiel 40:31.7", to_mam_mark_order("אֵילָ֑ו")),  # verse k/q is מַעֲלָֽו
+        ("Ezekiel 40:37.1", to_mam_mark_order("וְאֵילָ֗ו")),  # verse k/q is מַעֲלָֽו
+        ("Ezekiel 40:37.6", to_mam_mark_order("אֵילָ֖ו")),  # verse k/q is מַעֲלָֽו
     }
 )
 

@@ -7,6 +7,7 @@ from typing import cast
 import zipfile
 from xml.etree import ElementTree as ET
 
+from pycmn.uni_denorm import give_std_mark_order
 from pycmn.hebrew_punctuation import SOPA
 from python_modules.extract_docx_notes import (
     apply_notes_fixes,
@@ -252,6 +253,7 @@ def _ordered_row_data(
         row_data["image_files"] = image_refs
 
     _strip_trailing_sof_pasuq_from_word(row_data)
+    _normalize_word_to_mam_mark_order(row_data)
     quote_count_increment = assert_text_columns_before_drop(row_data)
     apply_notes_fixes(row_data)
 
@@ -313,6 +315,13 @@ def _strip_trailing_sof_pasuq_from_word(row_data: dict[str, object]) -> None:
 
     row_data["word_orig"] = word
     row_data["word"] = word.removesuffix(SOPA)
+
+
+def _normalize_word_to_mam_mark_order(row_data: dict[str, object]) -> None:
+    word = row_data.get("word")
+    if not isinstance(word, str):
+        return
+    row_data["word"] = give_std_mark_order(word)
 
 
 def _validate_leningrad_quote_count(leningrad_quote_count: int) -> None:
