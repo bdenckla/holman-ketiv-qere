@@ -329,7 +329,7 @@ def _uxlc_verse_element(
 def _uxlc_book_root(xml_path: Path) -> ET.Element:
     if not xml_path.exists():
         raise ValueError(f"expected UXLC XML file missing: {xml_path}")
-    return ET.parse(xml_path).getroot()
+    return ET.parse(xml_path, parser=ET.XMLParser(encoding="utf-8")).getroot()
 
 
 def _uxlc_xml_path(uxlc_utils_path: Path, std_book_name: str) -> Path:
