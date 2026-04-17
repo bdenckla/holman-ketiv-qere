@@ -12,7 +12,7 @@ from python_modules.hebrew_text_tokens import (
 from python_modules.mam_plus_verse_data import verse_texts_by_location
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
-PLUS_DIR = (REPO_ROOT.parent / "mam-parsed" / "plus").resolve()
+PLUS_DIR = (REPO_ROOT.parent / "MAM-parsed" / "plus").resolve()
 TARGET_VERSE = ("Tsefaniah", 2, 9)
 OUTPUT_DIR = REPO_ROOT / "out"
 OUTPUT_PATH = OUTPUT_DIR / "final_hiriq_verse_text_report.json"

@@ -362,12 +362,20 @@ def _record_card_html(
             strip_prefix="yatir ",
         )
     )
+    supported_qere_wrapper = supported_qere_wrappers.get(row_number)
     differing_latest_mpp_words: list[str] = []
     for match in matching_template_args_in_mpp_verse:
         argument_text = as_text(match.get("argument_text"))
         if argument_text == word or argument_text in differing_latest_mpp_words:
             continue
         differing_latest_mpp_words.append(argument_text)
+    if (
+        supported_qere_wrapper is not None
+        and not matching_template_args_in_mpp_verse
+        and supported_qere_wrapper["qere"] != word
+        and supported_qere_wrapper["qere"] not in differing_latest_mpp_words
+    ):
+        differing_latest_mpp_words.append(supported_qere_wrapper["qere"])
     rendered_mam_words = {word, *differing_latest_mpp_words}
     displayed_matching_template_args_in_mpp_verse = [
         match
@@ -384,9 +392,7 @@ def _record_card_html(
         )
         for match in displayed_matching_template_args_in_mpp_verse
     )
-    template_rows = template_rows_from_supported_qere_wrapper(
-        supported_qere_wrappers.get(row_number)
-    )
+    template_rows = template_rows_from_supported_qere_wrapper(supported_qere_wrapper)
     comparison_rows = build_comparison_rows(
         word=word,
         notes_uxlc=notes_uxlc,

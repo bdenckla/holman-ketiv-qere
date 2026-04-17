@@ -1,5 +1,5 @@
 {
-  "total_hits": 1,
+  "total_hits": 0,
   "notes": [
     "VARIANT-SELECTION (POSSIBLE MISSED HITS): verse text is rendered by",
     "_collect_text_fragments, which picks ONE canonical param from each",
@@ -15,16 +15,7 @@
     "                    Decalogue, Saga of Reuben). A token differing between",
     "                    the two readings might not appear in the combined form."
   ],
-  "hits": [
-    {
-      "book": "Tsefaniah",
-      "chapter": 2,
-      "verse": 9,
-      "token": "גּוֹיִ֖",
-      "deaccented": "גּוֹיִ",
-      "file": "CA-The-12-Minor-Prophets.json"
-    }
-  ],
+  "hits": [],
   "target_verse": "Tsefaniah 2:9",
   "target_verse_tokens": [
     "לָכֵ֣ן",
@@ -53,10 +44,8 @@
     "עַמִּי֙",
     "יְבׇזּ֔וּם",
     "וְיֶ֥תֶר",
-    "גּוֹיִ֖",
+    "גּוֹיִ֖י",
     "יִנְחָלֽוּם"
   ],
-  "target_verse_final_hiriq_tokens": [
-    "גּוֹיִ֖"
-  ]
+  "target_verse_final_hiriq_tokens": []
 }

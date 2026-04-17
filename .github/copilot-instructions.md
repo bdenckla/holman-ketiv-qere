@@ -30,6 +30,14 @@ def main() -> None:
 
 - Use `$env:PYTHONUTF8="1"` only for `.novc/` throwaway scripts where changing the code is not an option. (`PYTHONIOENCODING` is deprecated in favor of `PYTHONUTF8`.)
 
+## Hebrew Unicode Mark Order — No NFC/NFD
+
+Never save Hebrew text in NFC or NFD form. This project uses MAM-standard combining-mark order (dagesh tight to letter, before any vowel), which differs from Unicode canonical order. Preserving this order lets literal text searches "just work" without normalization; NFC/NFD would silently reorder marks and break literal lookups.
+
+- **Never** call `unicodedata.normalize("NFC", …)` or `unicodedata.normalize("NFD", …)` on Hebrew strings — not even as a workaround for string comparison. If two Hebrew strings that should be equal aren't matching, the fix is to ensure both use MAM-standard order, not to paper over with normalization.
+- When writing Hebrew string literals in Python source, use MAM-standard order: base letter → shin/sin dot → dagesh (U+05BC) → rafeh → vowels/meteg/accents.
+- If a source file editor saves a literal in NFC order (dagesh after vowel), correct the literal to MAM order rather than normalizing at runtime.
+
 ## Data Extraction Style
 
 - Prefer straightforward, fail-fast extraction scripts over defensive wrappers.

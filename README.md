@@ -41,7 +41,7 @@ There is no separate standalone verifier command.
 
 Default extraction behavior includes:
 
-- Post-extraction verification against `../MAM-parsed/plus/*.json`
+- Post-extraction verification against the live sibling `../MAM-parsed/plus/*.json`
 - Verification summary embedded in `docs-not-served/table_data.json` under `mam_plus_verify`
 - Finding-filterable report generated at `gh-pages/table_data_findings.html` with external `gh-pages/table_data_findings.css` and `gh-pages/table_data_findings.js`
 - Fail-fast error if verification finds missing matches

@@ -83,6 +83,10 @@ def persist_verify_summary(
     if not isinstance(doc_note_rows, list):
         raise ValueError("verification rows_matching_mpp_verse_template_arg is invalid")
 
+    wrapper_rows = verify_report.get("rows_with_supported_qere_wrapper")
+    if not isinstance(wrapper_rows, list):
+        raise ValueError("verification rows_with_supported_qere_wrapper is invalid")
+
     uxlc_verify_summary = uxlc_verify_report.get("summary")
     if not isinstance(uxlc_verify_summary, dict):
         raise ValueError("UXLC verification summary is invalid")
@@ -93,6 +97,7 @@ def persist_verify_summary(
 
     table_data["mam_plus_verify"] = verify_summary
     table_data["mam_plus_rows_matching_mpp_verse_template_arg"] = doc_note_rows
+    table_data["mam_plus_rows_with_supported_qere_wrapper"] = wrapper_rows
     table_data["uxlc_verify"] = uxlc_verify_summary
     table_data["uxlc_rows_missing_note_claims"] = uxlc_missing_rows
     write_json(table_json_path, table_data)
@@ -161,6 +166,9 @@ def main() -> None:
 
     missing_any = verify_summary["missing_any_plus_count"]
     missing_mpp_verse_text = verify_summary["missing_mpp_verse_text_count"]
+    supported_qere_wrapper_mismatches = verify_summary[
+        "rows_supported_qere_wrapper_mismatch_count"
+    ]
     missing_uxlc_claims = uxlc_verify_summary["rows_missing_claim_count"]
     summary["mam_plus_verify"] = verify_summary
     summary["uxlc_verify"] = uxlc_verify_summary
@@ -175,11 +183,17 @@ def main() -> None:
     )
     summary["findings_html_path"] = findings_html_path.as_posix()
 
-    if missing_any or missing_mpp_verse_text or missing_uxlc_claims:
+    if (
+        missing_any
+        or missing_mpp_verse_text
+        or supported_qere_wrapper_mismatches
+        or missing_uxlc_claims
+    ):
         raise ValueError(
             "post-extraction verification failed: "
             f"missing_any_plus_count={missing_any}, "
             f"missing_mpp_verse_text_count={missing_mpp_verse_text}, "
+            f"rows_supported_qere_wrapper_mismatch_count={supported_qere_wrapper_mismatches}, "
             f"rows_missing_uxlc_claim_count={missing_uxlc_claims}"
         )
 

@@ -12,12 +12,32 @@ from python_modules.mam_plus_verse_data import (
     verse_template_argument_records_by_location,
     verse_texts_by_location,
 )
+from python_modules.supported_qere_wrapper import (
+    supported_qere_wrapper_for_matching_args,
+    supported_qere_wrapper_from_template_args,
+)
 
 EXPECTED_ROW_COUNT = 77
 RAFE = "\N{HEBREW POINT RAFE}"
 KNOWN_DOCX_MPP_WORD_BY_VERSE = {
     "Joshua 10:24.19": ("הֶהָלְכ֣וּא", "הֶהָלְכ֣וּ"),
+    "Tsefaniah 2:9.27": ("גּוֹיִ֖", "גּוֹיִ֖י"),
 }
+# Rows where the verse contains a supported qere wrapper for a DIFFERENT word than
+# the docx word. Confirmed by UXLC k/q elements and neighbour-context matching.
+KNOWN_DOCX_WORD_NOT_WRAPPED_IN_MPP_VERSE: frozenset[tuple[str, str]] = frozenset(
+    {
+        (
+            "2Samuel 5:2.12",
+            "\u05D5\u05B0\u05D4\u05B7\u05DE\u05BC\u05B5\u05D1\u05B4\u0596\u05D9",
+        ),  # 3 k/q in verse; MPP templates only first two
+        ("Job 26:14.4", "\u05D3\u05BC\u05B0\u05E8\u05B8\u05DB\u05B8\u0597\u05D5"),  # 2 k/q in verse; MPP templates גבורתו
+        ("Ezekiel 40:21.1", "וְתָאָ֗ו"),  # verse k/q is וְאֵֽלַמָּו֙
+        ("Ezekiel 40:31.7", "אֵילָ֑ו"),  # verse k/q is מַעֲלָֽו
+        ("Ezekiel 40:37.1", "וְאֵילָ֗ו"),  # verse k/q is מַעֲלָֽו
+        ("Ezekiel 40:37.6", "אֵילָ֖ו"),  # verse k/q is מַעֲלָֽו
+    }
+)
 
 VERSE_PATTERN = re.compile(
     r"^(?P<book_token>.*) (?P<chapter>\d+):(?P<verse>\d+)\.(?P<segment>\d+)$"
@@ -223,6 +243,8 @@ def verify_table_words_in_mam_plus(
     missing_any: list[dict[str, object]] = []
     missing_mpp_verse_text: list[dict[str, object]] = []
     mpp_verse_template_arg_rows: list[dict[str, object]] = []
+    supported_qere_wrapper_rows: list[dict[str, object]] = []
+    supported_qere_wrapper_mismatch_rows: list[dict[str, object]] = []
 
     for row in rows:
         if not isinstance(row, dict):
@@ -324,10 +346,25 @@ def verify_table_words_in_mam_plus(
                     surface_match_word = latest_mpp_word
                     found_in_mpp_verse_template_arg = True
                     found_via_known_docx_mpp_word = True
-
+        # Compute the wrapper after matching_template_args is finalized.
+        # When the word was found via a template arg, use the matching args to
+        # select the right wrapper even when the verse contains multiple wrappers.
+        if found_in_mpp_verse_template_arg:
+            supported_qere_wrapper = supported_qere_wrapper_for_matching_args(
+                matching_template_args, expected_verse_template_args
+            )
+        else:
+            supported_qere_wrapper = supported_qere_wrapper_from_template_args(
+                expected_verse_template_args
+            )
+        if (verse, word) in KNOWN_DOCX_WORD_NOT_WRAPPED_IN_MPP_VERSE:
+            supported_qere_wrapper = None
         matching_mpp_surface_words = matching_mpp_surface_words_in_verse_text(
             expected_verse_text,
             surface_match_word,
+        )
+        supported_qere_wrapper_word_mismatch = (
+            supported_qere_wrapper is not None and not found_in_mpp_verse_template_arg
         )
 
         report_row = {
@@ -338,9 +375,11 @@ def verify_table_words_in_mam_plus(
             "found_in_any_plus_file": found_in_any,
             "found_in_mpp_verse_text": found_in_expected,
             "template_args_in_mpp_verse": expected_verse_template_args,
+            "supported_qere_wrapper_in_mpp_verse": supported_qere_wrapper,
             "found_in_mpp_verse_template_arg": found_in_mpp_verse_template_arg,
             "matching_template_args_in_mpp_verse": matching_template_args,
             "matching_mpp_surface_words_in_mpp_verse": matching_mpp_surface_words,
+            "supported_qere_wrapper_word_mismatch": supported_qere_wrapper_word_mismatch,
             "found_via_known_docx_mpp_word": found_via_known_docx_mpp_word,
             "hit_files": hit_files,
         }
@@ -350,8 +389,12 @@ def verify_table_words_in_mam_plus(
             missing_any.append(report_row)
         if not found_in_expected:
             missing_mpp_verse_text.append(report_row)
+        if supported_qere_wrapper is not None:
+            supported_qere_wrapper_rows.append(report_row)
         if found_in_mpp_verse_template_arg:
             mpp_verse_template_arg_rows.append(report_row)
+        if supported_qere_wrapper_word_mismatch:
+            supported_qere_wrapper_mismatch_rows.append(report_row)
 
     summary = {
         "row_count": len(rows),
@@ -361,6 +404,10 @@ def verify_table_words_in_mam_plus(
         "missing_any_plus_count": len(missing_any),
         "missing_mpp_verse_text_count": len(missing_mpp_verse_text),
         "rows_matching_mpp_verse_template_arg_count": len(mpp_verse_template_arg_rows),
+        "rows_with_supported_qere_wrapper_count": len(supported_qere_wrapper_rows),
+        "rows_supported_qere_wrapper_mismatch_count": len(
+            supported_qere_wrapper_mismatch_rows
+        ),
     }
 
     return {
@@ -369,4 +416,6 @@ def verify_table_words_in_mam_plus(
         "missing_any_plus": missing_any,
         "missing_mpp_verse_text_rows": missing_mpp_verse_text,
         "rows_matching_mpp_verse_template_arg": mpp_verse_template_arg_rows,
+        "rows_with_supported_qere_wrapper": supported_qere_wrapper_rows,
+        "rows_supported_qere_wrapper_mismatch": supported_qere_wrapper_mismatch_rows,
     }
