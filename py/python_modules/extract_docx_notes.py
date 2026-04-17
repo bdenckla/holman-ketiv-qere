@@ -5,6 +5,7 @@ import re
 import unicodedata
 
 from pycmn import bib_locales
+from pycmn.hebrew_punctuation import MAQ as MAQAF, SOPA
 
 VERSE_PATTERN = re.compile(
     r"^(?P<book_token>.*) (?P<chapter>\d+):(?P<verse>\d+)\.(?P<segment>\d+)$"
@@ -29,8 +30,8 @@ STANDARD_BOOK_NAME_BY_ABBREVIATION = {
 }
 
 NOTES_JUNK_REPLACEMENTS = (
-    ("y\u202c\u200f", ""),
-    ("\u202c\u202c", ""),
+    ("y\N{POP DIRECTIONAL FORMATTING}\N{RIGHT-TO-LEFT MARK}", ""),
+    ("\N{POP DIRECTIONAL FORMATTING}\N{POP DIRECTIONAL FORMATTING}", ""),
 )
 
 # Strip known invisible format marks before pattern counting.
@@ -40,8 +41,6 @@ HEBREW_LETTER_PATTERN = re.compile(r"[\u05D0-\u05EA]+")
 NOTES_PREFIX = "MAM - No Comments | UXLC - "
 HAKETER_SEPARATOR = " | HaKeter - "
 UXLC_YATIR_PATTERN = re.compile(r"^(?P<uxlc>.*)\n\((?P<yatir>[^)]+)\)$", re.DOTALL)
-MAQAF = "\u05be"
-SOPA = "\u05c3"
 
 ALLOWED_LENINGRAD_TEXT_VALUES = {"", "’"}
 

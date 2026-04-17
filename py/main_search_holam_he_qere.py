@@ -8,6 +8,7 @@ To create another ending-pattern search, copy this file and adjust SEARCH_SPEC.
 
 import json
 
+from pycmn.hebrew_points import XOLAM
 from python_modules.qere_ending_search import (
     DEFAULT_MAM_BASICS_QERE_WORDS_PATH,
     DEFAULT_MAM_PARSED_PLUS_DIR,
@@ -30,7 +31,7 @@ SEARCH_SPEC = QereEndingSearchSpec(
     slug="holam_he",
     label="Holam-he qere endings",
     output_file_name="holam_he_qere_report.json",
-    vowel_only_suffixes=("\u05b9\u05d4",),
+    vowel_only_suffixes=(XOLAM + "ה",),
 )
 MAM_PARSED_PLUS_DIR = DEFAULT_MAM_PARSED_PLUS_DIR
 MAM_BASICS_QERE_WORDS_PATH = DEFAULT_MAM_BASICS_QERE_WORDS_PATH

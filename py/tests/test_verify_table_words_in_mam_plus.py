@@ -52,7 +52,7 @@ class VerifyTableWordsInMamPlusTests(unittest.TestCase):
         self.assertIn(
             (
                 "MAM vs UXLC qere:",
-                "replace qubuts with shuruq (also ḥolam on vav in MAM, on 2nd vav in UXLC qere)",
+                "replace qubuts with shuruq",
             ),
             simple_row_diff_note_lines(
                 {

@@ -12,6 +12,15 @@ from collections import Counter
 from difflib import SequenceMatcher
 
 from pycmn import hebrew_punctuation as hpu
+from pycmn.str_defs import DOUB_VERT_LINE
+from pydiff_mpp.mpp_flatten import (
+    _is_ketiv_velo_qere_template,
+    _is_parashah_template,
+    _is_qere_velo_ketiv_template,
+    _is_std_kq_template,
+    _is_trivial_kq_template,
+)
+from pydiff_mpp.mpp_param_access import _MISSING, _get_param
 
 # ── Hebrew letter names ──────────────────────────────────────────────
 
@@ -303,18 +312,10 @@ def _describe_diff(old_text, new_text, pred, name_fn, poetic=False):
                 paired = True
                 break
         if not paired:
-            force_ordinal = old_letter_counts.get(d_let, 0) > 1
-            descriptions.append(
-                f"{_name(d_mark)} on "
-                f"{_letter_ref(d_let, d_occ, old_letter_counts, force_ordinal=force_ordinal)} removed"
-            )
+            descriptions.append(f"{_name(d_mark)} on {_letter_name(d_let)} removed")
     for idx, (i_mark, i_let, i_occ) in enumerate(inserts):
         if idx not in used_inserts:
-            force_ordinal = new_letter_counts.get(i_let, 0) > 1
-            descriptions.append(
-                f"{_name(i_mark)} on "
-                f"{_letter_ref(i_let, i_occ, new_letter_counts, force_ordinal=force_ordinal)} added"
-            )
+            descriptions.append(f"{_name(i_mark)} on {_letter_name(i_let)} added")
 
     return "; ".join(descriptions) if descriptions else None
 
@@ -359,14 +360,85 @@ _NAR_SENTINEL = "\ufdd1"
 
 
 def _has_paseq(text):
-    return hpu.PASOLEG in text or _LEG_SENTINEL in text or _NAR_SENTINEL in text
+    return (
+        hpu.PASOLEG in text
+        or DOUB_VERT_LINE in text
+        or _LEG_SENTINEL in text
+        or _NAR_SENTINEL in text
+    )
 
 
-def _describe_paseq_change(old_text, new_text):
+def _collect_paseq_types(obj, types):
+    if isinstance(obj, str):
+        return
+    if isinstance(obj, dict):
+        name = obj["tmpl_name"]
+        if _is_parashah_template(name):
+            return
+        if name in ("מ:לגרמיה-2", "מ:לגרמיה"):
+            types.append("legarmeh")
+            return
+        if name == "מ:פסק":
+            types.append("paseq")
+            return
+        if name == "נוסח":
+            p1 = _get_param(obj, "1")
+            if p1 is not _MISSING:
+                _collect_paseq_types(p1, types)
+            return
+        if _is_std_kq_template(name) or _is_qere_velo_ketiv_template(name):
+            p2 = _get_param(obj, "2")
+            if p2 is not _MISSING:
+                _collect_paseq_types(p2, types)
+            return
+        if _is_trivial_kq_template(name):
+            p1 = _get_param(obj, "1")
+            if p1 is not _MISSING:
+                _collect_paseq_types(p1, types)
+            return
+        if _is_ketiv_velo_qere_template(name):
+            return
+        if name == "מ:קמץ":
+            pd = _get_param(obj, "ד")
+            if pd is not _MISSING:
+                _collect_paseq_types(pd, types)
+            return
+        if name == "מ:כפול":
+            pk = _get_param(obj, "כפול")
+            if pk is not _MISSING:
+                _collect_paseq_types(pk, types)
+            return
+        p1 = _get_param(obj, "1")
+        if p1 is not _MISSING:
+            _collect_paseq_types(p1, types)
+        return
+    if isinstance(obj, list):
+        for item in obj:
+            _collect_paseq_types(item, types)
+
+
+def _describe_paseq_change(old_text, new_text, old_ep=None, new_ep=None):
+    if old_ep is not None and new_ep is not None:
+        old_types = []
+        new_types = []
+        _collect_paseq_types(old_ep, old_types)
+        _collect_paseq_types(new_ep, new_types)
+        old_counts = Counter(old_types)
+        new_counts = Counter(new_types)
+        deltas = {
+            paseq_type: new_counts[paseq_type] - old_counts[paseq_type]
+            for paseq_type in set(old_counts) | set(new_counts)
+        }
+        added = [paseq_type for paseq_type, delta in deltas.items() if delta > 0]
+        removed = [paseq_type for paseq_type, delta in deltas.items() if delta < 0]
+        if len(added) == 1 and not removed:
+            return f"add {added[0]}"
+        if len(removed) == 1 and not added:
+            return f"remove {removed[0]}"
     if not _has_paseq(old_text) and _has_paseq(new_text):
-        return "add legarmeh"
+        return "add paseq / legarmeh"
     if _has_paseq(old_text) and not _has_paseq(new_text):
-        return "remove legarmeh"
+        return "remove paseq / legarmeh"
     return None
 
 
@@ -380,24 +452,17 @@ def _describe_maqaf_afor(old_text, new_text):
     return None
 
 
-def describe_change(old_text, new_text, category, book, chapter, verse):
+def describe_change(
+    old_text, new_text, category, book, chapter, verse, old_ep=None, new_ep=None
+):
     """Return an English description of the change, or None."""
-    poetic = _is_poetic(book, chapter, verse)
-    if category == "maqaf-afor":
-        return _describe_maqaf_afor(old_text, new_text)
-    if category == "legarmeih-paseq":
-        return _describe_paseq_change(old_text, new_text)
-    if category in _ACCENT_CATS:
-        return _describe_diff(old_text, new_text, _is_accent, _accent_name, poetic)
-    if category in _MARK_CATS:
-        return _describe_diff(old_text, new_text, _is_mark, _mark_name, poetic)
-    # For misc, try accents first, then marks
-    if category == "misc":
-        desc = _describe_diff(old_text, new_text, _is_accent, _accent_name, poetic)
-        if desc:
-            return desc
-        return _describe_diff(old_text, new_text, _is_mark, _mark_name, poetic)
-    return None
+    from pydiff_mpp.change_ops_extract import extract_change_ops
+    from pydiff_mpp.change_ops_render import render_english
+
+    ops = extract_change_ops(
+        old_text, new_text, category, book, chapter, verse, old_ep, new_ep
+    )
+    return render_english(ops, book, chapter, verse, old_text, new_text)
 
 
 def add_name_tooltips(html_escaped_desc):

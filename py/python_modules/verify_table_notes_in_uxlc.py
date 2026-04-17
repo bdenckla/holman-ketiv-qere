@@ -6,7 +6,7 @@ from functools import lru_cache
 from pathlib import Path
 from xml.etree import ElementTree as ET
 
-from pycmn.hebrew_punctuation import SOPA
+from pycmn.hebrew_punctuation import MAQ, SOPA
 from python_modules.extract_docx_notes import INVISIBLE_MARK_PATTERN
 from python_modules.json_io import load_json
 from python_modules.verify_table_words_in_mam_plus import (
@@ -15,7 +15,6 @@ from python_modules.verify_table_words_in_mam_plus import (
     standard_book_name_for_table_verse,
 )
 
-MAQAF = "\u05be"
 WORD_LIKE_TAGS = frozenset({"w", "k", "q"})
 KNOWN_UXLC_BUGGY_QERE_BY_VERSE = {
     "Joshua 10:24.19": ("הֶהָלְכ֣וּ", "הֶהָלְכ֣וְּּ"),
@@ -295,7 +294,7 @@ def _normalized_uxlc_text(text: str) -> str:
 
 
 def _should_merge_with_previous(previous: VerseToken, current_tag: str) -> bool:
-    if not previous.text.endswith(MAQAF):
+    if not previous.text.endswith(MAQ):
         return False
 
     previous_last_tag = previous.source_tags[-1]

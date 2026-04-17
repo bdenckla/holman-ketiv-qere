@@ -15,7 +15,7 @@ from py_render.rt_xaser_malei_diff_descriptions import (
     reduce_xaser_malei_mark_differences,
 )
 
-HEBREW_LETTER_OR_MAQAF_PATTERN = re.compile(r"[א-ת\u05be]")
+HEBREW_LETTER_OR_MAQAF_PATTERN = re.compile(r"[א-ת־]")
 QYV_TAG = "qyv"
 HOLAM_HE_TAG = "holam-he"
 MAX_SIMPLE_CHUNK_LENGTH = 2
@@ -48,7 +48,7 @@ SYMBOL_NAMES = {
     "ר": "resh",
     "ש": "shin",
     "ת": "tav",
-    "\u05be": "maqaf",
+    "־": "maqaf",
 }
 
 

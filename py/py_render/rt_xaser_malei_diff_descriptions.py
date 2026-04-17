@@ -5,16 +5,18 @@ from collections import Counter
 import unicodedata
 from difflib import SequenceMatcher
 
+from pycmn.hebrew_points import (
+    DAGOMOSD as DAGESH,
+    XIRIQ as HIRIQ,
+    TSERE,
+    QAMATS,
+    QAMATS_Q as QAMATS_QATAN,
+    XOLAM as HOLAM,
+    QUBUTS,
+)
+
 HEBREW_LETTERS = frozenset("אבגדהוזחטיכלמנסעפצקרשתךםןףץ")
 MATRES = frozenset("וי")
-
-DAGESH = "\N{HEBREW POINT DAGESH OR MAPIQ}"
-HIRIQ = "\N{HEBREW POINT HIRIQ}"
-TSERE = "\N{HEBREW POINT TSERE}"
-QAMATS = "\N{HEBREW POINT QAMATS}"
-QAMATS_QATAN = "\N{HEBREW POINT QAMATS QATAN}"
-HOLAM = "\N{HEBREW POINT HOLAM}"
-QUBUTS = "\N{HEBREW POINT QUBUTS}"
 
 LETTER_NAMES = {
     "א": "alef",

@@ -5,6 +5,7 @@ from pathlib import Path
 import sys
 
 from pycmn import bib_locales
+from pycmn.hebrew_points import XIRIQ
 from python_modules.hebrew_text_tokens import (
     find_hebrew_tokens,
     strip_ignorable_token_marks,
@@ -37,7 +38,7 @@ def strip_ignorable_marks(token: str) -> str:
 
 
 def is_final_hiriq_token(token: str) -> bool:
-    return strip_ignorable_marks(token).endswith("\u05b4")
+    return strip_ignorable_marks(token).endswith(XIRIQ)
 
 
 def find_final_hiriq_hits() -> tuple[list[dict[str, object]], list[str]]:

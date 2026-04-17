@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import unittest
 
+from pycmn.hebrew_points import XOLAM
 from python_modules.qere_ending_search import QereEndingSearchSpec
 from python_modules.qere_projection import to_vowel_only_form
 
@@ -19,7 +20,7 @@ class QereEndingSearchHelpersTests(unittest.TestCase):
             slug="holam_he",
             label="Holam-he qere endings",
             output_file_name="unused.json",
-            vowel_only_suffixes=("\u05b9\u05d4",),
+            vowel_only_suffixes=(XOLAM + "ה",),
         )
 
         self.assertTrue(spec.matches_word("כֹּ֣ה"))

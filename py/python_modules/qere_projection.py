@@ -3,6 +3,8 @@ from __future__ import annotations
 from collections.abc import Iterator
 import re
 
+from pycmn.hebrew_punctuation import MAQ, PASOLEG
+
 ACCENTS_AND_METEG_RE = re.compile(r"[\u0591-\u05AF\u05BD\u05BF\u05C0\u05C4\u05C5]")
 CGJ_AND_JOINERS_RE = re.compile(r"[\u034F\u200C\u200D]")
 TOKEN_SPLIT_RE = re.compile(r"[\s\u05BE\u05C0\u05C3]+")
@@ -152,10 +154,10 @@ def project_qere_atoms(
         return [_text_atom(" ", source)]
 
     if tmpl_name in {"מ:פסק", "מ:לגרמיה-2"}:
-        return [_text_atom("\u05c0", source)]
+        return [_text_atom(PASOLEG, source)]
 
     if tmpl_name == "מ:מקף אפור":
-        return [_text_atom("\u05be", source)]
+        return [_text_atom(MAQ, source)]
 
     if tmpl_name in IN_WORD_RECURSE_TEMPLATE_NAMES:
         return project_qere_atoms(tmpl_params.get("1"), source=source)
