@@ -269,7 +269,9 @@
   "42": {
     "issue_number": 61,
     "is_closed": false,
-    "tags": []
+    "tags": [
+      "boa-sans-aleph"
+    ]
   },
   "43": {
     "issue_number": 46,
