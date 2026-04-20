@@ -21,6 +21,7 @@ PRESERVED_EXTRACTED_IMAGE_PATHS = frozenset(
     {
         "gh-pages/img/row013_aleppo_01.png",
         "gh-pages/img/row014_aleppo_01.png",
+        "gh-pages/img/row023_aleppo_01.png",
     }
 )
 
