@@ -15,8 +15,9 @@ Files copied:
   mam_bknas.py
   mam_bknas_and_std_bknas.py
   str_defs.py
+  template_names.py
   uni_denorm.py
 
-Git commit: cffded12e0886af0e395c82192f1f7d7d01d9111
+Git commit: 7110d747f7c1dad5b740e220d5928ee200a8d62c
 
-Date copied: 2026-04-17
+Date copied: 2026-04-21
