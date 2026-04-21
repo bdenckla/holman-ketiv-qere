@@ -75,6 +75,12 @@ def _supported_qere_wrapper_candidate_from_index(
     if qere_key is None:
         return None
 
+    if template_name == 'מ:קו"כ-אם-2':
+        args_by_key = _m_kuk_im_2_args_by_key(template_args, index)
+        if args_by_key is None:
+            return None
+        return template_name, args_by_key["1"], args_by_key["3"]
+
     partner_index = index + 1 if argument_key == "1" else index - 1
     if partner_index < 0 or partner_index >= len(template_args):
         return None
@@ -99,7 +105,7 @@ def _supported_qere_wrapper_candidate_from_index(
     if set(args_by_key) != {"1", "2"}:
         return None
 
-    if template_name == 'קו"כ-אם':
+    if template_name == 'מ:קו"כ-אם-2':
         qere = _strip_supported_qere_doc(args_by_key["2"])
         if qere is None:
             return None
@@ -115,6 +121,46 @@ def _supported_qere_wrapper_candidate_from_index(
         return template_name, args_by_key["1"], args_by_key["2"]
 
     return None
+
+
+def _m_kuk_im_2_args_by_key(
+    template_args: list[dict[str, str]],
+    index: int,
+) -> dict[str, str] | None:
+    current = template_args[index]
+    template_name = current.get("template_name")
+    argument_key = current.get("argument_key")
+    if template_name != 'מ:קו"כ-אם-2' or argument_key not in {"1", "2", "3", "מקורות"}:
+        return None
+
+    start = index
+    while start > 0:
+        previous = template_args[start - 1]
+        if previous.get("template_name") != template_name:
+            break
+        if template_args[start].get("argument_key") == "1":
+            break
+        start -= 1
+
+    args_by_key: dict[str, str] = {}
+    for position in range(start, len(template_args)):
+        arg = template_args[position]
+        if arg.get("template_name") != template_name:
+            break
+
+        key = arg.get("argument_key")
+        text = arg.get("argument_text")
+        if not isinstance(key, str) or not isinstance(text, str):
+            return None
+        if position > start and key == "1":
+            break
+        if key in args_by_key:
+            return None
+        args_by_key[key] = text
+
+    if set(args_by_key) < {"1", "3"}:
+        return None
+    return args_by_key
 
 
 def _strip_supported_qere_doc(text: str) -> str | None:

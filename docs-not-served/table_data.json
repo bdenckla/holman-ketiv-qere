@@ -1443,28 +1443,38 @@
         {
           "template_name": "נוסח",
           "argument_key": "1",
-          "argument_text": "{{קו\"כ-אם|וּבֵנָ֔יו|ל-קרי=וּבֵינָ֔יו}}"
+          "argument_text": "{{מ:קו\"כ-אם-2|וּבֵנָ֔יו|ובניו|וּבֵינָ֔יו|מקורות=ל-קרי}}"
         },
         {
-          "template_name": "קו\"כ-אם",
+          "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
           "argument_text": "וּבֵנָ֔יו"
         },
         {
-          "template_name": "קו\"כ-אם",
+          "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "2",
-          "argument_text": "ל-קרי=וּבֵינָ֔יו"
+          "argument_text": "ובניו"
+        },
+        {
+          "template_name": "מ:קו\"כ-אם-2",
+          "argument_key": "3",
+          "argument_text": "וּבֵינָ֔יו"
+        },
+        {
+          "template_name": "מ:קו\"כ-אם-2",
+          "argument_key": "מקורות",
+          "argument_text": "ל-קרי"
         }
       ],
       "supported_qere_wrapper_in_mpp_verse": {
-        "template_name": "קו\"כ-אם",
+        "template_name": "מ:קו\"כ-אם-2",
         "ketiv": "וּבֵנָ֔יו",
         "qere": "וּבֵינָ֔יו"
       },
       "found_in_mpp_verse_template_arg": true,
       "matching_template_args_in_mpp_verse": [
         {
-          "template_name": "קו\"כ-אם",
+          "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
           "argument_text": "וּבֵנָ֔יו"
         }
@@ -1565,25 +1575,35 @@
       "found_in_mpp_verse_text": true,
       "template_args_in_mpp_verse": [
         {
-          "template_name": "קו\"כ-אם",
+          "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
           "argument_text": "תַּחְתָּ֑ו"
         },
         {
-          "template_name": "קו\"כ-אם",
+          "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "2",
-          "argument_text": "א-קרי=תַּחְתָּ֑יו"
+          "argument_text": "תחתו"
+        },
+        {
+          "template_name": "מ:קו\"כ-אם-2",
+          "argument_key": "3",
+          "argument_text": "תַּחְתָּ֑יו"
+        },
+        {
+          "template_name": "מ:קו\"כ-אם-2",
+          "argument_key": "מקורות",
+          "argument_text": "א-קרי"
         }
       ],
       "supported_qere_wrapper_in_mpp_verse": {
-        "template_name": "קו\"כ-אם",
+        "template_name": "מ:קו\"כ-אם-2",
         "ketiv": "תַּחְתָּ֑ו",
         "qere": "תַּחְתָּ֑יו"
       },
       "found_in_mpp_verse_template_arg": true,
       "matching_template_args_in_mpp_verse": [
         {
-          "template_name": "קו\"כ-אם",
+          "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
           "argument_text": "תַּחְתָּ֑ו"
         }
@@ -1606,35 +1626,55 @@
       "found_in_mpp_verse_text": true,
       "template_args_in_mpp_verse": [
         {
-          "template_name": "קו\"כ-אם",
+          "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
           "argument_text": "וַיֹּר֨אֿוּ"
         },
         {
-          "template_name": "קו\"כ-אם",
+          "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "2",
-          "argument_text": "ל-קרי=וַיֹּר֨וּ"
+          "argument_text": "ויראו"
         },
         {
-          "template_name": "קו\"כ-אם",
+          "template_name": "מ:קו\"כ-אם-2",
+          "argument_key": "3",
+          "argument_text": "וַיֹּר֨וּ"
+        },
+        {
+          "template_name": "מ:קו\"כ-אם-2",
+          "argument_key": "מקורות",
+          "argument_text": "ל-קרי"
+        },
+        {
+          "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
           "argument_text": "הַמּוֹרִ֤אֿים"
         },
         {
-          "template_name": "קו\"כ-אם",
+          "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "2",
-          "argument_text": "ל-קרי=הַמּוֹרִ֤ים"
+          "argument_text": "המוראים"
+        },
+        {
+          "template_name": "מ:קו\"כ-אם-2",
+          "argument_key": "3",
+          "argument_text": "הַמּוֹרִ֤ים"
+        },
+        {
+          "template_name": "מ:קו\"כ-אם-2",
+          "argument_key": "מקורות",
+          "argument_text": "ל-קרי"
         }
       ],
       "supported_qere_wrapper_in_mpp_verse": {
-        "template_name": "קו\"כ-אם",
+        "template_name": "מ:קו\"כ-אם-2",
         "ketiv": "וַיֹּר֨אֿוּ",
         "qere": "וַיֹּר֨וּ"
       },
       "found_in_mpp_verse_template_arg": true,
       "matching_template_args_in_mpp_verse": [
         {
-          "template_name": "קו\"כ-אם",
+          "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
           "argument_text": "וַיֹּר֨אֿוּ"
         }
@@ -1657,35 +1697,55 @@
       "found_in_mpp_verse_text": true,
       "template_args_in_mpp_verse": [
         {
-          "template_name": "קו\"כ-אם",
+          "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
           "argument_text": "וַיֹּר֨אֿוּ"
         },
         {
-          "template_name": "קו\"כ-אם",
+          "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "2",
-          "argument_text": "ל-קרי=וַיֹּר֨וּ"
+          "argument_text": "ויראו"
         },
         {
-          "template_name": "קו\"כ-אם",
+          "template_name": "מ:קו\"כ-אם-2",
+          "argument_key": "3",
+          "argument_text": "וַיֹּר֨וּ"
+        },
+        {
+          "template_name": "מ:קו\"כ-אם-2",
+          "argument_key": "מקורות",
+          "argument_text": "ל-קרי"
+        },
+        {
+          "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
           "argument_text": "הַמּוֹרִ֤אֿים"
         },
         {
-          "template_name": "קו\"כ-אם",
+          "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "2",
-          "argument_text": "ל-קרי=הַמּוֹרִ֤ים"
+          "argument_text": "המוראים"
+        },
+        {
+          "template_name": "מ:קו\"כ-אם-2",
+          "argument_key": "3",
+          "argument_text": "הַמּוֹרִ֤ים"
+        },
+        {
+          "template_name": "מ:קו\"כ-אם-2",
+          "argument_key": "מקורות",
+          "argument_text": "ל-קרי"
         }
       ],
       "supported_qere_wrapper_in_mpp_verse": {
-        "template_name": "קו\"כ-אם",
+        "template_name": "מ:קו\"כ-אם-2",
         "ketiv": "הַמּוֹרִ֤אֿים",
         "qere": "הַמּוֹרִ֤ים"
       },
       "found_in_mpp_verse_template_arg": true,
       "matching_template_args_in_mpp_verse": [
         {
-          "template_name": "קו\"כ-אם",
+          "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
           "argument_text": "הַמּוֹרִ֤אֿים"
         }
@@ -1782,25 +1842,35 @@
       "found_in_mpp_verse_text": true,
       "template_args_in_mpp_verse": [
         {
-          "template_name": "קו\"כ-אם",
+          "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
           "argument_text": "רִפִּ֤אֿנוּ"
         },
         {
-          "template_name": "קו\"כ-אם",
+          "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "2",
-          "argument_text": "ל-קרי=רִפִּ֤ינוּ"
+          "argument_text": "רפאנו"
+        },
+        {
+          "template_name": "מ:קו\"כ-אם-2",
+          "argument_key": "3",
+          "argument_text": "רִפִּ֤ינוּ"
+        },
+        {
+          "template_name": "מ:קו\"כ-אם-2",
+          "argument_key": "מקורות",
+          "argument_text": "ל-קרי"
         }
       ],
       "supported_qere_wrapper_in_mpp_verse": {
-        "template_name": "קו\"כ-אם",
+        "template_name": "מ:קו\"כ-אם-2",
         "ketiv": "רִפִּ֤אֿנוּ",
         "qere": "רִפִּ֤ינוּ"
       },
       "found_in_mpp_verse_template_arg": true,
       "matching_template_args_in_mpp_verse": [
         {
-          "template_name": "קו\"כ-אם",
+          "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
           "argument_text": "רִפִּ֤אֿנוּ"
         }
@@ -1823,25 +1893,35 @@
       "found_in_mpp_verse_text": true,
       "template_args_in_mpp_verse": [
         {
-          "template_name": "קו\"כ-אם",
+          "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
           "argument_text": "פֹארֹתָ֛ו"
         },
         {
-          "template_name": "קו\"כ-אם",
+          "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "2",
-          "argument_text": "א-קרי=פֹארֹתָ֛יו"
+          "argument_text": "פארתו"
+        },
+        {
+          "template_name": "מ:קו\"כ-אם-2",
+          "argument_key": "3",
+          "argument_text": "פֹארֹתָ֛יו"
+        },
+        {
+          "template_name": "מ:קו\"כ-אם-2",
+          "argument_key": "מקורות",
+          "argument_text": "א-קרי"
         }
       ],
       "supported_qere_wrapper_in_mpp_verse": {
-        "template_name": "קו\"כ-אם",
+        "template_name": "מ:קו\"כ-אם-2",
         "ketiv": "פֹארֹתָ֛ו",
         "qere": "פֹארֹתָ֛יו"
       },
       "found_in_mpp_verse_template_arg": true,
       "matching_template_args_in_mpp_verse": [
         {
-          "template_name": "קו\"כ-אם",
+          "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
           "argument_text": "פֹארֹתָ֛ו"
         }
@@ -1864,25 +1944,35 @@
       "found_in_mpp_verse_text": true,
       "template_args_in_mpp_verse": [
         {
-          "template_name": "קו\"כ-אם",
+          "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
           "argument_text": "בְּמַעֲלוֹתָ֑ו"
         },
         {
-          "template_name": "קו\"כ-אם",
+          "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "2",
-          "argument_text": "א-קרי=בְּמַעֲלוֹתָ֑יו"
+          "argument_text": "במעלותו"
+        },
+        {
+          "template_name": "מ:קו\"כ-אם-2",
+          "argument_key": "3",
+          "argument_text": "בְּמַעֲלוֹתָ֑יו"
+        },
+        {
+          "template_name": "מ:קו\"כ-אם-2",
+          "argument_key": "מקורות",
+          "argument_text": "א-קרי"
         }
       ],
       "supported_qere_wrapper_in_mpp_verse": {
-        "template_name": "קו\"כ-אם",
+        "template_name": "מ:קו\"כ-אם-2",
         "ketiv": "בְּמַעֲלוֹתָ֑ו",
         "qere": "בְּמַעֲלוֹתָ֑יו"
       },
       "found_in_mpp_verse_template_arg": true,
       "matching_template_args_in_mpp_verse": [
         {
-          "template_name": "קו\"כ-אם",
+          "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
           "argument_text": "בְּמַעֲלוֹתָ֑ו"
         }
@@ -1907,43 +1997,63 @@
         {
           "template_name": "נוסח",
           "argument_key": "1",
-          "argument_text": "{{קו\"כ-אם|אֵילָו֙|ל-קרי=אֵילָיו֙}}"
+          "argument_text": "{{מ:קו\"כ-אם-2|אֵילָו֙|אילו|אֵילָיו֙|מקורות=ל-קרי}}"
         },
         {
-          "template_name": "קו\"כ-אם",
+          "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
           "argument_text": "אֵילָו֙"
         },
         {
-          "template_name": "קו\"כ-אם",
+          "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "2",
-          "argument_text": "ל-קרי=אֵילָיו֙"
+          "argument_text": "אילו"
+        },
+        {
+          "template_name": "מ:קו\"כ-אם-2",
+          "argument_key": "3",
+          "argument_text": "אֵילָיו֙"
+        },
+        {
+          "template_name": "מ:קו\"כ-אם-2",
+          "argument_key": "מקורות",
+          "argument_text": "ל-קרי"
         },
         {
           "template_name": "נוסח",
           "argument_key": "1",
-          "argument_text": "{{קו\"כ-אם|וְאֵ֣ילַמָּ֔ו|ל-קרי=וְאֵ֣ילַמָּ֔יו}}"
+          "argument_text": "{{מ:קו\"כ-אם-2|וְאֵ֣ילַמָּ֔ו|ואילמו|וְאֵ֣ילַמָּ֔יו|מקורות=ל-קרי}}"
         },
         {
-          "template_name": "קו\"כ-אם",
+          "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
           "argument_text": "וְאֵ֣ילַמָּ֔ו"
         },
         {
-          "template_name": "קו\"כ-אם",
+          "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "2",
-          "argument_text": "ל-קרי=וְאֵ֣ילַמָּ֔יו"
+          "argument_text": "ואילמו"
+        },
+        {
+          "template_name": "מ:קו\"כ-אם-2",
+          "argument_key": "3",
+          "argument_text": "וְאֵ֣ילַמָּ֔יו"
+        },
+        {
+          "template_name": "מ:קו\"כ-אם-2",
+          "argument_key": "מקורות",
+          "argument_text": "ל-קרי"
         }
       ],
       "supported_qere_wrapper_in_mpp_verse": {
-        "template_name": "קו\"כ-אם",
+        "template_name": "מ:קו\"כ-אם-2",
         "ketiv": "אֵילָו֙",
         "qere": "אֵילָיו֙"
       },
       "found_in_mpp_verse_template_arg": true,
       "matching_template_args_in_mpp_verse": [
         {
-          "template_name": "קו\"כ-אם",
+          "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
           "argument_text": "אֵילָו֙"
         }
@@ -1968,28 +2078,38 @@
         {
           "template_name": "נוסח",
           "argument_key": "1",
-          "argument_text": "{{קו\"כ-אם|וּלְאֵֽילַמָּו֙|ל-קרי=וּלְאֵֽילַמָּיו֙}}"
+          "argument_text": "{{מ:קו\"כ-אם-2|וּלְאֵֽילַמָּו֙|ולאילמו|וּלְאֵֽילַמָּיו֙|מקורות=ל-קרי}}"
         },
         {
-          "template_name": "קו\"כ-אם",
+          "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
           "argument_text": "וּלְאֵֽילַמָּו֙"
         },
         {
-          "template_name": "קו\"כ-אם",
+          "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "2",
-          "argument_text": "ל-קרי=וּלְאֵֽילַמָּיו֙"
+          "argument_text": "ולאילמו"
+        },
+        {
+          "template_name": "מ:קו\"כ-אם-2",
+          "argument_key": "3",
+          "argument_text": "וּלְאֵֽילַמָּיו֙"
+        },
+        {
+          "template_name": "מ:קו\"כ-אם-2",
+          "argument_key": "מקורות",
+          "argument_text": "ל-קרי"
         }
       ],
       "supported_qere_wrapper_in_mpp_verse": {
-        "template_name": "קו\"כ-אם",
+        "template_name": "מ:קו\"כ-אם-2",
         "ketiv": "וּלְאֵֽילַמָּו֙",
         "qere": "וּלְאֵֽילַמָּיו֙"
       },
       "found_in_mpp_verse_template_arg": true,
       "matching_template_args_in_mpp_verse": [
         {
-          "template_name": "קו\"כ-אם",
+          "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
           "argument_text": "וּלְאֵֽילַמָּו֙"
         }
@@ -2012,40 +2132,60 @@
       "found_in_mpp_verse_text": true,
       "template_args_in_mpp_verse": [
         {
-          "template_name": "קו\"כ-אם",
+          "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
           "argument_text": "עֹֽלוֹתָ֔ו"
         },
         {
-          "template_name": "קו\"כ-אם",
+          "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "2",
-          "argument_text": "א-קרי=עֹֽלוֹתָ֔יו"
+          "argument_text": "עלותו"
+        },
+        {
+          "template_name": "מ:קו\"כ-אם-2",
+          "argument_key": "3",
+          "argument_text": "עֹֽלוֹתָ֔יו"
+        },
+        {
+          "template_name": "מ:קו\"כ-אם-2",
+          "argument_key": "מקורות",
+          "argument_text": "א-קרי"
         },
         {
           "template_name": "נוסח",
           "argument_key": "1",
-          "argument_text": "{{קו\"כ-אם|וְאֵלַמָּ֖ו|ל-קרי=וְאֵלַמָּ֖יו}}"
+          "argument_text": "{{מ:קו\"כ-אם-2|וְאֵלַמָּ֖ו|ואלמו|וְאֵלַמָּ֖יו|מקורות=ל-קרי}}"
         },
         {
-          "template_name": "קו\"כ-אם",
+          "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
           "argument_text": "וְאֵלַמָּ֖ו"
         },
         {
-          "template_name": "קו\"כ-אם",
+          "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "2",
-          "argument_text": "ל-קרי=וְאֵלַמָּ֖יו"
+          "argument_text": "ואלמו"
+        },
+        {
+          "template_name": "מ:קו\"כ-אם-2",
+          "argument_key": "3",
+          "argument_text": "וְאֵלַמָּ֖יו"
+        },
+        {
+          "template_name": "מ:קו\"כ-אם-2",
+          "argument_key": "מקורות",
+          "argument_text": "ל-קרי"
         }
       ],
       "supported_qere_wrapper_in_mpp_verse": {
-        "template_name": "קו\"כ-אם",
+        "template_name": "מ:קו\"כ-אם-2",
         "ketiv": "וְאֵלַמָּ֖ו",
         "qere": "וְאֵלַמָּ֖יו"
       },
       "found_in_mpp_verse_template_arg": true,
       "matching_template_args_in_mpp_verse": [
         {
-          "template_name": "קו\"כ-אם",
+          "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
           "argument_text": "וְאֵלַמָּ֖ו"
         }
@@ -2068,25 +2208,35 @@
       "found_in_mpp_verse_text": true,
       "template_args_in_mpp_verse": [
         {
-          "template_name": "קו\"כ-אם",
+          "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
           "argument_text": "מַעֲלָֽו"
         },
         {
-          "template_name": "קו\"כ-אם",
+          "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "2",
-          "argument_text": "ל-קרי=מַעֲלָֽיו"
+          "argument_text": "מעלו"
+        },
+        {
+          "template_name": "מ:קו\"כ-אם-2",
+          "argument_key": "3",
+          "argument_text": "מַעֲלָֽיו"
+        },
+        {
+          "template_name": "מ:קו\"כ-אם-2",
+          "argument_key": "מקורות",
+          "argument_text": "ל-קרי"
         }
       ],
       "supported_qere_wrapper_in_mpp_verse": {
-        "template_name": "קו\"כ-אם",
+        "template_name": "מ:קו\"כ-אם-2",
         "ketiv": "מַעֲלָֽו",
         "qere": "מַעֲלָֽיו"
       },
       "found_in_mpp_verse_template_arg": true,
       "matching_template_args_in_mpp_verse": [
         {
-          "template_name": "קו\"כ-אם",
+          "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
           "argument_text": "מַעֲלָֽו"
         }
@@ -2109,25 +2259,35 @@
       "found_in_mpp_verse_text": true,
       "template_args_in_mpp_verse": [
         {
-          "template_name": "קו\"כ-אם",
+          "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
           "argument_text": "וְנִרְפּ֥אֿוּ"
         },
         {
-          "template_name": "קו\"כ-אם",
+          "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "2",
-          "argument_text": "ל-קרי=וְנִרְפּ֥וּ"
+          "argument_text": "ונרפאו"
+        },
+        {
+          "template_name": "מ:קו\"כ-אם-2",
+          "argument_key": "3",
+          "argument_text": "וְנִרְפּ֥וּ"
+        },
+        {
+          "template_name": "מ:קו\"כ-אם-2",
+          "argument_key": "מקורות",
+          "argument_text": "ל-קרי"
         }
       ],
       "supported_qere_wrapper_in_mpp_verse": {
-        "template_name": "קו\"כ-אם",
+        "template_name": "מ:קו\"כ-אם-2",
         "ketiv": "וְנִרְפּ֥אֿוּ",
         "qere": "וְנִרְפּ֥וּ"
       },
       "found_in_mpp_verse_template_arg": true,
       "matching_template_args_in_mpp_verse": [
         {
-          "template_name": "קו\"כ-אם",
+          "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
           "argument_text": "וְנִרְפּ֥אֿוּ"
         }
@@ -2152,28 +2312,38 @@
         {
           "template_name": "נוסח",
           "argument_key": "1",
-          "argument_text": "{{קו\"כ-אם|תְבֽוּאָתֹה֙|ל-קרי=תְבֽוּאָתוֹ֙}}"
+          "argument_text": "{{מ:קו\"כ-אם-2|תְבֽוּאָתֹה֙|תבואתה|תְבֽוּאָתוֹ֙|מקורות=ל-קרי}}"
         },
         {
-          "template_name": "קו\"כ-אם",
+          "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
           "argument_text": "תְבֽוּאָתֹה֙"
         },
         {
-          "template_name": "קו\"כ-אם",
+          "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "2",
-          "argument_text": "ל-קרי=תְבֽוּאָתוֹ֙"
+          "argument_text": "תבואתה"
+        },
+        {
+          "template_name": "מ:קו\"כ-אם-2",
+          "argument_key": "3",
+          "argument_text": "תְבֽוּאָתוֹ֙"
+        },
+        {
+          "template_name": "מ:קו\"כ-אם-2",
+          "argument_key": "מקורות",
+          "argument_text": "ל-קרי"
         }
       ],
       "supported_qere_wrapper_in_mpp_verse": {
-        "template_name": "קו\"כ-אם",
+        "template_name": "מ:קו\"כ-אם-2",
         "ketiv": "תְבֽוּאָתֹה֙",
         "qere": "תְבֽוּאָתוֹ֙"
       },
       "found_in_mpp_verse_template_arg": true,
       "matching_template_args_in_mpp_verse": [
         {
-          "template_name": "קו\"כ-אם",
+          "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
           "argument_text": "תְבֽוּאָתֹה֙"
         }
@@ -2196,25 +2366,35 @@
       "found_in_mpp_verse_text": true,
       "template_args_in_mpp_verse": [
         {
-          "template_name": "קו\"כ-אם",
+          "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
           "argument_text": "בְּתוֹכֹֽה"
         },
         {
-          "template_name": "קו\"כ-אם",
+          "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "2",
-          "argument_text": "ל-קרי=בְּתוֹכֽוֹ"
+          "argument_text": "בתוכה"
+        },
+        {
+          "template_name": "מ:קו\"כ-אם-2",
+          "argument_key": "3",
+          "argument_text": "בְּתוֹכֽוֹ"
+        },
+        {
+          "template_name": "מ:קו\"כ-אם-2",
+          "argument_key": "מקורות",
+          "argument_text": "ל-קרי"
         }
       ],
       "supported_qere_wrapper_in_mpp_verse": {
-        "template_name": "קו\"כ-אם",
+        "template_name": "מ:קו\"כ-אם-2",
         "ketiv": "בְּתוֹכֹֽה",
         "qere": "בְּתוֹכֽוֹ"
       },
       "found_in_mpp_verse_template_arg": true,
       "matching_template_args_in_mpp_verse": [
         {
-          "template_name": "קו\"כ-אם",
+          "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
           "argument_text": "בְּתוֹכֹֽה"
         }
@@ -2298,28 +2478,38 @@
         {
           "template_name": "נוסח",
           "argument_key": "1",
-          "argument_text": "{{קו\"כ-אם|וּבֵנָ֔יו|ל-קרי=וּבֵינָ֔יו}}"
+          "argument_text": "{{מ:קו\"כ-אם-2|וּבֵנָ֔יו|ובניו|וּבֵינָ֔יו|מקורות=ל-קרי}}"
         },
         {
-          "template_name": "קו\"כ-אם",
+          "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
           "argument_text": "וּבֵנָ֔יו"
         },
         {
-          "template_name": "קו\"כ-אם",
+          "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "2",
-          "argument_text": "ל-קרי=וּבֵינָ֔יו"
+          "argument_text": "ובניו"
+        },
+        {
+          "template_name": "מ:קו\"כ-אם-2",
+          "argument_key": "3",
+          "argument_text": "וּבֵינָ֔יו"
+        },
+        {
+          "template_name": "מ:קו\"כ-אם-2",
+          "argument_key": "מקורות",
+          "argument_text": "ל-קרי"
         }
       ],
       "supported_qere_wrapper_in_mpp_verse": {
-        "template_name": "קו\"כ-אם",
+        "template_name": "מ:קו\"כ-אם-2",
         "ketiv": "וּבֵנָ֔יו",
         "qere": "וּבֵינָ֔יו"
       },
       "found_in_mpp_verse_template_arg": true,
       "matching_template_args_in_mpp_verse": [
         {
-          "template_name": "קו\"כ-אם",
+          "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
           "argument_text": "וּבֵנָ֔יו"
         }
@@ -2388,25 +2578,35 @@
       "found_in_mpp_verse_text": true,
       "template_args_in_mpp_verse": [
         {
-          "template_name": "קו\"כ-אם",
+          "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
           "argument_text": "תַּחְתָּ֑ו"
         },
         {
-          "template_name": "קו\"כ-אם",
+          "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "2",
-          "argument_text": "א-קרי=תַּחְתָּ֑יו"
+          "argument_text": "תחתו"
+        },
+        {
+          "template_name": "מ:קו\"כ-אם-2",
+          "argument_key": "3",
+          "argument_text": "תַּחְתָּ֑יו"
+        },
+        {
+          "template_name": "מ:קו\"כ-אם-2",
+          "argument_key": "מקורות",
+          "argument_text": "א-קרי"
         }
       ],
       "supported_qere_wrapper_in_mpp_verse": {
-        "template_name": "קו\"כ-אם",
+        "template_name": "מ:קו\"כ-אם-2",
         "ketiv": "תַּחְתָּ֑ו",
         "qere": "תַּחְתָּ֑יו"
       },
       "found_in_mpp_verse_template_arg": true,
       "matching_template_args_in_mpp_verse": [
         {
-          "template_name": "קו\"כ-אם",
+          "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
           "argument_text": "תַּחְתָּ֑ו"
         }
@@ -2429,35 +2629,55 @@
       "found_in_mpp_verse_text": true,
       "template_args_in_mpp_verse": [
         {
-          "template_name": "קו\"כ-אם",
+          "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
           "argument_text": "וַיֹּר֨אֿוּ"
         },
         {
-          "template_name": "קו\"כ-אם",
+          "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "2",
-          "argument_text": "ל-קרי=וַיֹּר֨וּ"
+          "argument_text": "ויראו"
         },
         {
-          "template_name": "קו\"כ-אם",
+          "template_name": "מ:קו\"כ-אם-2",
+          "argument_key": "3",
+          "argument_text": "וַיֹּר֨וּ"
+        },
+        {
+          "template_name": "מ:קו\"כ-אם-2",
+          "argument_key": "מקורות",
+          "argument_text": "ל-קרי"
+        },
+        {
+          "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
           "argument_text": "הַמּוֹרִ֤אֿים"
         },
         {
-          "template_name": "קו\"כ-אם",
+          "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "2",
-          "argument_text": "ל-קרי=הַמּוֹרִ֤ים"
+          "argument_text": "המוראים"
+        },
+        {
+          "template_name": "מ:קו\"כ-אם-2",
+          "argument_key": "3",
+          "argument_text": "הַמּוֹרִ֤ים"
+        },
+        {
+          "template_name": "מ:קו\"כ-אם-2",
+          "argument_key": "מקורות",
+          "argument_text": "ל-קרי"
         }
       ],
       "supported_qere_wrapper_in_mpp_verse": {
-        "template_name": "קו\"כ-אם",
+        "template_name": "מ:קו\"כ-אם-2",
         "ketiv": "וַיֹּר֨אֿוּ",
         "qere": "וַיֹּר֨וּ"
       },
       "found_in_mpp_verse_template_arg": true,
       "matching_template_args_in_mpp_verse": [
         {
-          "template_name": "קו\"כ-אם",
+          "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
           "argument_text": "וַיֹּר֨אֿוּ"
         }
@@ -2480,35 +2700,55 @@
       "found_in_mpp_verse_text": true,
       "template_args_in_mpp_verse": [
         {
-          "template_name": "קו\"כ-אם",
+          "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
           "argument_text": "וַיֹּר֨אֿוּ"
         },
         {
-          "template_name": "קו\"כ-אם",
+          "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "2",
-          "argument_text": "ל-קרי=וַיֹּר֨וּ"
+          "argument_text": "ויראו"
         },
         {
-          "template_name": "קו\"כ-אם",
+          "template_name": "מ:קו\"כ-אם-2",
+          "argument_key": "3",
+          "argument_text": "וַיֹּר֨וּ"
+        },
+        {
+          "template_name": "מ:קו\"כ-אם-2",
+          "argument_key": "מקורות",
+          "argument_text": "ל-קרי"
+        },
+        {
+          "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
           "argument_text": "הַמּוֹרִ֤אֿים"
         },
         {
-          "template_name": "קו\"כ-אם",
+          "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "2",
-          "argument_text": "ל-קרי=הַמּוֹרִ֤ים"
+          "argument_text": "המוראים"
+        },
+        {
+          "template_name": "מ:קו\"כ-אם-2",
+          "argument_key": "3",
+          "argument_text": "הַמּוֹרִ֤ים"
+        },
+        {
+          "template_name": "מ:קו\"כ-אם-2",
+          "argument_key": "מקורות",
+          "argument_text": "ל-קרי"
         }
       ],
       "supported_qere_wrapper_in_mpp_verse": {
-        "template_name": "קו\"כ-אם",
+        "template_name": "מ:קו\"כ-אם-2",
         "ketiv": "הַמּוֹרִ֤אֿים",
         "qere": "הַמּוֹרִ֤ים"
       },
       "found_in_mpp_verse_template_arg": true,
       "matching_template_args_in_mpp_verse": [
         {
-          "template_name": "קו\"כ-אם",
+          "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
           "argument_text": "הַמּוֹרִ֤אֿים"
         }
@@ -2531,25 +2771,35 @@
       "found_in_mpp_verse_text": true,
       "template_args_in_mpp_verse": [
         {
-          "template_name": "קו\"כ-אם",
+          "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
           "argument_text": "רִפִּ֤אֿנוּ"
         },
         {
-          "template_name": "קו\"כ-אם",
+          "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "2",
-          "argument_text": "ל-קרי=רִפִּ֤ינוּ"
+          "argument_text": "רפאנו"
+        },
+        {
+          "template_name": "מ:קו\"כ-אם-2",
+          "argument_key": "3",
+          "argument_text": "רִפִּ֤ינוּ"
+        },
+        {
+          "template_name": "מ:קו\"כ-אם-2",
+          "argument_key": "מקורות",
+          "argument_text": "ל-קרי"
         }
       ],
       "supported_qere_wrapper_in_mpp_verse": {
-        "template_name": "קו\"כ-אם",
+        "template_name": "מ:קו\"כ-אם-2",
         "ketiv": "רִפִּ֤אֿנוּ",
         "qere": "רִפִּ֤ינוּ"
       },
       "found_in_mpp_verse_template_arg": true,
       "matching_template_args_in_mpp_verse": [
         {
-          "template_name": "קו\"כ-אם",
+          "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
           "argument_text": "רִפִּ֤אֿנוּ"
         }
@@ -2572,25 +2822,35 @@
       "found_in_mpp_verse_text": true,
       "template_args_in_mpp_verse": [
         {
-          "template_name": "קו\"כ-אם",
+          "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
           "argument_text": "פֹארֹתָ֛ו"
         },
         {
-          "template_name": "קו\"כ-אם",
+          "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "2",
-          "argument_text": "א-קרי=פֹארֹתָ֛יו"
+          "argument_text": "פארתו"
+        },
+        {
+          "template_name": "מ:קו\"כ-אם-2",
+          "argument_key": "3",
+          "argument_text": "פֹארֹתָ֛יו"
+        },
+        {
+          "template_name": "מ:קו\"כ-אם-2",
+          "argument_key": "מקורות",
+          "argument_text": "א-קרי"
         }
       ],
       "supported_qere_wrapper_in_mpp_verse": {
-        "template_name": "קו\"כ-אם",
+        "template_name": "מ:קו\"כ-אם-2",
         "ketiv": "פֹארֹתָ֛ו",
         "qere": "פֹארֹתָ֛יו"
       },
       "found_in_mpp_verse_template_arg": true,
       "matching_template_args_in_mpp_verse": [
         {
-          "template_name": "קו\"כ-אם",
+          "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
           "argument_text": "פֹארֹתָ֛ו"
         }
@@ -2613,25 +2873,35 @@
       "found_in_mpp_verse_text": true,
       "template_args_in_mpp_verse": [
         {
-          "template_name": "קו\"כ-אם",
+          "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
           "argument_text": "בְּמַעֲלוֹתָ֑ו"
         },
         {
-          "template_name": "קו\"כ-אם",
+          "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "2",
-          "argument_text": "א-קרי=בְּמַעֲלוֹתָ֑יו"
+          "argument_text": "במעלותו"
+        },
+        {
+          "template_name": "מ:קו\"כ-אם-2",
+          "argument_key": "3",
+          "argument_text": "בְּמַעֲלוֹתָ֑יו"
+        },
+        {
+          "template_name": "מ:קו\"כ-אם-2",
+          "argument_key": "מקורות",
+          "argument_text": "א-קרי"
         }
       ],
       "supported_qere_wrapper_in_mpp_verse": {
-        "template_name": "קו\"כ-אם",
+        "template_name": "מ:קו\"כ-אם-2",
         "ketiv": "בְּמַעֲלוֹתָ֑ו",
         "qere": "בְּמַעֲלוֹתָ֑יו"
       },
       "found_in_mpp_verse_template_arg": true,
       "matching_template_args_in_mpp_verse": [
         {
-          "template_name": "קו\"כ-אם",
+          "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
           "argument_text": "בְּמַעֲלוֹתָ֑ו"
         }
@@ -2656,43 +2926,63 @@
         {
           "template_name": "נוסח",
           "argument_key": "1",
-          "argument_text": "{{קו\"כ-אם|אֵילָו֙|ל-קרי=אֵילָיו֙}}"
+          "argument_text": "{{מ:קו\"כ-אם-2|אֵילָו֙|אילו|אֵילָיו֙|מקורות=ל-קרי}}"
         },
         {
-          "template_name": "קו\"כ-אם",
+          "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
           "argument_text": "אֵילָו֙"
         },
         {
-          "template_name": "קו\"כ-אם",
+          "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "2",
-          "argument_text": "ל-קרי=אֵילָיו֙"
+          "argument_text": "אילו"
+        },
+        {
+          "template_name": "מ:קו\"כ-אם-2",
+          "argument_key": "3",
+          "argument_text": "אֵילָיו֙"
+        },
+        {
+          "template_name": "מ:קו\"כ-אם-2",
+          "argument_key": "מקורות",
+          "argument_text": "ל-קרי"
         },
         {
           "template_name": "נוסח",
           "argument_key": "1",
-          "argument_text": "{{קו\"כ-אם|וְאֵ֣ילַמָּ֔ו|ל-קרי=וְאֵ֣ילַמָּ֔יו}}"
+          "argument_text": "{{מ:קו\"כ-אם-2|וְאֵ֣ילַמָּ֔ו|ואילמו|וְאֵ֣ילַמָּ֔יו|מקורות=ל-קרי}}"
         },
         {
-          "template_name": "קו\"כ-אם",
+          "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
           "argument_text": "וְאֵ֣ילַמָּ֔ו"
         },
         {
-          "template_name": "קו\"כ-אם",
+          "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "2",
-          "argument_text": "ל-קרי=וְאֵ֣ילַמָּ֔יו"
+          "argument_text": "ואילמו"
+        },
+        {
+          "template_name": "מ:קו\"כ-אם-2",
+          "argument_key": "3",
+          "argument_text": "וְאֵ֣ילַמָּ֔יו"
+        },
+        {
+          "template_name": "מ:קו\"כ-אם-2",
+          "argument_key": "מקורות",
+          "argument_text": "ל-קרי"
         }
       ],
       "supported_qere_wrapper_in_mpp_verse": {
-        "template_name": "קו\"כ-אם",
+        "template_name": "מ:קו\"כ-אם-2",
         "ketiv": "אֵילָו֙",
         "qere": "אֵילָיו֙"
       },
       "found_in_mpp_verse_template_arg": true,
       "matching_template_args_in_mpp_verse": [
         {
-          "template_name": "קו\"כ-אם",
+          "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
           "argument_text": "אֵילָו֙"
         }
@@ -2717,28 +3007,38 @@
         {
           "template_name": "נוסח",
           "argument_key": "1",
-          "argument_text": "{{קו\"כ-אם|וּלְאֵֽילַמָּו֙|ל-קרי=וּלְאֵֽילַמָּיו֙}}"
+          "argument_text": "{{מ:קו\"כ-אם-2|וּלְאֵֽילַמָּו֙|ולאילמו|וּלְאֵֽילַמָּיו֙|מקורות=ל-קרי}}"
         },
         {
-          "template_name": "קו\"כ-אם",
+          "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
           "argument_text": "וּלְאֵֽילַמָּו֙"
         },
         {
-          "template_name": "קו\"כ-אם",
+          "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "2",
-          "argument_text": "ל-קרי=וּלְאֵֽילַמָּיו֙"
+          "argument_text": "ולאילמו"
+        },
+        {
+          "template_name": "מ:קו\"כ-אם-2",
+          "argument_key": "3",
+          "argument_text": "וּלְאֵֽילַמָּיו֙"
+        },
+        {
+          "template_name": "מ:קו\"כ-אם-2",
+          "argument_key": "מקורות",
+          "argument_text": "ל-קרי"
         }
       ],
       "supported_qere_wrapper_in_mpp_verse": {
-        "template_name": "קו\"כ-אם",
+        "template_name": "מ:קו\"כ-אם-2",
         "ketiv": "וּלְאֵֽילַמָּו֙",
         "qere": "וּלְאֵֽילַמָּיו֙"
       },
       "found_in_mpp_verse_template_arg": true,
       "matching_template_args_in_mpp_verse": [
         {
-          "template_name": "קו\"כ-אם",
+          "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
           "argument_text": "וּלְאֵֽילַמָּו֙"
         }
@@ -2761,40 +3061,60 @@
       "found_in_mpp_verse_text": true,
       "template_args_in_mpp_verse": [
         {
-          "template_name": "קו\"כ-אם",
+          "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
           "argument_text": "עֹֽלוֹתָ֔ו"
         },
         {
-          "template_name": "קו\"כ-אם",
+          "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "2",
-          "argument_text": "א-קרי=עֹֽלוֹתָ֔יו"
+          "argument_text": "עלותו"
+        },
+        {
+          "template_name": "מ:קו\"כ-אם-2",
+          "argument_key": "3",
+          "argument_text": "עֹֽלוֹתָ֔יו"
+        },
+        {
+          "template_name": "מ:קו\"כ-אם-2",
+          "argument_key": "מקורות",
+          "argument_text": "א-קרי"
         },
         {
           "template_name": "נוסח",
           "argument_key": "1",
-          "argument_text": "{{קו\"כ-אם|וְאֵלַמָּ֖ו|ל-קרי=וְאֵלַמָּ֖יו}}"
+          "argument_text": "{{מ:קו\"כ-אם-2|וְאֵלַמָּ֖ו|ואלמו|וְאֵלַמָּ֖יו|מקורות=ל-קרי}}"
         },
         {
-          "template_name": "קו\"כ-אם",
+          "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
           "argument_text": "וְאֵלַמָּ֖ו"
         },
         {
-          "template_name": "קו\"כ-אם",
+          "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "2",
-          "argument_text": "ל-קרי=וְאֵלַמָּ֖יו"
+          "argument_text": "ואלמו"
+        },
+        {
+          "template_name": "מ:קו\"כ-אם-2",
+          "argument_key": "3",
+          "argument_text": "וְאֵלַמָּ֖יו"
+        },
+        {
+          "template_name": "מ:קו\"כ-אם-2",
+          "argument_key": "מקורות",
+          "argument_text": "ל-קרי"
         }
       ],
       "supported_qere_wrapper_in_mpp_verse": {
-        "template_name": "קו\"כ-אם",
+        "template_name": "מ:קו\"כ-אם-2",
         "ketiv": "וְאֵלַמָּ֖ו",
         "qere": "וְאֵלַמָּ֖יו"
       },
       "found_in_mpp_verse_template_arg": true,
       "matching_template_args_in_mpp_verse": [
         {
-          "template_name": "קו\"כ-אם",
+          "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
           "argument_text": "וְאֵלַמָּ֖ו"
         }
@@ -2817,25 +3137,35 @@
       "found_in_mpp_verse_text": true,
       "template_args_in_mpp_verse": [
         {
-          "template_name": "קו\"כ-אם",
+          "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
           "argument_text": "מַעֲלָֽו"
         },
         {
-          "template_name": "קו\"כ-אם",
+          "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "2",
-          "argument_text": "ל-קרי=מַעֲלָֽיו"
+          "argument_text": "מעלו"
+        },
+        {
+          "template_name": "מ:קו\"כ-אם-2",
+          "argument_key": "3",
+          "argument_text": "מַעֲלָֽיו"
+        },
+        {
+          "template_name": "מ:קו\"כ-אם-2",
+          "argument_key": "מקורות",
+          "argument_text": "ל-קרי"
         }
       ],
       "supported_qere_wrapper_in_mpp_verse": {
-        "template_name": "קו\"כ-אם",
+        "template_name": "מ:קו\"כ-אם-2",
         "ketiv": "מַעֲלָֽו",
         "qere": "מַעֲלָֽיו"
       },
       "found_in_mpp_verse_template_arg": true,
       "matching_template_args_in_mpp_verse": [
         {
-          "template_name": "קו\"כ-אם",
+          "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
           "argument_text": "מַעֲלָֽו"
         }
@@ -2858,25 +3188,35 @@
       "found_in_mpp_verse_text": true,
       "template_args_in_mpp_verse": [
         {
-          "template_name": "קו\"כ-אם",
+          "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
           "argument_text": "וְנִרְפּ֥אֿוּ"
         },
         {
-          "template_name": "קו\"כ-אם",
+          "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "2",
-          "argument_text": "ל-קרי=וְנִרְפּ֥וּ"
+          "argument_text": "ונרפאו"
+        },
+        {
+          "template_name": "מ:קו\"כ-אם-2",
+          "argument_key": "3",
+          "argument_text": "וְנִרְפּ֥וּ"
+        },
+        {
+          "template_name": "מ:קו\"כ-אם-2",
+          "argument_key": "מקורות",
+          "argument_text": "ל-קרי"
         }
       ],
       "supported_qere_wrapper_in_mpp_verse": {
-        "template_name": "קו\"כ-אם",
+        "template_name": "מ:קו\"כ-אם-2",
         "ketiv": "וְנִרְפּ֥אֿוּ",
         "qere": "וְנִרְפּ֥וּ"
       },
       "found_in_mpp_verse_template_arg": true,
       "matching_template_args_in_mpp_verse": [
         {
-          "template_name": "קו\"כ-אם",
+          "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
           "argument_text": "וְנִרְפּ֥אֿוּ"
         }
@@ -2901,28 +3241,38 @@
         {
           "template_name": "נוסח",
           "argument_key": "1",
-          "argument_text": "{{קו\"כ-אם|תְבֽוּאָתֹה֙|ל-קרי=תְבֽוּאָתוֹ֙}}"
+          "argument_text": "{{מ:קו\"כ-אם-2|תְבֽוּאָתֹה֙|תבואתה|תְבֽוּאָתוֹ֙|מקורות=ל-קרי}}"
         },
         {
-          "template_name": "קו\"כ-אם",
+          "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
           "argument_text": "תְבֽוּאָתֹה֙"
         },
         {
-          "template_name": "קו\"כ-אם",
+          "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "2",
-          "argument_text": "ל-קרי=תְבֽוּאָתוֹ֙"
+          "argument_text": "תבואתה"
+        },
+        {
+          "template_name": "מ:קו\"כ-אם-2",
+          "argument_key": "3",
+          "argument_text": "תְבֽוּאָתוֹ֙"
+        },
+        {
+          "template_name": "מ:קו\"כ-אם-2",
+          "argument_key": "מקורות",
+          "argument_text": "ל-קרי"
         }
       ],
       "supported_qere_wrapper_in_mpp_verse": {
-        "template_name": "קו\"כ-אם",
+        "template_name": "מ:קו\"כ-אם-2",
         "ketiv": "תְבֽוּאָתֹה֙",
         "qere": "תְבֽוּאָתוֹ֙"
       },
       "found_in_mpp_verse_template_arg": true,
       "matching_template_args_in_mpp_verse": [
         {
-          "template_name": "קו\"כ-אם",
+          "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
           "argument_text": "תְבֽוּאָתֹה֙"
         }
@@ -2945,25 +3295,35 @@
       "found_in_mpp_verse_text": true,
       "template_args_in_mpp_verse": [
         {
-          "template_name": "קו\"כ-אם",
+          "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
           "argument_text": "בְּתוֹכֹֽה"
         },
         {
-          "template_name": "קו\"כ-אם",
+          "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "2",
-          "argument_text": "ל-קרי=בְּתוֹכֽוֹ"
+          "argument_text": "בתוכה"
+        },
+        {
+          "template_name": "מ:קו\"כ-אם-2",
+          "argument_key": "3",
+          "argument_text": "בְּתוֹכֽוֹ"
+        },
+        {
+          "template_name": "מ:קו\"כ-אם-2",
+          "argument_key": "מקורות",
+          "argument_text": "ל-קרי"
         }
       ],
       "supported_qere_wrapper_in_mpp_verse": {
-        "template_name": "קו\"כ-אם",
+        "template_name": "מ:קו\"כ-אם-2",
         "ketiv": "בְּתוֹכֹֽה",
         "qere": "בְּתוֹכֽוֹ"
       },
       "found_in_mpp_verse_template_arg": true,
       "matching_template_args_in_mpp_verse": [
         {
-          "template_name": "קו\"כ-אם",
+          "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
           "argument_text": "בְּתוֹכֹֽה"
         }

@@ -7,6 +7,9 @@ from unittest.mock import patch
 
 from py_render.rt_mam_uxlc_diff_descriptions import simple_row_diff_note_lines
 from python_modules.json_io import write_json
+from python_modules.supported_qere_wrapper import (
+    supported_qere_wrapper_for_matching_args,
+)
 from python_modules.verify_table_words_in_mam_plus import (
     contains_word_as_hebrew_token,
     matching_mpp_surface_words_in_verse_text,
@@ -88,7 +91,7 @@ class VerifyTableWordsInMamPlusTests(unittest.TestCase):
             with self.subTest(word=word, argument_text=argument_text):
                 template_args = [
                     {
-                        "template_name": 'קו"כ-אם',
+                        "template_name": 'מ:קו"כ-אם-2',
                         "argument_key": "1",
                         "argument_text": argument_text,
                     }
@@ -126,6 +129,42 @@ class VerifyTableWordsInMamPlusTests(unittest.TestCase):
                     "argument_text": "הֶהָלְכ֣וּ",
                 }
             ],
+        )
+
+    def test_supported_qere_wrapper_detects_new_four_arg_trivial_wrapper(self) -> None:
+        template_args = [
+            {
+                "template_name": 'מ:קו"כ-אם-2',
+                "argument_key": "1",
+                "argument_text": "וּבֵנָ֔יו",
+            },
+            {
+                "template_name": 'מ:קו"כ-אם-2',
+                "argument_key": "2",
+                "argument_text": "ובניו",
+            },
+            {
+                "template_name": 'מ:קו"כ-אם-2',
+                "argument_key": "3",
+                "argument_text": "וּבֵינָ֔יו",
+            },
+            {
+                "template_name": 'מ:קו"כ-אם-2',
+                "argument_key": "מקורות",
+                "argument_text": "ל-קרי",
+            },
+        ]
+
+        self.assertEqual(
+            supported_qere_wrapper_for_matching_args(
+                [template_args[0]],
+                template_args,
+            ),
+            {
+                "template_name": 'מ:קו"כ-אם-2',
+                "ketiv": "וּבֵנָ֔יו",
+                "qere": "וּבֵינָ֔יו",
+            },
         )
 
     def test_known_docx_word_bug_uses_latest_mpp_word_for_verification(self) -> None:
@@ -247,10 +286,12 @@ class VerifyTableWordsInMamPlusTests(unittest.TestCase):
                                 "10": {
                                     "24": [
                                         {
-                                            "tmpl_name": 'קו"כ-אם',
+                                            "tmpl_name": 'מ:קו"כ-אם-2',
                                             "tmpl_params": {
                                                 "1": "מַעֲלָֽו",
-                                                "2": "ל-קרי=מַעֲלָֽיו",
+                                                "2": "מעלו",
+                                                "3": "מַעֲלָֽיו",
+                                                "מקורות": "ל-קרי",
                                             },
                                         },
                                         "׃",

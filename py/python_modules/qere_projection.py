@@ -72,7 +72,7 @@ def strip_accents_and_meteg(text: str) -> str:
 
 
 def qere_arg_key_for_template(template_name: str) -> str | None:
-    if template_name == 'קו"כ-אם':
+    if template_name == 'מ:קו"כ-אם-2':
         return "1"
     if template_name == "קרי ולא כתיב":
         return "2"
@@ -91,7 +91,7 @@ def _with_source(
     return {
         "template_name": template_name,
         "argument_key": argument_key,
-        "is_trivq_arg1": template_name == 'קו"כ-אם' and argument_key == "1",
+        "is_trivq_arg1": template_name == 'מ:קו"כ-אם-2' and argument_key == "1",
         "parent_source": source,
     }
 

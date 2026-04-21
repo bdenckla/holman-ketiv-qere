@@ -115,7 +115,7 @@ def _collect_text_fragments(node: object, out_parts: list[str]) -> None:
                 # Read-but-not-written: param 2 is the qere text.
                 _collect_text_fragments(tmpl_params.get("2"), out_parts)
                 return
-            if tmpl_name == 'קו"כ-אם':
+            if tmpl_name == 'מ:קו"כ-אם-2':
                 # Trivial qere: param 1 is the word; param 2 is a documentation
                 # string (e.g. "א-קרי=..."), not verse text.
                 _collect_text_fragments(tmpl_params.get("1"), out_parts)
