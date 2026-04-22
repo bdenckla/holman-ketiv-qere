@@ -3,8 +3,6 @@ from __future__ import annotations
 
 import argparse
 from dataclasses import dataclass
-from pathlib import Path
-import sys
 import unittest
 
 
@@ -15,7 +13,6 @@ class TestModuleSpec:
     help_text: str
 
 
-PY_DIR = Path(__file__).resolve().parent
 TEST_MODULE_SPECS = (
     TestModuleSpec(
         flag="extract-docx-notes",
@@ -84,9 +81,6 @@ def selected_module_names(args: argparse.Namespace) -> list[str]:
 
 
 def main() -> None:
-    if str(PY_DIR) not in sys.path:
-        sys.path.insert(0, str(PY_DIR))
-
     parser = build_parser()
     args = parser.parse_args()
 
