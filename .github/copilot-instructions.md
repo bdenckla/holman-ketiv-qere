@@ -131,6 +131,11 @@ When adding to a semantically unordered JSON array, **prepend** rather than appe
 
 Never run `git commit` or `git push` without explicit permission from the user. Staging and status checks are fine.
 
+## Commit Message Output Format
+
+When proposing a commit message in chat, always output it as a fenced code block for easy copy/paste.
+Unless the change is easily summarizable, usually provide a multi-line commit message.
+
 ## Never Amend Commits
 
 Never use `git commit --amend` or `git rebase` unless the user explicitly asks. Always make new commits.
