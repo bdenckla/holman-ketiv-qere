@@ -5,7 +5,6 @@ These Python files were copied from MAM-basics at:
   GitRepos-relative path: MAM-basics/py/pydiff_mpp
 
 Files copied:
-  __init__.py
   change_ops.py
   change_ops_apply.py
   change_ops_extract.py
@@ -16,6 +15,6 @@ Files copied:
   mpp_param_access.py
   mpp_structure.py
 
-Git commit: 7110d747f7c1dad5b740e220d5928ee200a8d62c
+Git commit: dc6d3a1096844ab4c0e86942aa9cc4d5d27da7eb
 
-Date copied: 2026-04-21
+Date copied: 2026-04-25
