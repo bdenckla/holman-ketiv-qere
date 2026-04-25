@@ -49,9 +49,7 @@ def _copy_by_intersection(src_dir: Path, dest_dir: Path) -> list[str]:
     """Copy .py files present in dest_dir from src_dir.
 
     Skips provenance.md and non-.py files.
-    If __init__.py is present locally but absent in src_dir, skips it silently
-    (local-only package stub).  For any other local .py file absent in src_dir,
-    raises FileNotFoundError.
+    For any local .py file absent in src_dir, raises FileNotFoundError.
     Returns sorted list of copied filenames.
     """
     copied: list[str] = []
@@ -60,8 +58,6 @@ def _copy_by_intersection(src_dir: Path, dest_dir: Path) -> list[str]:
             continue
         src_file = src_dir / dest_file.name
         if not src_file.exists():
-            if dest_file.name == "__init__.py":
-                continue  # local-only package stub; not vendored from MAM-basics
             raise FileNotFoundError(
                 f"{dest_file.name} exists locally but not in MAM-basics source "
                 f"{src_dir} — has the file been removed upstream?"
