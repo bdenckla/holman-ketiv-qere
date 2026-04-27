@@ -4,9 +4,9 @@ from functools import lru_cache
 from pathlib import Path
 import re
 
-from pycmn import bib_locales
-from pycmn.hebrew_points import RAFE
-from pycmn.uni_denorm import give_std_mark_order as to_mam_mark_order
+from mb_cmn import bib_locales
+from mb_cmn.hebrew_points import RAFE
+from mb_cmn.uni_denorm import give_std_mark_order as to_mam_mark_order
 from python_modules.extract_docx_notes import standard_book_name
 from python_modules.hebrew_text_tokens import HEBREW_TOKEN_CHAR_CLASS
 from python_modules.json_io import load_json
@@ -424,3 +424,4 @@ def verify_table_words_in_mam_plus(
         "rows_with_supported_qere_wrapper": supported_qere_wrapper_rows,
         "rows_supported_qere_wrapper_mismatch": supported_qere_wrapper_mismatch_rows,
     }
+

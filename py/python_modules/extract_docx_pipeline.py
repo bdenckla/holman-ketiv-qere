@@ -7,8 +7,8 @@ from typing import cast
 import zipfile
 from xml.etree import ElementTree as ET
 
-from pycmn.uni_denorm import give_std_mark_order
-from pycmn.hebrew_punctuation import SOPA
+from mb_cmn.uni_denorm import give_std_mark_order
+from mb_cmn.hebrew_punctuation import SOPA
 from python_modules.extract_docx_notes import (
     apply_notes_fixes,
     assert_text_columns_before_drop,
@@ -330,3 +330,4 @@ def _validate_leningrad_quote_count(leningrad_quote_count: int) -> None:
             "unexpected multiple non-empty leningrad text values; expected at most one "
             f"meaningless quote marker, found {leningrad_quote_count}"
         )
+

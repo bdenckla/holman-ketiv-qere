@@ -5,9 +5,9 @@ from difflib import SequenceMatcher
 import re
 from typing import Mapping
 
-from pycmn.hebrew_punctuation import SOPA
-from pydiff_mpplus.describe_diff import describe_change
-from pydiff_mpplus.grapheme_diff import grapheme_clusters
+from mb_cmn.hebrew_punctuation import SOPA
+from mb_diff_mpu.describe_diff import describe_change
+from mb_diff_mpu.grapheme_diff import grapheme_clusters
 
 from python_modules.extract_docx_notes import parse_verse_reference, standard_book_name
 from py_render.rt_xaser_malei_diff_descriptions import (
@@ -380,3 +380,4 @@ def _symbol_name(symbol: str) -> str:
 
 def _as_text(value: object) -> str:
     return "" if value is None else str(value)
+

@@ -1,8 +1,8 @@
-Provenance of pydiff_mpplus/
+Provenance of mb_diff_mpu/
 
 These Python files were copied from MAM-basics at:
 
-  GitRepos-relative path: MAM-basics/py/pydiff_mpplus
+  GitRepos-relative path: MAM-basics/py/mb_diff_mpu
 
 Files copied:
   change_ops.py
@@ -18,3 +18,4 @@ Files copied:
 Git commit: fc0dc0273661a9e19e496be95521f75b5026a176
 
 Date copied: 2026-04-27
+

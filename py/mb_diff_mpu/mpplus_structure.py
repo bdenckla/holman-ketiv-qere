@@ -12,7 +12,7 @@ Private helpers:
 
 from collections import Counter
 
-from pydiff_mpplus.mpplus_param_access import MISSING, get_param
+from mb_diff_mpu.mpplus_param_access import MISSING, get_param
 
 
 def collect_template_names(obj):
@@ -126,3 +126,4 @@ def _structure_occurrences(obj, path=()):
 def structural_signature(ep):
     """Return a normalized, position-aware structural signature for EP."""
     return tuple(_structure_occurrences(ep))
+

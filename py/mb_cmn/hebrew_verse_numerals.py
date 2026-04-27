@@ -5,7 +5,7 @@ Exports 2 dicts:
 """
 
 from itertools import product
-from pycmn import hebrew_letters as hl
+from mb_cmn import hebrew_letters as hl
 
 _HLYOD = hl.YOD
 _HLKAF = hl.KAF
@@ -77,3 +77,4 @@ _STR_INT_PAIRS = [(b, a) for a, b in _INT_STR_PAIRS]
 # to make Pylance happy.
 STR_TO_INT_DIC = dict(_STR_INT_PAIRS)
 INT_TO_STR_DIC = dict(_INT_STR_PAIRS)
+

@@ -1,6 +1,6 @@
 """Exports names for Unicode Hebrew vowel points (niqqud)"""
 
-from pycmn import str_defs as sd
+from mb_cmn import str_defs as sd
 
 MTGOSLQ = "\N{HEBREW POINT METEG}"
 VARIKA = "\N{HEBREW POINT JUDEO-SPANISH VARIKA}"
@@ -36,3 +36,4 @@ RECC_HEBR = "\u0591-\u05f4" + sd.CGJ + VARIKA
 RE_APCV_STAR = f"[{RECC_APCV}]*"
 RE_YES_HEBREW = f"[{RECC_HEBR}]"
 RE_NOT_HEBREW = f"[^{RECC_HEBR}]"
+

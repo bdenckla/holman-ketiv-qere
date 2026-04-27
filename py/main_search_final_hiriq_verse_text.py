@@ -4,8 +4,8 @@ import json
 from pathlib import Path
 import sys
 
-from pycmn import bib_locales
-from pycmn.hebrew_points import XIRIQ
+from mb_cmn import bib_locales
+from mb_cmn.hebrew_points import XIRIQ
 from python_modules.hebrew_text_tokens import (
     find_hebrew_tokens,
     strip_ignorable_token_marks,
@@ -127,3 +127,4 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+

@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import unittest
 
-from pycmn.hebrew_points import XOLAM
+from mb_cmn.hebrew_points import XOLAM
 from python_modules.qere_ending_search import QereEndingSearchSpec
 from python_modules.qere_projection import to_vowel_only_form
 
@@ -30,3 +30,4 @@ class QereEndingSearchHelpersTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+

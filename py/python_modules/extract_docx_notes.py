@@ -4,8 +4,8 @@ from typing import cast
 import re
 import unicodedata
 
-from pycmn import bib_locales
-from pycmn.hebrew_punctuation import MAQ as MAQAF, SOPA
+from mb_cmn import bib_locales
+from mb_cmn.hebrew_punctuation import MAQ as MAQAF, SOPA
 
 VERSE_PATTERN = re.compile(
     r"^(?P<book_token>.*) (?P<chapter>\d+):(?P<verse>\d+)\.(?P<segment>\d+)$"
@@ -328,3 +328,4 @@ def _split_maqaf_atoms(text: str) -> list[str]:
     if current_chars:
         atoms.append("".join(current_chars))
     return atoms
+

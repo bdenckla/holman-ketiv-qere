@@ -132,7 +132,7 @@ It distinguishes between:
 
 - Type: array of strings
 - Meaning: distinct standard 39-book names observed in `rows[].verse`
-- Source: extracted `verse` values normalized to the vendored `pycmn/bib_locales.py` standard names
+- Source: extracted `verse` values normalized to the vendored `mb_cmn/bib_locales.py` standard names
 - Current data observation: includes names like `Joshua`, `1Samuel`, and `Tsefaniah`
 
 ### `rows`
@@ -156,7 +156,7 @@ It distinguishes between:
 
 - Type: string
 - Meaning: verse reference from the second table column
-- Source: source-table content normalized to `pycmn/bib_locales.py` standard 39-book names
+- Source: source-table content normalized to `mb_cmn/bib_locales.py` standard 39-book names
 - Current data observation: values like `Joshua 3:4.5`
 
 ### `word`

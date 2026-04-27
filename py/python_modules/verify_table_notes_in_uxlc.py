@@ -6,7 +6,7 @@ from functools import lru_cache
 from pathlib import Path
 from xml.etree import ElementTree as ET
 
-from pycmn.hebrew_punctuation import MAQ, SOPA
+from mb_cmn.hebrew_punctuation import MAQ, SOPA
 from python_modules.extract_docx_notes import INVISIBLE_MARK_PATTERN
 from python_modules.json_io import load_json
 from python_modules.verify_table_words_in_mam_plus import (
@@ -337,3 +337,4 @@ def _uxlc_xml_path(uxlc_utils_path: Path, std_book_name: str) -> Path:
     if basename is None:
         raise ValueError(f"unsupported UXLC standard book name: {std_book_name!r}")
     return uxlc_utils_path / "in" / "UXLC-39" / f"{basename}.xml"
+

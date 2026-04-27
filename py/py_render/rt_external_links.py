@@ -4,7 +4,7 @@ import re
 from dataclasses import dataclass
 from urllib.parse import quote
 
-from pycmn import bib_locales as tbn
+from mb_cmn import bib_locales as tbn
 
 VERSE_REFERENCE_RE = re.compile(
     r"^(?P<book>\S+)\s+(?P<chapter>\d+):(?P<verse>\d+)(?:\.\d+)?$"
@@ -78,3 +78,4 @@ def _int_to_hebrew(number: int) -> str:
     tens, ones = divmod(remainder, 10)
     numeral = _HUNDREDS[hundreds] + _TENS[tens] + _ONES[ones]
     return _SACRED_REMAPS.get(numeral, numeral)
+

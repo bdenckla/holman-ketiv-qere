@@ -8,7 +8,7 @@ To create another ending-pattern search, copy this file and adjust SEARCH_SPEC.
 
 import json
 
-from pycmn.hebrew_points import XOLAM
+from mb_cmn.hebrew_points import XOLAM
 from python_modules.qere_ending_search import (
     DEFAULT_MAM_BASICS_QERE_WORDS_PATH,
     DEFAULT_MAM_PARSED_PLUS_DIR,
@@ -63,3 +63,4 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+

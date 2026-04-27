@@ -1,7 +1,7 @@
 """Unicode denormalization for Hebrew mark ordering."""
 
 import re
-from pycmn import hebrew_points as hpo
+from mb_cmn import hebrew_points as hpo
 
 __all__ = ["give_std_mark_order", "has_std_mark_order", "give_aht_mark_order"]
 
@@ -77,3 +77,4 @@ def _ccs_keyfn(char):
 
 def _ccs_keyfn_aht(char):
     return _NS_COMB_CLASSES_AHT.get(char) or 300
+

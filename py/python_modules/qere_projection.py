@@ -3,7 +3,7 @@ from __future__ import annotations
 from collections.abc import Iterator
 import re
 
-from pycmn.hebrew_punctuation import MAQ, PASOLEG
+from mb_cmn.hebrew_punctuation import MAQ, PASOLEG
 
 ACCENTS_AND_METEG_RE = re.compile(r"[\u0591-\u05AF\u05BD\u05BF\u05C0\u05C4\u05C5]")
 CGJ_AND_JOINERS_RE = re.compile(r"[\u034F\u200C\u200D]")
@@ -298,3 +298,4 @@ def iter_plus_verses(
                     "verse": verse_num,
                     "ep_payload": verse_payload[2],
                 }
+

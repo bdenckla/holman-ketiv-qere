@@ -5,7 +5,7 @@ from collections import Counter
 import unicodedata
 from difflib import SequenceMatcher
 
-from pycmn.hebrew_points import (
+from mb_cmn.hebrew_points import (
     DAGOMOSD as DAGESH,
     XIRIQ as HIRIQ,
     TSERE,
@@ -593,3 +593,4 @@ def _vowel_name_for_mater(
             return MARK_NAMES[QAMATS]
         return None
     return None
+

@@ -1,8 +1,8 @@
-Provenance of pycmn/
+Provenance of mb_cmn/
 
 These Python files were copied from MAM-basics at:
 
-  GitRepos-relative path: MAM-basics/py/pycmn
+  GitRepos-relative path: MAM-basics/py/mb_cmn
 
 Files copied:
   bib_locales.py
@@ -21,3 +21,4 @@ Files copied:
 Git commit: fc0dc0273661a9e19e496be95521f75b5026a176
 
 Date copied: 2026-04-27
+

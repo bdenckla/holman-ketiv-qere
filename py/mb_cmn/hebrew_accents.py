@@ -1,6 +1,6 @@
 """Exports names for Unicode Hebrew accents"""
 
-from pycmn import cantsys
+from mb_cmn import cantsys
 
 ATN = "\N{HEBREW ACCENT ETNAHTA}"
 SEG_A = "\N{HEBREW ACCENT SEGOL}"
@@ -153,3 +153,4 @@ _CONJUNCTIVES_BCC_POETIC = [  # See Yeivin ITM #358 (page 264) and, for ATN_H on
 CONJUNCTIVES_BCC = cantsys.mk_cantsys_struct(
     _CONJUNCTIVES_BCC_PROSE, _CONJUNCTIVES_BCC_POETIC
 )
+

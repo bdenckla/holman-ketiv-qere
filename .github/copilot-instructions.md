@@ -4,7 +4,7 @@
 
 Put reusable Python scripts that should be tracked under `py/`.
 
-When a throwaway Python script is needed that imports from `py/` modules (e.g. `python_modules`, `pycmn`), create it as `py/novc_bar.py` and run it from the repo root: `.venv\Scripts\python.exe py\novc_bar.py`. Files matching `novc_*.py` are gitignored via `py/.gitignore`. The `novc_` prefix sorts these files apart from tracked `main_*` scripts. Do not use `python -c` or temporary files outside the repo.
+When a throwaway Python script is needed that imports from `py/` modules (e.g. `python_modules`, `mb_cmn`), create it as `py/novc_bar.py` and run it from the repo root: `.venv\Scripts\python.exe py\novc_bar.py`. Files matching `novc_*.py` are gitignored via `py/.gitignore`. The `novc_` prefix sorts these files apart from tracked `main_*` scripts. Do not use `python -c` or temporary files outside the repo.
 
 For PowerShell throwaway scripts and non-Python artifacts (commit messages, issue bodies, etc.), use `.novc/` as before. **Never write multi-line PowerShell scripts inline on the command line**. Write a `.ps1` file under `.novc/` and run it with `.\.novc\script.ps1`. Inline multi-line PowerShell causes quoting, escaping, and line-continuation problems just like `python -c`.
 
@@ -37,7 +37,7 @@ Never save Hebrew text in NFC or NFD form. This project uses MAM-standard combin
 - **Never** call `unicodedata.normalize("NFC", …)` or `unicodedata.normalize("NFD", …)` on Hebrew strings — not even as a workaround for string comparison. If two Hebrew strings that should be equal aren't matching, the fix is to ensure both use MAM-standard order, not to paper over with normalization.
 - When writing Hebrew string literals in Python source, use MAM-standard order: base letter → shin/sin dot → dagesh (U+05BC) → rafeh → vowels/meteg/accents.
 - If a source file editor saves a literal in NFC order (dagesh after vowel), correct the literal to MAM order rather than normalizing at runtime.
-- To convert a Hebrew string to MAM-standard order at runtime, use `give_std_mark_order` from `pycmn.uni_denorm` (vendored from MAM-basics). Do **not** write a hand-rolled mark-order sort; this function is the canonical implementation.
+- To convert a Hebrew string to MAM-standard order at runtime, use `give_std_mark_order` from `mb_cmn.uni_denorm` (vendored from MAM-basics). Do **not** write a hand-rolled mark-order sort; this function is the canonical implementation.
 
 ## Data Extraction Style
 
@@ -252,3 +252,4 @@ Do not use bare tildes (`~`) as an abbreviation for "approximately." Markdown re
 ## Do Not Mention Private Repos in Public Repos
 
 Some sibling repositories are private. Never reference a private repo by name in commits, code, documentation, or issue/PR text destined for a public repo.
+
