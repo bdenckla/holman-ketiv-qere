@@ -13,10 +13,10 @@ For each vendored package the script:
 """
 
 import datetime
-import shutil
-import subprocess
+import importlib.util
 import sys
 from pathlib import Path
+from types import ModuleType
 
 _REPO = Path(__file__).resolve().parent.parent
 _MAM = _REPO.parent / "MAM-basics"
@@ -27,77 +27,21 @@ _VENDORED_PACKAGES = [
 ]
 
 
-def _get_mam_git_info() -> tuple[str, str | None]:
-    """Return (commit_hash, tag_or_None) for MAM-basics HEAD."""
-    commit = subprocess.run(
-        ["git", "-C", str(_MAM), "rev-parse", "HEAD"],
-        capture_output=True,
-        text=True,
-        check=True,
-    ).stdout.strip()
+def _load_vendoring_sync() -> ModuleType:
+    module_path = _MAM / "py" / "mb_cmn" / "vendoring_sync.py"
+    if not module_path.is_file():
+        raise FileNotFoundError(
+            f"Shared helper not found: {module_path}. "
+            "Expected in sibling MAM-basics repo."
+        )
 
-    tag_result = subprocess.run(
-        ["git", "-C", str(_MAM), "describe", "--tags", "--exact-match", "HEAD"],
-        capture_output=True,
-        text=True,
-    )
-    tag = tag_result.stdout.strip() if tag_result.returncode == 0 else None
-    return commit, tag
+    spec = importlib.util.spec_from_file_location("mb_cmn_vendoring_sync", module_path)
+    if spec is None or spec.loader is None:
+        raise ImportError(f"Could not load module spec from {module_path}")
 
-
-def _copy_by_intersection(src_dir: Path, dest_dir: Path) -> list[str]:
-    """Copy .py files present in dest_dir from src_dir.
-
-    Skips provenance.md and non-.py files.
-    For any local .py file absent in src_dir, raises FileNotFoundError.
-    Returns sorted list of copied filenames.
-    """
-    copied: list[str] = []
-    for dest_file in sorted(dest_dir.iterdir()):
-        if dest_file.suffix != ".py":
-            continue
-        src_file = src_dir / dest_file.name
-        if not src_file.exists():
-            raise FileNotFoundError(
-                f"{dest_file.name} exists locally but not in MAM-basics source "
-                f"{src_dir} — has the file been removed upstream?"
-            )
-        shutil.copy2(src_file, dest_file)
-        copied.append(dest_file.name)
-    return copied
-
-
-def _write_provenance(
-    dest_dir: Path,
-    mam_src_rel: str,
-    copied_files: list[str],
-    commit: str,
-    tag: str | None,
-    date_str: str,
-) -> None:
-    """Write provenance.md into dest_dir."""
-    pkg_name = dest_dir.name
-    lines = [
-        f"Provenance of {pkg_name}/",
-        "",
-        "These Python files were copied from MAM-basics at:",
-        "",
-        f"  GitRepos-relative path: MAM-basics/{mam_src_rel}",
-        "",
-        "Files copied:",
-    ]
-    for fname in copied_files:
-        lines.append(f"  {fname}")
-    lines.append("")
-    lines.append(f"Git commit: {commit}")
-    if tag is not None:
-        lines.append(f"Git tag:    {tag}")
-    lines.append("")
-    lines.append(f"Date copied: {date_str}")
-    lines.append("")
-
-    provenance_path = dest_dir / "provenance.md"
-    provenance_path.write_text("\n".join(lines), encoding="utf-8")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
 
 
 def main() -> None:
@@ -110,7 +54,9 @@ def main() -> None:
             "Expected as a sibling of this repo."
         )
 
-    commit, tag = _get_mam_git_info()
+    vendoring_sync = _load_vendoring_sync()
+
+    commit, tag = vendoring_sync.get_git_info(_MAM)
     date_str = datetime.date.today().isoformat()
 
     for _pkg_name, mam_src_rel, local_rel in _VENDORED_PACKAGES:
@@ -122,14 +68,19 @@ def main() -> None:
                 f"Source directory not found in MAM-basics: {src_dir}"
             )
 
-        copied = _copy_by_intersection(src_dir, dest_dir)
-        _write_provenance(
+        copied = vendoring_sync.copy_by_intersection(
+            src_dir,
             dest_dir,
-            mam_src_rel.as_posix(),
-            copied,
-            commit,
-            tag,
-            date_str,
+            include_suffixes=(".py",),
+            strict=True,
+        )
+        vendoring_sync.write_provenance(
+            dest_dir,
+            source_rel=f"MAM-basics/{mam_src_rel.as_posix()}",
+            copied_files=copied,
+            commit=commit,
+            tag=tag,
+            date_str=date_str,
         )
         print(f"{dest_dir.relative_to(_REPO)}: copied {len(copied)} files")
 
@@ -139,4 +90,3 @@ def main() -> None:
 
 
 main()
-

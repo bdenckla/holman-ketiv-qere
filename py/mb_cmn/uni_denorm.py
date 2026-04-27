@@ -77,4 +77,3 @@ def _ccs_keyfn(char):
 
 def _ccs_keyfn_aht(char):
     return _NS_COMB_CLASSES_AHT.get(char) or 300
-

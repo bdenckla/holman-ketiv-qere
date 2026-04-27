@@ -77,4 +77,3 @@ _STR_INT_PAIRS = [(b, a) for a, b in _INT_STR_PAIRS]
 # to make Pylance happy.
 STR_TO_INT_DIC = dict(_STR_INT_PAIRS)
 INT_TO_STR_DIC = dict(_INT_STR_PAIRS)
-

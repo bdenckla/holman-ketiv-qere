@@ -337,4 +337,3 @@ def _uxlc_xml_path(uxlc_utils_path: Path, std_book_name: str) -> Path:
     if basename is None:
         raise ValueError(f"unsupported UXLC standard book name: {std_book_name!r}")
     return uxlc_utils_path / "in" / "UXLC-39" / f"{basename}.xml"
-

@@ -78,4 +78,3 @@ def _int_to_hebrew(number: int) -> str:
     tens, ones = divmod(remainder, 10)
     numeral = _HUNDREDS[hundreds] + _TENS[tens] + _ONES[ones]
     return _SACRED_REMAPS.get(numeral, numeral)
-

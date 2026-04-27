@@ -380,4 +380,3 @@ def _symbol_name(symbol: str) -> str:
 
 def _as_text(value: object) -> str:
     return "" if value is None else str(value)
-

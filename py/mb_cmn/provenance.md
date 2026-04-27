@@ -1,6 +1,6 @@
 Provenance of mb_cmn/
 
-These Python files were copied from MAM-basics at:
+These files were copied from a sibling source repository at:
 
   GitRepos-relative path: MAM-basics/py/mb_cmn
 
@@ -18,7 +18,6 @@ Files copied:
   template_names.py
   uni_denorm.py
 
-Git commit: fc0dc0273661a9e19e496be95521f75b5026a176
+Git commit: a82e91b45f792e4949f17c7e9c03000e4671707b
 
 Date copied: 2026-04-27
-

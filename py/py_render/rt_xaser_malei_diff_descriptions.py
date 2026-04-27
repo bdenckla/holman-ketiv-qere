@@ -593,4 +593,3 @@ def _vowel_name_for_mater(
             return MARK_NAMES[QAMATS]
         return None
     return None
-

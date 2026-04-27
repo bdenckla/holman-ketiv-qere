@@ -330,4 +330,3 @@ def _validate_leningrad_quote_count(leningrad_quote_count: int) -> None:
             "unexpected multiple non-empty leningrad text values; expected at most one "
             f"meaningless quote marker, found {leningrad_quote_count}"
         )
-

@@ -424,4 +424,3 @@ def verify_table_words_in_mam_plus(
         "rows_with_supported_qere_wrapper": supported_qere_wrapper_rows,
         "rows_supported_qere_wrapper_mismatch": supported_qere_wrapper_mismatch_rows,
     }
-

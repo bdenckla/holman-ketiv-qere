@@ -298,4 +298,3 @@ def iter_plus_verses(
                     "verse": verse_num,
                     "ep_payload": verse_payload[2],
                 }
-

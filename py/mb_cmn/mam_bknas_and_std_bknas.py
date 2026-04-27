@@ -77,4 +77,3 @@ _PAIRS = (
 )
 BK39ID_TO_MAM_HBNP = dict(map(_flip, _PAIRS))
 MAM_HBNP_TO_BK39ID = dict(_PAIRS)
-

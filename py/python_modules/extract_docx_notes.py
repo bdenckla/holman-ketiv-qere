@@ -328,4 +328,3 @@ def _split_maqaf_atoms(text: str) -> list[str]:
     if current_chars:
         atoms.append("".join(current_chars))
     return atoms
-
