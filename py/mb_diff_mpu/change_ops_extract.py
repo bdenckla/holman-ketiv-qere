@@ -402,4 +402,3 @@ def extract_change_ops(
         return _extract_structural_ops(old_ep, new_ep)
 
     return [GenericTextReplace(old_fragment=old_text, new_fragment=new_text)]
-

@@ -126,4 +126,3 @@ def _structure_occurrences(obj, path=()):
 def structural_signature(ep):
     """Return a normalized, position-aware structural signature for EP."""
     return tuple(_structure_occurrences(ep))
-

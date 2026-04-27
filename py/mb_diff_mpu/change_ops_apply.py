@@ -289,4 +289,3 @@ def apply_structural_ops(old_ep_counter, ops):
         elif isinstance(op, TemplateRestructured):
             return ANY_STRUCTURE
     return result
-

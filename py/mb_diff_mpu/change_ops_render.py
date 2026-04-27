@@ -164,4 +164,3 @@ def render_english(ops, book, chapter, verse, old_text="", new_text=""):
             descriptions.append(desc)
 
     return "; ".join(descriptions) if descriptions else None
-

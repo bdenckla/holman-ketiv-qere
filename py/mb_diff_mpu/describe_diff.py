@@ -477,4 +477,3 @@ def add_name_tooltips(html_escaped_desc):
     for name, tip in _NAME_TOOLTIPS.items():
         result = result.replace(name, f'<abbr title="{tip}">{name}</abbr>')
     return result
-
