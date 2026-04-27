@@ -1,8 +1,8 @@
-Provenance of pydiff_mpp/
+Provenance of pydiff_mpplus/
 
 These Python files were copied from MAM-basics at:
 
-  GitRepos-relative path: MAM-basics/py/pydiff_mpp
+  GitRepos-relative path: MAM-basics/py/pydiff_mpplus
 
 Files copied:
   change_ops.py
@@ -11,10 +11,10 @@ Files copied:
   change_ops_render.py
   describe_diff.py
   grapheme_diff.py
-  mpp_flatten.py
-  mpp_param_access.py
-  mpp_structure.py
+  mpplus_flatten.py
+  mpplus_param_access.py
+  mpplus_structure.py
 
-Git commit: dc6d3a1096844ab4c0e86942aa9cc4d5d27da7eb
+Git commit: fc0dc0273661a9e19e496be95521f75b5026a176
 
-Date copied: 2026-04-25
+Date copied: 2026-04-27

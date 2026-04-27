@@ -6,8 +6,8 @@ import re
 from typing import Mapping
 
 from pycmn.hebrew_punctuation import SOPA
-from pydiff_mpp.describe_diff import describe_change
-from pydiff_mpp.grapheme_diff import grapheme_clusters
+from pydiff_mpplus.describe_diff import describe_change
+from pydiff_mpplus.grapheme_diff import grapheme_clusters
 
 from python_modules.extract_docx_notes import parse_verse_reference, standard_book_name
 from py_render.rt_xaser_malei_diff_descriptions import (
