@@ -13,10 +13,10 @@ For each vendored package the script:
 """
 
 import datetime
-import importlib.util
 import sys
 from pathlib import Path
-from types import ModuleType
+
+from mb_cmn import vendoring_sync
 
 _REPO = Path(__file__).resolve().parent.parent
 _MAM = _REPO.parent / "MAM-basics"
@@ -25,23 +25,6 @@ _VENDORED_PACKAGES = [
     ("mb_cmn", Path("py/mb_cmn"), Path("py/mb_cmn")),
     ("mb_diff_mpu", Path("py/mb_diff_mpu"), Path("py/mb_diff_mpu")),
 ]
-
-
-def _load_vendoring_sync() -> ModuleType:
-    module_path = _MAM / "py" / "mb_cmn" / "vendoring_sync.py"
-    if not module_path.is_file():
-        raise FileNotFoundError(
-            f"Shared helper not found: {module_path}. "
-            "Expected in sibling MAM-basics repo."
-        )
-
-    spec = importlib.util.spec_from_file_location("mb_cmn_vendoring_sync", module_path)
-    if spec is None or spec.loader is None:
-        raise ImportError(f"Could not load module spec from {module_path}")
-
-    module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
-    return module
 
 
 def main() -> None:
@@ -53,8 +36,6 @@ def main() -> None:
             f"MAM-basics repo not found at {_MAM}. "
             "Expected as a sibling of this repo."
         )
-
-    vendoring_sync = _load_vendoring_sync()
 
     commit, tag = vendoring_sync.get_git_info(_MAM)
     date_str = datetime.date.today().isoformat()
