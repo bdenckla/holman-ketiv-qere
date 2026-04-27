@@ -20,18 +20,18 @@
     "produce one hit per param, silently."
   ],
   "summary": {
-    "mpp": {
+    "mpu": {
       "hit_count": 1393,
       "unique_vowel_only_form_count": 113,
-      "trivq_arg1_hit_count": 16,
-      "trivq_arg1_unique_vowel_only_form_count": 14,
-      "other_hit_count": 1377,
-      "other_unique_vowel_only_form_count": 104,
-      "plain_text_hit_count": 1376,
+      "trivq_arg1_hit_count": 19,
+      "trivq_arg1_unique_vowel_only_form_count": 16,
+      "other_hit_count": 1374,
+      "other_unique_vowel_only_form_count": 101,
+      "plain_text_hit_count": 1373,
       "templated_non_trivq_hit_count": 1,
       "source_template_hit_counts": {
         "כו\"ק": 1,
-        "קו\"כ-אם": 16
+        "מ:קו\"כ-אם-2": 19
       },
       "vowel_only_form_counts": {
         "אֵיכֹה": 1,
@@ -151,7 +151,7 @@
     },
     "mam_basics_wordlist_hit_count": 302,
     "mam_basics_wordlist_unique_vowel_only_form_count": 113,
-    "vowel_only_forms_only_in_mpp": [],
+    "vowel_only_forms_only_in_mpu": [],
     "vowel_only_forms_only_in_wordlist": [],
     "vowel_only_forms_in_both": [
       "אֵיכֹה",
@@ -269,7 +269,7 @@
       "תְּבוּאָתֹה"
     ]
   },
-  "mpp_hits_trivq_arg1": [
+  "mpu_hits_trivq_arg1": [
     {
       "plus_file": "A1-Genesis.json",
       "book39_index": 0,
@@ -281,7 +281,7 @@
       "vowel_only_form": "אׇהֳלֹה",
       "is_trivq_arg1": true,
       "source_templates": [
-        "קו\"כ-אם"
+        "מ:קו\"כ-אם-2"
       ],
       "source_argument_keys": [
         "1"
@@ -299,7 +299,7 @@
       "vowel_only_form": "אָהֳלֹה",
       "is_trivq_arg1": true,
       "source_templates": [
-        "קו\"כ-אם"
+        "מ:קו\"כ-אם-2"
       ],
       "source_argument_keys": [
         "1"
@@ -317,7 +317,7 @@
       "vowel_only_form": "שִׁילֹה",
       "is_trivq_arg1": true,
       "source_templates": [
-        "קו\"כ-אם"
+        "מ:קו\"כ-אם-2"
       ],
       "source_argument_keys": [
         "1"
@@ -335,7 +335,7 @@
       "vowel_only_form": "עִירֹה",
       "is_trivq_arg1": true,
       "source_templates": [
-        "קו\"כ-אם"
+        "מ:קו\"כ-אם-2"
       ],
       "source_argument_keys": [
         "1"
@@ -353,7 +353,7 @@
       "vowel_only_form": "סוּתֹה",
       "is_trivq_arg1": true,
       "source_templates": [
-        "קו\"כ-אם"
+        "מ:קו\"כ-אם-2"
       ],
       "source_argument_keys": [
         "1"
@@ -371,7 +371,7 @@
       "vowel_only_form": "בְּעִירֹה",
       "is_trivq_arg1": true,
       "source_templates": [
-        "קו\"כ-אם"
+        "מ:קו\"כ-אם-2"
       ],
       "source_argument_keys": [
         "1"
@@ -389,7 +389,7 @@
       "vowel_only_form": "כְסוּתֹה",
       "is_trivq_arg1": true,
       "source_templates": [
-        "קו\"כ-אם"
+        "מ:קו\"כ-אם-2"
       ],
       "source_argument_keys": [
         "1"
@@ -407,7 +407,7 @@
       "vowel_only_form": "קִצֹּה",
       "is_trivq_arg1": true,
       "source_templates": [
-        "קו\"כ-אם"
+        "מ:קו\"כ-אם-2"
       ],
       "source_argument_keys": [
         "1"
@@ -425,7 +425,25 @@
       "vowel_only_form": "נְכֹתֹה",
       "is_trivq_arg1": true,
       "source_templates": [
-        "קו\"כ-אם"
+        "מ:קו\"כ-אם-2"
+      ],
+      "source_argument_keys": [
+        "1"
+      ],
+      "is_plain_text_hit": false
+    },
+    {
+      "plus_file": "C2-Jeremiah.json",
+      "book39_index": 0,
+      "book24_name": "ספר ירמיהו",
+      "sub_book_name": null,
+      "chapter": 2,
+      "verse": 3,
+      "word": "תְּבוּאָתֹ֑ה",
+      "vowel_only_form": "תְּבוּאָתֹה",
+      "is_trivq_arg1": true,
+      "source_templates": [
+        "מ:קו\"כ-אם-2"
       ],
       "source_argument_keys": [
         "1"
@@ -443,7 +461,7 @@
       "vowel_only_form": "כֻּלֹּה",
       "is_trivq_arg1": true,
       "source_templates": [
-        "קו\"כ-אם"
+        "מ:קו\"כ-אם-2"
       ],
       "source_argument_keys": [
         "1"
@@ -461,7 +479,7 @@
       "vowel_only_form": "בֹּה",
       "is_trivq_arg1": true,
       "source_templates": [
-        "קו\"כ-אם"
+        "מ:קו\"כ-אם-2"
       ],
       "source_argument_keys": [
         "1"
@@ -479,7 +497,7 @@
       "vowel_only_form": "עֶזְרֹה",
       "is_trivq_arg1": true,
       "source_templates": [
-        "קו\"כ-אם"
+        "מ:קו\"כ-אם-2"
       ],
       "source_argument_keys": [
         "1"
@@ -497,7 +515,7 @@
       "vowel_only_form": "כֻּלֹּה",
       "is_trivq_arg1": true,
       "source_templates": [
-        "קו\"כ-אם"
+        "מ:קו\"כ-אם-2"
       ],
       "source_argument_keys": [
         "1"
@@ -515,7 +533,7 @@
       "vowel_only_form": "כֻּלֹּה",
       "is_trivq_arg1": true,
       "source_templates": [
-        "קו\"כ-אם"
+        "מ:קו\"כ-אם-2"
       ],
       "source_argument_keys": [
         "1"
@@ -533,7 +551,43 @@
       "vowel_only_form": "בְּתוֹכֹה",
       "is_trivq_arg1": true,
       "source_templates": [
-        "קו\"כ-אם"
+        "מ:קו\"כ-אם-2"
+      ],
+      "source_argument_keys": [
+        "1"
+      ],
+      "is_plain_text_hit": false
+    },
+    {
+      "plus_file": "C3-Ezekiel.json",
+      "book39_index": 0,
+      "book24_name": "ספר יחזקאל",
+      "sub_book_name": null,
+      "chapter": 48,
+      "verse": 18,
+      "word": "תְבֽוּאָתֹה֙",
+      "vowel_only_form": "תְבוּאָתֹה",
+      "is_trivq_arg1": true,
+      "source_templates": [
+        "מ:קו\"כ-אם-2"
+      ],
+      "source_argument_keys": [
+        "1"
+      ],
+      "is_plain_text_hit": false
+    },
+    {
+      "plus_file": "C3-Ezekiel.json",
+      "book39_index": 0,
+      "book24_name": "ספר יחזקאל",
+      "sub_book_name": null,
+      "chapter": 48,
+      "verse": 21,
+      "word": "בְּתוֹכֹֽה",
+      "vowel_only_form": "בְּתוֹכֹה",
+      "is_trivq_arg1": true,
+      "source_templates": [
+        "מ:קו\"כ-אם-2"
       ],
       "source_argument_keys": [
         "1"
@@ -551,7 +605,7 @@
       "vowel_only_form": "מָעֻזֹּה",
       "is_trivq_arg1": true,
       "source_templates": [
-        "קו\"כ-אם"
+        "מ:קו\"כ-אם-2"
       ],
       "source_argument_keys": [
         "1"
@@ -559,7 +613,7 @@
       "is_plain_text_hit": false
     }
   ],
-  "mpp_hits_other": [
+  "mpu_hits_other": [
     {
       "plus_file": "A1-Genesis.json",
       "book39_index": 0,
@@ -11154,20 +11208,6 @@
       "book24_name": "ספר ירמיהו",
       "sub_book_name": null,
       "chapter": 2,
-      "verse": 3,
-      "word": "תְּבוּאָתֹ֑ה",
-      "vowel_only_form": "תְּבוּאָתֹה",
-      "is_trivq_arg1": false,
-      "source_templates": [],
-      "source_argument_keys": [],
-      "is_plain_text_hit": true
-    },
-    {
-      "plus_file": "C2-Jeremiah.json",
-      "book39_index": 0,
-      "book24_name": "ספר ירמיהו",
-      "sub_book_name": null,
-      "chapter": 2,
       "verse": 5,
       "word": "כֹּ֣ה",
       "vowel_only_form": "כֹּה",
@@ -16175,34 +16215,6 @@
       "is_plain_text_hit": true
     },
     {
-      "plus_file": "C3-Ezekiel.json",
-      "book39_index": 0,
-      "book24_name": "ספר יחזקאל",
-      "sub_book_name": null,
-      "chapter": 48,
-      "verse": 18,
-      "word": "תְבֽוּאָתֹה֙",
-      "vowel_only_form": "תְבוּאָתֹה",
-      "is_trivq_arg1": false,
-      "source_templates": [],
-      "source_argument_keys": [],
-      "is_plain_text_hit": true
-    },
-    {
-      "plus_file": "C3-Ezekiel.json",
-      "book39_index": 0,
-      "book24_name": "ספר יחזקאל",
-      "sub_book_name": null,
-      "chapter": 48,
-      "verse": 21,
-      "word": "בְּתוֹכֹֽה",
-      "vowel_only_form": "בְּתוֹכֹה",
-      "is_trivq_arg1": false,
-      "source_templates": [],
-      "source_argument_keys": [],
-      "is_plain_text_hit": true
-    },
-    {
       "plus_file": "CA-The-12-Minor-Prophets.json",
       "book39_index": 0,
       "book24_name": "ספר תרי עשר",
@@ -19843,7 +19855,7 @@
       "is_plain_text_hit": true
     }
   ],
-  "mpp_hits_plain_text": [
+  "mpu_hits_plain_text": [
     {
       "plus_file": "A1-Genesis.json",
       "book39_index": 0,
@@ -30420,20 +30432,6 @@
       "book24_name": "ספר ירמיהו",
       "sub_book_name": null,
       "chapter": 2,
-      "verse": 3,
-      "word": "תְּבוּאָתֹ֑ה",
-      "vowel_only_form": "תְּבוּאָתֹה",
-      "is_trivq_arg1": false,
-      "source_templates": [],
-      "source_argument_keys": [],
-      "is_plain_text_hit": true
-    },
-    {
-      "plus_file": "C2-Jeremiah.json",
-      "book39_index": 0,
-      "book24_name": "ספר ירמיהו",
-      "sub_book_name": null,
-      "chapter": 2,
       "verse": 5,
       "word": "כֹּ֣ה",
       "vowel_only_form": "כֹּה",
@@ -35441,34 +35439,6 @@
       "is_plain_text_hit": true
     },
     {
-      "plus_file": "C3-Ezekiel.json",
-      "book39_index": 0,
-      "book24_name": "ספר יחזקאל",
-      "sub_book_name": null,
-      "chapter": 48,
-      "verse": 18,
-      "word": "תְבֽוּאָתֹה֙",
-      "vowel_only_form": "תְבוּאָתֹה",
-      "is_trivq_arg1": false,
-      "source_templates": [],
-      "source_argument_keys": [],
-      "is_plain_text_hit": true
-    },
-    {
-      "plus_file": "C3-Ezekiel.json",
-      "book39_index": 0,
-      "book24_name": "ספר יחזקאל",
-      "sub_book_name": null,
-      "chapter": 48,
-      "verse": 21,
-      "word": "בְּתוֹכֹֽה",
-      "vowel_only_form": "בְּתוֹכֹה",
-      "is_trivq_arg1": false,
-      "source_templates": [],
-      "source_argument_keys": [],
-      "is_plain_text_hit": true
-    },
-    {
       "plus_file": "CA-The-12-Minor-Prophets.json",
       "book39_index": 0,
       "book24_name": "ספר תרי עשר",
@@ -39109,7 +39079,7 @@
       "is_plain_text_hit": true
     }
   ],
-  "mpp_hits_by_verse": [
+  "mpu_hits_by_verse": [
     {
       "plus_file": "A1-Genesis.json",
       "book39_index": 0,
@@ -39253,7 +39223,7 @@
           "vowel_only_form": "אׇהֳלֹה",
           "source_category": "trivq_arg1",
           "source_templates": [
-            "קו\"כ-אם"
+            "מ:קו\"כ-אם-2"
           ],
           "source_argument_keys": [
             "1"
@@ -39264,7 +39234,7 @@
           "vowel_only_form": "אָהֳלֹה",
           "source_category": "trivq_arg1",
           "source_templates": [
-            "קו\"כ-אם"
+            "מ:קו\"כ-אם-2"
           ],
           "source_argument_keys": [
             "1"
@@ -40772,7 +40742,7 @@
           "vowel_only_form": "שִׁילֹה",
           "source_category": "trivq_arg1",
           "source_templates": [
-            "קו\"כ-אם"
+            "מ:קו\"כ-אם-2"
           ],
           "source_argument_keys": [
             "1"
@@ -40793,7 +40763,7 @@
           "vowel_only_form": "עִירֹה",
           "source_category": "trivq_arg1",
           "source_templates": [
-            "קו\"כ-אם"
+            "מ:קו\"כ-אם-2"
           ],
           "source_argument_keys": [
             "1"
@@ -40804,7 +40774,7 @@
           "vowel_only_form": "סוּתֹה",
           "source_category": "trivq_arg1",
           "source_templates": [
-            "קו\"כ-אם"
+            "מ:קו\"כ-אם-2"
           ],
           "source_argument_keys": [
             "1"
@@ -43090,7 +43060,7 @@
           "vowel_only_form": "בְּעִירֹה",
           "source_category": "trivq_arg1",
           "source_templates": [
-            "קו\"כ-אם"
+            "מ:קו\"כ-אם-2"
           ],
           "source_argument_keys": [
             "1"
@@ -43111,7 +43081,7 @@
           "vowel_only_form": "כְסוּתֹה",
           "source_category": "trivq_arg1",
           "source_templates": [
-            "קו\"כ-אם"
+            "מ:קו\"כ-אם-2"
           ],
           "source_argument_keys": [
             "1"
@@ -49405,7 +49375,7 @@
           "vowel_only_form": "קִצֹּה",
           "source_category": "trivq_arg1",
           "source_templates": [
-            "קו\"כ-אם"
+            "מ:קו\"כ-אם-2"
           ],
           "source_argument_keys": [
             "1"
@@ -50343,7 +50313,7 @@
           "vowel_only_form": "נְכֹתֹה",
           "source_category": "trivq_arg1",
           "source_templates": [
-            "קו\"כ-אם"
+            "מ:קו\"כ-אם-2"
           ],
           "source_argument_keys": [
             "1"
@@ -50896,9 +50866,13 @@
         {
           "word": "תְּבוּאָתֹ֑ה",
           "vowel_only_form": "תְּבוּאָתֹה",
-          "source_category": "plain_text",
-          "source_templates": [],
-          "source_argument_keys": []
+          "source_category": "trivq_arg1",
+          "source_templates": [
+            "מ:קו\"כ-אם-2"
+          ],
+          "source_argument_keys": [
+            "1"
+          ]
         }
       ]
     },
@@ -51204,7 +51178,7 @@
           "vowel_only_form": "כֻּלֹּה",
           "source_category": "trivq_arg1",
           "source_templates": [
-            "קו\"כ-אם"
+            "מ:קו\"כ-אם-2"
           ],
           "source_argument_keys": [
             "1"
@@ -51691,7 +51665,7 @@
           "vowel_only_form": "בֹּה",
           "source_category": "trivq_arg1",
           "source_templates": [
-            "קו\"כ-אם"
+            "מ:קו\"כ-אם-2"
           ],
           "source_argument_keys": [
             "1"
@@ -54397,7 +54371,7 @@
           "vowel_only_form": "עֶזְרֹה",
           "source_category": "trivq_arg1",
           "source_templates": [
-            "קו\"כ-אם"
+            "מ:קו\"כ-אם-2"
           ],
           "source_argument_keys": [
             "1"
@@ -54911,7 +54885,7 @@
           "vowel_only_form": "כֻּלֹּה",
           "source_category": "trivq_arg1",
           "source_templates": [
-            "קו\"כ-אם"
+            "מ:קו\"כ-אם-2"
           ],
           "source_argument_keys": [
             "1"
@@ -56256,7 +56230,7 @@
           "vowel_only_form": "כֻּלֹּה",
           "source_category": "trivq_arg1",
           "source_templates": [
-            "קו\"כ-אם"
+            "מ:קו\"כ-אם-2"
           ],
           "source_argument_keys": [
             "1"
@@ -56856,7 +56830,7 @@
           "vowel_only_form": "בְּתוֹכֹה",
           "source_category": "trivq_arg1",
           "source_templates": [
-            "קו\"כ-אם"
+            "מ:קו\"כ-אם-2"
           ],
           "source_argument_keys": [
             "1"
@@ -56875,9 +56849,13 @@
         {
           "word": "תְבֽוּאָתֹה֙",
           "vowel_only_form": "תְבוּאָתֹה",
-          "source_category": "plain_text",
-          "source_templates": [],
-          "source_argument_keys": []
+          "source_category": "trivq_arg1",
+          "source_templates": [
+            "מ:קו\"כ-אם-2"
+          ],
+          "source_argument_keys": [
+            "1"
+          ]
         }
       ]
     },
@@ -56892,9 +56870,13 @@
         {
           "word": "בְּתוֹכֹֽה",
           "vowel_only_form": "בְּתוֹכֹה",
-          "source_category": "plain_text",
-          "source_templates": [],
-          "source_argument_keys": []
+          "source_category": "trivq_arg1",
+          "source_templates": [
+            "מ:קו\"כ-אם-2"
+          ],
+          "source_argument_keys": [
+            "1"
+          ]
         }
       ]
     },
@@ -58765,7 +58747,7 @@
           "vowel_only_form": "מָעֻזֹּה",
           "source_category": "trivq_arg1",
           "source_templates": [
-            "קו\"כ-אם"
+            "מ:קו\"כ-אם-2"
           ],
           "source_argument_keys": [
             "1"
@@ -61140,7 +61122,7 @@
       ]
     }
   ],
-  "mpp_templated_hits_by_verse": [
+  "mpu_templated_hits_by_verse": [
     {
       "plus_file": "A1-Genesis.json",
       "book39_index": 0,
@@ -61154,7 +61136,7 @@
           "vowel_only_form": "אׇהֳלֹה",
           "source_category": "trivq_arg1",
           "source_templates": [
-            "קו\"כ-אם"
+            "מ:קו\"כ-אם-2"
           ],
           "source_argument_keys": [
             "1"
@@ -61165,7 +61147,7 @@
           "vowel_only_form": "אָהֳלֹה",
           "source_category": "trivq_arg1",
           "source_templates": [
-            "קו\"כ-אם"
+            "מ:קו\"כ-אם-2"
           ],
           "source_argument_keys": [
             "1"
@@ -61186,7 +61168,7 @@
           "vowel_only_form": "שִׁילֹה",
           "source_category": "trivq_arg1",
           "source_templates": [
-            "קו\"כ-אם"
+            "מ:קו\"כ-אם-2"
           ],
           "source_argument_keys": [
             "1"
@@ -61207,7 +61189,7 @@
           "vowel_only_form": "עִירֹה",
           "source_category": "trivq_arg1",
           "source_templates": [
-            "קו\"כ-אם"
+            "מ:קו\"כ-אם-2"
           ],
           "source_argument_keys": [
             "1"
@@ -61218,7 +61200,7 @@
           "vowel_only_form": "סוּתֹה",
           "source_category": "trivq_arg1",
           "source_templates": [
-            "קו\"כ-אם"
+            "מ:קו\"כ-אם-2"
           ],
           "source_argument_keys": [
             "1"
@@ -61239,7 +61221,7 @@
           "vowel_only_form": "בְּעִירֹה",
           "source_category": "trivq_arg1",
           "source_templates": [
-            "קו\"כ-אם"
+            "מ:קו\"כ-אם-2"
           ],
           "source_argument_keys": [
             "1"
@@ -61260,7 +61242,7 @@
           "vowel_only_form": "כְסוּתֹה",
           "source_category": "trivq_arg1",
           "source_templates": [
-            "קו\"כ-אם"
+            "מ:קו\"כ-אם-2"
           ],
           "source_argument_keys": [
             "1"
@@ -61302,7 +61284,7 @@
           "vowel_only_form": "קִצֹּה",
           "source_category": "trivq_arg1",
           "source_templates": [
-            "קו\"כ-אם"
+            "מ:קו\"כ-אם-2"
           ],
           "source_argument_keys": [
             "1"
@@ -61323,7 +61305,28 @@
           "vowel_only_form": "נְכֹתֹה",
           "source_category": "trivq_arg1",
           "source_templates": [
-            "קו\"כ-אם"
+            "מ:קו\"כ-אם-2"
+          ],
+          "source_argument_keys": [
+            "1"
+          ]
+        }
+      ]
+    },
+    {
+      "plus_file": "C2-Jeremiah.json",
+      "book39_index": 0,
+      "book24_name": "ספר ירמיהו",
+      "sub_book_name": null,
+      "chapter": 2,
+      "verse": 3,
+      "hits": [
+        {
+          "word": "תְּבוּאָתֹ֑ה",
+          "vowel_only_form": "תְּבוּאָתֹה",
+          "source_category": "trivq_arg1",
+          "source_templates": [
+            "מ:קו\"כ-אם-2"
           ],
           "source_argument_keys": [
             "1"
@@ -61344,7 +61347,7 @@
           "vowel_only_form": "כֻּלֹּה",
           "source_category": "trivq_arg1",
           "source_templates": [
-            "קו\"כ-אם"
+            "מ:קו\"כ-אם-2"
           ],
           "source_argument_keys": [
             "1"
@@ -61365,7 +61368,7 @@
           "vowel_only_form": "בֹּה",
           "source_category": "trivq_arg1",
           "source_templates": [
-            "קו\"כ-אם"
+            "מ:קו\"כ-אם-2"
           ],
           "source_argument_keys": [
             "1"
@@ -61386,7 +61389,7 @@
           "vowel_only_form": "עֶזְרֹה",
           "source_category": "trivq_arg1",
           "source_templates": [
-            "קו\"כ-אם"
+            "מ:קו\"כ-אם-2"
           ],
           "source_argument_keys": [
             "1"
@@ -61407,7 +61410,7 @@
           "vowel_only_form": "כֻּלֹּה",
           "source_category": "trivq_arg1",
           "source_templates": [
-            "קו\"כ-אם"
+            "מ:קו\"כ-אם-2"
           ],
           "source_argument_keys": [
             "1"
@@ -61428,7 +61431,7 @@
           "vowel_only_form": "כֻּלֹּה",
           "source_category": "trivq_arg1",
           "source_templates": [
-            "קו\"כ-אם"
+            "מ:קו\"כ-אם-2"
           ],
           "source_argument_keys": [
             "1"
@@ -61449,7 +61452,49 @@
           "vowel_only_form": "בְּתוֹכֹה",
           "source_category": "trivq_arg1",
           "source_templates": [
-            "קו\"כ-אם"
+            "מ:קו\"כ-אם-2"
+          ],
+          "source_argument_keys": [
+            "1"
+          ]
+        }
+      ]
+    },
+    {
+      "plus_file": "C3-Ezekiel.json",
+      "book39_index": 0,
+      "book24_name": "ספר יחזקאל",
+      "sub_book_name": null,
+      "chapter": 48,
+      "verse": 18,
+      "hits": [
+        {
+          "word": "תְבֽוּאָתֹה֙",
+          "vowel_only_form": "תְבוּאָתֹה",
+          "source_category": "trivq_arg1",
+          "source_templates": [
+            "מ:קו\"כ-אם-2"
+          ],
+          "source_argument_keys": [
+            "1"
+          ]
+        }
+      ]
+    },
+    {
+      "plus_file": "C3-Ezekiel.json",
+      "book39_index": 0,
+      "book24_name": "ספר יחזקאל",
+      "sub_book_name": null,
+      "chapter": 48,
+      "verse": 21,
+      "hits": [
+        {
+          "word": "בְּתוֹכֹֽה",
+          "vowel_only_form": "בְּתוֹכֹה",
+          "source_category": "trivq_arg1",
+          "source_templates": [
+            "מ:קו\"כ-אם-2"
           ],
           "source_argument_keys": [
             "1"
@@ -61470,7 +61515,7 @@
           "vowel_only_form": "מָעֻזֹּה",
           "source_category": "trivq_arg1",
           "source_templates": [
-            "קו\"כ-אם"
+            "מ:קו\"כ-אם-2"
           ],
           "source_argument_keys": [
             "1"

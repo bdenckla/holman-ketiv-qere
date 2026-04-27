@@ -19,23 +19,24 @@ from python_modules.supported_qere_wrapper import (
     supported_qere_wrapper_from_template_args,
 )
 
+# mpu = MAM-parsed-plus.
 EXPECTED_ROW_COUNT = 77
-KNOWN_DOCX_MPP_WORD_BY_VERSE = {
+KNOWN_DOCX_MPU_WORD_BY_VERSE = {
     "Joshua 10:24.19": (to_mam_mark_order("הֶהָלְכ֣וּא"), "הֶהָלְכ֣וּ"),
     "Tsefaniah 2:9.27": (to_mam_mark_order("גּוֹיִ֖"), "גּוֹיִ֖י"),
 }
 # Rows where the verse contains a supported qere wrapper for a DIFFERENT word than
 # the docx word. Confirmed by UXLC k/q elements and neighbour-context matching.
-KNOWN_DOCX_WORD_NOT_WRAPPED_IN_MPP_VERSE: frozenset[tuple[str, str]] = frozenset(
+KNOWN_DOCX_WORD_NOT_WRAPPED_IN_MPU_VERSE: frozenset[tuple[str, str]] = frozenset(
     {
         (
             "2Samuel 5:2.12",
             to_mam_mark_order("וְהַמֵּבִ֖י"),
-        ),  # 3 k/q in verse; MPP templates only first two
+        ),  # 3 k/q in verse; MPU templates only first two
         (
             "Job 26:14.4",
             to_mam_mark_order("דְּרָכָ֗ו"),
-        ),  # 2 k/q in verse; MPP templates גבורתו
+        ),  # 2 k/q in verse; MPU templates גבורתו
         ("Ezekiel 40:21.1", to_mam_mark_order("וְתָאָ֗ו")),  # verse k/q is וְאֵֽלַמָּו֙
         ("Ezekiel 40:31.7", to_mam_mark_order("אֵילָ֑ו")),  # verse k/q is מַעֲלָֽו
         ("Ezekiel 40:37.1", to_mam_mark_order("וְאֵילָ֗ו")),  # verse k/q is מַעֲלָֽו
@@ -61,21 +62,21 @@ def _word_boundary_pattern(word: str) -> re.Pattern[str]:
     )
 
 
-def normalize_mpp_match_text(text: str) -> str:
+def normalize_mpu_match_text(text: str) -> str:
     return text.replace(RAFE, "")
 
 
-def normalize_mpp_exact_arg_match_text(text: str) -> str:
-    return TRAILING_NON_TOKEN_PUNCTUATION_RE.sub("", normalize_mpp_match_text(text))
+def normalize_mpu_exact_arg_match_text(text: str) -> str:
+    return TRAILING_NON_TOKEN_PUNCTUATION_RE.sub("", normalize_mpu_match_text(text))
 
 
 def contains_word_as_hebrew_token(text: str, word: str) -> bool:
     if not word:
         return False
-    normalized_word = normalize_mpp_match_text(word)
+    normalized_word = normalize_mpu_match_text(word)
     if not normalized_word:
         return False
-    normalized_text = normalize_mpp_match_text(text)
+    normalized_text = normalize_mpu_match_text(text)
     return _word_boundary_pattern(normalized_word).search(normalized_text) is not None
 
 
@@ -83,12 +84,12 @@ def matching_template_args_for_word(
     template_args: list[dict[str, str]],
     word: str,
 ) -> list[dict[str, str]]:
-    normalized_word = normalize_mpp_match_text(word)
-    normalized_exact_word = normalize_mpp_exact_arg_match_text(word)
+    normalized_word = normalize_mpu_match_text(word)
+    normalized_exact_word = normalize_mpu_exact_arg_match_text(word)
     exact_matches = [
         arg
         for arg in template_args
-        if normalize_mpp_exact_arg_match_text(arg["argument_text"])
+        if normalize_mpu_exact_arg_match_text(arg["argument_text"])
         == normalized_exact_word
     ]
     if exact_matches:
@@ -101,15 +102,15 @@ def matching_template_args_for_word(
     ]
 
 
-def matching_mpp_surface_words_in_verse_text(verse_text: str, word: str) -> list[str]:
-    normalized_exact_word = normalize_mpp_exact_arg_match_text(word)
+def matching_mpu_surface_words_in_verse_text(verse_text: str, word: str) -> list[str]:
+    normalized_exact_word = normalize_mpu_exact_arg_match_text(word)
     if not normalized_exact_word:
         return []
 
     matching_surface_words: list[str] = []
     for match in SURFACE_WORD_WITH_TRAILING_PUNCTUATION_RE.finditer(verse_text):
         surface_word = f'{match.group("word")}{match.group("trailing")}'
-        if normalize_mpp_exact_arg_match_text(surface_word) != normalized_exact_word:
+        if normalize_mpu_exact_arg_match_text(surface_word) != normalized_exact_word:
             continue
         if surface_word not in matching_surface_words:
             matching_surface_words.append(surface_word)
@@ -117,15 +118,15 @@ def matching_mpp_surface_words_in_verse_text(verse_text: str, word: str) -> list
     return matching_surface_words
 
 
-def latest_mpp_word_for_known_docx_word(verse: str, word: str) -> str | None:
-    known_bug = KNOWN_DOCX_MPP_WORD_BY_VERSE.get(verse)
+def latest_mpu_word_for_known_docx_word(verse: str, word: str) -> str | None:
+    known_bug = KNOWN_DOCX_MPU_WORD_BY_VERSE.get(verse)
     if known_bug is None:
         return None
 
-    docx_word, latest_mpp_word = known_bug
-    if normalize_mpp_match_text(word) != normalize_mpp_match_text(docx_word):
+    docx_word, latest_mpu_word = known_bug
+    if normalize_mpu_match_text(word) != normalize_mpu_match_text(docx_word):
         return None
-    return latest_mpp_word
+    return latest_mpu_word
 
 
 def parse_table_verse(verse: str) -> tuple[str, int, int]:
@@ -239,14 +240,14 @@ def verify_table_words_in_mam_plus(
             verse_template_argument_records_by_location(plus_json)
         )
     plus_search_text_by_name = {
-        file_name: normalize_mpp_match_text("\n".join(verse_texts.values()))
+        file_name: normalize_mpu_match_text("\n".join(verse_texts.values()))
         for file_name, verse_texts in plus_verse_texts_by_name.items()
     }
 
     row_reports: list[dict[str, object]] = []
     missing_any: list[dict[str, object]] = []
-    missing_mpp_verse_text: list[dict[str, object]] = []
-    mpp_verse_template_arg_rows: list[dict[str, object]] = []
+    missing_mpu_verse_text: list[dict[str, object]] = []
+    mpu_verse_template_arg_rows: list[dict[str, object]] = []
     supported_qere_wrapper_rows: list[dict[str, object]] = []
     supported_qere_wrapper_mismatch_rows: list[dict[str, object]] = []
 
@@ -264,7 +265,7 @@ def verify_table_words_in_mam_plus(
         if not isinstance(word, str):
             raise ValueError(f"row has invalid word at row {row_number}")
 
-        normalized_word = normalize_mpp_match_text(word)
+        normalized_word = normalize_mpu_match_text(word)
 
         hit_files = [
             file_name
@@ -306,7 +307,7 @@ def verify_table_words_in_mam_plus(
             )
 
         found_in_any = len(hit_files) > 0
-        found_in_expected = normalized_word in normalize_mpp_match_text(
+        found_in_expected = normalized_word in normalize_mpu_match_text(
             expected_verse_text
         )
         matching_template_args = matching_template_args_for_word(
@@ -314,46 +315,46 @@ def verify_table_words_in_mam_plus(
             word,
         )
         surface_match_word = word
-        found_in_mpp_verse_template_arg = len(matching_template_args) > 0
-        found_via_known_docx_mpp_word = False
+        found_in_mpu_verse_template_arg = len(matching_template_args) > 0
+        found_via_known_docx_mpu_word = False
 
-        latest_mpp_word = latest_mpp_word_for_known_docx_word(verse, word)
-        if latest_mpp_word is not None:
-            normalized_latest_mpp_word = normalize_mpp_match_text(latest_mpp_word)
+        latest_mpu_word = latest_mpu_word_for_known_docx_word(verse, word)
+        if latest_mpu_word is not None:
+            normalized_latest_mpu_word = normalize_mpu_match_text(latest_mpu_word)
 
             if not found_in_any:
                 latest_hit_files = [
                     file_name
                     for file_name, search_text in plus_search_text_by_name.items()
-                    if normalized_latest_mpp_word in search_text
+                    if normalized_latest_mpu_word in search_text
                 ]
                 if latest_hit_files:
                     hit_files = latest_hit_files
                     found_in_any = True
-                    found_via_known_docx_mpp_word = True
+                    found_via_known_docx_mpu_word = True
 
             if (
                 not found_in_expected
-                and normalized_latest_mpp_word
-                in normalize_mpp_match_text(expected_verse_text)
+                and normalized_latest_mpu_word
+                in normalize_mpu_match_text(expected_verse_text)
             ):
                 found_in_expected = True
-                found_via_known_docx_mpp_word = True
+                found_via_known_docx_mpu_word = True
 
-            if not found_in_mpp_verse_template_arg:
+            if not found_in_mpu_verse_template_arg:
                 latest_matching_template_args = matching_template_args_for_word(
                     expected_verse_template_args,
-                    latest_mpp_word,
+                    latest_mpu_word,
                 )
                 if latest_matching_template_args:
                     matching_template_args = latest_matching_template_args
-                    surface_match_word = latest_mpp_word
-                    found_in_mpp_verse_template_arg = True
-                    found_via_known_docx_mpp_word = True
+                    surface_match_word = latest_mpu_word
+                    found_in_mpu_verse_template_arg = True
+                    found_via_known_docx_mpu_word = True
         # Compute the wrapper after matching_template_args is finalized.
         # When the word was found via a template arg, use the matching args to
         # select the right wrapper even when the verse contains multiple wrappers.
-        if found_in_mpp_verse_template_arg:
+        if found_in_mpu_verse_template_arg:
             supported_qere_wrapper = supported_qere_wrapper_for_matching_args(
                 matching_template_args, expected_verse_template_args
             )
@@ -361,30 +362,30 @@ def verify_table_words_in_mam_plus(
             supported_qere_wrapper = supported_qere_wrapper_from_template_args(
                 expected_verse_template_args
             )
-        if (verse, word) in KNOWN_DOCX_WORD_NOT_WRAPPED_IN_MPP_VERSE:
+        if (verse, word) in KNOWN_DOCX_WORD_NOT_WRAPPED_IN_MPU_VERSE:
             supported_qere_wrapper = None
-        matching_mpp_surface_words = matching_mpp_surface_words_in_verse_text(
+        matching_mpu_surface_words = matching_mpu_surface_words_in_verse_text(
             expected_verse_text,
             surface_match_word,
         )
         supported_qere_wrapper_word_mismatch = (
-            supported_qere_wrapper is not None and not found_in_mpp_verse_template_arg
+            supported_qere_wrapper is not None and not found_in_mpu_verse_template_arg
         )
 
         report_row = {
             "row_number": row_number,
             "verse": verse,
             "word": word,
-            "mpp_file_for_verse": expected_file,
+            "mpu_file_for_verse": expected_file,
             "found_in_any_plus_file": found_in_any,
-            "found_in_mpp_verse_text": found_in_expected,
-            "template_args_in_mpp_verse": expected_verse_template_args,
-            "supported_qere_wrapper_in_mpp_verse": supported_qere_wrapper,
-            "found_in_mpp_verse_template_arg": found_in_mpp_verse_template_arg,
-            "matching_template_args_in_mpp_verse": matching_template_args,
-            "matching_mpp_surface_words_in_mpp_verse": matching_mpp_surface_words,
+            "found_in_mpu_verse_text": found_in_expected,
+            "template_args_in_mpu_verse": expected_verse_template_args,
+            "supported_qere_wrapper_in_mpu_verse": supported_qere_wrapper,
+            "found_in_mpu_verse_template_arg": found_in_mpu_verse_template_arg,
+            "matching_template_args_in_mpu_verse": matching_template_args,
+            "matching_mpu_surface_words_in_mpu_verse": matching_mpu_surface_words,
             "supported_qere_wrapper_word_mismatch": supported_qere_wrapper_word_mismatch,
-            "found_via_known_docx_mpp_word": found_via_known_docx_mpp_word,
+            "found_via_known_docx_mpu_word": found_via_known_docx_mpu_word,
             "hit_files": hit_files,
         }
         row_reports.append(report_row)
@@ -392,11 +393,11 @@ def verify_table_words_in_mam_plus(
         if not found_in_any:
             missing_any.append(report_row)
         if not found_in_expected:
-            missing_mpp_verse_text.append(report_row)
+            missing_mpu_verse_text.append(report_row)
         if supported_qere_wrapper is not None:
             supported_qere_wrapper_rows.append(report_row)
-        if found_in_mpp_verse_template_arg:
-            mpp_verse_template_arg_rows.append(report_row)
+        if found_in_mpu_verse_template_arg:
+            mpu_verse_template_arg_rows.append(report_row)
         if supported_qere_wrapper_word_mismatch:
             supported_qere_wrapper_mismatch_rows.append(report_row)
 
@@ -406,8 +407,8 @@ def verify_table_words_in_mam_plus(
             {row["word"] for row in rows if isinstance(row, dict) and "word" in row}
         ),
         "missing_any_plus_count": len(missing_any),
-        "missing_mpp_verse_text_count": len(missing_mpp_verse_text),
-        "rows_matching_mpp_verse_template_arg_count": len(mpp_verse_template_arg_rows),
+        "missing_mpu_verse_text_count": len(missing_mpu_verse_text),
+        "rows_matching_mpu_verse_template_arg_count": len(mpu_verse_template_arg_rows),
         "rows_with_supported_qere_wrapper_count": len(supported_qere_wrapper_rows),
         "rows_supported_qere_wrapper_mismatch_count": len(
             supported_qere_wrapper_mismatch_rows
@@ -418,8 +419,8 @@ def verify_table_words_in_mam_plus(
         "summary": summary,
         "rows": row_reports,
         "missing_any_plus": missing_any,
-        "missing_mpp_verse_text_rows": missing_mpp_verse_text,
-        "rows_matching_mpp_verse_template_arg": mpp_verse_template_arg_rows,
+        "missing_mpu_verse_text_rows": missing_mpu_verse_text,
+        "rows_matching_mpu_verse_template_arg": mpu_verse_template_arg_rows,
         "rows_with_supported_qere_wrapper": supported_qere_wrapper_rows,
         "rows_supported_qere_wrapper_mismatch": supported_qere_wrapper_mismatch_rows,
     }

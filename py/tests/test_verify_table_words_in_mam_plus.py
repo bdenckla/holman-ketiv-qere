@@ -12,9 +12,9 @@ from python_modules.supported_qere_wrapper import (
 )
 from python_modules.verify_table_words_in_mam_plus import (
     contains_word_as_hebrew_token,
-    matching_mpp_surface_words_in_verse_text,
+    matching_mpu_surface_words_in_verse_text,
     matching_template_args_for_word,
-    normalize_mpp_match_text,
+    normalize_mpu_match_text,
     verify_table_words_in_mam_plus,
 )
 
@@ -41,8 +41,8 @@ class HebrewTokenMatcherTests(unittest.TestCase):
     def test_cgj_inside_adjacent_token_does_not_create_false_boundary(self) -> None:
         self.assertFalse(contains_word_as_hebrew_token("עֲבָדִ֑͏ֽים", "דִ֑"))
 
-    def test_normalize_mpp_match_text_strips_rafe(self) -> None:
-        self.assertEqual(normalize_mpp_match_text("וַיֹּר֨אֿוּ"), "וַיֹּר֨אוּ")
+    def test_normalize_mpu_match_text_strips_rafe(self) -> None:
+        self.assertEqual(normalize_mpu_match_text("וַיֹּר֨אֿוּ"), "וַיֹּר֨אוּ")
 
     def test_rafe_in_text_does_not_block_token_match(self) -> None:
         self.assertTrue(
@@ -70,11 +70,11 @@ class VerifyTableWordsInMamPlusTests(unittest.TestCase):
             ),
         )
 
-    def test_matching_mpp_surface_words_in_verse_text_preserves_trailing_sof_pasuq(
+    def test_matching_mpu_surface_words_in_verse_text_preserves_trailing_sof_pasuq(
         self,
     ) -> None:
         self.assertEqual(
-            matching_mpp_surface_words_in_verse_text(
+            matching_mpu_surface_words_in_verse_text(
                 "לפני מַעֲלָֽו׃ אחרי",
                 "מַעֲלָֽו",
             ),
@@ -167,7 +167,7 @@ class VerifyTableWordsInMamPlusTests(unittest.TestCase):
             },
         )
 
-    def test_known_docx_word_bug_uses_latest_mpp_word_for_verification(self) -> None:
+    def test_known_docx_word_bug_uses_latest_mpu_word_for_verification(self) -> None:
         with TemporaryDirectory() as tmp_dir:
             tmp_path = Path(tmp_dir)
             table_json_path = tmp_path / "table_data.json"
@@ -227,16 +227,16 @@ class VerifyTableWordsInMamPlusTests(unittest.TestCase):
                 )
 
         self.assertEqual(report["summary"]["missing_any_plus_count"], 0)
-        self.assertEqual(report["summary"]["missing_mpp_verse_text_count"], 0)
+        self.assertEqual(report["summary"]["missing_mpu_verse_text_count"], 0)
         self.assertEqual(
-            report["summary"]["rows_matching_mpp_verse_template_arg_count"],
+            report["summary"]["rows_matching_mpu_verse_template_arg_count"],
             1,
         )
         self.assertEqual(report["missing_any_plus"], [])
-        self.assertEqual(report["missing_mpp_verse_text_rows"], [])
+        self.assertEqual(report["missing_mpu_verse_text_rows"], [])
         self.assertEqual(
-            report["rows_matching_mpp_verse_template_arg"][0][
-                "matching_template_args_in_mpp_verse"
+            report["rows_matching_mpu_verse_template_arg"][0][
+                "matching_template_args_in_mpu_verse"
             ],
             [
                 {
@@ -246,9 +246,9 @@ class VerifyTableWordsInMamPlusTests(unittest.TestCase):
                 }
             ],
         )
-        self.assertTrue(report["rows"][0]["found_via_known_docx_mpp_word"])
+        self.assertTrue(report["rows"][0]["found_via_known_docx_mpu_word"])
 
-    def test_verify_report_records_matching_mpp_surface_word_with_external_sof_pasuq(
+    def test_verify_report_records_matching_mpu_surface_word_with_external_sof_pasuq(
         self,
     ) -> None:
         with TemporaryDirectory() as tmp_dir:
@@ -313,8 +313,8 @@ class VerifyTableWordsInMamPlusTests(unittest.TestCase):
                 )
 
         self.assertEqual(
-            report["rows_matching_mpp_verse_template_arg"][0][
-                "matching_mpp_surface_words_in_mpp_verse"
+            report["rows_matching_mpu_verse_template_arg"][0][
+                "matching_mpu_surface_words_in_mpu_verse"
             ],
             ["מַעֲלָֽו׃"],
         )

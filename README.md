@@ -36,7 +36,7 @@ To regenerate the HTML report from an existing JSON extract:
 .venv\Scripts\python.exe py/main_just_render_table.py
 ```
 
-The extractor performs MPP verification as a mandatory part of extraction.
+The extractor performs mpu (MAM-parsed-plus) verification as a mandatory part of extraction.
 There is no separate standalone verifier command.
 
 Default extraction behavior includes:
@@ -64,7 +64,7 @@ Current example:
 - `py/main_search_holam_he_qere.py`
 - `py/main_search_final_hiriq_verse_text.py`
 
-This script traverses MPP qere readings directly, reports which hits come from
+This script traverses mpu (MAM-parsed-plus) qere readings directly, reports which hits come from
 the first argument of `קו"כ-אם`, and compares the vowel-only-form hit set against
 `../MAM-basics/out/mam-qere-words.json` as a sanity check.
 

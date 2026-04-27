@@ -18,6 +18,7 @@ DEFAULT_MAM_BASICS_QERE_WORDS_PATH = (
     REPO_ROOT.parent / "MAM-basics" / "out" / "mam-qere-words.json"
 )
 DEFAULT_OUTPUT_DIR = REPO_ROOT / "out"
+# mpu = MAM-parsed-plus.
 
 
 @dataclass(frozen=True)
@@ -34,7 +35,7 @@ class QereEndingSearchSpec:
         )
 
 
-def load_mpp_hits_for_spec(
+def load_mpu_hits_for_spec(
     spec: QereEndingSearchSpec,
     mam_parsed_plus_dir: Path = DEFAULT_MAM_PARSED_PLUS_DIR,
 ) -> list[dict[str, object]]:
@@ -118,7 +119,7 @@ def load_wordlist_hits_for_spec(
     return hits
 
 
-def summarize_mpp_hits(hits: list[dict[str, object]]) -> dict[str, object]:
+def summarize_mpu_hits(hits: list[dict[str, object]]) -> dict[str, object]:
     vowel_only_counter = Counter(hit["vowel_only_form"] for hit in hits)
     trivq_hits = [hit for hit in hits if hit["is_trivq_arg1"]]
     other_hits = [hit for hit in hits if not hit["is_trivq_arg1"]]
@@ -211,13 +212,13 @@ def build_ending_pattern_report(
     mam_parsed_plus_dir: Path = DEFAULT_MAM_PARSED_PLUS_DIR,
     mam_basics_qere_words_path: Path = DEFAULT_MAM_BASICS_QERE_WORDS_PATH,
 ) -> dict[str, object]:
-    mpp_hits = load_mpp_hits_for_spec(spec, mam_parsed_plus_dir=mam_parsed_plus_dir)
+    mpu_hits = load_mpu_hits_for_spec(spec, mam_parsed_plus_dir=mam_parsed_plus_dir)
     wordlist_hits = load_wordlist_hits_for_spec(
         spec,
         mam_basics_qere_words_path=mam_basics_qere_words_path,
     )
 
-    mpp_vowel_only_forms = {hit["vowel_only_form"] for hit in mpp_hits}
+    mpu_vowel_only_forms = {hit["vowel_only_form"] for hit in mpu_hits}
     wordlist_vowel_only_forms = {hit["vowel_only_form"] for hit in wordlist_hits}
 
     return {
@@ -240,27 +241,27 @@ def build_ending_pattern_report(
             "produce one hit per param, silently.",
         ],
         "summary": {
-            "mpp": summarize_mpp_hits(mpp_hits),
+            "mpu": summarize_mpu_hits(mpu_hits),
             "mam_basics_wordlist_hit_count": len(wordlist_hits),
             "mam_basics_wordlist_unique_vowel_only_form_count": len(
                 wordlist_vowel_only_forms
             ),
-            "vowel_only_forms_only_in_mpp": sorted(
-                mpp_vowel_only_forms - wordlist_vowel_only_forms
+            "vowel_only_forms_only_in_mpu": sorted(
+                mpu_vowel_only_forms - wordlist_vowel_only_forms
             ),
             "vowel_only_forms_only_in_wordlist": sorted(
-                wordlist_vowel_only_forms - mpp_vowel_only_forms
+                wordlist_vowel_only_forms - mpu_vowel_only_forms
             ),
             "vowel_only_forms_in_both": sorted(
-                mpp_vowel_only_forms & wordlist_vowel_only_forms
+                mpu_vowel_only_forms & wordlist_vowel_only_forms
             ),
         },
-        "mpp_hits_trivq_arg1": [hit for hit in mpp_hits if hit["is_trivq_arg1"]],
-        "mpp_hits_other": [hit for hit in mpp_hits if not hit["is_trivq_arg1"]],
-        "mpp_hits_plain_text": [hit for hit in mpp_hits if hit["is_plain_text_hit"]],
-        "mpp_hits_by_verse": verse_indexed_hits(mpp_hits),
-        "mpp_templated_hits_by_verse": verse_indexed_hits(
-            [hit for hit in mpp_hits if not hit["is_plain_text_hit"]]
+        "mpu_hits_trivq_arg1": [hit for hit in mpu_hits if hit["is_trivq_arg1"]],
+        "mpu_hits_other": [hit for hit in mpu_hits if not hit["is_trivq_arg1"]],
+        "mpu_hits_plain_text": [hit for hit in mpu_hits if hit["is_plain_text_hit"]],
+        "mpu_hits_by_verse": verse_indexed_hits(mpu_hits),
+        "mpu_templated_hits_by_verse": verse_indexed_hits(
+            [hit for hit in mpu_hits if not hit["is_plain_text_hit"]]
         ),
         "mam_basics_wordlist_hits": wordlist_hits,
     }

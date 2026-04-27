@@ -12,7 +12,7 @@ from py_render.rt_issue_tags import (
     QYV_TAG,
 )
 from py_render.rt_matching_tmpl_args import (
-    matching_template_arguments_in_mpp_verse_by_row_number,
+    matching_template_arguments_in_mpu_verse_by_row_number,
     supported_qere_wrapper_by_row_number,
 )
 from py_render.rt_record_card import record_card_html
@@ -61,7 +61,7 @@ def render_table_data_findings_html(
     _validate_issue_tag_definitions(rows)
 
     matching_template_arguments_by_row_number = (
-        matching_template_arguments_in_mpp_verse_by_row_number(payload)
+        matching_template_arguments_in_mpu_verse_by_row_number(payload)
     )
     supported_qere_wrappers = supported_qere_wrapper_by_row_number(payload)
     source_document = as_text(payload.get("source_document", ""))

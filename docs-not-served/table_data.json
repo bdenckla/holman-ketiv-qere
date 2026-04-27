@@ -1426,20 +1426,20 @@
     "row_count": 77,
     "unique_word_count": 72,
     "missing_any_plus_count": 0,
-    "missing_mpp_verse_text_count": 0,
-    "rows_matching_mpp_verse_template_arg_count": 19,
+    "missing_mpu_verse_text_count": 0,
+    "rows_matching_mpu_verse_template_arg_count": 19,
     "rows_with_supported_qere_wrapper_count": 16,
     "rows_supported_qere_wrapper_mismatch_count": 0
   },
-  "mam_plus_rows_matching_mpp_verse_template_arg": [
+  "mam_plus_rows_matching_mpu_verse_template_arg": [
     {
       "row_number": 1,
       "verse": "Joshua 3:4.5",
       "word": "וּבֵנָ֔יו",
-      "mpp_file_for_verse": "B1-Joshua.json",
+      "mpu_file_for_verse": "B1-Joshua.json",
       "found_in_any_plus_file": true,
-      "found_in_mpp_verse_text": true,
-      "template_args_in_mpp_verse": [
+      "found_in_mpu_verse_text": true,
+      "template_args_in_mpu_verse": [
         {
           "template_name": "נוסח",
           "argument_key": "1",
@@ -1466,24 +1466,24 @@
           "argument_text": "ל-קרי"
         }
       ],
-      "supported_qere_wrapper_in_mpp_verse": {
+      "supported_qere_wrapper_in_mpu_verse": {
         "template_name": "מ:קו\"כ-אם-2",
         "ketiv": "וּבֵנָ֔יו",
         "qere": "וּבֵינָ֔יו"
       },
-      "found_in_mpp_verse_template_arg": true,
-      "matching_template_args_in_mpp_verse": [
+      "found_in_mpu_verse_template_arg": true,
+      "matching_template_args_in_mpu_verse": [
         {
           "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
           "argument_text": "וּבֵנָ֔יו"
         }
       ],
-      "matching_mpp_surface_words_in_mpp_verse": [
+      "matching_mpu_surface_words_in_mpu_verse": [
         "וּבֵנָ֔יו"
       ],
       "supported_qere_wrapper_word_mismatch": false,
-      "found_via_known_docx_mpp_word": false,
+      "found_via_known_docx_mpu_word": false,
       "hit_files": [
         "B1-Joshua.json"
       ]
@@ -1492,10 +1492,10 @@
       "row_number": 2,
       "verse": "Joshua 10:24.19",
       "word": "הֶהָלְכ֣וּא",
-      "mpp_file_for_verse": "B1-Joshua.json",
+      "mpu_file_for_verse": "B1-Joshua.json",
       "found_in_any_plus_file": true,
-      "found_in_mpp_verse_text": true,
-      "template_args_in_mpp_verse": [
+      "found_in_mpu_verse_text": true,
+      "template_args_in_mpu_verse": [
         {
           "template_name": "נוסח",
           "argument_key": "1",
@@ -1512,24 +1512,24 @@
           "argument_text": "הֶהָלְכ֣וּ"
         }
       ],
-      "supported_qere_wrapper_in_mpp_verse": {
+      "supported_qere_wrapper_in_mpu_verse": {
         "template_name": "כו\"ק",
         "ketiv": "ההלכוא",
         "qere": "הֶהָלְכ֣וּ"
       },
-      "found_in_mpp_verse_template_arg": true,
-      "matching_template_args_in_mpp_verse": [
+      "found_in_mpu_verse_template_arg": true,
+      "matching_template_args_in_mpu_verse": [
         {
           "template_name": "כו\"ק",
           "argument_key": "2",
           "argument_text": "הֶהָלְכ֣וּ"
         }
       ],
-      "matching_mpp_surface_words_in_mpp_verse": [
+      "matching_mpu_surface_words_in_mpu_verse": [
         "הֶהָלְכ֣וּ"
       ],
       "supported_qere_wrapper_word_mismatch": false,
-      "found_via_known_docx_mpp_word": true,
+      "found_via_known_docx_mpu_word": true,
       "hit_files": [
         "B1-Joshua.json"
       ]
@@ -1538,30 +1538,30 @@
       "row_number": 3,
       "verse": "Judges 7:13.13",
       "word": "צְלִ֜יל",
-      "mpp_file_for_verse": "B2-Judges.json",
+      "mpu_file_for_verse": "B2-Judges.json",
       "found_in_any_plus_file": true,
-      "found_in_mpp_verse_text": true,
-      "template_args_in_mpp_verse": [
+      "found_in_mpu_verse_text": true,
+      "template_args_in_mpu_verse": [
         {
           "template_name": "נוסח",
           "argument_key": "1",
           "argument_text": "צְלִ֜יל"
         }
       ],
-      "supported_qere_wrapper_in_mpp_verse": null,
-      "found_in_mpp_verse_template_arg": true,
-      "matching_template_args_in_mpp_verse": [
+      "supported_qere_wrapper_in_mpu_verse": null,
+      "found_in_mpu_verse_template_arg": true,
+      "matching_template_args_in_mpu_verse": [
         {
           "template_name": "נוסח",
           "argument_key": "1",
           "argument_text": "צְלִ֜יל"
         }
       ],
-      "matching_mpp_surface_words_in_mpp_verse": [
+      "matching_mpu_surface_words_in_mpu_verse": [
         "צְלִ֜יל"
       ],
       "supported_qere_wrapper_word_mismatch": false,
-      "found_via_known_docx_mpp_word": false,
+      "found_via_known_docx_mpu_word": false,
       "hit_files": [
         "B2-Judges.json"
       ]
@@ -1570,10 +1570,10 @@
       "row_number": 10,
       "verse": "2Samuel 2:23.15",
       "word": "תַּחְתָּ֑ו",
-      "mpp_file_for_verse": "BA-Samuel.json",
+      "mpu_file_for_verse": "BA-Samuel.json",
       "found_in_any_plus_file": true,
-      "found_in_mpp_verse_text": true,
-      "template_args_in_mpp_verse": [
+      "found_in_mpu_verse_text": true,
+      "template_args_in_mpu_verse": [
         {
           "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
@@ -1593,26 +1593,31 @@
           "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "מקורות",
           "argument_text": "א-קרי"
+        },
+        {
+          "template_name": "מ:קו\"כ-אם-2",
+          "argument_key": "סוג",
+          "argument_text": "כתיב חסר יו\"ד בסיומת של קמץ ואחריו וי\"ו"
         }
       ],
-      "supported_qere_wrapper_in_mpp_verse": {
+      "supported_qere_wrapper_in_mpu_verse": {
         "template_name": "מ:קו\"כ-אם-2",
         "ketiv": "תַּחְתָּ֑ו",
         "qere": "תַּחְתָּ֑יו"
       },
-      "found_in_mpp_verse_template_arg": true,
-      "matching_template_args_in_mpp_verse": [
+      "found_in_mpu_verse_template_arg": true,
+      "matching_template_args_in_mpu_verse": [
         {
           "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
           "argument_text": "תַּחְתָּ֑ו"
         }
       ],
-      "matching_mpp_surface_words_in_mpp_verse": [
+      "matching_mpu_surface_words_in_mpu_verse": [
         "תַּחְתָּ֑ו"
       ],
       "supported_qere_wrapper_word_mismatch": false,
-      "found_via_known_docx_mpp_word": false,
+      "found_via_known_docx_mpu_word": false,
       "hit_files": [
         "BA-Samuel.json"
       ]
@@ -1621,10 +1626,10 @@
       "row_number": 13,
       "verse": "2Samuel 11:24.1",
       "word": "וַיֹּר֨אוּ",
-      "mpp_file_for_verse": "BA-Samuel.json",
+      "mpu_file_for_verse": "BA-Samuel.json",
       "found_in_any_plus_file": true,
-      "found_in_mpp_verse_text": true,
-      "template_args_in_mpp_verse": [
+      "found_in_mpu_verse_text": true,
+      "template_args_in_mpu_verse": [
         {
           "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
@@ -1647,6 +1652,11 @@
         },
         {
           "template_name": "מ:קו\"כ-אם-2",
+          "argument_key": "סוג",
+          "argument_text": "אל\"ף מיותרת"
+        },
+        {
+          "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
           "argument_text": "הַמּוֹרִ֤אֿים"
         },
@@ -1664,26 +1674,31 @@
           "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "מקורות",
           "argument_text": "ל-קרי"
+        },
+        {
+          "template_name": "מ:קו\"כ-אם-2",
+          "argument_key": "סוג",
+          "argument_text": "אל\"ף מיותרת"
         }
       ],
-      "supported_qere_wrapper_in_mpp_verse": {
+      "supported_qere_wrapper_in_mpu_verse": {
         "template_name": "מ:קו\"כ-אם-2",
         "ketiv": "וַיֹּר֨אֿוּ",
         "qere": "וַיֹּר֨וּ"
       },
-      "found_in_mpp_verse_template_arg": true,
-      "matching_template_args_in_mpp_verse": [
+      "found_in_mpu_verse_template_arg": true,
+      "matching_template_args_in_mpu_verse": [
         {
           "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
           "argument_text": "וַיֹּר֨אֿוּ"
         }
       ],
-      "matching_mpp_surface_words_in_mpp_verse": [
+      "matching_mpu_surface_words_in_mpu_verse": [
         "וַיֹּר֨אֿוּ"
       ],
       "supported_qere_wrapper_word_mismatch": false,
-      "found_via_known_docx_mpp_word": false,
+      "found_via_known_docx_mpu_word": false,
       "hit_files": [
         "BA-Samuel.json"
       ]
@@ -1692,10 +1707,10 @@
       "row_number": 14,
       "verse": "2Samuel 11:24.2",
       "word": "הַמּוֹרִ֤אים",
-      "mpp_file_for_verse": "BA-Samuel.json",
+      "mpu_file_for_verse": "BA-Samuel.json",
       "found_in_any_plus_file": true,
-      "found_in_mpp_verse_text": true,
-      "template_args_in_mpp_verse": [
+      "found_in_mpu_verse_text": true,
+      "template_args_in_mpu_verse": [
         {
           "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
@@ -1718,6 +1733,11 @@
         },
         {
           "template_name": "מ:קו\"כ-אם-2",
+          "argument_key": "סוג",
+          "argument_text": "אל\"ף מיותרת"
+        },
+        {
+          "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
           "argument_text": "הַמּוֹרִ֤אֿים"
         },
@@ -1735,26 +1755,31 @@
           "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "מקורות",
           "argument_text": "ל-קרי"
+        },
+        {
+          "template_name": "מ:קו\"כ-אם-2",
+          "argument_key": "סוג",
+          "argument_text": "אל\"ף מיותרת"
         }
       ],
-      "supported_qere_wrapper_in_mpp_verse": {
+      "supported_qere_wrapper_in_mpu_verse": {
         "template_name": "מ:קו\"כ-אם-2",
         "ketiv": "הַמּוֹרִ֤אֿים",
         "qere": "הַמּוֹרִ֤ים"
       },
-      "found_in_mpp_verse_template_arg": true,
-      "matching_template_args_in_mpp_verse": [
+      "found_in_mpu_verse_template_arg": true,
+      "matching_template_args_in_mpu_verse": [
         {
           "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
           "argument_text": "הַמּוֹרִ֤אֿים"
         }
       ],
-      "matching_mpp_surface_words_in_mpp_verse": [
+      "matching_mpu_surface_words_in_mpu_verse": [
         "הַמּוֹרִ֤אֿים"
       ],
       "supported_qere_wrapper_word_mismatch": false,
-      "found_via_known_docx_mpp_word": false,
+      "found_via_known_docx_mpu_word": false,
       "hit_files": [
         "BA-Samuel.json"
       ]
@@ -1763,10 +1788,10 @@
       "row_number": 30,
       "verse": "Job 15:15.2",
       "word": "בִּ֭קְדֹשָׁו",
-      "mpp_file_for_verse": "D3-Job.json",
+      "mpu_file_for_verse": "D3-Job.json",
       "found_in_any_plus_file": true,
-      "found_in_mpp_verse_text": true,
-      "template_args_in_mpp_verse": [
+      "found_in_mpu_verse_text": true,
+      "template_args_in_mpu_verse": [
         {
           "template_name": "מ:דחי",
           "argument_key": "1",
@@ -1778,20 +1803,20 @@
           "argument_text": "בִּ֭קְדֹשָׁ֭ו"
         }
       ],
-      "supported_qere_wrapper_in_mpp_verse": null,
-      "found_in_mpp_verse_template_arg": true,
-      "matching_template_args_in_mpp_verse": [
+      "supported_qere_wrapper_in_mpu_verse": null,
+      "found_in_mpu_verse_template_arg": true,
+      "matching_template_args_in_mpu_verse": [
         {
           "template_name": "מ:דחי",
           "argument_key": "1",
           "argument_text": "בִּ֭קְדֹשָׁו"
         }
       ],
-      "matching_mpp_surface_words_in_mpp_verse": [
+      "matching_mpu_surface_words_in_mpu_verse": [
         "בִּ֭קְדֹשָׁו"
       ],
       "supported_qere_wrapper_word_mismatch": false,
-      "found_via_known_docx_mpp_word": false,
+      "found_via_known_docx_mpu_word": false,
       "hit_files": [
         "D3-Job.json"
       ]
@@ -1800,10 +1825,10 @@
       "row_number": 36,
       "verse": "Proverbs 27:20.2",
       "word": "וַ֭אֲבַדֹּה",
-      "mpp_file_for_verse": "D2-Proverbs.json",
+      "mpu_file_for_verse": "D2-Proverbs.json",
       "found_in_any_plus_file": true,
-      "found_in_mpp_verse_text": true,
-      "template_args_in_mpp_verse": [
+      "found_in_mpu_verse_text": true,
+      "template_args_in_mpu_verse": [
         {
           "template_name": "מ:דחי",
           "argument_key": "1",
@@ -1815,20 +1840,20 @@
           "argument_text": "וַ֭אֲבַדֹּ֭ה"
         }
       ],
-      "supported_qere_wrapper_in_mpp_verse": null,
-      "found_in_mpp_verse_template_arg": true,
-      "matching_template_args_in_mpp_verse": [
+      "supported_qere_wrapper_in_mpu_verse": null,
+      "found_in_mpu_verse_template_arg": true,
+      "matching_template_args_in_mpu_verse": [
         {
           "template_name": "מ:דחי",
           "argument_key": "1",
           "argument_text": "וַ֭אֲבַדֹּה"
         }
       ],
-      "matching_mpp_surface_words_in_mpp_verse": [
+      "matching_mpu_surface_words_in_mpu_verse": [
         "וַ֭אֲבַדֹּה"
       ],
       "supported_qere_wrapper_word_mismatch": false,
-      "found_via_known_docx_mpp_word": false,
+      "found_via_known_docx_mpu_word": false,
       "hit_files": [
         "D2-Proverbs.json"
       ]
@@ -1837,10 +1862,10 @@
       "row_number": 45,
       "verse": "Jeremiah 51:9.1",
       "word": "רִפִּ֤אנוּ",
-      "mpp_file_for_verse": "C2-Jeremiah.json",
+      "mpu_file_for_verse": "C2-Jeremiah.json",
       "found_in_any_plus_file": true,
-      "found_in_mpp_verse_text": true,
-      "template_args_in_mpp_verse": [
+      "found_in_mpu_verse_text": true,
+      "template_args_in_mpu_verse": [
         {
           "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
@@ -1862,24 +1887,24 @@
           "argument_text": "ל-קרי"
         }
       ],
-      "supported_qere_wrapper_in_mpp_verse": {
+      "supported_qere_wrapper_in_mpu_verse": {
         "template_name": "מ:קו\"כ-אם-2",
         "ketiv": "רִפִּ֤אֿנוּ",
         "qere": "רִפִּ֤ינוּ"
       },
-      "found_in_mpp_verse_template_arg": true,
-      "matching_template_args_in_mpp_verse": [
+      "found_in_mpu_verse_template_arg": true,
+      "matching_template_args_in_mpu_verse": [
         {
           "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
           "argument_text": "רִפִּ֤אֿנוּ"
         }
       ],
-      "matching_mpp_surface_words_in_mpp_verse": [
+      "matching_mpu_surface_words_in_mpu_verse": [
         "רִפִּ֤אֿנוּ"
       ],
       "supported_qere_wrapper_word_mismatch": false,
-      "found_via_known_docx_mpp_word": false,
+      "found_via_known_docx_mpu_word": false,
       "hit_files": [
         "C2-Jeremiah.json"
       ]
@@ -1888,10 +1913,10 @@
       "row_number": 48,
       "verse": "Ezekiel 31:5.11",
       "word": "פֹארֹתָ֛ו",
-      "mpp_file_for_verse": "C3-Ezekiel.json",
+      "mpu_file_for_verse": "C3-Ezekiel.json",
       "found_in_any_plus_file": true,
-      "found_in_mpp_verse_text": true,
-      "template_args_in_mpp_verse": [
+      "found_in_mpu_verse_text": true,
+      "template_args_in_mpu_verse": [
         {
           "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
@@ -1911,26 +1936,31 @@
           "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "מקורות",
           "argument_text": "א-קרי"
+        },
+        {
+          "template_name": "מ:קו\"כ-אם-2",
+          "argument_key": "סוג",
+          "argument_text": "כתיב חסר יו\"ד בסיומת של קמץ ואחריו וי\"ו"
         }
       ],
-      "supported_qere_wrapper_in_mpp_verse": {
+      "supported_qere_wrapper_in_mpu_verse": {
         "template_name": "מ:קו\"כ-אם-2",
         "ketiv": "פֹארֹתָ֛ו",
         "qere": "פֹארֹתָ֛יו"
       },
-      "found_in_mpp_verse_template_arg": true,
-      "matching_template_args_in_mpp_verse": [
+      "found_in_mpu_verse_template_arg": true,
+      "matching_template_args_in_mpu_verse": [
         {
           "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
           "argument_text": "פֹארֹתָ֛ו"
         }
       ],
-      "matching_mpp_surface_words_in_mpp_verse": [
+      "matching_mpu_surface_words_in_mpu_verse": [
         "פֹארֹתָ֛ו"
       ],
       "supported_qere_wrapper_word_mismatch": false,
-      "found_via_known_docx_mpp_word": false,
+      "found_via_known_docx_mpu_word": false,
       "hit_files": [
         "C3-Ezekiel.json"
       ]
@@ -1939,10 +1969,10 @@
       "row_number": 50,
       "verse": "Ezekiel 40:6.9",
       "word": "בְּמַעֲלוֹתָ֑ו",
-      "mpp_file_for_verse": "C3-Ezekiel.json",
+      "mpu_file_for_verse": "C3-Ezekiel.json",
       "found_in_any_plus_file": true,
-      "found_in_mpp_verse_text": true,
-      "template_args_in_mpp_verse": [
+      "found_in_mpu_verse_text": true,
+      "template_args_in_mpu_verse": [
         {
           "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
@@ -1962,26 +1992,31 @@
           "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "מקורות",
           "argument_text": "א-קרי"
+        },
+        {
+          "template_name": "מ:קו\"כ-אם-2",
+          "argument_key": "סוג",
+          "argument_text": "כתיב חסר יו\"ד בסיומת של קמץ ואחריו וי\"ו"
         }
       ],
-      "supported_qere_wrapper_in_mpp_verse": {
+      "supported_qere_wrapper_in_mpu_verse": {
         "template_name": "מ:קו\"כ-אם-2",
         "ketiv": "בְּמַעֲלוֹתָ֑ו",
         "qere": "בְּמַעֲלוֹתָ֑יו"
       },
-      "found_in_mpp_verse_template_arg": true,
-      "matching_template_args_in_mpp_verse": [
+      "found_in_mpu_verse_template_arg": true,
+      "matching_template_args_in_mpu_verse": [
         {
           "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
           "argument_text": "בְּמַעֲלוֹתָ֑ו"
         }
       ],
-      "matching_mpp_surface_words_in_mpp_verse": [
+      "matching_mpu_surface_words_in_mpu_verse": [
         "בְּמַעֲלוֹתָ֑ו"
       ],
       "supported_qere_wrapper_word_mismatch": false,
-      "found_via_known_docx_mpp_word": false,
+      "found_via_known_docx_mpu_word": false,
       "hit_files": [
         "C3-Ezekiel.json"
       ]
@@ -1990,14 +2025,14 @@
       "row_number": 52,
       "verse": "Ezekiel 40:24.9",
       "word": "אֵילָו֙",
-      "mpp_file_for_verse": "C3-Ezekiel.json",
+      "mpu_file_for_verse": "C3-Ezekiel.json",
       "found_in_any_plus_file": true,
-      "found_in_mpp_verse_text": true,
-      "template_args_in_mpp_verse": [
+      "found_in_mpu_verse_text": true,
+      "template_args_in_mpu_verse": [
         {
           "template_name": "נוסח",
           "argument_key": "1",
-          "argument_text": "{{מ:קו\"כ-אם-2|אֵילָו֙|אילו|אֵילָיו֙|מקורות=ל-קרי}}"
+          "argument_text": "{{מ:קו\"כ-אם-2|אֵילָו֙|אילו|אֵילָיו֙|מקורות=ל-קרי|סוג=כתיב חסר יו\"ד בסיומת של קמץ ואחריו וי\"ו}}"
         },
         {
           "template_name": "מ:קו\"כ-אם-2",
@@ -2020,9 +2055,14 @@
           "argument_text": "ל-קרי"
         },
         {
+          "template_name": "מ:קו\"כ-אם-2",
+          "argument_key": "סוג",
+          "argument_text": "כתיב חסר יו\"ד בסיומת של קמץ ואחריו וי\"ו"
+        },
+        {
           "template_name": "נוסח",
           "argument_key": "1",
-          "argument_text": "{{מ:קו\"כ-אם-2|וְאֵ֣ילַמָּ֔ו|ואילמו|וְאֵ֣ילַמָּ֔יו|מקורות=ל-קרי}}"
+          "argument_text": "{{מ:קו\"כ-אם-2|וְאֵ֣ילַמָּ֔ו|ואילמו|וְאֵ֣ילַמָּ֔יו|מקורות=ל-קרי|סוג=כתיב חסר יו\"ד בסיומת של קמץ ואחריו וי\"ו}}"
         },
         {
           "template_name": "מ:קו\"כ-אם-2",
@@ -2043,26 +2083,31 @@
           "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "מקורות",
           "argument_text": "ל-קרי"
+        },
+        {
+          "template_name": "מ:קו\"כ-אם-2",
+          "argument_key": "סוג",
+          "argument_text": "כתיב חסר יו\"ד בסיומת של קמץ ואחריו וי\"ו"
         }
       ],
-      "supported_qere_wrapper_in_mpp_verse": {
+      "supported_qere_wrapper_in_mpu_verse": {
         "template_name": "מ:קו\"כ-אם-2",
         "ketiv": "אֵילָו֙",
         "qere": "אֵילָיו֙"
       },
-      "found_in_mpp_verse_template_arg": true,
-      "matching_template_args_in_mpp_verse": [
+      "found_in_mpu_verse_template_arg": true,
+      "matching_template_args_in_mpu_verse": [
         {
           "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
           "argument_text": "אֵילָו֙"
         }
       ],
-      "matching_mpp_surface_words_in_mpp_verse": [
+      "matching_mpu_surface_words_in_mpu_verse": [
         "אֵילָו֙"
       ],
       "supported_qere_wrapper_word_mismatch": false,
-      "found_via_known_docx_mpp_word": false,
+      "found_via_known_docx_mpu_word": false,
       "hit_files": [
         "C3-Ezekiel.json"
       ]
@@ -2071,14 +2116,14 @@
       "row_number": 53,
       "verse": "Ezekiel 40:25.3",
       "word": "וּלְאֵֽילַמָּו֙",
-      "mpp_file_for_verse": "C3-Ezekiel.json",
+      "mpu_file_for_verse": "C3-Ezekiel.json",
       "found_in_any_plus_file": true,
-      "found_in_mpp_verse_text": true,
-      "template_args_in_mpp_verse": [
+      "found_in_mpu_verse_text": true,
+      "template_args_in_mpu_verse": [
         {
           "template_name": "נוסח",
           "argument_key": "1",
-          "argument_text": "{{מ:קו\"כ-אם-2|וּלְאֵֽילַמָּו֙|ולאילמו|וּלְאֵֽילַמָּיו֙|מקורות=ל-קרי}}"
+          "argument_text": "{{מ:קו\"כ-אם-2|וּלְאֵֽילַמָּו֙|ולאילמו|וּלְאֵֽילַמָּיו֙|מקורות=ל-קרי|סוג=כתיב חסר יו\"ד בסיומת של קמץ ואחריו וי\"ו}}"
         },
         {
           "template_name": "מ:קו\"כ-אם-2",
@@ -2099,26 +2144,31 @@
           "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "מקורות",
           "argument_text": "ל-קרי"
+        },
+        {
+          "template_name": "מ:קו\"כ-אם-2",
+          "argument_key": "סוג",
+          "argument_text": "כתיב חסר יו\"ד בסיומת של קמץ ואחריו וי\"ו"
         }
       ],
-      "supported_qere_wrapper_in_mpp_verse": {
+      "supported_qere_wrapper_in_mpu_verse": {
         "template_name": "מ:קו\"כ-אם-2",
         "ketiv": "וּלְאֵֽילַמָּו֙",
         "qere": "וּלְאֵֽילַמָּיו֙"
       },
-      "found_in_mpp_verse_template_arg": true,
-      "matching_template_args_in_mpp_verse": [
+      "found_in_mpu_verse_template_arg": true,
+      "matching_template_args_in_mpu_verse": [
         {
           "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
           "argument_text": "וּלְאֵֽילַמָּו֙"
         }
       ],
-      "matching_mpp_surface_words_in_mpp_verse": [
+      "matching_mpu_surface_words_in_mpu_verse": [
         "וּלְאֵֽילַמָּו֙"
       ],
       "supported_qere_wrapper_word_mismatch": false,
-      "found_via_known_docx_mpp_word": false,
+      "found_via_known_docx_mpu_word": false,
       "hit_files": [
         "C3-Ezekiel.json"
       ]
@@ -2127,10 +2177,10 @@
       "row_number": 54,
       "verse": "Ezekiel 40:26.4",
       "word": "וְאֵלַמָּ֖ו",
-      "mpp_file_for_verse": "C3-Ezekiel.json",
+      "mpu_file_for_verse": "C3-Ezekiel.json",
       "found_in_any_plus_file": true,
-      "found_in_mpp_verse_text": true,
-      "template_args_in_mpp_verse": [
+      "found_in_mpu_verse_text": true,
+      "template_args_in_mpu_verse": [
         {
           "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
@@ -2152,9 +2202,14 @@
           "argument_text": "א-קרי"
         },
         {
+          "template_name": "מ:קו\"כ-אם-2",
+          "argument_key": "סוג",
+          "argument_text": "כתיב חסר יו\"ד בסיומת של קמץ ואחריו וי\"ו"
+        },
+        {
           "template_name": "נוסח",
           "argument_key": "1",
-          "argument_text": "{{מ:קו\"כ-אם-2|וְאֵלַמָּ֖ו|ואלמו|וְאֵלַמָּ֖יו|מקורות=ל-קרי}}"
+          "argument_text": "{{מ:קו\"כ-אם-2|וְאֵלַמָּ֖ו|ואלמו|וְאֵלַמָּ֖יו|מקורות=ל-קרי|סוג=כתיב חסר יו\"ד בסיומת של קמץ ואחריו וי\"ו}}"
         },
         {
           "template_name": "מ:קו\"כ-אם-2",
@@ -2175,26 +2230,31 @@
           "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "מקורות",
           "argument_text": "ל-קרי"
+        },
+        {
+          "template_name": "מ:קו\"כ-אם-2",
+          "argument_key": "סוג",
+          "argument_text": "כתיב חסר יו\"ד בסיומת של קמץ ואחריו וי\"ו"
         }
       ],
-      "supported_qere_wrapper_in_mpp_verse": {
+      "supported_qere_wrapper_in_mpu_verse": {
         "template_name": "מ:קו\"כ-אם-2",
         "ketiv": "וְאֵלַמָּ֖ו",
         "qere": "וְאֵלַמָּ֖יו"
       },
-      "found_in_mpp_verse_template_arg": true,
-      "matching_template_args_in_mpp_verse": [
+      "found_in_mpu_verse_template_arg": true,
+      "matching_template_args_in_mpu_verse": [
         {
           "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
           "argument_text": "וְאֵלַמָּ֖ו"
         }
       ],
-      "matching_mpp_surface_words_in_mpp_verse": [
+      "matching_mpu_surface_words_in_mpu_verse": [
         "וְאֵלַמָּ֖ו"
       ],
       "supported_qere_wrapper_word_mismatch": false,
-      "found_via_known_docx_mpp_word": false,
+      "found_via_known_docx_mpu_word": false,
       "hit_files": [
         "C3-Ezekiel.json"
       ]
@@ -2203,10 +2263,10 @@
       "row_number": 73,
       "verse": "Ezekiel 40:37.11",
       "word": "מַעֲלָֽו",
-      "mpp_file_for_verse": "C3-Ezekiel.json",
+      "mpu_file_for_verse": "C3-Ezekiel.json",
       "found_in_any_plus_file": true,
-      "found_in_mpp_verse_text": true,
-      "template_args_in_mpp_verse": [
+      "found_in_mpu_verse_text": true,
+      "template_args_in_mpu_verse": [
         {
           "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
@@ -2226,26 +2286,31 @@
           "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "מקורות",
           "argument_text": "ל-קרי"
+        },
+        {
+          "template_name": "מ:קו\"כ-אם-2",
+          "argument_key": "סוג",
+          "argument_text": "כתיב חסר יו\"ד בסיומת של קמץ ואחריו וי\"ו"
         }
       ],
-      "supported_qere_wrapper_in_mpp_verse": {
+      "supported_qere_wrapper_in_mpu_verse": {
         "template_name": "מ:קו\"כ-אם-2",
         "ketiv": "מַעֲלָֽו",
         "qere": "מַעֲלָֽיו"
       },
-      "found_in_mpp_verse_template_arg": true,
-      "matching_template_args_in_mpp_verse": [
+      "found_in_mpu_verse_template_arg": true,
+      "matching_template_args_in_mpu_verse": [
         {
           "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
           "argument_text": "מַעֲלָֽו"
         }
       ],
-      "matching_mpp_surface_words_in_mpp_verse": [
+      "matching_mpu_surface_words_in_mpu_verse": [
         "מַעֲלָֽו׃"
       ],
       "supported_qere_wrapper_word_mismatch": false,
-      "found_via_known_docx_mpp_word": false,
+      "found_via_known_docx_mpu_word": false,
       "hit_files": [
         "C3-Ezekiel.json"
       ]
@@ -2254,10 +2319,10 @@
       "row_number": 74,
       "verse": "Ezekiel 47:8.17",
       "word": "וְנִרְפּ֥אוּ",
-      "mpp_file_for_verse": "C3-Ezekiel.json",
+      "mpu_file_for_verse": "C3-Ezekiel.json",
       "found_in_any_plus_file": true,
-      "found_in_mpp_verse_text": true,
-      "template_args_in_mpp_verse": [
+      "found_in_mpu_verse_text": true,
+      "template_args_in_mpu_verse": [
         {
           "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
@@ -2277,26 +2342,31 @@
           "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "מקורות",
           "argument_text": "ל-קרי"
+        },
+        {
+          "template_name": "מ:קו\"כ-אם-2",
+          "argument_key": "סוג",
+          "argument_text": "אל\"ף מיותרת"
         }
       ],
-      "supported_qere_wrapper_in_mpp_verse": {
+      "supported_qere_wrapper_in_mpu_verse": {
         "template_name": "מ:קו\"כ-אם-2",
         "ketiv": "וְנִרְפּ֥אֿוּ",
         "qere": "וְנִרְפּ֥וּ"
       },
-      "found_in_mpp_verse_template_arg": true,
-      "matching_template_args_in_mpp_verse": [
+      "found_in_mpu_verse_template_arg": true,
+      "matching_template_args_in_mpu_verse": [
         {
           "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
           "argument_text": "וְנִרְפּ֥אֿוּ"
         }
       ],
-      "matching_mpp_surface_words_in_mpp_verse": [
+      "matching_mpu_surface_words_in_mpu_verse": [
         "וְנִרְפּ֥אֿוּ"
       ],
       "supported_qere_wrapper_word_mismatch": false,
-      "found_via_known_docx_mpp_word": false,
+      "found_via_known_docx_mpu_word": false,
       "hit_files": [
         "C3-Ezekiel.json"
       ]
@@ -2305,14 +2375,14 @@
       "row_number": 75,
       "verse": "Ezekiel 48:18.17",
       "word": "תְבֽוּאָתֹה֙",
-      "mpp_file_for_verse": "C3-Ezekiel.json",
+      "mpu_file_for_verse": "C3-Ezekiel.json",
       "found_in_any_plus_file": true,
-      "found_in_mpp_verse_text": true,
-      "template_args_in_mpp_verse": [
+      "found_in_mpu_verse_text": true,
+      "template_args_in_mpu_verse": [
         {
           "template_name": "נוסח",
           "argument_key": "1",
-          "argument_text": "{{מ:קו\"כ-אם-2|תְבֽוּאָתֹה֙|תבואתה|תְבֽוּאָתוֹ֙|מקורות=ל-קרי}}"
+          "argument_text": "{{מ:קו\"כ-אם-2|תְבֽוּאָתֹה֙|תבואתה|תְבֽוּאָתוֹ֙|מקורות=ל-קרי|סוג=כתיב ה\"א בסיומת של חולם}}"
         },
         {
           "template_name": "מ:קו\"כ-אם-2",
@@ -2333,26 +2403,31 @@
           "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "מקורות",
           "argument_text": "ל-קרי"
+        },
+        {
+          "template_name": "מ:קו\"כ-אם-2",
+          "argument_key": "סוג",
+          "argument_text": "כתיב ה\"א בסיומת של חולם"
         }
       ],
-      "supported_qere_wrapper_in_mpp_verse": {
+      "supported_qere_wrapper_in_mpu_verse": {
         "template_name": "מ:קו\"כ-אם-2",
         "ketiv": "תְבֽוּאָתֹה֙",
         "qere": "תְבֽוּאָתוֹ֙"
       },
-      "found_in_mpp_verse_template_arg": true,
-      "matching_template_args_in_mpp_verse": [
+      "found_in_mpu_verse_template_arg": true,
+      "matching_template_args_in_mpu_verse": [
         {
           "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
           "argument_text": "תְבֽוּאָתֹה֙"
         }
       ],
-      "matching_mpp_surface_words_in_mpp_verse": [
+      "matching_mpu_surface_words_in_mpu_verse": [
         "תְבֽוּאָתֹה֙"
       ],
       "supported_qere_wrapper_word_mismatch": false,
-      "found_via_known_docx_mpp_word": false,
+      "found_via_known_docx_mpu_word": false,
       "hit_files": [
         "C3-Ezekiel.json"
       ]
@@ -2361,10 +2436,10 @@
       "row_number": 76,
       "verse": "Ezekiel 48:21.35",
       "word": "בְּתוֹכֹֽה",
-      "mpp_file_for_verse": "C3-Ezekiel.json",
+      "mpu_file_for_verse": "C3-Ezekiel.json",
       "found_in_any_plus_file": true,
-      "found_in_mpp_verse_text": true,
-      "template_args_in_mpp_verse": [
+      "found_in_mpu_verse_text": true,
+      "template_args_in_mpu_verse": [
         {
           "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
@@ -2384,26 +2459,31 @@
           "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "מקורות",
           "argument_text": "ל-קרי"
+        },
+        {
+          "template_name": "מ:קו\"כ-אם-2",
+          "argument_key": "סוג",
+          "argument_text": "כתיב ה\"א בסיומת של חולם"
         }
       ],
-      "supported_qere_wrapper_in_mpp_verse": {
+      "supported_qere_wrapper_in_mpu_verse": {
         "template_name": "מ:קו\"כ-אם-2",
         "ketiv": "בְּתוֹכֹֽה",
         "qere": "בְּתוֹכֽוֹ"
       },
-      "found_in_mpp_verse_template_arg": true,
-      "matching_template_args_in_mpp_verse": [
+      "found_in_mpu_verse_template_arg": true,
+      "matching_template_args_in_mpu_verse": [
         {
           "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
           "argument_text": "בְּתוֹכֹֽה"
         }
       ],
-      "matching_mpp_surface_words_in_mpp_verse": [
+      "matching_mpu_surface_words_in_mpu_verse": [
         "בְּתוֹכֹֽה׃"
       ],
       "supported_qere_wrapper_word_mismatch": false,
-      "found_via_known_docx_mpp_word": false,
+      "found_via_known_docx_mpu_word": false,
       "hit_files": [
         "C3-Ezekiel.json"
       ]
@@ -2412,10 +2492,10 @@
       "row_number": 77,
       "verse": "Tsefaniah 2:9.27",
       "word": "גּוֹיִ֖",
-      "mpp_file_for_verse": "CA-The-12-Minor-Prophets.json",
+      "mpu_file_for_verse": "CA-The-12-Minor-Prophets.json",
       "found_in_any_plus_file": true,
-      "found_in_mpp_verse_text": true,
-      "template_args_in_mpp_verse": [
+      "found_in_mpu_verse_text": true,
+      "template_args_in_mpu_verse": [
         {
           "template_name": "נוסח",
           "argument_key": "1",
@@ -2432,24 +2512,24 @@
           "argument_text": "גּוֹיִ֖י"
         }
       ],
-      "supported_qere_wrapper_in_mpp_verse": {
+      "supported_qere_wrapper_in_mpu_verse": {
         "template_name": "כו\"ק",
         "ketiv": "גוי",
         "qere": "גּוֹיִ֖י"
       },
-      "found_in_mpp_verse_template_arg": true,
-      "matching_template_args_in_mpp_verse": [
+      "found_in_mpu_verse_template_arg": true,
+      "matching_template_args_in_mpu_verse": [
         {
           "template_name": "כו\"ק",
           "argument_key": "2",
           "argument_text": "גּוֹיִ֖י"
         }
       ],
-      "matching_mpp_surface_words_in_mpp_verse": [
+      "matching_mpu_surface_words_in_mpu_verse": [
         "גּוֹיִ֖י"
       ],
       "supported_qere_wrapper_word_mismatch": false,
-      "found_via_known_docx_mpp_word": true,
+      "found_via_known_docx_mpu_word": true,
       "hit_files": [
         "A1-Genesis.json",
         "A4-Numbers.json",
@@ -2471,10 +2551,10 @@
       "row_number": 1,
       "verse": "Joshua 3:4.5",
       "word": "וּבֵנָ֔יו",
-      "mpp_file_for_verse": "B1-Joshua.json",
+      "mpu_file_for_verse": "B1-Joshua.json",
       "found_in_any_plus_file": true,
-      "found_in_mpp_verse_text": true,
-      "template_args_in_mpp_verse": [
+      "found_in_mpu_verse_text": true,
+      "template_args_in_mpu_verse": [
         {
           "template_name": "נוסח",
           "argument_key": "1",
@@ -2501,24 +2581,24 @@
           "argument_text": "ל-קרי"
         }
       ],
-      "supported_qere_wrapper_in_mpp_verse": {
+      "supported_qere_wrapper_in_mpu_verse": {
         "template_name": "מ:קו\"כ-אם-2",
         "ketiv": "וּבֵנָ֔יו",
         "qere": "וּבֵינָ֔יו"
       },
-      "found_in_mpp_verse_template_arg": true,
-      "matching_template_args_in_mpp_verse": [
+      "found_in_mpu_verse_template_arg": true,
+      "matching_template_args_in_mpu_verse": [
         {
           "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
           "argument_text": "וּבֵנָ֔יו"
         }
       ],
-      "matching_mpp_surface_words_in_mpp_verse": [
+      "matching_mpu_surface_words_in_mpu_verse": [
         "וּבֵנָ֔יו"
       ],
       "supported_qere_wrapper_word_mismatch": false,
-      "found_via_known_docx_mpp_word": false,
+      "found_via_known_docx_mpu_word": false,
       "hit_files": [
         "B1-Joshua.json"
       ]
@@ -2527,10 +2607,10 @@
       "row_number": 2,
       "verse": "Joshua 10:24.19",
       "word": "הֶהָלְכ֣וּא",
-      "mpp_file_for_verse": "B1-Joshua.json",
+      "mpu_file_for_verse": "B1-Joshua.json",
       "found_in_any_plus_file": true,
-      "found_in_mpp_verse_text": true,
-      "template_args_in_mpp_verse": [
+      "found_in_mpu_verse_text": true,
+      "template_args_in_mpu_verse": [
         {
           "template_name": "נוסח",
           "argument_key": "1",
@@ -2547,24 +2627,24 @@
           "argument_text": "הֶהָלְכ֣וּ"
         }
       ],
-      "supported_qere_wrapper_in_mpp_verse": {
+      "supported_qere_wrapper_in_mpu_verse": {
         "template_name": "כו\"ק",
         "ketiv": "ההלכוא",
         "qere": "הֶהָלְכ֣וּ"
       },
-      "found_in_mpp_verse_template_arg": true,
-      "matching_template_args_in_mpp_verse": [
+      "found_in_mpu_verse_template_arg": true,
+      "matching_template_args_in_mpu_verse": [
         {
           "template_name": "כו\"ק",
           "argument_key": "2",
           "argument_text": "הֶהָלְכ֣וּ"
         }
       ],
-      "matching_mpp_surface_words_in_mpp_verse": [
+      "matching_mpu_surface_words_in_mpu_verse": [
         "הֶהָלְכ֣וּ"
       ],
       "supported_qere_wrapper_word_mismatch": false,
-      "found_via_known_docx_mpp_word": true,
+      "found_via_known_docx_mpu_word": true,
       "hit_files": [
         "B1-Joshua.json"
       ]
@@ -2573,10 +2653,10 @@
       "row_number": 10,
       "verse": "2Samuel 2:23.15",
       "word": "תַּחְתָּ֑ו",
-      "mpp_file_for_verse": "BA-Samuel.json",
+      "mpu_file_for_verse": "BA-Samuel.json",
       "found_in_any_plus_file": true,
-      "found_in_mpp_verse_text": true,
-      "template_args_in_mpp_verse": [
+      "found_in_mpu_verse_text": true,
+      "template_args_in_mpu_verse": [
         {
           "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
@@ -2596,26 +2676,31 @@
           "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "מקורות",
           "argument_text": "א-קרי"
+        },
+        {
+          "template_name": "מ:קו\"כ-אם-2",
+          "argument_key": "סוג",
+          "argument_text": "כתיב חסר יו\"ד בסיומת של קמץ ואחריו וי\"ו"
         }
       ],
-      "supported_qere_wrapper_in_mpp_verse": {
+      "supported_qere_wrapper_in_mpu_verse": {
         "template_name": "מ:קו\"כ-אם-2",
         "ketiv": "תַּחְתָּ֑ו",
         "qere": "תַּחְתָּ֑יו"
       },
-      "found_in_mpp_verse_template_arg": true,
-      "matching_template_args_in_mpp_verse": [
+      "found_in_mpu_verse_template_arg": true,
+      "matching_template_args_in_mpu_verse": [
         {
           "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
           "argument_text": "תַּחְתָּ֑ו"
         }
       ],
-      "matching_mpp_surface_words_in_mpp_verse": [
+      "matching_mpu_surface_words_in_mpu_verse": [
         "תַּחְתָּ֑ו"
       ],
       "supported_qere_wrapper_word_mismatch": false,
-      "found_via_known_docx_mpp_word": false,
+      "found_via_known_docx_mpu_word": false,
       "hit_files": [
         "BA-Samuel.json"
       ]
@@ -2624,10 +2709,10 @@
       "row_number": 13,
       "verse": "2Samuel 11:24.1",
       "word": "וַיֹּר֨אוּ",
-      "mpp_file_for_verse": "BA-Samuel.json",
+      "mpu_file_for_verse": "BA-Samuel.json",
       "found_in_any_plus_file": true,
-      "found_in_mpp_verse_text": true,
-      "template_args_in_mpp_verse": [
+      "found_in_mpu_verse_text": true,
+      "template_args_in_mpu_verse": [
         {
           "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
@@ -2650,6 +2735,11 @@
         },
         {
           "template_name": "מ:קו\"כ-אם-2",
+          "argument_key": "סוג",
+          "argument_text": "אל\"ף מיותרת"
+        },
+        {
+          "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
           "argument_text": "הַמּוֹרִ֤אֿים"
         },
@@ -2667,26 +2757,31 @@
           "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "מקורות",
           "argument_text": "ל-קרי"
+        },
+        {
+          "template_name": "מ:קו\"כ-אם-2",
+          "argument_key": "סוג",
+          "argument_text": "אל\"ף מיותרת"
         }
       ],
-      "supported_qere_wrapper_in_mpp_verse": {
+      "supported_qere_wrapper_in_mpu_verse": {
         "template_name": "מ:קו\"כ-אם-2",
         "ketiv": "וַיֹּר֨אֿוּ",
         "qere": "וַיֹּר֨וּ"
       },
-      "found_in_mpp_verse_template_arg": true,
-      "matching_template_args_in_mpp_verse": [
+      "found_in_mpu_verse_template_arg": true,
+      "matching_template_args_in_mpu_verse": [
         {
           "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
           "argument_text": "וַיֹּר֨אֿוּ"
         }
       ],
-      "matching_mpp_surface_words_in_mpp_verse": [
+      "matching_mpu_surface_words_in_mpu_verse": [
         "וַיֹּר֨אֿוּ"
       ],
       "supported_qere_wrapper_word_mismatch": false,
-      "found_via_known_docx_mpp_word": false,
+      "found_via_known_docx_mpu_word": false,
       "hit_files": [
         "BA-Samuel.json"
       ]
@@ -2695,10 +2790,10 @@
       "row_number": 14,
       "verse": "2Samuel 11:24.2",
       "word": "הַמּוֹרִ֤אים",
-      "mpp_file_for_verse": "BA-Samuel.json",
+      "mpu_file_for_verse": "BA-Samuel.json",
       "found_in_any_plus_file": true,
-      "found_in_mpp_verse_text": true,
-      "template_args_in_mpp_verse": [
+      "found_in_mpu_verse_text": true,
+      "template_args_in_mpu_verse": [
         {
           "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
@@ -2721,6 +2816,11 @@
         },
         {
           "template_name": "מ:קו\"כ-אם-2",
+          "argument_key": "סוג",
+          "argument_text": "אל\"ף מיותרת"
+        },
+        {
+          "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
           "argument_text": "הַמּוֹרִ֤אֿים"
         },
@@ -2738,26 +2838,31 @@
           "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "מקורות",
           "argument_text": "ל-קרי"
+        },
+        {
+          "template_name": "מ:קו\"כ-אם-2",
+          "argument_key": "סוג",
+          "argument_text": "אל\"ף מיותרת"
         }
       ],
-      "supported_qere_wrapper_in_mpp_verse": {
+      "supported_qere_wrapper_in_mpu_verse": {
         "template_name": "מ:קו\"כ-אם-2",
         "ketiv": "הַמּוֹרִ֤אֿים",
         "qere": "הַמּוֹרִ֤ים"
       },
-      "found_in_mpp_verse_template_arg": true,
-      "matching_template_args_in_mpp_verse": [
+      "found_in_mpu_verse_template_arg": true,
+      "matching_template_args_in_mpu_verse": [
         {
           "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
           "argument_text": "הַמּוֹרִ֤אֿים"
         }
       ],
-      "matching_mpp_surface_words_in_mpp_verse": [
+      "matching_mpu_surface_words_in_mpu_verse": [
         "הַמּוֹרִ֤אֿים"
       ],
       "supported_qere_wrapper_word_mismatch": false,
-      "found_via_known_docx_mpp_word": false,
+      "found_via_known_docx_mpu_word": false,
       "hit_files": [
         "BA-Samuel.json"
       ]
@@ -2766,10 +2871,10 @@
       "row_number": 45,
       "verse": "Jeremiah 51:9.1",
       "word": "רִפִּ֤אנוּ",
-      "mpp_file_for_verse": "C2-Jeremiah.json",
+      "mpu_file_for_verse": "C2-Jeremiah.json",
       "found_in_any_plus_file": true,
-      "found_in_mpp_verse_text": true,
-      "template_args_in_mpp_verse": [
+      "found_in_mpu_verse_text": true,
+      "template_args_in_mpu_verse": [
         {
           "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
@@ -2791,24 +2896,24 @@
           "argument_text": "ל-קרי"
         }
       ],
-      "supported_qere_wrapper_in_mpp_verse": {
+      "supported_qere_wrapper_in_mpu_verse": {
         "template_name": "מ:קו\"כ-אם-2",
         "ketiv": "רִפִּ֤אֿנוּ",
         "qere": "רִפִּ֤ינוּ"
       },
-      "found_in_mpp_verse_template_arg": true,
-      "matching_template_args_in_mpp_verse": [
+      "found_in_mpu_verse_template_arg": true,
+      "matching_template_args_in_mpu_verse": [
         {
           "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
           "argument_text": "רִפִּ֤אֿנוּ"
         }
       ],
-      "matching_mpp_surface_words_in_mpp_verse": [
+      "matching_mpu_surface_words_in_mpu_verse": [
         "רִפִּ֤אֿנוּ"
       ],
       "supported_qere_wrapper_word_mismatch": false,
-      "found_via_known_docx_mpp_word": false,
+      "found_via_known_docx_mpu_word": false,
       "hit_files": [
         "C2-Jeremiah.json"
       ]
@@ -2817,10 +2922,10 @@
       "row_number": 48,
       "verse": "Ezekiel 31:5.11",
       "word": "פֹארֹתָ֛ו",
-      "mpp_file_for_verse": "C3-Ezekiel.json",
+      "mpu_file_for_verse": "C3-Ezekiel.json",
       "found_in_any_plus_file": true,
-      "found_in_mpp_verse_text": true,
-      "template_args_in_mpp_verse": [
+      "found_in_mpu_verse_text": true,
+      "template_args_in_mpu_verse": [
         {
           "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
@@ -2840,26 +2945,31 @@
           "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "מקורות",
           "argument_text": "א-קרי"
+        },
+        {
+          "template_name": "מ:קו\"כ-אם-2",
+          "argument_key": "סוג",
+          "argument_text": "כתיב חסר יו\"ד בסיומת של קמץ ואחריו וי\"ו"
         }
       ],
-      "supported_qere_wrapper_in_mpp_verse": {
+      "supported_qere_wrapper_in_mpu_verse": {
         "template_name": "מ:קו\"כ-אם-2",
         "ketiv": "פֹארֹתָ֛ו",
         "qere": "פֹארֹתָ֛יו"
       },
-      "found_in_mpp_verse_template_arg": true,
-      "matching_template_args_in_mpp_verse": [
+      "found_in_mpu_verse_template_arg": true,
+      "matching_template_args_in_mpu_verse": [
         {
           "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
           "argument_text": "פֹארֹתָ֛ו"
         }
       ],
-      "matching_mpp_surface_words_in_mpp_verse": [
+      "matching_mpu_surface_words_in_mpu_verse": [
         "פֹארֹתָ֛ו"
       ],
       "supported_qere_wrapper_word_mismatch": false,
-      "found_via_known_docx_mpp_word": false,
+      "found_via_known_docx_mpu_word": false,
       "hit_files": [
         "C3-Ezekiel.json"
       ]
@@ -2868,10 +2978,10 @@
       "row_number": 50,
       "verse": "Ezekiel 40:6.9",
       "word": "בְּמַעֲלוֹתָ֑ו",
-      "mpp_file_for_verse": "C3-Ezekiel.json",
+      "mpu_file_for_verse": "C3-Ezekiel.json",
       "found_in_any_plus_file": true,
-      "found_in_mpp_verse_text": true,
-      "template_args_in_mpp_verse": [
+      "found_in_mpu_verse_text": true,
+      "template_args_in_mpu_verse": [
         {
           "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
@@ -2891,26 +3001,31 @@
           "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "מקורות",
           "argument_text": "א-קרי"
+        },
+        {
+          "template_name": "מ:קו\"כ-אם-2",
+          "argument_key": "סוג",
+          "argument_text": "כתיב חסר יו\"ד בסיומת של קמץ ואחריו וי\"ו"
         }
       ],
-      "supported_qere_wrapper_in_mpp_verse": {
+      "supported_qere_wrapper_in_mpu_verse": {
         "template_name": "מ:קו\"כ-אם-2",
         "ketiv": "בְּמַעֲלוֹתָ֑ו",
         "qere": "בְּמַעֲלוֹתָ֑יו"
       },
-      "found_in_mpp_verse_template_arg": true,
-      "matching_template_args_in_mpp_verse": [
+      "found_in_mpu_verse_template_arg": true,
+      "matching_template_args_in_mpu_verse": [
         {
           "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
           "argument_text": "בְּמַעֲלוֹתָ֑ו"
         }
       ],
-      "matching_mpp_surface_words_in_mpp_verse": [
+      "matching_mpu_surface_words_in_mpu_verse": [
         "בְּמַעֲלוֹתָ֑ו"
       ],
       "supported_qere_wrapper_word_mismatch": false,
-      "found_via_known_docx_mpp_word": false,
+      "found_via_known_docx_mpu_word": false,
       "hit_files": [
         "C3-Ezekiel.json"
       ]
@@ -2919,14 +3034,14 @@
       "row_number": 52,
       "verse": "Ezekiel 40:24.9",
       "word": "אֵילָו֙",
-      "mpp_file_for_verse": "C3-Ezekiel.json",
+      "mpu_file_for_verse": "C3-Ezekiel.json",
       "found_in_any_plus_file": true,
-      "found_in_mpp_verse_text": true,
-      "template_args_in_mpp_verse": [
+      "found_in_mpu_verse_text": true,
+      "template_args_in_mpu_verse": [
         {
           "template_name": "נוסח",
           "argument_key": "1",
-          "argument_text": "{{מ:קו\"כ-אם-2|אֵילָו֙|אילו|אֵילָיו֙|מקורות=ל-קרי}}"
+          "argument_text": "{{מ:קו\"כ-אם-2|אֵילָו֙|אילו|אֵילָיו֙|מקורות=ל-קרי|סוג=כתיב חסר יו\"ד בסיומת של קמץ ואחריו וי\"ו}}"
         },
         {
           "template_name": "מ:קו\"כ-אם-2",
@@ -2949,9 +3064,14 @@
           "argument_text": "ל-קרי"
         },
         {
+          "template_name": "מ:קו\"כ-אם-2",
+          "argument_key": "סוג",
+          "argument_text": "כתיב חסר יו\"ד בסיומת של קמץ ואחריו וי\"ו"
+        },
+        {
           "template_name": "נוסח",
           "argument_key": "1",
-          "argument_text": "{{מ:קו\"כ-אם-2|וְאֵ֣ילַמָּ֔ו|ואילמו|וְאֵ֣ילַמָּ֔יו|מקורות=ל-קרי}}"
+          "argument_text": "{{מ:קו\"כ-אם-2|וְאֵ֣ילַמָּ֔ו|ואילמו|וְאֵ֣ילַמָּ֔יו|מקורות=ל-קרי|סוג=כתיב חסר יו\"ד בסיומת של קמץ ואחריו וי\"ו}}"
         },
         {
           "template_name": "מ:קו\"כ-אם-2",
@@ -2972,26 +3092,31 @@
           "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "מקורות",
           "argument_text": "ל-קרי"
+        },
+        {
+          "template_name": "מ:קו\"כ-אם-2",
+          "argument_key": "סוג",
+          "argument_text": "כתיב חסר יו\"ד בסיומת של קמץ ואחריו וי\"ו"
         }
       ],
-      "supported_qere_wrapper_in_mpp_verse": {
+      "supported_qere_wrapper_in_mpu_verse": {
         "template_name": "מ:קו\"כ-אם-2",
         "ketiv": "אֵילָו֙",
         "qere": "אֵילָיו֙"
       },
-      "found_in_mpp_verse_template_arg": true,
-      "matching_template_args_in_mpp_verse": [
+      "found_in_mpu_verse_template_arg": true,
+      "matching_template_args_in_mpu_verse": [
         {
           "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
           "argument_text": "אֵילָו֙"
         }
       ],
-      "matching_mpp_surface_words_in_mpp_verse": [
+      "matching_mpu_surface_words_in_mpu_verse": [
         "אֵילָו֙"
       ],
       "supported_qere_wrapper_word_mismatch": false,
-      "found_via_known_docx_mpp_word": false,
+      "found_via_known_docx_mpu_word": false,
       "hit_files": [
         "C3-Ezekiel.json"
       ]
@@ -3000,14 +3125,14 @@
       "row_number": 53,
       "verse": "Ezekiel 40:25.3",
       "word": "וּלְאֵֽילַמָּו֙",
-      "mpp_file_for_verse": "C3-Ezekiel.json",
+      "mpu_file_for_verse": "C3-Ezekiel.json",
       "found_in_any_plus_file": true,
-      "found_in_mpp_verse_text": true,
-      "template_args_in_mpp_verse": [
+      "found_in_mpu_verse_text": true,
+      "template_args_in_mpu_verse": [
         {
           "template_name": "נוסח",
           "argument_key": "1",
-          "argument_text": "{{מ:קו\"כ-אם-2|וּלְאֵֽילַמָּו֙|ולאילמו|וּלְאֵֽילַמָּיו֙|מקורות=ל-קרי}}"
+          "argument_text": "{{מ:קו\"כ-אם-2|וּלְאֵֽילַמָּו֙|ולאילמו|וּלְאֵֽילַמָּיו֙|מקורות=ל-קרי|סוג=כתיב חסר יו\"ד בסיומת של קמץ ואחריו וי\"ו}}"
         },
         {
           "template_name": "מ:קו\"כ-אם-2",
@@ -3028,26 +3153,31 @@
           "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "מקורות",
           "argument_text": "ל-קרי"
+        },
+        {
+          "template_name": "מ:קו\"כ-אם-2",
+          "argument_key": "סוג",
+          "argument_text": "כתיב חסר יו\"ד בסיומת של קמץ ואחריו וי\"ו"
         }
       ],
-      "supported_qere_wrapper_in_mpp_verse": {
+      "supported_qere_wrapper_in_mpu_verse": {
         "template_name": "מ:קו\"כ-אם-2",
         "ketiv": "וּלְאֵֽילַמָּו֙",
         "qere": "וּלְאֵֽילַמָּיו֙"
       },
-      "found_in_mpp_verse_template_arg": true,
-      "matching_template_args_in_mpp_verse": [
+      "found_in_mpu_verse_template_arg": true,
+      "matching_template_args_in_mpu_verse": [
         {
           "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
           "argument_text": "וּלְאֵֽילַמָּו֙"
         }
       ],
-      "matching_mpp_surface_words_in_mpp_verse": [
+      "matching_mpu_surface_words_in_mpu_verse": [
         "וּלְאֵֽילַמָּו֙"
       ],
       "supported_qere_wrapper_word_mismatch": false,
-      "found_via_known_docx_mpp_word": false,
+      "found_via_known_docx_mpu_word": false,
       "hit_files": [
         "C3-Ezekiel.json"
       ]
@@ -3056,10 +3186,10 @@
       "row_number": 54,
       "verse": "Ezekiel 40:26.4",
       "word": "וְאֵלַמָּ֖ו",
-      "mpp_file_for_verse": "C3-Ezekiel.json",
+      "mpu_file_for_verse": "C3-Ezekiel.json",
       "found_in_any_plus_file": true,
-      "found_in_mpp_verse_text": true,
-      "template_args_in_mpp_verse": [
+      "found_in_mpu_verse_text": true,
+      "template_args_in_mpu_verse": [
         {
           "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
@@ -3081,9 +3211,14 @@
           "argument_text": "א-קרי"
         },
         {
+          "template_name": "מ:קו\"כ-אם-2",
+          "argument_key": "סוג",
+          "argument_text": "כתיב חסר יו\"ד בסיומת של קמץ ואחריו וי\"ו"
+        },
+        {
           "template_name": "נוסח",
           "argument_key": "1",
-          "argument_text": "{{מ:קו\"כ-אם-2|וְאֵלַמָּ֖ו|ואלמו|וְאֵלַמָּ֖יו|מקורות=ל-קרי}}"
+          "argument_text": "{{מ:קו\"כ-אם-2|וְאֵלַמָּ֖ו|ואלמו|וְאֵלַמָּ֖יו|מקורות=ל-קרי|סוג=כתיב חסר יו\"ד בסיומת של קמץ ואחריו וי\"ו}}"
         },
         {
           "template_name": "מ:קו\"כ-אם-2",
@@ -3104,26 +3239,31 @@
           "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "מקורות",
           "argument_text": "ל-קרי"
+        },
+        {
+          "template_name": "מ:קו\"כ-אם-2",
+          "argument_key": "סוג",
+          "argument_text": "כתיב חסר יו\"ד בסיומת של קמץ ואחריו וי\"ו"
         }
       ],
-      "supported_qere_wrapper_in_mpp_verse": {
+      "supported_qere_wrapper_in_mpu_verse": {
         "template_name": "מ:קו\"כ-אם-2",
         "ketiv": "וְאֵלַמָּ֖ו",
         "qere": "וְאֵלַמָּ֖יו"
       },
-      "found_in_mpp_verse_template_arg": true,
-      "matching_template_args_in_mpp_verse": [
+      "found_in_mpu_verse_template_arg": true,
+      "matching_template_args_in_mpu_verse": [
         {
           "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
           "argument_text": "וְאֵלַמָּ֖ו"
         }
       ],
-      "matching_mpp_surface_words_in_mpp_verse": [
+      "matching_mpu_surface_words_in_mpu_verse": [
         "וְאֵלַמָּ֖ו"
       ],
       "supported_qere_wrapper_word_mismatch": false,
-      "found_via_known_docx_mpp_word": false,
+      "found_via_known_docx_mpu_word": false,
       "hit_files": [
         "C3-Ezekiel.json"
       ]
@@ -3132,10 +3272,10 @@
       "row_number": 73,
       "verse": "Ezekiel 40:37.11",
       "word": "מַעֲלָֽו",
-      "mpp_file_for_verse": "C3-Ezekiel.json",
+      "mpu_file_for_verse": "C3-Ezekiel.json",
       "found_in_any_plus_file": true,
-      "found_in_mpp_verse_text": true,
-      "template_args_in_mpp_verse": [
+      "found_in_mpu_verse_text": true,
+      "template_args_in_mpu_verse": [
         {
           "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
@@ -3155,26 +3295,31 @@
           "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "מקורות",
           "argument_text": "ל-קרי"
+        },
+        {
+          "template_name": "מ:קו\"כ-אם-2",
+          "argument_key": "סוג",
+          "argument_text": "כתיב חסר יו\"ד בסיומת של קמץ ואחריו וי\"ו"
         }
       ],
-      "supported_qere_wrapper_in_mpp_verse": {
+      "supported_qere_wrapper_in_mpu_verse": {
         "template_name": "מ:קו\"כ-אם-2",
         "ketiv": "מַעֲלָֽו",
         "qere": "מַעֲלָֽיו"
       },
-      "found_in_mpp_verse_template_arg": true,
-      "matching_template_args_in_mpp_verse": [
+      "found_in_mpu_verse_template_arg": true,
+      "matching_template_args_in_mpu_verse": [
         {
           "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
           "argument_text": "מַעֲלָֽו"
         }
       ],
-      "matching_mpp_surface_words_in_mpp_verse": [
+      "matching_mpu_surface_words_in_mpu_verse": [
         "מַעֲלָֽו׃"
       ],
       "supported_qere_wrapper_word_mismatch": false,
-      "found_via_known_docx_mpp_word": false,
+      "found_via_known_docx_mpu_word": false,
       "hit_files": [
         "C3-Ezekiel.json"
       ]
@@ -3183,10 +3328,10 @@
       "row_number": 74,
       "verse": "Ezekiel 47:8.17",
       "word": "וְנִרְפּ֥אוּ",
-      "mpp_file_for_verse": "C3-Ezekiel.json",
+      "mpu_file_for_verse": "C3-Ezekiel.json",
       "found_in_any_plus_file": true,
-      "found_in_mpp_verse_text": true,
-      "template_args_in_mpp_verse": [
+      "found_in_mpu_verse_text": true,
+      "template_args_in_mpu_verse": [
         {
           "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
@@ -3206,26 +3351,31 @@
           "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "מקורות",
           "argument_text": "ל-קרי"
+        },
+        {
+          "template_name": "מ:קו\"כ-אם-2",
+          "argument_key": "סוג",
+          "argument_text": "אל\"ף מיותרת"
         }
       ],
-      "supported_qere_wrapper_in_mpp_verse": {
+      "supported_qere_wrapper_in_mpu_verse": {
         "template_name": "מ:קו\"כ-אם-2",
         "ketiv": "וְנִרְפּ֥אֿוּ",
         "qere": "וְנִרְפּ֥וּ"
       },
-      "found_in_mpp_verse_template_arg": true,
-      "matching_template_args_in_mpp_verse": [
+      "found_in_mpu_verse_template_arg": true,
+      "matching_template_args_in_mpu_verse": [
         {
           "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
           "argument_text": "וְנִרְפּ֥אֿוּ"
         }
       ],
-      "matching_mpp_surface_words_in_mpp_verse": [
+      "matching_mpu_surface_words_in_mpu_verse": [
         "וְנִרְפּ֥אֿוּ"
       ],
       "supported_qere_wrapper_word_mismatch": false,
-      "found_via_known_docx_mpp_word": false,
+      "found_via_known_docx_mpu_word": false,
       "hit_files": [
         "C3-Ezekiel.json"
       ]
@@ -3234,14 +3384,14 @@
       "row_number": 75,
       "verse": "Ezekiel 48:18.17",
       "word": "תְבֽוּאָתֹה֙",
-      "mpp_file_for_verse": "C3-Ezekiel.json",
+      "mpu_file_for_verse": "C3-Ezekiel.json",
       "found_in_any_plus_file": true,
-      "found_in_mpp_verse_text": true,
-      "template_args_in_mpp_verse": [
+      "found_in_mpu_verse_text": true,
+      "template_args_in_mpu_verse": [
         {
           "template_name": "נוסח",
           "argument_key": "1",
-          "argument_text": "{{מ:קו\"כ-אם-2|תְבֽוּאָתֹה֙|תבואתה|תְבֽוּאָתוֹ֙|מקורות=ל-קרי}}"
+          "argument_text": "{{מ:קו\"כ-אם-2|תְבֽוּאָתֹה֙|תבואתה|תְבֽוּאָתוֹ֙|מקורות=ל-קרי|סוג=כתיב ה\"א בסיומת של חולם}}"
         },
         {
           "template_name": "מ:קו\"כ-אם-2",
@@ -3262,26 +3412,31 @@
           "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "מקורות",
           "argument_text": "ל-קרי"
+        },
+        {
+          "template_name": "מ:קו\"כ-אם-2",
+          "argument_key": "סוג",
+          "argument_text": "כתיב ה\"א בסיומת של חולם"
         }
       ],
-      "supported_qere_wrapper_in_mpp_verse": {
+      "supported_qere_wrapper_in_mpu_verse": {
         "template_name": "מ:קו\"כ-אם-2",
         "ketiv": "תְבֽוּאָתֹה֙",
         "qere": "תְבֽוּאָתוֹ֙"
       },
-      "found_in_mpp_verse_template_arg": true,
-      "matching_template_args_in_mpp_verse": [
+      "found_in_mpu_verse_template_arg": true,
+      "matching_template_args_in_mpu_verse": [
         {
           "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
           "argument_text": "תְבֽוּאָתֹה֙"
         }
       ],
-      "matching_mpp_surface_words_in_mpp_verse": [
+      "matching_mpu_surface_words_in_mpu_verse": [
         "תְבֽוּאָתֹה֙"
       ],
       "supported_qere_wrapper_word_mismatch": false,
-      "found_via_known_docx_mpp_word": false,
+      "found_via_known_docx_mpu_word": false,
       "hit_files": [
         "C3-Ezekiel.json"
       ]
@@ -3290,10 +3445,10 @@
       "row_number": 76,
       "verse": "Ezekiel 48:21.35",
       "word": "בְּתוֹכֹֽה",
-      "mpp_file_for_verse": "C3-Ezekiel.json",
+      "mpu_file_for_verse": "C3-Ezekiel.json",
       "found_in_any_plus_file": true,
-      "found_in_mpp_verse_text": true,
-      "template_args_in_mpp_verse": [
+      "found_in_mpu_verse_text": true,
+      "template_args_in_mpu_verse": [
         {
           "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
@@ -3313,26 +3468,31 @@
           "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "מקורות",
           "argument_text": "ל-קרי"
+        },
+        {
+          "template_name": "מ:קו\"כ-אם-2",
+          "argument_key": "סוג",
+          "argument_text": "כתיב ה\"א בסיומת של חולם"
         }
       ],
-      "supported_qere_wrapper_in_mpp_verse": {
+      "supported_qere_wrapper_in_mpu_verse": {
         "template_name": "מ:קו\"כ-אם-2",
         "ketiv": "בְּתוֹכֹֽה",
         "qere": "בְּתוֹכֽוֹ"
       },
-      "found_in_mpp_verse_template_arg": true,
-      "matching_template_args_in_mpp_verse": [
+      "found_in_mpu_verse_template_arg": true,
+      "matching_template_args_in_mpu_verse": [
         {
           "template_name": "מ:קו\"כ-אם-2",
           "argument_key": "1",
           "argument_text": "בְּתוֹכֹֽה"
         }
       ],
-      "matching_mpp_surface_words_in_mpp_verse": [
+      "matching_mpu_surface_words_in_mpu_verse": [
         "בְּתוֹכֹֽה׃"
       ],
       "supported_qere_wrapper_word_mismatch": false,
-      "found_via_known_docx_mpp_word": false,
+      "found_via_known_docx_mpu_word": false,
       "hit_files": [
         "C3-Ezekiel.json"
       ]
@@ -3341,10 +3501,10 @@
       "row_number": 77,
       "verse": "Tsefaniah 2:9.27",
       "word": "גּוֹיִ֖",
-      "mpp_file_for_verse": "CA-The-12-Minor-Prophets.json",
+      "mpu_file_for_verse": "CA-The-12-Minor-Prophets.json",
       "found_in_any_plus_file": true,
-      "found_in_mpp_verse_text": true,
-      "template_args_in_mpp_verse": [
+      "found_in_mpu_verse_text": true,
+      "template_args_in_mpu_verse": [
         {
           "template_name": "נוסח",
           "argument_key": "1",
@@ -3361,24 +3521,24 @@
           "argument_text": "גּוֹיִ֖י"
         }
       ],
-      "supported_qere_wrapper_in_mpp_verse": {
+      "supported_qere_wrapper_in_mpu_verse": {
         "template_name": "כו\"ק",
         "ketiv": "גוי",
         "qere": "גּוֹיִ֖י"
       },
-      "found_in_mpp_verse_template_arg": true,
-      "matching_template_args_in_mpp_verse": [
+      "found_in_mpu_verse_template_arg": true,
+      "matching_template_args_in_mpu_verse": [
         {
           "template_name": "כו\"ק",
           "argument_key": "2",
           "argument_text": "גּוֹיִ֖י"
         }
       ],
-      "matching_mpp_surface_words_in_mpp_verse": [
+      "matching_mpu_surface_words_in_mpu_verse": [
         "גּוֹיִ֖י"
       ],
       "supported_qere_wrapper_word_mismatch": false,
-      "found_via_known_docx_mpp_word": true,
+      "found_via_known_docx_mpu_word": true,
       "hit_files": [
         "A1-Genesis.json",
         "A4-Numbers.json",

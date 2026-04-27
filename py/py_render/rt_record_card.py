@@ -25,7 +25,7 @@ from py_render.rt_issue_tags import (
 )
 from py_render.rt_mam_uxlc_diff_descriptions import simple_row_diff_note_lines
 from py_render.rt_matching_tmpl_args import (
-    matching_template_arguments_in_mpp_verse_by_row_number,
+    matching_template_arguments_in_mpu_verse_by_row_number,
     supported_qere_wrapper_by_row_number,
 )
 from py_render.rt_render_utils import (
@@ -71,7 +71,7 @@ def record_card_html(
     notes_haketer = as_optional_text(row.get("notes-HaKeter"))
     raw_images = row.get("image_files")
     images: dict[str, object] = raw_images if isinstance(raw_images, dict) else {}
-    matching_template_args_in_mpp_verse = matching_template_arguments_by_row_number.get(
+    matching_template_args_in_mpu_verse = matching_template_arguments_by_row_number.get(
         row_number, []
     )
     record_categories: list[tuple[str, str]] = [(finding_id, finding_display)]
@@ -105,34 +105,34 @@ def record_card_html(
         )
     )
     supported_qere_wrapper = supported_qere_wrappers.get(row_number)
-    differing_latest_mpp_words: list[str] = []
-    for match in matching_template_args_in_mpp_verse:
+    differing_latest_mpu_words: list[str] = []
+    for match in matching_template_args_in_mpu_verse:
         argument_text = as_text(match.get("argument_text"))
-        if argument_text == word or argument_text in differing_latest_mpp_words:
+        if argument_text == word or argument_text in differing_latest_mpu_words:
             continue
-        differing_latest_mpp_words.append(argument_text)
+        differing_latest_mpu_words.append(argument_text)
     if (
         supported_qere_wrapper is not None
-        and not matching_template_args_in_mpp_verse
+        and not matching_template_args_in_mpu_verse
         and supported_qere_wrapper["qere"] != word
-        and supported_qere_wrapper["qere"] not in differing_latest_mpp_words
+        and supported_qere_wrapper["qere"] not in differing_latest_mpu_words
     ):
-        differing_latest_mpp_words.append(supported_qere_wrapper["qere"])
-    rendered_mam_words = {word, *differing_latest_mpp_words}
-    displayed_matching_template_args_in_mpp_verse = [
+        differing_latest_mpu_words.append(supported_qere_wrapper["qere"])
+    rendered_mam_words = {word, *differing_latest_mpu_words}
+    displayed_matching_template_args_in_mpu_verse = [
         match
-        for match in matching_template_args_in_mpp_verse
+        for match in matching_template_args_in_mpu_verse
         if as_text(match.get("argument_text")) not in rendered_mam_words
     ]
-    mpp_matching_template_arg_html = "\n".join(
+    mpu_matching_template_arg_html = "\n".join(
         (
             f'<div class="note-line"><span class="label">'
-            f'MPP matching template arg ({escape(as_text(match.get("template_name")))}'
+            f'MAM-parsed-plus matching template arg ({escape(as_text(match.get("template_name")))}'
             f'[{escape(as_text(match.get("argument_key")))}]):'
             f'</span><bdi class="pointed-heb">'
             f'{escape(as_text(match.get("argument_text")))}</bdi></div>'
         )
-        for match in displayed_matching_template_args_in_mpp_verse
+        for match in displayed_matching_template_args_in_mpu_verse
     )
     template_rows = template_rows_from_supported_qere_wrapper(supported_qere_wrapper)
     comparison_rows = build_comparison_rows(
@@ -140,20 +140,20 @@ def record_card_html(
         notes_uxlc=notes_uxlc,
         notes_haketer=notes_haketer,
         template_rows=template_rows,
-        differing_latest_mpp_words=differing_latest_mpp_words,
+        differing_latest_mpu_words=differing_latest_mpu_words,
     )
     if comparison_rows is None:
         mam_word_label = (
-            "MAM Word (from docx):" if differing_latest_mpp_words else "MAM Word:"
+            "MAM Word (from docx):" if differing_latest_mpu_words else "MAM Word:"
         )
         mam_word_html = (
             f'<div class="note-line"><span class="label">{mam_word_label}</span>'
             f'<bdi class="pointed-heb">{escape(word)}</bdi></div>'
         )
-        if differing_latest_mpp_words:
+        if differing_latest_mpu_words:
             mam_word_html += (
-                f'\n<div class="note-line"><span class="label">MAM Word (from latest MPP):</span>'
-                f'<bdi class="pointed-heb">{escape(" | ".join(differing_latest_mpp_words))}</bdi></div>'
+                f'\n<div class="note-line"><span class="label">MAM Word (from latest MAM-parsed-plus):</span>'
+                f'<bdi class="pointed-heb">{escape(" | ".join(differing_latest_mpu_words))}</bdi></div>'
             )
         mam_uxlc_html = join_nonempty_html_blocks(
             mam_word_html,
@@ -180,7 +180,7 @@ def record_card_html(
     notes_html = join_nonempty_html_blocks(
         simple_diff_notes_html,
         yatir_html,
-        mpp_matching_template_arg_html,
+        mpu_matching_template_arg_html,
     )
 
     return f"""<article

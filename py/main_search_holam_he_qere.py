@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-"""Search MPP qere readings for holam-he word endings.
+"""Search mpu (MAM-parsed-plus) qere readings for holam-he word endings.
 
 This is now a thin wrapper around the reusable ending-pattern search engine.
 To create another ending-pattern search, copy this file and adjust SEARCH_SPEC.
@@ -15,7 +15,7 @@ from python_modules.qere_ending_search import (
     DEFAULT_OUTPUT_DIR,
     QereEndingSearchSpec,
     build_ending_pattern_report,
-    load_mpp_hits_for_spec,
+    load_mpu_hits_for_spec,
     load_wordlist_hits_for_spec,
     write_ending_pattern_report,
 )
@@ -27,6 +27,7 @@ from python_modules.qere_projection import (
     word_atoms_from_qere_atoms,
 )
 
+# mpu = MAM-parsed-plus.
 SEARCH_SPEC = QereEndingSearchSpec(
     slug="holam_he",
     label="Holam-he qere endings",
@@ -42,8 +43,8 @@ def is_holam_he_word(word: str) -> bool:
     return SEARCH_SPEC.matches_word(word)
 
 
-def load_mpp_hits() -> list[dict[str, object]]:
-    return load_mpp_hits_for_spec(SEARCH_SPEC)
+def load_mpu_hits() -> list[dict[str, object]]:
+    return load_mpu_hits_for_spec(SEARCH_SPEC)
 
 
 def load_wordlist_hits() -> list[dict[str, str]]:

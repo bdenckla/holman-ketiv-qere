@@ -10,7 +10,7 @@ HEBREW_LETTER_PATTERN = re.compile(r"[\u05D0-\u05EA]+")
 
 COMPARISON_LABEL_TOOLTIPS = {
     "MAM-docx": "MAM Word (from docx)",
-    "MAM-mpp": "MAM Word (from latest MPP)",
+    "MAM-mpu": "MAM Word (from latest MAM-parsed-plus)",
 }
 
 
@@ -20,7 +20,7 @@ def build_comparison_rows(
     notes_uxlc: str,
     notes_haketer: str | None,
     template_rows: list[dict[str, str]] | None,
-    differing_latest_mpp_words: list[str],
+    differing_latest_mpu_words: list[str],
 ) -> list[dict[str, str]] | None:
     ketiv_qere = _split_notes_uxlc(notes_uxlc)
     if ketiv_qere is None:
@@ -40,10 +40,10 @@ def build_comparison_rows(
         ]
 
     mam_rows = [{"name": "MAM Word", "value": word}]
-    if differing_latest_mpp_words:
+    if differing_latest_mpu_words:
         mam_rows = [
             {"name": "MAM-docx", "value": word},
-            {"name": "MAM-mpp", "value": " | ".join(differing_latest_mpp_words)},
+            {"name": "MAM-mpu", "value": " | ".join(differing_latest_mpu_words)},
         ]
 
     rows = [

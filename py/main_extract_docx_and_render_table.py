@@ -79,9 +79,9 @@ def persist_verify_summary(
     if not isinstance(verify_summary, dict):
         raise ValueError("verification summary is invalid")
 
-    doc_note_rows = verify_report.get("rows_matching_mpp_verse_template_arg")
+    doc_note_rows = verify_report.get("rows_matching_mpu_verse_template_arg")
     if not isinstance(doc_note_rows, list):
-        raise ValueError("verification rows_matching_mpp_verse_template_arg is invalid")
+        raise ValueError("verification rows_matching_mpu_verse_template_arg is invalid")
 
     wrapper_rows = verify_report.get("rows_with_supported_qere_wrapper")
     if not isinstance(wrapper_rows, list):
@@ -96,7 +96,7 @@ def persist_verify_summary(
         raise ValueError("UXLC verification rows_missing_claims is invalid")
 
     table_data["mam_plus_verify"] = verify_summary
-    table_data["mam_plus_rows_matching_mpp_verse_template_arg"] = doc_note_rows
+    table_data["mam_plus_rows_matching_mpu_verse_template_arg"] = doc_note_rows
     table_data["mam_plus_rows_with_supported_qere_wrapper"] = wrapper_rows
     table_data["uxlc_verify"] = uxlc_verify_summary
     table_data["uxlc_rows_missing_note_claims"] = uxlc_missing_rows
@@ -165,7 +165,7 @@ def main() -> None:
         raise ValueError("UXLC verification summary is invalid")
 
     missing_any = verify_summary["missing_any_plus_count"]
-    missing_mpp_verse_text = verify_summary["missing_mpp_verse_text_count"]
+    missing_mpu_verse_text = verify_summary["missing_mpu_verse_text_count"]
     supported_qere_wrapper_mismatches = verify_summary[
         "rows_supported_qere_wrapper_mismatch_count"
     ]
@@ -185,14 +185,14 @@ def main() -> None:
 
     if (
         missing_any
-        or missing_mpp_verse_text
+        or missing_mpu_verse_text
         or supported_qere_wrapper_mismatches
         or missing_uxlc_claims
     ):
         raise ValueError(
             "post-extraction verification failed: "
             f"missing_any_plus_count={missing_any}, "
-            f"missing_mpp_verse_text_count={missing_mpp_verse_text}, "
+            f"missing_mpu_verse_text_count={missing_mpu_verse_text}, "
             f"rows_supported_qere_wrapper_mismatch_count={supported_qere_wrapper_mismatches}, "
             f"rows_missing_uxlc_claim_count={missing_uxlc_claims}"
         )

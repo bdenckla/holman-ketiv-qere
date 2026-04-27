@@ -33,16 +33,16 @@ It distinguishes between:
 - Type: object
 - Meaning: post-extraction verification summary against MAM-parsed-plus verse text
 - Source: `py/python_modules/verify_table_words_in_mam_plus.py`
-- Current data observation: all `77` rows are found in their mapped MPP verse text
+- Current data observation: all `77` rows are found in their mapped MAM-parsed-plus verse text
 
-### `mam_plus_rows_matching_mpp_verse_template_arg`
+### `mam_plus_rows_matching_mpu_verse_template_arg`
 
 - Type: array of objects
-- Meaning: rows whose `word` appears as an exact token inside at least one template argument in the mapped MPP verse
+- Meaning: rows whose `word` appears as an exact token inside at least one template argument in the mapped MAM-parsed-plus verse
 - Source: post-extraction verification scan of template arguments, with explicit exclusion of נוסח argument `2`
 - Current data observation: `17` rows
-- Row payload note: each row includes `template_args_in_mpp_verse`, an extracted list of template argument records for that MAM-plus verse (`template_name`, `argument_key`, `argument_text`) retained for traceable verification context.
-- Row payload note: matching rows also include `matching_mpp_surface_words_in_mpp_verse`, the exact projected MPP surface-word forms from verse text that match the row word after normalization. These forms can preserve trailing sof pasuq even when the matching template argument text does not.
+- Row payload note: each row includes `template_args_in_mpu_verse`, an extracted list of template argument records for that MAM-plus verse (`template_name`, `argument_key`, `argument_text`) retained for traceable verification context.
+- Row payload note: matching rows also include `matching_mpu_surface_words_in_mpu_verse`, the exact projected MAM-parsed-plus surface-word forms from verse text that match the row word after normalization. These forms can preserve trailing sof pasuq even when the matching template argument text does not.
 
 ## `table` object
 
@@ -251,4 +251,4 @@ It distinguishes between:
 - `aleppo` and `leningrad` text fields are dropped from `rows` after extractor assertions (`aleppo` must be empty; `leningrad` must be empty or a single `’` marker).
 - Aleppo/Leningrad screenshots or embedded figures remain under `image_files`.
 - `mam_plus_verify` summarizes post-extraction presence checks in plus verse text, excluding נוסח argument 2 documentation.
-- `mam_plus_rows_matching_mpp_verse_template_arg` captures rows where the table `word` appears as a whole token in any template argument text, excluding נוסח argument `2`.
+- `mam_plus_rows_matching_mpu_verse_template_arg` captures rows where the table `word` appears as a whole token in any template argument text, excluding נוסח argument `2`.
