@@ -5,6 +5,7 @@ from dataclasses import dataclass
 from urllib.parse import quote
 
 from mb_cmn import bib_locales as tbn
+from mb_cmn.he_wikisource_url import he_taamim_url
 
 VERSE_REFERENCE_RE = re.compile(
     r"^(?P<book>\S+)\s+(?P<chapter>\d+):(?P<verse>\d+)(?:\.\d+)?$"
@@ -61,12 +62,11 @@ def verse_external_links(verse_text: str) -> VerseExternalLinks:
     osdf = tbn.ordered_short_dash_full_39(book)
     mgketer_id = tbn.get_bknu(book)
     chapter_he = _int_to_hebrew(chapter)
-    mam_ws_page = quote(f"{BOOK_HEBREW_NAMES[book]}_{chapter_he}/טעמים")
 
     return VerseExternalLinks(
         mgketer_url=f"https://www.mgketer.org/mikra/{mgketer_id}/{chapter}/1/mg/106",
         mwd_url=f"https://bdenckla.github.io/MAM-with-doc/{quote(f'{osdf}.html')}#c{chapter}v{verse}",
-        mam_ws_url=f"https://he.wikisource.org/wiki/{mam_ws_page}",
+        mam_ws_url=he_taamim_url(BOOK_HEBREW_NAMES[book], chapter_he),
     )
 
 
