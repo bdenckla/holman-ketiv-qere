@@ -82,12 +82,12 @@ LETTER_NAMES = {
 # ── Hebrew accent names (U+0591–U+05AF) ─────────────────────────────
 
 ACCENT_NAMES = {
-    ha.ATN: "etnahta",
+    ha.ATN: "etnaḥta",
     ha.SEG_A: "segol-accent",
     ha.SHA: "shalshelet",
     ha.ZAQ_Q: "zaqef-qatan",
     ha.ZAQ_G: "zaqef-gadol",
-    ha.TIP: "tipeha",
+    ha.TIP: "tipeḥa",
     ha.REV: "revia",
     ha.ZSH_OR_TSIT: "zarqa-sh",
     ha.PASH: "pashta",
@@ -99,18 +99,18 @@ ACCENT_NAMES = {
     ha.QAR: "qarney-para",
     ha.TEL_G: "telisha-gedola",
     ha.PAZ: "pazer",
-    ha.ATN_H: "atnah-hafukh",
-    ha.MUN: "munah",
+    ha.ATN_H: "atnaḥ-hafukh",
+    ha.MUN: "munaḥ",
     ha.MAH: "mahapakh",
     ha.MER: "merkha",
     ha.MER_2: "merkha-kefula",
     ha.DAR: "darga",
     ha.QOM: "qadma",
     ha.TEL_Q: "telisha-qetana",
-    ha.YBY: "yerakh-ben-yomo",
+    ha.YBY: "yeraḥ-ben-yomo",
     ha.OLE: "ole",
     ha.ILU: "iluy",
-    ha.DEX: "dehi",
+    ha.DEX: "deḥi",
     ha.Z_OR_TSOR: "zarqa",
     hpu.MCIRC: "masora-circle",
 }
@@ -119,17 +119,17 @@ ACCENT_NAMES = {
 
 POINT_NAMES = {
     hpo.SHEVA: "shewa",
-    hpo.XSEGOL: "ḥataf-segol",
-    hpo.XPATAX: "ḥataf-pataḥ",
-    hpo.XQAMATS: "ḥataf-qamats",
-    hpo.XIRIQ: "ḥiriq",
+    hpo.XSEGOL: "ḥataf-segol",
+    hpo.XPATAX: "ḥataf-pataḥ",
+    hpo.XQAMATS: "ḥataf-qamats",
+    hpo.XIRIQ: "ḥiriq",
     hpo.TSERE: "tsere",
     hpo.SEGOL_V: "segol",
-    hpo.PATAX: "pataḥ",
+    hpo.PATAX: "pataḥ",
     hpo.QAMATS: "qamats",
     hpo.QAMATS_Q: "qamats-qatan",
-    hpo.XOLAM: "ḥolam",
-    hpo.XOLAM_XFV: "ḥolam-ḥaser-for-vav",
+    hpo.XOLAM: "ḥolam",
+    hpo.XOLAM_XFV: "ḥolam-ḥaser-for-vav",
     hpo.QUBUTS: "qubuts",
     hpo.DAGOMOSD: "dagesh",
     hpo.MTGOSLQ: "meteg",
@@ -232,7 +232,7 @@ def _describe_diff(old_text, new_text, pred, name_fn, poetic=False):
 
     pred: function that identifies the character type (accent or mark)
     name_fn: function that returns the human name for the character
-    poetic: if True, use poetic accent names (e.g. tarha for tipeha)
+    poetic: if True, use poetic accent names (e.g. tarha for tipeḥa)
     """
     if poetic and name_fn is accent_name:
         _name = lambda ch: accent_name(ch, poetic=True)
