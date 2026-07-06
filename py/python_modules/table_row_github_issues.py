@@ -13,13 +13,13 @@ ROW_GITHUB_ISSUES_JSON_PATH: Final = REPO_ROOT / "io" / "table_row_github_issues
 
 ISSUE_LABEL_TO_TAG: Final[dict[str, str]] = {
     "QyV": "qyv",
-    "ḥolam he": "holam-he",
+    "ḥolam he": "holam-he",
     "בו״א sans א": "boa-sans-aleph",
     "rafeh": "rafeh",
 }
 
 ISSUE_TAG_DISPLAY_TEXT: Final[dict[str, str]] = {
-    "holam-he": "ḥolam he",
+    "holam-he": "ḥolam he",
     "qyv": "QyV",
     "boa-sans-aleph": "בו״א sans א",
     "rafeh": "rafeh",

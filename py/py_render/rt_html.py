@@ -236,7 +236,7 @@ def _write_report_page(
 """
 
     output_html_path.parent.mkdir(parents=True, exist_ok=True)
-    output_html_path.write_text(html, encoding="utf-8")
+    output_html_path.write_text(html, encoding="utf-8", newline="")
 
 
 def _validate_issue_tag_definitions(rows: list[dict[str, Any]]) -> None:

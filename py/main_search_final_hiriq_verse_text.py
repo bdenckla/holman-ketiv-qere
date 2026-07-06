@@ -108,7 +108,7 @@ def main() -> None:
     }
 
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
-    with open(OUTPUT_PATH, "w", encoding="utf-8") as handle:
+    with open(OUTPUT_PATH, "w", encoding="utf-8", newline="") as handle:
         json.dump(report, handle, ensure_ascii=False, indent=2)
 
     print(f"total_hits={len(hits)}")

@@ -23,6 +23,6 @@ Files copied:
   url_percent.py
   vendoring_sync.py
 
-Git commit: 0bca2a7c22fbcafa3f0b503cdf6ea5462aa3c86a
+Git commit: 7a528b33df670c15bdc98e82c57e291957f97506
 
-Date copied: 2026-05-27
+Date copied: 2026-07-06

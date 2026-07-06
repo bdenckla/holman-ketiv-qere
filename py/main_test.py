@@ -39,6 +39,11 @@ TEST_MODULE_SPECS = (
         module_name="tests.test_holam_he_validation",
         help_text="Run holam-he semantic validation tests.",
     ),
+    TestModuleSpec(
+        flag="h-dot-below-nfc",
+        module_name="tests.test_h_dot_below_nfc",
+        help_text="Run NFC h-with-dot-below enforcement tests (issue #187).",
+    ),
 )
 
 

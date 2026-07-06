@@ -1,0 +1,6 @@
+# Auto detect text files and perform LF normalization
+* text=auto eol=lf
+
+# Binary assets: never convert line endings or diff as text.
+*.docx binary
+*.png binary

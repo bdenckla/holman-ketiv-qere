@@ -112,7 +112,7 @@ def write_extract_files(
 ) -> tuple[Path, Path]:
     nonserved_output_dir.mkdir(parents=True, exist_ok=True)
     intro_path = nonserved_output_dir / "introduction.md"
-    intro_path.write_text(intro_markdown(parsed.intro_paragraphs), encoding="utf-8")
+    intro_path.write_text(intro_markdown(parsed.intro_paragraphs), encoding="utf-8", newline="")
 
     json_payload = {
         "source_document": source_document,

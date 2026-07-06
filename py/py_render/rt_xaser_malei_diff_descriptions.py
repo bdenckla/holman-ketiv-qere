@@ -149,7 +149,7 @@ def describe_xaser_malei_qere_change(mam_text: str, qere_text: str) -> str | Non
     ):
         return None
 
-    # For the common case of a single spelling swap (e.g. ḥiriq-yod → shuruq),
+    # For the common case of a single spelling swap (e.g. xiriq-yod → shuruq),
     # use a single-perspective "replace X with Y" form rather than the
     # two-perspective "MAM uses X; UXLC uses Y" form.
     if len(mam_remaining) == 1 and len(qere_remaining) == 1:

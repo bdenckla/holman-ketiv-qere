@@ -280,6 +280,6 @@ def write_ending_pattern_report(
     )
     output_dir.mkdir(parents=True, exist_ok=True)
     output_path = output_dir / spec.output_file_name
-    with open(output_path, "w", encoding="utf-8") as handle:
+    with open(output_path, "w", encoding="utf-8", newline="") as handle:
         json.dump(report, handle, ensure_ascii=False, indent=2)
     return output_path, report

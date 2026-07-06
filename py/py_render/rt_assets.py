@@ -38,5 +38,5 @@ def write_report_assets(
 
     css_output_path.parent.mkdir(parents=True, exist_ok=True)
     js_output_path.parent.mkdir(parents=True, exist_ok=True)
-    css_output_path.write_text(css_text, encoding="utf-8")
-    js_output_path.write_text(js_text, encoding="utf-8")
+    css_output_path.write_text(css_text, encoding="utf-8", newline="")
+    js_output_path.write_text(js_text, encoding="utf-8", newline="")
