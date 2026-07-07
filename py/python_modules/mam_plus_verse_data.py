@@ -2,20 +2,31 @@ from __future__ import annotations
 
 from collections.abc import Iterator
 
+from python_modules.template_name_quotes import canonical_template_name
+
+
+def _numeric_key(kind: str, key: object) -> int:
+    """Convert a numeric-string chapter/verse key to int.
+
+    MAM-parsed plus JSON keys chapters and verses by plain numeric strings
+    (e.g. "1", "24"); it no longer carries a header.he_to_int map decoding
+    Hebrew-numeral keys. The "0" (superscription) and total-row sentinel
+    verse keys are a plain-file concern and never appear in plus files, so no
+    sentinel skip is needed here -- a non-numeric key is unexpected data and
+    is surfaced as an error rather than silently skipped.
+    """
+    if not isinstance(key, str):
+        raise ValueError(f"{kind} key must be string, got {type(key)}")
+    if not key.isdigit():
+        raise ValueError(f"{kind} key is not a numeric string: {key!r}")
+    return int(key)
+
 
 def _iter_plus_verse_payloads(
     plus_json: object,
 ) -> Iterator[tuple[int, int, int, object]]:
     if not isinstance(plus_json, dict):
         raise ValueError("plus JSON root must be an object")
-
-    header = plus_json.get("header")
-    if not isinstance(header, dict):
-        raise ValueError("plus JSON missing object key 'header'")
-
-    he_to_int = header.get("he_to_int")
-    if not isinstance(he_to_int, dict):
-        raise ValueError("plus JSON header missing object key 'he_to_int'")
 
     book39s = plus_json.get("book39s")
     if not isinstance(book39s, list):
@@ -28,23 +39,13 @@ def _iter_plus_verse_payloads(
         if not isinstance(chapters, dict):
             raise ValueError("book39 entry missing object key 'chapters'")
 
-        for he_chapter, verse_map in chapters.items():
-            if not isinstance(he_chapter, str):
-                raise ValueError(f"chapter key must be string, got {type(he_chapter)}")
-            chapter_num = he_to_int.get(he_chapter)
-            if not isinstance(chapter_num, int):
-                raise ValueError(f"chapter {he_chapter!r} missing in header.he_to_int")
+        for chapter_key, verse_map in chapters.items():
+            chapter_num = _numeric_key("chapter", chapter_key)
             if not isinstance(verse_map, dict):
                 raise ValueError(f"chapter value must be object, got {type(verse_map)}")
 
-            for he_verse, verse_payload in verse_map.items():
-                if not isinstance(he_verse, str):
-                    raise ValueError(f"verse key must be string, got {type(he_verse)}")
-                if he_verse in ("0", "תתת"):
-                    continue
-                verse_num = he_to_int.get(he_verse)
-                if not isinstance(verse_num, int):
-                    raise ValueError(f"verse {he_verse!r} missing in header.he_to_int")
+            for verse_key, verse_payload in verse_map.items():
+                verse_num = _numeric_key("verse", verse_key)
 
                 yield (book39_index, chapter_num, verse_num, verse_payload)
 
@@ -85,6 +86,9 @@ def _collect_text_fragments(node: object, out_parts: list[str]) -> None:
         return
     if isinstance(node, dict):
         tmpl_name = node.get("tmpl_name")
+        # Folded to ASCII quotes for matching the quote-bearing literals below;
+        # tmpl_name itself (gershayim) is never stored from this function.
+        cmp_name = canonical_template_name(tmpl_name)
         tmpl_params = node.get("tmpl_params")
         if isinstance(tmpl_params, dict):
             if tmpl_name == "נוסח" or tmpl_name == "מ:הערה-2":
@@ -115,12 +119,12 @@ def _collect_text_fragments(node: object, out_parts: list[str]) -> None:
                 # Read-but-not-written: param 2 is the qere text.
                 _collect_text_fragments(tmpl_params.get("2"), out_parts)
                 return
-            if tmpl_name == 'מ:קו"כ-אם-2':
+            if cmp_name == 'מ:קו"כ-אם-2':
                 # Trivial qere: param 1 is the word; param 2 is a documentation
                 # string (e.g. "א-קרי=..."), not verse text.
                 _collect_text_fragments(tmpl_params.get("1"), out_parts)
                 return
-            if 'כו"ק' in (tmpl_name or "") or 'קו"כ' in (tmpl_name or ""):
+            if 'כו"ק' in (cmp_name or "") or 'קו"כ' in (cmp_name or ""):
                 # Ketiv-qere: param 1 is ketiv (written), param 2 is qere (read).
                 _collect_text_fragments(tmpl_params.get("2"), out_parts)
                 return

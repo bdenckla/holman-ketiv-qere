@@ -4,6 +4,7 @@ from collections.abc import Iterator
 import re
 
 from mb_cmn.hebrew_punctuation import MAQ, PASOLEG
+from python_modules.template_name_quotes import canonical_template_name
 
 ACCENTS_AND_METEG_RE = re.compile(r"[\u0591-\u05AF\u05BD\u05BF\u05C0\u05C4\u05C5]")
 CGJ_AND_JOINERS_RE = re.compile(r"[\u034F\u200C\u200D]")
@@ -72,13 +73,14 @@ def strip_accents_and_meteg(text: str) -> str:
 
 
 def qere_arg_key_for_template(template_name: str) -> str | None:
-    if template_name == 'מ:קו"כ-אם-2':
+    name = canonical_template_name(template_name)
+    if name == 'מ:קו"כ-אם-2':
         return "1"
-    if template_name == "קרי ולא כתיב":
+    if name == "קרי ולא כתיב":
         return "2"
-    if template_name == "כתיב ולא קרי":
+    if name == "כתיב ולא קרי":
         return None
-    if 'כו"ק' in template_name or 'קו"כ' in template_name:
+    if 'כו"ק' in name or 'קו"כ' in name:
         return "2"
     return None
 
@@ -91,7 +93,8 @@ def _with_source(
     return {
         "template_name": template_name,
         "argument_key": argument_key,
-        "is_trivq_arg1": template_name == 'מ:קו"כ-אם-2' and argument_key == "1",
+        "is_trivq_arg1": canonical_template_name(template_name) == 'מ:קו"כ-אם-2'
+        and argument_key == "1",
         "parent_source": source,
     }
 
@@ -140,7 +143,7 @@ def project_qere_atoms(
     if tmpl_name in {"נוסח", "מ:הערה-2"}:
         return project_qere_atoms(tmpl_params.get("1"), source=source)
 
-    if tmpl_name in {"מ:הערה", "כתיב ולא קרי", 'מ:נו"ן הפוכה'}:
+    if canonical_template_name(tmpl_name) in {"מ:הערה", "כתיב ולא קרי", 'מ:נו"ן הפוכה'}:
         return []
 
     qere_arg_key = qere_arg_key_for_template(tmpl_name)
@@ -240,26 +243,14 @@ def word_atoms_from_qere_atoms(
     return out
 
 
-def _he_to_int_map(plus_json: dict[str, object]) -> dict[str, int]:
-    header = plus_json.get("header")
-    if not isinstance(header, dict):
-        raise ValueError("plus JSON missing header")
-    mapping = header.get("he_to_int")
-    if not isinstance(mapping, dict):
-        raise ValueError("plus JSON header missing he_to_int")
-
-    out: dict[str, int] = {}
-    for key, value in mapping.items():
-        if isinstance(key, str) and isinstance(value, int):
-            out[key] = value
-    return out
-
-
 def iter_plus_verses(
     plus_json: dict[str, object],
     plus_file_name: str,
 ) -> Iterator[dict[str, object]]:
-    mapping = _he_to_int_map(plus_json)
+    # MAM-parsed plus JSON keys chapters/verses by plain numeric strings and no
+    # longer carries a header.he_to_int decode map. Non-numeric keys (the
+    # "0"/total-row sentinels are a plain-file concern, absent from plus) are
+    # skipped, matching this projection's tolerate-and-skip posture.
     book39s = plus_json.get("book39s")
     if not isinstance(book39s, list):
         raise ValueError("plus JSON missing book39s")
@@ -273,21 +264,19 @@ def iter_plus_verses(
         if not isinstance(chapters, dict):
             continue
 
-        for he_chapter, verses in chapters.items():
-            if he_chapter in ("0", "תתת"):
+        for chapter_key, verses in chapters.items():
+            if not isinstance(chapter_key, str) or not chapter_key.isdigit():
                 continue
-            chapter_num = mapping.get(he_chapter)
-            if not isinstance(chapter_num, int) or not isinstance(verses, dict):
+            if not isinstance(verses, dict):
                 continue
+            chapter_num = int(chapter_key)
 
-            for he_verse, verse_payload in verses.items():
-                if he_verse in ("0", "תתת"):
-                    continue
-                verse_num = mapping.get(he_verse)
-                if not isinstance(verse_num, int):
+            for verse_key, verse_payload in verses.items():
+                if not isinstance(verse_key, str) or not verse_key.isdigit():
                     continue
                 if not isinstance(verse_payload, list) or len(verse_payload) < 3:
                     continue
+                verse_num = int(verse_key)
 
                 yield {
                     "plus_file": plus_file_name,

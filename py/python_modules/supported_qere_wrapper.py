@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 from python_modules.qere_projection import qere_arg_key_for_template
+from python_modules.template_name_quotes import canonical_template_name
 
 SUPPORTED_QERE_DOC_PREFIXES = ("א-קרי=", "ל-קרי=")
 
@@ -71,11 +72,14 @@ def _supported_qere_wrapper_candidate_from_index(
     if template_name is None or argument_key not in {"1", "2"} or argument_text is None:
         return None
 
+    # Compare against ASCII-quote literals via the folded name; the returned
+    # tuple keeps the original (gershayim) template_name for the output record.
+    cmp_name = canonical_template_name(template_name)
     qere_key = qere_arg_key_for_template(template_name)
     if qere_key is None:
         return None
 
-    if template_name == 'מ:קו"כ-אם-2':
+    if cmp_name == 'מ:קו"כ-אם-2':
         args_by_key = _m_kuk_im_2_args_by_key(template_args, index)
         if args_by_key is None:
             return None
@@ -105,19 +109,19 @@ def _supported_qere_wrapper_candidate_from_index(
     if set(args_by_key) != {"1", "2"}:
         return None
 
-    if template_name == 'מ:קו"כ-אם-2':
+    if cmp_name == 'מ:קו"כ-אם-2':
         qere = _strip_supported_qere_doc(args_by_key["2"])
         if qere is None:
             return None
         return template_name, args_by_key["1"], qere
 
-    if template_name == "קרי ולא כתיב":
+    if cmp_name == "קרי ולא כתיב":
         return template_name, args_by_key["1"], args_by_key["2"]
 
-    if template_name == "כתיב ולא קרי":
+    if cmp_name == "כתיב ולא קרי":
         return None
 
-    if 'כו"ק' in template_name or 'קו"כ' in template_name:
+    if 'כו"ק' in cmp_name or 'קו"כ' in cmp_name:
         return template_name, args_by_key["1"], args_by_key["2"]
 
     return None
@@ -130,7 +134,12 @@ def _m_kuk_im_2_args_by_key(
     current = template_args[index]
     template_name = current.get("template_name")
     argument_key = current.get("argument_key")
-    if template_name != 'מ:קו"כ-אם-2' or argument_key not in {"1", "2", "3", "מקורות"}:
+    if canonical_template_name(template_name) != 'מ:קו"כ-אם-2' or argument_key not in {
+        "1",
+        "2",
+        "3",
+        "מקורות",
+    }:
         return None
 
     start = index

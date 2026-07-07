@@ -191,12 +191,6 @@ class VerifyTableWordsInMamPlusTests(unittest.TestCase):
             write_json(
                 plus_dir / "B1-Joshua.json",
                 {
-                    "header": {
-                        "he_to_int": {
-                            "10": 10,
-                            "24": 24,
-                        }
-                    },
                     "book39s": [
                         {
                             "chapters": {
@@ -274,12 +268,6 @@ class VerifyTableWordsInMamPlusTests(unittest.TestCase):
             write_json(
                 plus_dir / "B1-Joshua.json",
                 {
-                    "header": {
-                        "he_to_int": {
-                            "10": 10,
-                            "24": 24,
-                        }
-                    },
                     "book39s": [
                         {
                             "chapters": {
