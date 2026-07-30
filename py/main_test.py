@@ -44,6 +44,16 @@ TEST_MODULE_SPECS = (
         module_name="tests.test_h_dot_below_nfc",
         help_text="Run NFC h-with-dot-below enforcement tests (issue #187).",
     ),
+    TestModuleSpec(
+        flag="qere-ending-search",
+        module_name="tests.test_qere_ending_search",
+        help_text="Run qere-ending vowel-only-form and suffix-match tests.",
+    ),
+    TestModuleSpec(
+        flag="search-final-hiriq-verse-text",
+        module_name="tests.test_search_final_hiriq_verse_text",
+        help_text="Run final-hiriq token-detection and mark-stripping tests.",
+    ),
 )
 
 
