@@ -8,7 +8,7 @@ from python_modules.qere_projection import strip_accents_and_meteg
 
 HEBREW_LETTER_PATTERN = re.compile(r"[\u05D0-\u05EA]+")
 HEBREW_PUNCTUATION_PATTERN = re.compile(r"[\u05BE\u05C0\u05C3]")
-QYV_QERE_ENDING = "ָיו"
+QYV_QERE_ENDING = "\N{HEBREW POINT QAMATS}יו"
 
 
 @dataclass(frozen=True)
