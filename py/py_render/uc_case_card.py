@@ -56,7 +56,7 @@ def case_card_html(
     case_number: int,
     case: CorrectionCase,
     source_email: SourceEmail,
-    image_hrefs: list[tuple[str, str]],
+    image_hrefs: list[tuple[str, str, int, int]],
     comment_entries: tuple[dict[str, object], ...],
 ) -> str:
     fragment_id = case_fragment_id(case_number)

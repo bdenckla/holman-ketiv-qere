@@ -18,9 +18,12 @@ correspondents' addresses:
   ``read_emails``  reads that derivative. This is what the report is generated
     from, so a fresh clone can regenerate the page without the .eml files.
 
-Parsing is deliberately fail-fast: an unrecognized field label, a heading whose
-reference disagrees with its first field, an attachment that cannot be assigned
-to a case, and a duplicate reference all raise rather than dropping content.
+Parsing is deliberately fail-fast: an unrecognized field label, whether inside
+a case or in the position that would have opened one, a heading whose reference
+disagrees with its first field, an attachment that cannot be assigned to a
+case, and a duplicate reference all raise rather than dropping content. What is
+assumed rather than checked is that a field value is one line, and that the
+prose after a message's last case is its sign-off.
 """
 
 from __future__ import annotations
@@ -126,11 +129,22 @@ class CaseRef:
 
 @dataclass(frozen=True)
 class CaseImage:
-    """One PNG Holman attached, assigned to the case its filename names."""
+    """One PNG Holman attached, assigned to the case its filename names.
+
+    ``caption`` is what both the page and the JSON extract show, so it is
+    settled here rather than in either of them: the remainder of the
+    attachment's filename after the case reference, or the whole stem when the
+    filename adds nothing to the reference or names no case at all.
+
+    ``names_case_only`` marks that last-but-one kind -- a filename that is just
+    the case reference, which is Holman's plain crop of the word. It orders
+    first on the card, ahead of the companions he captions.
+    """
 
     source_filename: str
     caption: str
     file_name: str
+    names_case_only: bool
 
 
 @dataclass(frozen=True)
@@ -255,6 +269,16 @@ def ingest_eml_files(
             newline="\n",
         )
 
+    orphans = sorted(
+        path.name for path in image_dir.glob("*.png") if path.name not in written_images
+    )
+    if orphans:
+        raise ValueError(
+            f"{image_dir} holds PNGs no message names: {orphans}. A renamed "
+            "attachment leaves the file it was written under behind, tracked "
+            "and served but referenced by nothing; delete them and rerun."
+        )
+
     return {
         "eml_count": len(paths),
         "body_count": body_count,
@@ -282,10 +306,26 @@ def _email_key(path: Path) -> str:
 
 
 def _plain_text_body(message: email.message.EmailMessage, path: Path) -> str:
-    for part in message.walk():
-        if part.get_content_type() == "text/plain":
-            return part.get_content()
-    raise ValueError(f"{path.name}: no text/plain part")
+    """The message's one text/plain part.
+
+    Two would mean a forward carrying the original as a real message/rfc822
+    attachment rather than as the inline quoted text the Samuel message uses,
+    and taking the first would silently drop the other. That wants deciding
+    rather than guessing, so it raises.
+    """
+    bodies = [
+        part.get_content()
+        for part in message.walk()
+        if part.get_content_type() == "text/plain"
+    ]
+    if not bodies:
+        raise ValueError(f"{path.name}: no text/plain part")
+    if len(bodies) > 1:
+        raise ValueError(
+            f"{path.name}: {len(bodies)} text/plain parts; decide which is the "
+            "message body before ingesting it"
+        )
+    return bodies[0]
 
 
 def _png_attachments(
@@ -405,6 +445,7 @@ def _split_body_into_cases(
     starts = _case_start_indexes(lines)
     if not starts:
         raise ValueError(f"{path.name}: no cases found")
+    _require_no_unopened_case(lines[: starts[0]], path)
 
     preamble = tuple(line.strip() for line in lines[: starts[0]] if line.strip())
     cases: list[tuple[str, tuple[tuple[str, str], ...]]] = []
@@ -422,6 +463,41 @@ def _split_body_into_cases(
             )
         closing = trailing
     return preamble, cases, closing
+
+
+def _require_no_unopened_case(preamble_lines: list[str], path: Path) -> None:
+    """Raise on a case the start scan failed to open, rather than read it as prose.
+
+    A case opens only when the line after its heading is a label in
+    FIRST_FIELD_LABELS, so a message introducing a new spelling for its FIRST
+    field opens no case at all: the heading and every field line fall before
+    the first case and would be shown as the message's greeting.
+    ``_parse_case_region``'s unrecognized-label check cannot see them, because
+    it only runs inside a case that did open.
+
+    The rule has to be narrow, because the forwarded Samuel message quotes
+    Sent/From/To/Subject lines in its real preamble. What distinguishes a
+    dropped case is that its label-shaped line sits directly under a
+    heading-shaped one, which is true of none of those four.
+    """
+    previous_nonblank: str | None = None
+    for line in preamble_lines:
+        stripped = line.strip()
+        if not stripped:
+            continue
+        if (
+            _LABEL_RE.match(line) is not None
+            and _labelled(line) is None
+            and previous_nonblank is not None
+            and _HEADING_RE.match(previous_nonblank) is not None
+        ):
+            raise ValueError(
+                f"{path.name}: {stripped!r} under the heading "
+                f"{previous_nonblank!r} looks like the first field of a case, "
+                "but its label is not one of FIRST_FIELD_LABELS, so no case "
+                "opened. Add the spelling to FIRST_FIELD_LABELS."
+            )
+        previous_nonblank = stripped
 
 
 def _case_start_indexes(lines: list[str]) -> list[int]:
@@ -452,7 +528,8 @@ def _parse_case_region(
     would otherwise happen to a new label spelling in a future message. The
     check has to live in this function: applied to a whole body it would reject
     the forwarded Sent/From/To/Subject block one of these messages quotes in
-    its preamble.
+    its preamble. It reaches only a case that opened, so the same mistake in a
+    message's FIRST field is caught by ``_require_no_unopened_case`` instead.
     """
     fields: list[tuple[str, str]] = []
     trailing: list[str] = []
@@ -596,8 +673,9 @@ def _assign_images(
             unreferenced.append(
                 CaseImage(
                     source_filename=source_filename,
-                    caption=stem,
+                    caption=stem.strip(),
                     file_name=file_name,
+                    names_case_only=False,
                 )
             )
             continue
@@ -612,11 +690,15 @@ def _assign_images(
                 f"{path.name}: attachment {source_filename!r} names {ref.key}, "
                 "which is not a case in this message"
             )
+        # Holman's "2Sa 5.21.1 .png" has a space before the extension, so the
+        # stem needs stripping too, not only the remainder after the reference.
+        remainder = match.group("caption").strip()
         by_ref[ref.key].append(
             CaseImage(
                 source_filename=source_filename,
-                caption=match.group("caption").strip(),
+                caption=remainder or stem.strip(),
                 file_name=file_name,
+                names_case_only=not remainder,
             )
         )
     if unreferenced:
@@ -642,17 +724,23 @@ def _assign_images(
 
 
 def _ordered_images(images: list[CaseImage]) -> list[CaseImage]:
-    """Uncaptioned images (the plain crop) first, then captioned ones by caption."""
-    return sorted(images, key=lambda image: (image.caption != "", image.caption))
+    """The plain crop of the word first, then Holman's companions by caption."""
+    return sorted(images, key=lambda image: (not image.names_case_only, image.caption))
 
 
 def _require_distinct_refs(cases: list[CorrectionCase]) -> None:
-    seen: dict[str, str] = {}
+    seen: dict[str, CorrectionCase] = {}
     for case in cases:
         previous = seen.get(case.ref.key)
         if previous is not None:
+            where = (
+                f"both in {case.email_key}"
+                if previous.email_key == case.email_key
+                else f"in {previous.email_key} and {case.email_key}"
+            )
             raise ValueError(
                 f"two cases share the reference {case.ref.key}: "
-                f"{previous} and {case.email_key}"
+                f"case {previous.index_in_email} {previous.heading!r} and "
+                f"case {case.index_in_email} {case.heading!r}, {where}"
             )
-        seen[case.ref.key] = case.email_key
+        seen[case.ref.key] = case

@@ -36,8 +36,12 @@ from uxlc_comments.all_comments import BY_REF as COMMENTS_BY_REF, comments_for_r
 
 PAGE_TITLE = "Holman UXLC corrections"
 PAGE_HEADING = "Daniel Holman's suggested UXLC corrections"
+INDEX_PAGE = "index.html"
+INDEX_NAV_LABEL = "Index"
 KETIV_QERE_PAGE = "table_data_findings.html"
 KETIV_QERE_NAV_LABEL = "Ketiv/qere review"
+SUPPRESSED_PAGE = "table_data_findings_suppressed.html"
+SUPPRESSED_NAV_LABEL = "Suppressed"
 THIS_NAV_LABEL = "UXLC corrections"
 
 INTRO_PARAGRAPHS = (
@@ -125,9 +129,8 @@ def _rendered_cases(
         for image in case.images:
             path = image_dir / image.file_name
             width, height = _png_size(path)
-            caption = image.caption or Path(image.source_filename).stem
             hrefs.append(
-                (relative_href(path, output_html_path), caption, width, height)
+                (relative_href(path, output_html_path), image.caption, width, height)
             )
         rendered.append(RenderedCase(number=number, case=case, image_hrefs=hrefs))
     return rendered
@@ -196,8 +199,10 @@ def _write_page(
 </head>
 <body>
 <nav class="top-nav">
+<a class="nav-link" href="{INDEX_PAGE}">{INDEX_NAV_LABEL}</a>
 <a class="nav-link active" href="{escape(output_html_path.name)}">{THIS_NAV_LABEL}</a>
 <a class="nav-link" href="{KETIV_QERE_PAGE}">{KETIV_QERE_NAV_LABEL}</a>
+<a class="nav-link" href="{SUPPRESSED_PAGE}">{SUPPRESSED_NAV_LABEL}</a>
 </nav>
 <h1>{escape(PAGE_HEADING)}</h1>
 <div class="intro">

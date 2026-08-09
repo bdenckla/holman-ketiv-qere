@@ -35,6 +35,7 @@ Run extraction with:
 This also generates:
 
 - `gh-pages/table_data_findings.html` (finding-based HTML report with summary counts and filtering)
+- `gh-pages/table_data_findings_suppressed.html` (the same report for rows whose issue is closed)
 - `gh-pages/table_data_findings.css` (report styles)
 - `gh-pages/table_data_findings.js` (report filtering behavior)
 - `docs-not-served/introduction.md` (extracted source introduction)
@@ -177,9 +178,15 @@ Run all tracked tests from the repo root with:
 .venv\Scripts\python.exe py/main_test.py
 ```
 
-Run a focused subset with flags such as:
+`py/main_test.py --list` is the authority on which flags exist; the registry in
+`TEST_MODULE_SPECS` is hand-maintained, so compare it against
+`git ls-files "py/tests/test_*.py"` after adding a test file. Run a focused
+subset with one of those flags:
 
 ```powershell
-.venv\Scripts\python.exe py/main_test.py --render-table-data-findings-html
-.venv\Scripts\python.exe py/main_test.py --refresh-table-row-github-issues
+.venv\Scripts\python.exe py/main_test.py --verify-table-words-in-mam-plus
+```
+
+```powershell
+.venv\Scripts\python.exe py/main_test.py --h-dot-below-nfc
 ```

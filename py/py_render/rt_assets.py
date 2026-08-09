@@ -3,6 +3,13 @@ from __future__ import annotations
 
 from pathlib import Path
 
+# Badge and swatch colours, taken in order and wrapping only past the end. The
+# UXLC-corrections report draws all three of its filter columns from one cursor
+# through this list, so it needs as many distinct colours as it has filters --
+# 17 at present -- or two columns shown side by side repeat a colour and the
+# eye reads sameness of colour as sameness of category. Entries beyond the
+# tenth were appended for that; the first ten are what the ketiv/qere report
+# has always used and their order is load-bearing there.
 PALETTE = [
     "#1f5f8b",
     "#2e8b57",
@@ -14,6 +21,16 @@ PALETTE = [
     "#4f6d2e",
     "#505c91",
     "#9c4a22",
+    "#1d6f6f",
+    "#7b4b8a",
+    "#8a5a1f",
+    "#3c5f3c",
+    "#93334a",
+    "#2f5d8f",
+    "#6b6320",
+    "#7a3a2a",
+    "#3f5a75",
+    "#5c4a8c",
 ]
 
 ASSETS_DIR = Path(__file__).resolve().parents[2] / "assets"
