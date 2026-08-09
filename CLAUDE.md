@@ -1,7 +1,20 @@
 # CLAUDE.md
 
-The extraction workflow, the two entry points, and the fixed 77-row scope are in
-[README.md](README.md).
+This repo holds two bodies of Daniel Holman's work: the ketiv/qere review extracted from a
+tracked `.docx`, and the suggested UXLC corrections extracted from his emails. Both workflows,
+their entry points, and the ketiv/qere review's fixed 77-row scope are in [README.md](README.md).
+
+## This repo is public, so no address may reach a tracked file
+
+The `.eml` files Holman sends carry his address, Chris Kimball's, Ben's, and the routing headers.
+They are deliberately **not** tracked: they live in `.novc/eml/`, and
+`py/main_ingest_uxlc_emails.py` writes an address-free derivative under `emails/` that everything
+else reads. `uxlc_email_extract.redact_addresses` runs over each body as it is read — one of the
+messages is a forward and quotes the original To and From lines in its body text — and
+`_sender_display_name` raises rather than let a From header with no display name through.
+
+Keep that boundary where it is. Do not track a `.eml`, do not reintroduce the recipients, and
+before adding a field to the derivative, check what it would carry out of the mail headers.
 
 ## Authored CSS uses `light-dark()`, not a `prefers-color-scheme` block
 

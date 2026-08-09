@@ -1,6 +1,20 @@
 # holman-ketiv-qere
 
-This repository tracks a focused extraction from:
+Two bodies of work Daniel Holman has sent Ben Denckla, each extracted from its
+source and rendered as a report under `gh-pages/`:
+
+- **Suggested UXLC corrections** — his emails to the UXLC's editor, rendered to
+  `gh-pages/uxlc_corrections.html`. See "Suggested UXLC corrections" below.
+- **Ketiv/qere review** — `Review of Qere and Kethib readings in the Aleppo and
+  Leningrad.docx`, rendered to `gh-pages/table_data_findings.html`. That is the
+  original scope of this repo and everything from here to "Suggested UXLC
+  corrections" is about it.
+
+`gh-pages/index.html` links to both.
+
+## Ketiv/qere review
+
+This part of the repository tracks a focused extraction from:
 
 - `Review of Qere and Kethib readings in the Aleppo and Leningrad.docx`
 
@@ -91,7 +105,69 @@ Run it from the repo root with:
 .venv\Scripts\python.exe py/main_search_holam_he_qere.py
 ```
 
-It writes its report to `.novc/holam_he_qere_report.json`.
+It writes its report to `out/holam_he_qere_report.json`, which is tracked.
+
+## Suggested UXLC corrections
+
+Daniel Holman emails Chris Kimball and Ben Denckla suggested corrections to the
+UXLC, a book at a time. Those messages are the source. Two steps, because this
+repo is public and a `.eml` file's headers carry the correspondents' addresses.
+
+**Ingest**, when a new message arrives. The `.eml` files are **not** tracked;
+they live in `.novc/eml/`, which `.gitignore` already covers:
+
+```powershell
+.venv\Scripts\python.exe py/main_ingest_uxlc_emails.py
+```
+
+That writes the tracked derivative — per message, `emails/<key>.txt` (the body,
+with every email address replaced by `[address removed]`) and
+`emails/<key>.json` (subject, sender name, date, attachment list) — plus each
+attached PNG into `gh-pages/uxlc_img/`.
+
+**Render**, which needs only what is tracked, so a fresh clone can do it:
+
+```powershell
+.venv\Scripts\python.exe py/main_render_uxlc_corrections.py
+```
+
+That writes:
+
+- `gh-pages/uxlc_corrections.html` (the report), plus its `.css` and `.js`
+- `docs-not-served/uxlc_corrections.json` (the extract)
+
+The JSON is tracked so that regenerating and reading the diff is the test — a
+message whose wording or structure parses differently cannot change the page
+silently. There is no separate verifier.
+
+To add a new message: drop the `.eml` into `.novc/eml/`, run the ingest step,
+add the new cases to `SUGGESTION_KIND_BY_REF` in
+`py/python_modules/uxlc_case_tags.py`, and run the render step. Everything else
+is derived. The parser is fail-fast: an unrecognized field label, a heading
+whose reference disagrees with its first field, an attachment naming a case that
+is not in its message, two messages whose filenames reduce to one key, and a
+case with no classification each raise rather than being dropped.
+
+### What is Holman's and what is not
+
+Every labelled line on a case card is Holman's, quoted from the message. The
+derived parts are the verse reference and atom index, the external links, the
+Leningrad folio (decoded from the ordinal that begins Holman's manuscript-image
+citation, and shown on that same line), and the one editorial layer: the "What
+Holman asks for" classification in `py/python_modules/uxlc_case_tags.py`.
+
+**This repo is public, so no address reaches a tracked file.**
+`uxlc_email_extract.redact_addresses` runs over each message body as the ingest
+step reads it, and only the sender's display name is kept from the headers. The
+cost of that choice: a fresh clone has the tracked bodies, JSON, HTML and PNGs
+but cannot rerun the ingest step, which needs the mailbox.
+
+### Commentary
+
+Remarks on a case — Ben's, or ones arriving by email from others — live in
+`py/uxlc_comments/`, keyed by case reference. `all_comments.py` documents the
+key format and the entry fields and is the aggregator; each contributor gets a
+module beside it. A key matching no case raises, so a typo is loud.
 
 ## Tests
 

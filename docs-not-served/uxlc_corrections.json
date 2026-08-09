@@ -1,0 +1,976 @@
+{
+  "source_emails": [
+    {
+      "key": "proposed-corrections-and-notes-for-uxlc-exodus-7-11-20-38",
+      "source_file_name": "Proposed Corrections and Notes for UXLC (Exodus 7, 11, 20 & 38).eml",
+      "subject": "Proposed Corrections and Notes for UXLC (Exodus 7, 11, 20 & 38)",
+      "from": "Daniel Holman",
+      "date": "2026-08-06T15:34:34+00:00",
+      "preamble": [
+        "Hello Chris and Ben,",
+        "It is easier for me to do these book by book. Finding suggested corrections is getting harder, which is a good thing! Please find below four suggested corrections and manuscript notes for the UXLC based on image comparisons."
+      ],
+      "closing": [
+        "Sincerely,",
+        "Daniel"
+      ]
+    },
+    {
+      "key": "proposed-corrections-and-notes-for-uxlc-leviticus-7-15-16-25",
+      "source_file_name": "Proposed Corrections and Notes for UXLC (Leviticus 7, 15, 16 & 25).eml",
+      "subject": "Proposed Corrections and Notes for UXLC (Leviticus 7, 15, 16 & 25)",
+      "from": "Daniel Holman",
+      "date": "2026-08-06T19:06:52+00:00",
+      "preamble": [
+        "Hello Chris and Ben,",
+        "Please find below four suggested corrections and manuscript notes for the UXLC based on image comparisons."
+      ],
+      "closing": [
+        "Sincerely,",
+        "Daniel"
+      ]
+    },
+    {
+      "key": "proposed-correction-and-note-for-uxlc-deuteronomy-33",
+      "source_file_name": "Proposed Correction and Note for UXLC (Deuteronomy 33).eml",
+      "subject": "Proposed Correction and Note for UXLC (Deuteronomy 33)",
+      "from": "Daniel Holman",
+      "date": "2026-08-07T01:03:34+00:00",
+      "preamble": [
+        "Hello Chris and Ben,",
+        "I have no suggested corrections for Numbers and could only find one for Deuteronomy."
+      ],
+      "closing": [
+        "Sincerely,",
+        "Daniel"
+      ]
+    },
+    {
+      "key": "suggested-uxlc-corrections-for-joshua-4-cases",
+      "source_file_name": "Suggested UXLC Corrections for Joshua (4 Cases).eml",
+      "subject": "Suggested UXLC Corrections for Joshua (4 Cases)",
+      "from": "Daniel Holman",
+      "date": "2026-08-07T07:40:40+00:00",
+      "preamble": [
+        "Greetings Chris and Ben,",
+        "Please find below four suggested corrections for the book of Joshua text."
+      ],
+      "closing": [
+        "Best regards,",
+        "Daniel"
+      ]
+    },
+    {
+      "key": "suggested-uxlc-corrections-for-joshua-one-case",
+      "source_file_name": "Suggested UXLC Corrections for Joshua (one Case).eml",
+      "subject": "Suggested UXLC Corrections for Joshua (one Case)",
+      "from": "Daniel Holman",
+      "date": "2026-08-07T11:10:07+00:00",
+      "preamble": [
+        "Greetings Chris and Ben,",
+        "Please find below four suggested corrections for the book of Joshua text."
+      ],
+      "closing": [
+        "Best regards,",
+        "Daniel"
+      ]
+    },
+    {
+      "key": "fw-suggested-corrections-for-samuel-1sa-2sa",
+      "source_file_name": "Fw_ Suggested Corrections for Samuel (1Sa - 2Sa).eml",
+      "subject": "Fw: Suggested Corrections for Samuel (1Sa - 2Sa)",
+      "from": "Daniel Holman",
+      "date": "2026-08-08T15:48:38+00:00",
+      "preamble": [
+        "Thank you Ben for catching my mistake of forgetting to attach the images!",
+        "Sent: Friday, August 7, 2026 at 6:34 PM",
+        "From: \"Daniel Holman\" [address removed]",
+        "To: [address removed], [address removed]",
+        "Subject: Suggested Corrections for Samuel (1Sa - 2Sa)",
+        "Dear Chris and Ben,",
+        "Please review the following suggested corrections and notes regarding the UXLC text and image locations for 1 Samuel and 2 Samuel:"
+      ],
+      "closing": [
+        "Please let me know if you need any further adjustments or details added to these items.",
+        "Sincerely,",
+        "Daniel"
+      ]
+    }
+  ],
+  "cases": [
+    {
+      "case_number": 1,
+      "ref": "Exodus 7:20.19",
+      "book": "Exodus",
+      "book_display": "Exodus",
+      "chapter": 7,
+      "verse": 20,
+      "atom": 19,
+      "email_key": "proposed-corrections-and-notes-for-uxlc-exodus-7-11-20-38",
+      "index_in_email": 1,
+      "heading": "1. Exodus 7:20",
+      "suggestion_kind": "Change the text or add a note",
+      "fields": [
+        {
+          "label": "Word / Verse",
+          "value": "Ex 7:20.19 UXLC (וַיֵּהָֽפְכ֛וּ)"
+        },
+        {
+          "label": "Manuscript Image",
+          "value": "069_Exo_7.9b-8.3a / Col. 2 middle"
+        },
+        {
+          "label": "Suggested Correction",
+          "value": "Add note regarding Mereka OR change Meteg to Mereka (וַיֵּהָ֥פְכ֛וּ)."
+        },
+        {
+          "label": "Critical Note",
+          "value": "Dotan has a Mereka and Breuer noted: \"Two cantillation marks in the same word appear regularly only in the word of a zakef, tevir, and geresh\" (Page 33, The Cantillation of Scripture)."
+        }
+      ],
+      "manuscript_folio": "035A",
+      "images": [
+        {
+          "attachment": "Ex 7.20.19.png",
+          "caption": "",
+          "file": "ex_7_20_19.png"
+        }
+      ]
+    },
+    {
+      "case_number": 2,
+      "ref": "Exodus 11:6.1",
+      "book": "Exodus",
+      "book_display": "Exodus",
+      "chapter": 11,
+      "verse": 6,
+      "atom": 1,
+      "email_key": "proposed-corrections-and-notes-for-uxlc-exodus-7-11-20-38",
+      "index_in_email": 2,
+      "heading": "2. Exodus 11:6",
+      "suggestion_kind": "Change the text or add a note",
+      "fields": [
+        {
+          "label": "Word / Verse",
+          "value": "Ex 11:6.1 UXLC (וְהָֽיְתָ֛ה)"
+        },
+        {
+          "label": "Manuscript Image",
+          "value": "074_Exo_11.1-12.13a / Col. 1 bottom"
+        },
+        {
+          "label": "Suggested Correction",
+          "value": "Add note regarding Mereka OR change Meteg to Mereka (וְהָ֥יְתָ֛ה)."
+        },
+        {
+          "label": "Critical Note",
+          "value": "See above note regarding Breuer's rule on two cantillation marks in the same word under a Zaqef, Tevir, or Geresh."
+        }
+      ],
+      "manuscript_folio": "037B",
+      "images": [
+        {
+          "attachment": "Ex 11.6.1.png",
+          "caption": "",
+          "file": "ex_11_6_1.png"
+        }
+      ]
+    },
+    {
+      "case_number": 3,
+      "ref": "Exodus 20:3.2",
+      "book": "Exodus",
+      "book_display": "Exodus",
+      "chapter": 20,
+      "verse": 3,
+      "atom": 2,
+      "email_key": "proposed-corrections-and-notes-for-uxlc-exodus-7-11-20-38",
+      "index_in_email": 3,
+      "heading": "3. Exodus 20:3",
+      "suggestion_kind": "Change the text or add a note",
+      "fields": [
+        {
+          "label": "Word / Verse",
+          "value": "Ex 20:3.2 UXLC (יִהְיֶֽה־לְךָ֛֩)"
+        },
+        {
+          "label": "Manuscript Image",
+          "value": "085_Exo_19.13b-20.15a / Col. 2 bottom"
+        },
+        {
+          "label": "Suggested Correction",
+          "value": "Add note regarding Mereka OR change Meteg to Mereka (יִהְיֶ֥ה־לְךָ֛֩)."
+        },
+        {
+          "label": "Critical Note",
+          "value": "See above note regarding Breuer's rules for dual cantillation marks within a single word domain."
+        }
+      ],
+      "manuscript_folio": "043A",
+      "images": [
+        {
+          "attachment": "Ex 20.3.2.png",
+          "caption": "",
+          "file": "ex_20_3_2.png"
+        }
+      ]
+    },
+    {
+      "case_number": 4,
+      "ref": "Exodus 38:12.6",
+      "book": "Exodus",
+      "book_display": "Exodus",
+      "chapter": 38,
+      "verse": 12,
+      "atom": 6,
+      "email_key": "proposed-corrections-and-notes-for-uxlc-exodus-7-11-20-38",
+      "index_in_email": 4,
+      "heading": "4. Exodus 38:12",
+      "suggestion_kind": "Change the text or add a note",
+      "fields": [
+        {
+          "label": "Word / Verse",
+          "value": "Ex 38:12.6 UXLC (עַמּוּדֵיהֶ֥ם)"
+        },
+        {
+          "label": "Manuscript Image",
+          "value": "109_Exo_38.11b-39.3a / Col. 1 top"
+        },
+        {
+          "label": "Suggested Correction",
+          "value": "Add note OR replace Mereka with Munach (עַמּוּדֵיהֶ֣ם)."
+        },
+        {
+          "label": "Critical Note",
+          "value": "Going by appearance, this mark does not look like a Mereka due to its slant. Dotan has a Munach. This word is in the domain of Zaqef Qatan, and the servant of Zaqef Qatan is always Munach. Price noted BHS and BHK erroneously have Mereka, which is possibly a defect in L (Page 65, Syntax of Masoretic Accents)."
+        }
+      ],
+      "manuscript_folio": "055A",
+      "images": [
+        {
+          "attachment": "Ex 38.12.6.png",
+          "caption": "",
+          "file": "ex_38_12_6.png"
+        },
+        {
+          "attachment": "Ex 38.12.6 close up.png",
+          "caption": "close up",
+          "file": "ex_38_12_6_close_up.png"
+        }
+      ]
+    },
+    {
+      "case_number": 5,
+      "ref": "Levit 7:25.6",
+      "book": "Levit",
+      "book_display": "Leviticus",
+      "chapter": 7,
+      "verse": 25,
+      "atom": 6,
+      "email_key": "proposed-corrections-and-notes-for-uxlc-leviticus-7-15-16-25",
+      "index_in_email": 1,
+      "heading": "1. Leviticus 7:25",
+      "suggestion_kind": "Add or revise a note",
+      "fields": [
+        {
+          "label": "Word / Verse",
+          "value": "Lev 7:25.6 UXLC (הַ֨בְּהֵמָ֔ה)"
+        },
+        {
+          "label": "Manuscript Image",
+          "value": "119_Lev_7.8b-7.34a / Col. 2 bottom"
+        },
+        {
+          "label": "Suggested Correction",
+          "value": "Make a note about accent positioning."
+        },
+        {
+          "label": "Critical Note",
+          "value": "Some may read this accent as a Pashta. Medieval scribes did not rely on physical positioning to differentiate a Pashta from an Azla. A note should be included to prevent graphic ambiguity for less fluent readers."
+        }
+      ],
+      "manuscript_folio": "060A",
+      "images": [
+        {
+          "attachment": "Lev 7.25.6.png",
+          "caption": "",
+          "file": "lev_7_25_6.png"
+        }
+      ]
+    },
+    {
+      "case_number": 6,
+      "ref": "Levit 15:8.2",
+      "book": "Levit",
+      "book_display": "Leviticus",
+      "chapter": 15,
+      "verse": 8,
+      "atom": 2,
+      "email_key": "proposed-corrections-and-notes-for-uxlc-leviticus-7-15-16-25",
+      "index_in_email": 2,
+      "heading": "2. Leviticus 15:8",
+      "suggestion_kind": "Change the text and add a note",
+      "fields": [
+        {
+          "label": "Word / Verse",
+          "value": "Lev 15:8.2 UXLC (יר֛ק)"
+        },
+        {
+          "label": "Manuscript Image",
+          "value": "130_Lev_14.52b-15.25a / Col. 2 top"
+        },
+        {
+          "label": "Suggested Correction",
+          "value": "Replace Tevir with Mereka and place note on blemish on MS (יָרֹ֥ק)."
+        },
+        {
+          "label": "Critical Note",
+          "value": "There are multiple dots or blemishes. A dot or blemish also appears below the Qamats on the word below it. This word is in the domain of a Tifcha and should be a Mereka. Dotan replaced BHS reading with a Mereka."
+        }
+      ],
+      "manuscript_folio": "065B",
+      "images": [
+        {
+          "attachment": "Lev 15.8.2 Multiple dots.png",
+          "caption": "Multiple dots",
+          "file": "lev_15_8_2_multiple_dots.png"
+        }
+      ]
+    },
+    {
+      "case_number": 7,
+      "ref": "Levit 16:21.6",
+      "book": "Levit",
+      "book_display": "Leviticus",
+      "chapter": 16,
+      "verse": 21,
+      "atom": 6,
+      "email_key": "proposed-corrections-and-notes-for-uxlc-leviticus-7-15-16-25",
+      "index_in_email": 3,
+      "heading": "3. Leviticus 16:21",
+      "suggestion_kind": "Add or revise a note",
+      "fields": [
+        {
+          "label": "Word / Verse",
+          "value": "Lev 16:21.6 UXLC (עַ֨ל)"
+        },
+        {
+          "label": "Manuscript Image",
+          "value": "132_Lev_16.16b-17.3a / Col. 1 bottom"
+        },
+        {
+          "label": "Suggested Correction",
+          "value": "Make a note about accent positioning."
+        },
+        {
+          "label": "Critical Note",
+          "value": "See note for Lev 7:25.6 regarding medieval scribal practices and the lack of reliance on physical positioning to differentiate Pashta from Azla."
+        }
+      ],
+      "manuscript_folio": "066B",
+      "images": [
+        {
+          "attachment": "Lev 16.21.6.png",
+          "caption": "",
+          "file": "lev_16_21_6.png"
+        }
+      ]
+    },
+    {
+      "case_number": 8,
+      "ref": "Levit 25:20.4",
+      "book": "Levit",
+      "book_display": "Leviticus",
+      "chapter": 25,
+      "verse": 20,
+      "atom": 4,
+      "email_key": "proposed-corrections-and-notes-for-uxlc-leviticus-7-15-16-25",
+      "index_in_email": 4,
+      "heading": "4. Leviticus 25:20",
+      "suggestion_kind": "Change the text and add a note",
+      "fields": [
+        {
+          "label": "Word / Verse",
+          "value": "Lev 25:20.4 UXLC (מַה־נֹּאכַ֤֖‪c‬‏ל)"
+        },
+        {
+          "label": "Manuscript Image",
+          "value": "142_Lev_25.6b-25.33a / Col. 2 bottom"
+        },
+        {
+          "label": "Suggested Correction",
+          "value": "Remove Mahpakh and revise note (מַה־נֹּאכַ֖‪c‬‏ל)."
+        },
+        {
+          "label": "Critical Note",
+          "value": "This mark is a Masorah Circle for the word below it. There is no angle to the mark for a Mahpakh and the shape matches that of other Masorah Circles. The Masorah Circle intersected part of the Patach as noted in the images."
+        }
+      ],
+      "manuscript_folio": "071B",
+      "images": [
+        {
+          "attachment": "Lev 25.20.4.png",
+          "caption": "",
+          "file": "lev_25_20_4.png"
+        },
+        {
+          "attachment": "Lev 25.20.4 Mahpakh.png",
+          "caption": "Mahpakh",
+          "file": "lev_25_20_4_mahpakh.png"
+        },
+        {
+          "attachment": "Lev 25.20.4 Masorah Circle overlapping the Patach.png",
+          "caption": "Masorah Circle overlapping the Patach",
+          "file": "lev_25_20_4_masorah_circle_overlapping_the_patach.png"
+        },
+        {
+          "attachment": "Lev 25.20.4 Masorah Circles.png",
+          "caption": "Masorah Circles",
+          "file": "lev_25_20_4_masorah_circles.png"
+        }
+      ]
+    },
+    {
+      "case_number": 9,
+      "ref": "Deuter 33:28.13",
+      "book": "Deuter",
+      "book_display": "Deuteronomy",
+      "chapter": 33,
+      "verse": 28,
+      "atom": 13,
+      "email_key": "proposed-correction-and-note-for-uxlc-deuteronomy-33",
+      "index_in_email": 1,
+      "heading": "Deuteronomy 33:28",
+      "suggestion_kind": "Change the text or add a note",
+      "fields": [
+        {
+          "label": "Word/Verse",
+          "value": "Deut 33:28.13 UXLC (יַֽעַרְפוּ / יַ֥עַרְפוּ)"
+        },
+        {
+          "label": "Manuscript Image",
+          "value": "238_Deu_32.52b-33.29 / Col. 3 bottom"
+        },
+        {
+          "label": "Suggested Correction",
+          "value": "Change Meteg to Mercha OR include an apparatus note detailing the manuscript variants."
+        },
+        {
+          "label": "Critical Note",
+          "value": "Dotan features a Mercha. In Daat Miqra, Breuer reads both Aleppo (A) and Leningrad (L) as having a Mercha. Conversely, Sassoon 1053 and Jacob ben Chayyim print a Meteg, but crucially include a Maqqef to bind the word to the subsequent Silluq. If the Meteg tradition is maintained, an editorial note should indicate that alternate manuscripts require a Maqqef; an independent word cannot sit accentless directly preceding a Silluq without violating Tiberian accentuation syntax."
+        }
+      ],
+      "manuscript_folio": "119B",
+      "images": [
+        {
+          "attachment": "Deut 33.28.13.png",
+          "caption": "",
+          "file": "deut_33_28_13.png"
+        },
+        {
+          "attachment": "Bomberg edition by ben Chayyim.png",
+          "caption": "Bomberg edition by ben Chayyim",
+          "file": "bomberg_edition_by_ben_chayyim.png"
+        },
+        {
+          "attachment": "Sassoon 1053.png",
+          "caption": "Sassoon 1053",
+          "file": "sassoon_1053.png"
+        }
+      ]
+    },
+    {
+      "case_number": 10,
+      "ref": "Joshua 5:1.36",
+      "book": "Joshua",
+      "book_display": "Joshua",
+      "chapter": 5,
+      "verse": 1,
+      "atom": 36,
+      "email_key": "suggested-uxlc-corrections-for-joshua-4-cases",
+      "index_in_email": 1,
+      "heading": "1. Joshua 5:1 (Word 36)",
+      "suggestion_kind": "Change the text",
+      "fields": [
+        {
+          "label": "Current UXLC",
+          "value": "בְּנֵֽי־יִשְׂרָאֵֽל׃"
+        },
+        {
+          "label": "Image Location",
+          "value": "246_Jos_4.21b-5.15a (Col. 1 bottom)"
+        },
+        {
+          "label": "Suggested Correction",
+          "value": "Remove Maqqef and change Meteg to a Mereka."
+        },
+        {
+          "label": "Corrected Text",
+          "value": "בְּנֵ֥י יִשְׂרָאֵֽל׃"
+        },
+        {
+          "label": "Note",
+          "value": "While Dotan reads as current UXLC and BHS, there is no Maqqef in L, and the accent should be a Mereka."
+        }
+      ],
+      "manuscript_folio": "123B",
+      "images": [
+        {
+          "attachment": "Josh 5.1.36.png",
+          "caption": "",
+          "file": "josh_5_1_36.png"
+        }
+      ]
+    },
+    {
+      "case_number": 11,
+      "ref": "Joshua 9:23.10",
+      "book": "Joshua",
+      "book_display": "Joshua",
+      "chapter": 9,
+      "verse": 23,
+      "atom": 10,
+      "email_key": "suggested-uxlc-corrections-for-joshua-4-cases",
+      "index_in_email": 2,
+      "heading": "2. Joshua 9:23 (Word 10)",
+      "suggestion_kind": "Change the text",
+      "fields": [
+        {
+          "label": "Current UXLC",
+          "value": "וְשֹֽׁאֲבֵי־מַ֖יִם"
+        },
+        {
+          "label": "Image Location",
+          "value": "252_Jos_9.11b-10.5a (Col. 2 middle)"
+        },
+        {
+          "label": "Suggested Correction",
+          "value": "Remove Maqqef and change Meteg to a Mereka."
+        },
+        {
+          "label": "Corrected Text",
+          "value": "וְשֹׁ֥אֲבֵי מַ֖יִם"
+        },
+        {
+          "label": "Note",
+          "value": "Dotan reads without Maqqef and with a Mereka. There is no Maqqef in L, and the accent should be a Mereka."
+        }
+      ],
+      "manuscript_folio": "126B",
+      "images": [
+        {
+          "attachment": "Josh 9.23.10.png",
+          "caption": "",
+          "file": "josh_9_23_10.png"
+        }
+      ]
+    },
+    {
+      "case_number": 12,
+      "ref": "Joshua 19:8.8",
+      "book": "Joshua",
+      "book_display": "Joshua",
+      "chapter": 19,
+      "verse": 8,
+      "atom": 8,
+      "email_key": "suggested-uxlc-corrections-for-joshua-4-cases",
+      "index_in_email": 3,
+      "heading": "3. Joshua 19:8 (Word 8)",
+      "suggestion_kind": "Change the text",
+      "fields": [
+        {
+          "label": "Current UXLC",
+          "value": "עַד־בַּֽעֲלַ֥ת"
+        },
+        {
+          "label": "Image Location",
+          "value": "263_Jos_19.6b-19.42a (Col. 1 top)"
+        },
+        {
+          "label": "Suggested Correction",
+          "value": "Remove Mereka under Lamed and place under Beit."
+        },
+        {
+          "label": "Corrected Text",
+          "value": "עַד־בַּ֥עֲלַת"
+        },
+        {
+          "label": "Note",
+          "value": "Dotan has the Mereka under Beit. The BHS likely misread the top of the Lamed from the line below as a Mereka. There is no accent under the Lamed in L, and the accent under the Beit should be a Mereka."
+        }
+      ],
+      "manuscript_folio": "132A",
+      "images": [
+        {
+          "attachment": "Josh 19.8.8.png",
+          "caption": "",
+          "file": "josh_19_8_8.png"
+        }
+      ]
+    },
+    {
+      "case_number": 13,
+      "ref": "Joshua 20:4.12",
+      "book": "Joshua",
+      "book_display": "Joshua",
+      "chapter": 20,
+      "verse": 4,
+      "atom": 12,
+      "email_key": "suggested-uxlc-corrections-for-joshua-4-cases",
+      "index_in_email": 4,
+      "heading": "4. Joshua 20:4 (Word 12)",
+      "suggestion_kind": "Change the text",
+      "fields": [
+        {
+          "label": "Current UXLC",
+          "value": "זִקְנֵ֥י־הָעִֽיר (with notes c and m)"
+        },
+        {
+          "label": "Image Location",
+          "value": "264_Jos_19.42b-21.5a (Col. 2 middle)"
+        },
+        {
+          "label": "Suggested Correction",
+          "value": "Remove notes c and m; reverse the positions of the Mereka and Meteg."
+        },
+        {
+          "label": "Corrected Text",
+          "value": "זִקְנֵֽי־הָעִ֥יר"
+        },
+        {
+          "label": "Note",
+          "value": "In Daat Miqra, Breuer notes Aleppo (A) and L agree on this reading, placing a Meteg under Nun and a Mereka under Ayin. Dotan shares this reading in BHL. Notes c and m represent subjective interpretations rather than absolute readings of L. Between the two marks in L, the mark under Ayin slants sharply, looking much more like a Mereka."
+        }
+      ],
+      "manuscript_folio": "132B",
+      "images": [
+        {
+          "attachment": "Josh 20.4.12 Comparison of Accents.png",
+          "caption": "Comparison of Accents",
+          "file": "josh_20_4_12_comparison_of_accents.png"
+        },
+        {
+          "attachment": "Josh 20.4.12 Daat Miqra.png",
+          "caption": "Daat Miqra",
+          "file": "josh_20_4_12_daat_miqra.png"
+        },
+        {
+          "attachment": "Josh 20.4.12 Dotan BHL.png",
+          "caption": "Dotan BHL",
+          "file": "josh_20_4_12_dotan_bhl.png"
+        },
+        {
+          "attachment": "Josh 20.4.12 Leningrad.png",
+          "caption": "Leningrad",
+          "file": "josh_20_4_12_leningrad.png"
+        }
+      ]
+    },
+    {
+      "case_number": 14,
+      "ref": "Judges 11:24.7",
+      "book": "Judges",
+      "book_display": "Judges",
+      "chapter": 11,
+      "verse": 24,
+      "atom": 7,
+      "email_key": "suggested-uxlc-corrections-for-joshua-one-case",
+      "index_in_email": 1,
+      "heading": "Judg 11:24 (Word 7)",
+      "suggestion_kind": "Change the text",
+      "fields": [
+        {
+          "label": "Current UXLC",
+          "value": "אוֹת֥וֹ"
+        },
+        {
+          "label": "Image Location",
+          "value": "287_Jdg_11.19b-11.40 (Col. 1 bottom)"
+        },
+        {
+          "label": "Suggested Correction",
+          "value": "Change Mereka to Munach."
+        },
+        {
+          "label": "Corrected Text",
+          "value": "אוֹת֣וֹ"
+        },
+        {
+          "label": "Note",
+          "value": "L has a Munach under Tet, in the B/W images it was hard to see the faded Munach to the left of the Geresh, which was on the bottom word. Thus, the Geresh was most likely interpreted as being a Mereka."
+        }
+      ],
+      "manuscript_folio": "144A",
+      "images": [
+        {
+          "attachment": "Judg 11.24.7.png",
+          "caption": "",
+          "file": "judg_11_24_7.png"
+        }
+      ]
+    },
+    {
+      "case_number": 15,
+      "ref": "1Samuel 7:10.10",
+      "book": "1Samuel",
+      "book_display": "1 Samuel",
+      "chapter": 7,
+      "verse": 10,
+      "atom": 10,
+      "email_key": "fw-suggested-corrections-for-samuel-1sa-2sa",
+      "index_in_email": 1,
+      "heading": "1. 1 Samuel 7:10.10",
+      "suggestion_kind": "Change the text",
+      "fields": [
+        {
+          "label": "Current Text",
+          "value": "יְהוָ֣ה׀"
+        },
+        {
+          "label": "UXLC Image Location",
+          "value": "306_1Sa_7.4b-8.11a (Col. 1 bottom)"
+        },
+        {
+          "label": "Suggested Correction",
+          "value": "Remove Paseq."
+        },
+        {
+          "label": "Corrected Text",
+          "value": "יְהוָ֣ה"
+        },
+        {
+          "label": "Note",
+          "value": "L, Dotan, Bomberg, and Ginsburg have no Paseq. Ginsburg lists one MS with Paseq, Or. 4227. BHS includes Paseq."
+        }
+      ],
+      "manuscript_folio": "153B",
+      "images": [
+        {
+          "attachment": "1Sa 7.10.10.png",
+          "caption": "",
+          "file": "1sa_7_10_10.png"
+        }
+      ]
+    },
+    {
+      "case_number": 16,
+      "ref": "1Samuel 13:4.11",
+      "book": "1Samuel",
+      "book_display": "1 Samuel",
+      "chapter": 13,
+      "verse": 4,
+      "atom": 11,
+      "email_key": "fw-suggested-corrections-for-samuel-1sa-2sa",
+      "index_in_email": 2,
+      "heading": "2. 1 Samuel 13:4.11",
+      "suggestion_kind": "Change the text",
+      "fields": [
+        {
+          "label": "Current Text",
+          "value": "וְגַם־נִבְאַשׁ"
+        },
+        {
+          "label": "UXLC Image Location",
+          "value": "311_1Sa_12.9b-13.5a (Col. 3 bottom)"
+        },
+        {
+          "label": "Suggested Correction",
+          "value": "Add an Azla and Masorah Circle above Nun."
+        },
+        {
+          "label": "Corrected Text",
+          "value": "וְגַם־נִ֨֯בְאַשׁ"
+        },
+        {
+          "label": "Note",
+          "value": "There is a note indicating the peculiarity of L. However, L has what appears to be an Azla above Nun and a Masorah Circle. Perhaps the Azla was originally written by mistake and a Masorah Circle was added to alert readers?"
+        }
+      ],
+      "manuscript_folio": "156A",
+      "images": [
+        {
+          "attachment": "1Sa 13.4.11.png",
+          "caption": "",
+          "file": "1sa_13_4_11.png"
+        }
+      ]
+    },
+    {
+      "case_number": 17,
+      "ref": "2Samuel 5:21.1",
+      "book": "2Samuel",
+      "book_display": "2 Samuel",
+      "chapter": 5,
+      "verse": 21,
+      "atom": 1,
+      "email_key": "fw-suggested-corrections-for-samuel-1sa-2sa",
+      "index_in_email": 3,
+      "heading": "3. 2 Samuel 5:21.1",
+      "suggestion_kind": "Change the text",
+      "fields": [
+        {
+          "label": "Current Text",
+          "value": "וַיַּעַזְבוּ־שָׁ֖ם"
+        },
+        {
+          "label": "UXLC Image Location",
+          "value": "341_2Sa_4.9b-5.21a (Col. 3 bottom)"
+        },
+        {
+          "label": "Suggested Correction",
+          "value": "Remove Maqqef."
+        },
+        {
+          "label": "Corrected Text",
+          "value": "וַיַּעַזְבוּ שָׁ֖ם"
+        },
+        {
+          "label": "Note",
+          "value": "Several letters touch here, mimicking a Maqqef, particularly between the Zayin-Beit and Shin-Final Mem. These look like ink trails left as the quill exited the parchment. However, a distinct, empty space separates the two words, confirming no Maqqef exists."
+        }
+      ],
+      "manuscript_folio": "171A",
+      "images": [
+        {
+          "attachment": "2Sa 5.21.1 .png",
+          "caption": "",
+          "file": "2sa_5_21_1.png"
+        },
+        {
+          "attachment": "2Sa 5.21.1 Enlarged.png",
+          "caption": "Enlarged",
+          "file": "2sa_5_21_1_enlarged.png"
+        }
+      ]
+    },
+    {
+      "case_number": 18,
+      "ref": "2Samuel 7:22.7",
+      "book": "2Samuel",
+      "book_display": "2 Samuel",
+      "chapter": 7,
+      "verse": 22,
+      "atom": 7,
+      "email_key": "fw-suggested-corrections-for-samuel-1sa-2sa",
+      "index_in_email": 4,
+      "heading": "4. 2 Samuel 7:22.7",
+      "suggestion_kind": "Add or revise a note",
+      "fields": [
+        {
+          "label": "Current Text",
+          "value": "כִּֽי־אֵֽין"
+        },
+        {
+          "label": "UXLC Image Location",
+          "value": "344_2Sa_7.20b-8.14a (Col. 1 top)"
+        },
+        {
+          "label": "Suggested Correction",
+          "value": "Add note on peculiarity of phrase."
+        },
+        {
+          "label": "Corrected Text",
+          "value": "כִּֽי־אֵֽין"
+        },
+        {
+          "label": "Note",
+          "value": "One would expect a Munach rather than a second Meteg. Breuer noted this variant in L, highlighting that other MSS use Munach, which Dotan adopted for his edition."
+        }
+      ],
+      "manuscript_folio": "172B",
+      "images": [
+        {
+          "attachment": "2 Samuel 7.22.7.png",
+          "caption": "",
+          "file": "2_samuel_7_22_7.png"
+        }
+      ]
+    },
+    {
+      "case_number": 19,
+      "ref": "2Samuel 15:26.11",
+      "book": "2Samuel",
+      "book_display": "2 Samuel",
+      "chapter": 15,
+      "verse": 26,
+      "atom": 11,
+      "email_key": "fw-suggested-corrections-for-samuel-1sa-2sa",
+      "index_in_email": 5,
+      "heading": "5. 2 Samuel 15:26.11",
+      "suggestion_kind": "Add or revise a note",
+      "fields": [
+        {
+          "label": "Current Text",
+          "value": "טֽוֹב"
+        },
+        {
+          "label": "UXLC Image Location",
+          "value": "353_2Sa_15.7b-15.30a (Col. 3 bottom)"
+        },
+        {
+          "label": "Suggested Correction",
+          "value": "Revise note."
+        },
+        {
+          "label": "Corrected Text",
+          "value": "N/A"
+        },
+        {
+          "label": "Note",
+          "value": "Most read with Mereka while a few MSS read with a Tifcha and put a Mereka on the next word. This pattern can be seen many times among MSS."
+        }
+      ],
+      "manuscript_folio": "177A",
+      "images": [
+        {
+          "attachment": "2Sa 15.26.11.png",
+          "caption": "",
+          "file": "2sa_15_26_11.png"
+        }
+      ]
+    },
+    {
+      "case_number": 20,
+      "ref": "2Samuel 24:10.19",
+      "book": "2Samuel",
+      "book_display": "2 Samuel",
+      "chapter": 24,
+      "verse": 10,
+      "atom": 19,
+      "email_key": "fw-suggested-corrections-for-samuel-1sa-2sa",
+      "index_in_email": 6,
+      "heading": "6. 2 Samuel 24:10.19",
+      "suggestion_kind": "Change the text",
+      "fields": [
+        {
+          "label": "Current Text",
+          "value": "יְהוָ֔ה"
+        },
+        {
+          "label": "UXLC Image Location",
+          "value": "366_2Sa_23.29b-24.16a (Col. 3 top)"
+        },
+        {
+          "label": "Suggested Correction",
+          "value": "Change Zaqef Qatan to Revia"
+        },
+        {
+          "label": "Corrected Text",
+          "value": "יְהֹוָ֗ה"
+        },
+        {
+          "label": "Note",
+          "value": "L has a Revia above Vav. Bruer even shows L as having a Revia. BHS and Bomberg both have Zaqef Qatan which is common between these two accents."
+        }
+      ],
+      "manuscript_folio": "183B",
+      "images": [
+        {
+          "attachment": "2Sa 24.10.19.png",
+          "caption": "",
+          "file": "2sa_24_10_19.png"
+        }
+      ]
+    }
+  ]
+}

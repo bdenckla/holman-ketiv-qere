@@ -6,10 +6,12 @@ from html import escape
 from py_render.rt_render_utils import contains_hebrew_char
 
 
-def external_link_html(*, href: str, label: str) -> str:
+def external_link_html(*, href: str, label: str, title: str | None = None) -> str:
+    title_attr = "" if title is None else f'title="{escape(title)}"\n'
     return (
         f"<a\n"
         f'href="{escape(href)}"\n'
+        f"{title_attr}"
         f'target="_blank"\n'
         f'rel="noopener"\n'
         f">{escape(label)}</a>"
