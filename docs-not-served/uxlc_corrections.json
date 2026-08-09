@@ -64,7 +64,7 @@
     {
       "key": "suggested-uxlc-corrections-for-joshua-one-case",
       "source_file_name": "Suggested UXLC Corrections for Joshua (one Case).eml",
-      "subject": "Suggested UXLC Corrections for Joshua (one Case)",
+      "subject": "Suggested UXLC Corrections for [Judges] (one Case)",
       "from": "Daniel Holman",
       "date": "2026-08-07T11:10:07+00:00",
       "preamble": [
@@ -738,7 +738,7 @@
         },
         {
           "label": "Note",
-          "value": "L has a Munach under Tet, in the B/W images it was hard to see the faded Munach to the left of the Geresh, which was on the bottom word. Thus, the Geresh was most likely interpreted as being a Mereka."
+          "value": "L has a Munach under [Tav], in the B/W images it was hard to see the faded Munach to the left of the Geresh, which was on the bottom word. Thus, the Geresh was most likely interpreted as being a Mereka."
         }
       ],
       "manuscript_folio": "144A",

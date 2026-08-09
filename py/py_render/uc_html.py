@@ -18,6 +18,10 @@ from py_render.uc_case_card import (
 )
 from py_render.uc_hebrew_runs import inline_text_html
 from py_render.uc_summary import all_filter_ids, summary_html
+from python_modules.uxlc_bracketed_corrections import (
+    apply_bracketed_corrections,
+    bracketed_correction_phrases,
+)
 from python_modules.uxlc_case_tags import (
     SUGGESTION_KIND_LABELS,
     require_full_coverage,
@@ -50,8 +54,8 @@ SUPPRESSED_PAGE = "table_data_findings_suppressed.html"
 SUPPRESSED_NAV_LABEL = "Suppressed"
 THIS_NAV_LABEL = "UXLC corrections"
 
-# The intro is these, then the generated paragraph about the change items that
-# _change_items_paragraph builds, then INTRO_CLOSING_PARAGRAPHS.
+# The intro is these, then the two generated paragraphs _brackets_paragraph and
+# _change_items_paragraph build, then INTRO_CLOSING_PARAGRAPHS.
 INTRO_OPENING_PARAGRAPHS = (
     "Daniel Holman has been sending Chris Kimball and Ben Denckla suggested"
     " corrections to the UXLC, a book at a time, and this page collects them."
@@ -95,7 +99,7 @@ def render_uxlc_corrections_html(
     assets_dir: Path,
     json_output_path: Path,
 ) -> dict[str, object]:
-    emails, cases = read_emails(emails_dir, image_dir)
+    emails, cases = apply_bracketed_corrections(*read_emails(emails_dir, image_dir))
     require_full_coverage([case.ref.key for case in cases])
     require_known_refs([case.ref.key for case in cases])
     _require_commented_cases_exist(cases)
@@ -201,7 +205,9 @@ def _write_page(
         )
         for item in rendered
     )
-    intro = "\n".join(f"<p>{escape(text)}</p>" for text in _intro_paragraphs(cases))
+    intro = "\n".join(
+        f"<p>{escape(text)}</p>" for text in _intro_paragraphs(emails, cases)
+    )
     css_href = escape(output_html_path.with_suffix(".css").name)
     js_src = escape(output_html_path.with_suffix(".js").name)
     html = f"""<!DOCTYPE html>
@@ -238,11 +244,31 @@ def _write_page(
     output_html_path.write_text(html, encoding="utf-8", newline="")
 
 
-def _intro_paragraphs(cases: list[CorrectionCase]) -> tuple[str, ...]:
+def _intro_paragraphs(
+    emails: list[SourceEmail], cases: list[CorrectionCase]
+) -> tuple[str, ...]:
     return (
         *INTRO_OPENING_PARAGRAPHS,
+        _brackets_paragraph(emails, cases),
         _change_items_paragraph(cases),
         *INTRO_CLOSING_PARAGRAPHS,
+    )
+
+
+def _brackets_paragraph(emails: list[SourceEmail], cases: list[CorrectionCase]) -> str:
+    """The intro's paragraph on the square brackets, listing what is in them.
+
+    The list is generated, so the page cannot describe a set of corrections it
+    is not making. What the brackets mean is the fixed part, because the
+    notation says an editor's word is standing in a quotation but not whose.
+    """
+    return (
+        "A word in square brackets is Ben Denckla's, put there afterwards in"
+        " place of the word the message has: "
+        + "; ".join(bracketed_correction_phrases(emails, cases))
+        + f". The one other bracketed phrase on the page is not a correction of"
+        f" that kind: {ADDRESS_REDACTION} stands wherever a message gave an"
+        " email address."
     )
 
 
@@ -355,8 +381,10 @@ def _emails_section_html(
         '<h2 class="section-title">Source emails</h2>\n'
         '<p class="section-note">The greeting and sign-off of each message, with its'
         " cases linked. The body of every case is on its card above. Email"
-        f" addresses are replaced with {escape(ADDRESS_REDACTION)}; nothing else"
-        " is edited. The date is the date of the message itself, so the one"
+        f" addresses are replaced with {escape(ADDRESS_REDACTION)}, and a word in"
+        " square brackets is Ben Denckla's in place of the message's own, as the"
+        " intro above says; nothing else is edited. The date is the date of the"
+        " message itself, so the one"
         " forwarded to supply attachments left off a first send carries the"
         " forwarding date, and the original send time stands in the forwarded"
         " header quoted below it.</p>\n"

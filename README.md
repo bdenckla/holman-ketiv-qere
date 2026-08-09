@@ -171,10 +171,15 @@ one, update `CHANGES_PAGE_URL` and re-read the ids.
 ### What is Holman's and what is not
 
 Every labelled line on a case card is Holman's, quoted from the message, with
-one exception: the UXLC's note letter `c` sat inside a word of the Lev 25:20
+two exceptions. The UXLC's note letter `c` sat inside a word of the Lev 25:20
 case, wrapped in the bidi controls that kept it upright, and
-`uxlc_email_extract._without_embedded_note_letter` drops it. The tracked
-`emails/<key>.txt` still holds the message as it arrived.
+`uxlc_email_extract._without_embedded_note_letter` drops it. And a word in
+square brackets is Ben Denckla's, standing in for a word of Holman's:
+`py/python_modules/uxlc_bracketed_corrections.py` holds those, one table entry
+per replacement, and raises both on an entry whose original is not in the text
+exactly once and on an entry naming no case, field or message. Either way the
+tracked `emails/<key>.txt` and `emails/<key>.json` still hold the message as it
+arrived, and the page's intro says what was changed.
 
 The derived parts are the verse reference and atom index, the external links,
 the change-item links, the Leningrad folio (decoded from the ordinal that begins
