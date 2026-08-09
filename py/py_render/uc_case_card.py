@@ -13,6 +13,7 @@ from python_modules.uxlc_case_tags import (
     SUGGESTION_KIND_LABELS,
     suggestion_kind,
 )
+from python_modules.uxlc_change_records import change_record_links
 from python_modules.uxlc_email_extract import (
     CorrectionCase,
     IMAGE_LOCATION_LABELS,
@@ -35,10 +36,6 @@ def kind_filter_id(kind: str) -> str:
     return f"kind-{kind}"
 
 
-def email_filter_id(email_key: str) -> str:
-    return f"email-{email_key}"
-
-
 def email_fragment_id(email_key: str) -> str:
     return f"src-{email_key}"
 
@@ -47,7 +44,6 @@ def case_filter_ids(case: CorrectionCase) -> tuple[str, ...]:
     return (
         book_filter_id(case.ref.book),
         kind_filter_id(suggestion_kind(case.ref.key)),
-        email_filter_id(case.email_key),
     )
 
 
@@ -118,7 +114,22 @@ def _verse_ref_html(case: CorrectionCase) -> str:
         external_link_html(href=link.href, label=link.label, title=link.title)
         for link in verse_links(ref.book, ref.chapter, ref.verse)
     )
-    return f"{escape(reference)}\n{links}"
+    return f"{escape(reference)}\n{links}\n{_change_record_links_html(case)}"
+
+
+def _change_record_links_html(case: CorrectionCase) -> str:
+    """The change list's records for this case, or nothing when it has none.
+
+    Labelled with the record's own id, which is the date it was entered and its
+    sequence number within that date, so the Judges record's April date shows
+    on the link that it is older than the message the card quotes.
+    """
+    return "\n".join(
+        external_link_html(
+            href=link.href, label=f"Change {link.record_id}", title=link.title
+        )
+        for link in change_record_links(case.ref.key)
+    )
 
 
 def _field_html(label: str, value: str) -> str:

@@ -13,7 +13,6 @@ from py_render.uc_case_card import (
     case_card_html,
     case_filter_ids,
     case_fragment_id,
-    email_filter_id,
     email_fragment_id,
     relative_href,
 )
@@ -23,6 +22,13 @@ from python_modules.uxlc_case_tags import (
     SUGGESTION_KIND_LABELS,
     require_full_coverage,
     suggestion_kind,
+)
+from python_modules.uxlc_change_records import (
+    CHANGES_PAGE_DESCRIPTION,
+    CHANGES_PAGE_LABEL,
+    CHANGES_PAGE_URL,
+    change_record_links,
+    require_known_refs,
 )
 from python_modules.uxlc_email_extract import (
     ADDRESS_REDACTION,
@@ -44,7 +50,9 @@ SUPPRESSED_PAGE = "table_data_findings_suppressed.html"
 SUPPRESSED_NAV_LABEL = "Suppressed"
 THIS_NAV_LABEL = "UXLC corrections"
 
-INTRO_PARAGRAPHS = (
+# The intro is these, then the generated paragraph about the change items that
+# _change_items_paragraph builds, then INTRO_CLOSING_PARAGRAPHS.
+INTRO_OPENING_PARAGRAPHS = (
     "Daniel Holman has been sending Chris Kimball and Ben Denckla suggested"
     " corrections to the UXLC, a book at a time, and this page collects them."
     " Most are places where he reads the Leningrad Codex images differently from"
@@ -52,11 +60,17 @@ INTRO_PARAGRAPHS = (
     ' and the UXLC agree about, and the "What Holman asks for" column below'
     " counts each kind.",
     "Each card is one case, and its labelled lines are Holman's, quoted from the"
-    " email exactly as he wrote them, including his spellings of the accent"
-    " names. One thing on a card is added rather than quoted: on the line giving"
-    " the manuscript image, the folio link and the Internet Archive link after"
-    " Holman's citation are decoded here from the page ordinal that citation"
-    " begins with, so the folio number is not Holman's either.",
+    " email as he wrote them, including his spellings of the accent names. Two"
+    " things on a card are not: on the line giving the manuscript image, the"
+    " folio link and the Internet Archive link after Holman's citation are"
+    " decoded here from the page ordinal that citation begins with, so the folio"
+    " number is not Holman's either; and one word of his Lev 25:20 case had the"
+    " UXLC's note letter c sitting inside it, which is the note's name rather"
+    " than part of the word, so it and the invisible marks his mail client"
+    " wrapped it in are dropped here.",
+)
+
+INTRO_CLOSING_PARAGRAPHS = (
     # uxlc_comments holds no entries yet, so no card has a commentary section.
     # When the first one lands, add to the sentence below: "; the commentary
     # section on a card is a reader's remark and carries no more weight than
@@ -83,13 +97,14 @@ def render_uxlc_corrections_html(
 ) -> dict[str, object]:
     emails, cases = read_emails(emails_dir, image_dir)
     require_full_coverage([case.ref.key for case in cases])
+    require_known_refs([case.ref.key for case in cases])
     _require_commented_cases_exist(cases)
 
     rendered = _rendered_cases(cases, image_dir, output_html_path)
     _write_assets(
         assets_dir=assets_dir,
         output_html_path=output_html_path,
-        filter_ids=all_filter_ids(cases, emails),
+        filter_ids=all_filter_ids(cases),
     )
     _write_page(
         emails=emails,
@@ -186,7 +201,7 @@ def _write_page(
         )
         for item in rendered
     )
-    intro = "\n".join(f"<p>{escape(text)}</p>" for text in INTRO_PARAGRAPHS)
+    intro = "\n".join(f"<p>{escape(text)}</p>" for text in _intro_paragraphs(cases))
     css_href = escape(output_html_path.with_suffix(".css").name)
     js_src = escape(output_html_path.with_suffix(".js").name)
     html = f"""<!DOCTYPE html>
@@ -209,7 +224,7 @@ def _write_page(
 {intro}
 </div>
 {_meta_grid_html(cases, emails)}
-{summary_html(cases, emails)}
+{summary_html(cases)}
 <h2 class="section-title">Cases</h2>
 <div class="records">
 {cards}
@@ -221,6 +236,54 @@ def _write_page(
 """
     output_html_path.parent.mkdir(parents=True, exist_ok=True)
     output_html_path.write_text(html, encoding="utf-8", newline="")
+
+
+def _intro_paragraphs(cases: list[CorrectionCase]) -> tuple[str, ...]:
+    return (
+        *INTRO_OPENING_PARAGRAPHS,
+        _change_items_paragraph(cases),
+        *INTRO_CLOSING_PARAGRAPHS,
+    )
+
+
+def _change_items_paragraph(cases: list[CorrectionCase]) -> str:
+    """The intro's paragraph about the change-item links, counts and all.
+
+    Generated rather than written out because it counts cases: a message
+    arriving, or the UXLC's editor reaching one of the six cases with no change
+    item yet, would otherwise leave a written-out figure quietly wrong.
+    """
+    linked = [case for case in cases if change_record_links(case.ref.key)]
+    doubled = sorted(
+        f"{book_display_name(case.ref.book)} {case.ref.chapter}:{case.ref.verse}"
+        for case in linked
+        if len(change_record_links(case.ref.key)) > 1
+    )
+    doubled_sentence = (
+        ""
+        if not doubled
+        else (
+            f" The {_and_list(doubled)} "
+            + ("case has" if len(doubled) == 1 else "cases have")
+            + " two, one per word of a compound whose two marks the case asks to"
+            " exchange."
+        )
+    )
+    return (
+        "A card also links whatever the UXLC's editor has entered for that word"
+        f" in {CHANGES_PAGE_LABEL}, {CHANGES_PAGE_DESCRIPTION}. Of the"
+        f" {len(cases)} cases, {len(linked)} have such a change item and"
+        f" {len(cases) - len(linked)} have none.{doubled_sentence} A change item"
+        " is the editor's wording rather than Holman's, and the Judges 11:24 one"
+        " is older than the message quoted beside it: Ben Denckla entered it in"
+        " April, on the same word and about the same indistinct mark."
+    )
+
+
+def _and_list(items: list[str]) -> str:
+    if len(items) < 2:
+        return "".join(items)
+    return f"{', '.join(items[:-1])} and {items[-1]}"
 
 
 def _meta_grid_html(cases: list[CorrectionCase], emails: list[SourceEmail]) -> str:
@@ -269,8 +332,7 @@ def _emails_section_html(
         # A message stays visible under any filter that keeps one of its cases,
         # so filtering by book does not empty this section.
         filter_ids = sorted(
-            {email_filter_id(source_email.key)}
-            | {
+            {
                 filter_id
                 for item in cases_here
                 for filter_id in case_filter_ids(item.case)
@@ -309,6 +371,8 @@ def _write_json(
     json_output_path: Path,
 ) -> dict[str, object]:
     payload = {
+        # Every case's change_record_ids below are anchors on this one page.
+        "change_records_page_url": CHANGES_PAGE_URL,
         "source_emails": [
             {
                 "key": source_email.key,
@@ -341,6 +405,9 @@ def _write_json(
                     for label, value in item.case.fields
                 ],
                 "manuscript_folio": _folio_or_none(item.case.image_location),
+                "change_record_ids": [
+                    link.record_id for link in change_record_links(item.case.ref.key)
+                ],
                 "images": [
                     {
                         "attachment": image.source_filename,
@@ -363,6 +430,9 @@ def _write_json(
         "email_count": len(emails),
         "case_count": len(rendered),
         "image_count": sum(len(item.image_hrefs) for item in rendered),
+        "change_record_count": sum(
+            len(change_record_links(item.case.ref.key)) for item in rendered
+        ),
         "commented_case_count": sum(
             1 for item in rendered if comments_for_ref(item.case.ref.key)
         ),

@@ -1,4 +1,9 @@
-"""The three filter columns above the cards: book, kind of suggestion, email."""
+"""The two filter columns above the cards: book, and kind of suggestion.
+
+There was a third, by source email, until it was dropped: a message is one
+book's worth of cases, so filtering by it did what the book column already did.
+The messages themselves are still listed, in the page's Source emails section.
+"""
 
 from __future__ import annotations
 
@@ -7,17 +12,13 @@ from dataclasses import dataclass
 from html import escape
 
 from mb_cmn import bib_locales as tbn
-from py_render.uc_case_card import (
-    book_filter_id,
-    email_filter_id,
-    kind_filter_id,
-)
+from py_render.uc_case_card import book_filter_id, kind_filter_id
 from python_modules.uxlc_case_tags import (
     SUGGESTION_KIND_LABELS,
     SUGGESTION_KIND_ORDER,
     suggestion_kind,
 )
-from python_modules.uxlc_email_extract import CorrectionCase, SourceEmail
+from python_modules.uxlc_email_extract import CorrectionCase
 from python_modules.uxlc_external_links import book_display_name
 
 
@@ -28,11 +29,10 @@ class FilterRow:
     count: int
 
 
-def summary_html(cases: list[CorrectionCase], emails: list[SourceEmail]) -> str:
+def summary_html(cases: list[CorrectionCase]) -> str:
     groups = (
         ("Book", _book_rows(cases)),
         ("What Holman asks for", _kind_rows(cases)),
-        ("Source email", _email_rows(cases, emails)),
     )
     return (
         '<div class="summary-columns">\n'
@@ -41,11 +41,9 @@ def summary_html(cases: list[CorrectionCase], emails: list[SourceEmail]) -> str:
     )
 
 
-def all_filter_ids(cases: list[CorrectionCase], emails: list[SourceEmail]) -> list[str]:
+def all_filter_ids(cases: list[CorrectionCase]) -> list[str]:
     return [
-        row.filter_id
-        for rows in (_book_rows(cases), _kind_rows(cases), _email_rows(cases, emails))
-        for row in rows
+        row.filter_id for rows in (_book_rows(cases), _kind_rows(cases)) for row in rows
     ]
 
 
@@ -63,20 +61,6 @@ def _kind_rows(cases: list[CorrectionCase]) -> list[FilterRow]:
         FilterRow(kind_filter_id(kind), SUGGESTION_KIND_LABELS[kind], counts[kind])
         for kind in SUGGESTION_KIND_ORDER
         if counts[kind]
-    ]
-
-
-def _email_rows(
-    cases: list[CorrectionCase], emails: list[SourceEmail]
-) -> list[FilterRow]:
-    counts = Counter(case.email_key for case in cases)
-    return [
-        FilterRow(
-            email_filter_id(source_email.key),
-            source_email.subject,
-            counts[source_email.key],
-        )
-        for source_email in emails
     ]
 
 

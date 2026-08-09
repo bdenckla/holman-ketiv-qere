@@ -137,6 +137,12 @@ That writes:
 - `gh-pages/uxlc_corrections.html` (the report), plus its `.css` and `.js`
 - `docs-not-served/uxlc_corrections.json` (the extract)
 
+The report's pointed Hebrew is set in Taamey D, which the repo serves itself
+from `gh-pages/woff2/Taamey_D.woff2` — a byte-for-byte copy of
+`../hbofonts/gh-pages/woff2/Taamey_D.woff2`, the same copy the sibling repos
+ship. Nothing regenerates it; replace it by hand from `hbofonts` when that repo
+releases a new one.
+
 The JSON is tracked so that regenerating and reading the diff is the test — a
 message whose wording or structure parses differently cannot change the page
 silently. There is no separate verifier.
@@ -146,16 +152,35 @@ add the new cases to `SUGGESTION_KIND_BY_REF` in
 `py/python_modules/uxlc_case_tags.py`, and run the render step. Everything else
 is derived. The parser is fail-fast: an unrecognized field label, a heading
 whose reference disagrees with its first field, an attachment naming a case that
-is not in its message, two messages whose filenames reduce to one key, and a
-case with no classification each raise rather than being dropped.
+is not in its message, two messages whose filenames reduce to one key, a case
+with no classification, and a bidi formatting control the reader would never see
+each raise rather than being dropped.
+
+### Links to the UXLC's proposed changes
+
+A card links the change items the UXLC's editor has entered for that word, at
+the page `py/python_modules/uxlc_change_records.py` names. That page is a flat
+chronological list whose anchors are dates and sequence numbers, so nothing in
+an anchor says which verse a record is about and the case-to-record mapping is
+written out in `CHANGE_RECORD_IDS_BY_REF` rather than derived. The module's
+docstring records what the mapping is not free of: three cases the change list
+numbers a different atom for, one case it splits into two records, and one
+record that predates Holman's message. When a newer changes page supersedes that
+one, update `CHANGES_PAGE_URL` and re-read the ids.
 
 ### What is Holman's and what is not
 
-Every labelled line on a case card is Holman's, quoted from the message. The
-derived parts are the verse reference and atom index, the external links, the
-Leningrad folio (decoded from the ordinal that begins Holman's manuscript-image
-citation, and shown on that same line), and the one editorial layer: the "What
-Holman asks for" classification in `py/python_modules/uxlc_case_tags.py`.
+Every labelled line on a case card is Holman's, quoted from the message, with
+one exception: the UXLC's note letter `c` sat inside a word of the Lev 25:20
+case, wrapped in the bidi controls that kept it upright, and
+`uxlc_email_extract._without_embedded_note_letter` drops it. The tracked
+`emails/<key>.txt` still holds the message as it arrived.
+
+The derived parts are the verse reference and atom index, the external links,
+the change-item links, the Leningrad folio (decoded from the ordinal that begins
+Holman's manuscript-image citation, and shown on that same line), and the one
+editorial layer: the "What Holman asks for" classification in
+`py/python_modules/uxlc_case_tags.py`.
 
 **This repo is public, so no address reaches a tracked file.**
 `uxlc_email_extract.redact_addresses` runs over each message body as the ingest

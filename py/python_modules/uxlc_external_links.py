@@ -12,9 +12,6 @@ from dataclasses import dataclass
 from urllib.parse import quote
 
 from mb_cmn import bib_locales as tbn
-from mb_cmn.hebrew_verse_numerals import INT_TO_STR_DIC
-from mb_cmn.he_wikisource_url import he_taamim_url
-from mb_cmn.mam_bknas_and_std_bknas import he_bk39_name
 
 # The book code tanach.us puts in a Tanach.xml query, e.g. Tanach.xml?Ex7:20.
 # Copied whole from MAM-basics py/uxlc_fois/fois_mark_grammar_html.py's
@@ -91,18 +88,6 @@ def verse_links(book: str, chapter: int, verse: int) -> tuple[VerseLink, ...]:
                 f"{quote(f'{osdf}.html')}#c{chapter}v{verse}"
             ),
             title="This verse in MAM-with-doc",
-        ),
-        VerseLink(
-            label="MAM-ws",
-            href=he_taamim_url(he_bk39_name(book), INT_TO_STR_DIC[chapter]),
-            title="This chapter's ta'amim page at Hebrew Wikisource",
-        ),
-        VerseLink(
-            label="mgketer",
-            href=(
-                f"https://www.mgketer.org/mikra/{tbn.get_bknu(book)}/{chapter}/1/mg/106"
-            ),
-            title="This chapter at mgketer.org",
         ),
     )
 

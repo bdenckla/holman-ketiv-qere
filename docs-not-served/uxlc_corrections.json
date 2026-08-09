@@ -1,4 +1,5 @@
 {
+  "change_records_page_url": "https://hcanat.us/Changes/2026.10.19%20-%20Changes/2026.10.19%20-%20Changes.html",
   "source_emails": [
     {
       "key": "proposed-corrections-and-notes-for-uxlc-exodus-7-11-20-38",
@@ -129,6 +130,9 @@
         }
       ],
       "manuscript_folio": "035A",
+      "change_record_ids": [
+        "2026.08.05-6"
+      ],
       "images": [
         {
           "attachment": "Ex 7.20.19.png",
@@ -168,6 +172,9 @@
         }
       ],
       "manuscript_folio": "037B",
+      "change_record_ids": [
+        "2026.08.05-3"
+      ],
       "images": [
         {
           "attachment": "Ex 11.6.1.png",
@@ -207,6 +214,9 @@
         }
       ],
       "manuscript_folio": "043A",
+      "change_record_ids": [
+        "2026.08.05-4"
+      ],
       "images": [
         {
           "attachment": "Ex 20.3.2.png",
@@ -246,6 +256,9 @@
         }
       ],
       "manuscript_folio": "055A",
+      "change_record_ids": [
+        "2026.08.05-5"
+      ],
       "images": [
         {
           "attachment": "Ex 38.12.6.png",
@@ -290,6 +303,9 @@
         }
       ],
       "manuscript_folio": "060A",
+      "change_record_ids": [
+        "2026.08.05-7"
+      ],
       "images": [
         {
           "attachment": "Lev 7.25.6.png",
@@ -329,6 +345,9 @@
         }
       ],
       "manuscript_folio": "065B",
+      "change_record_ids": [
+        "2026.08.05-8"
+      ],
       "images": [
         {
           "attachment": "Lev 15.8.2 Multiple dots.png",
@@ -368,6 +387,9 @@
         }
       ],
       "manuscript_folio": "066B",
+      "change_record_ids": [
+        "2026.08.05-9"
+      ],
       "images": [
         {
           "attachment": "Lev 16.21.6.png",
@@ -391,7 +413,7 @@
       "fields": [
         {
           "label": "Word / Verse",
-          "value": "Lev 25:20.4 UXLC (מַה־נֹּאכַ֤֖‪c‬‏ל)"
+          "value": "Lev 25:20.4 UXLC (מַה־נֹּאכַ֤֖ל)"
         },
         {
           "label": "Manuscript Image",
@@ -399,7 +421,7 @@
         },
         {
           "label": "Suggested Correction",
-          "value": "Remove Mahpakh and revise note (מַה־נֹּאכַ֖‪c‬‏ל)."
+          "value": "Remove Mahpakh and revise note (מַה־נֹּאכַ֖ל)."
         },
         {
           "label": "Critical Note",
@@ -407,6 +429,9 @@
         }
       ],
       "manuscript_folio": "071B",
+      "change_record_ids": [
+        "2026.08.05-10"
+      ],
       "images": [
         {
           "attachment": "Lev 25.20.4.png",
@@ -461,6 +486,9 @@
         }
       ],
       "manuscript_folio": "119B",
+      "change_record_ids": [
+        "2026.08.05-11"
+      ],
       "images": [
         {
           "attachment": "Deut 33.28.13.png",
@@ -514,6 +542,9 @@
         }
       ],
       "manuscript_folio": "123B",
+      "change_record_ids": [
+        "2026.08.05-12"
+      ],
       "images": [
         {
           "attachment": "Josh 5.1.36.png",
@@ -557,6 +588,9 @@
         }
       ],
       "manuscript_folio": "126B",
+      "change_record_ids": [
+        "2026.08.05-13"
+      ],
       "images": [
         {
           "attachment": "Josh 9.23.10.png",
@@ -600,6 +634,9 @@
         }
       ],
       "manuscript_folio": "132A",
+      "change_record_ids": [
+        "2026.08.05-14"
+      ],
       "images": [
         {
           "attachment": "Josh 19.8.8.png",
@@ -643,6 +680,10 @@
         }
       ],
       "manuscript_folio": "132B",
+      "change_record_ids": [
+        "2026.08.05-15",
+        "2026.08.05-16"
+      ],
       "images": [
         {
           "attachment": "Josh 20.4.12 Comparison of Accents.png",
@@ -701,6 +742,9 @@
         }
       ],
       "manuscript_folio": "144A",
+      "change_record_ids": [
+        "2026.04.10-7"
+      ],
       "images": [
         {
           "attachment": "Judg 11.24.7.png",
@@ -744,6 +788,7 @@
         }
       ],
       "manuscript_folio": "153B",
+      "change_record_ids": [],
       "images": [
         {
           "attachment": "1Sa 7.10.10.png",
@@ -787,6 +832,7 @@
         }
       ],
       "manuscript_folio": "156A",
+      "change_record_ids": [],
       "images": [
         {
           "attachment": "1Sa 13.4.11.png",
@@ -830,6 +876,7 @@
         }
       ],
       "manuscript_folio": "171A",
+      "change_record_ids": [],
       "images": [
         {
           "attachment": "2Sa 5.21.1 .png",
@@ -878,6 +925,7 @@
         }
       ],
       "manuscript_folio": "172B",
+      "change_record_ids": [],
       "images": [
         {
           "attachment": "2 Samuel 7.22.7.png",
@@ -921,6 +969,7 @@
         }
       ],
       "manuscript_folio": "177A",
+      "change_record_ids": [],
       "images": [
         {
           "attachment": "2Sa 15.26.11.png",
@@ -964,6 +1013,7 @@
         }
       ],
       "manuscript_folio": "183B",
+      "change_record_ids": [],
       "images": [
         {
           "attachment": "2Sa 24.10.19.png",

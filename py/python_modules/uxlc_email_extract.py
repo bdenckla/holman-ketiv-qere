@@ -18,6 +18,10 @@ correspondents' addresses:
   ``read_emails``  reads that derivative. This is what the report is generated
     from, so a fresh clone can regenerate the page without the .eml files.
 
+One thing is read out of a body rather than read off it: a Latin note letter
+Holman's mail client embedded inside a Hebrew word, with the bidi controls that
+carry it. See ``_without_embedded_note_letter``.
+
 Parsing is deliberately fail-fast: an unrecognized field label, whether inside
 a case or in the position that would have opened one, a heading whose reference
 disagrees with its first field, an attachment that cannot be assigned to a
@@ -86,6 +90,39 @@ _ATTACHMENT_REF_RE = re.compile(
     r"^(?P<book>(?:[12]\s?)?[A-Za-z]+)\s+"
     r"(?P<chapter>\d+)\.(?P<verse>\d+)\.(?P<atom>\d+)"
     r"(?P<caption>.*)$"
+)
+# One word in the Leviticus message, מַה־נֹּאכַל of Lev 25:20, carries the UXLC's
+# note letter 'c' inside it, wrapped in the bidi controls Holman's mail client
+# used to keep the Latin letter upright in a right-to-left word: LEFT-TO-RIGHT
+# EMBEDDING, the letter, POP DIRECTIONAL FORMATTING, RIGHT-TO-LEFT MARK. The
+# letter is the note's name, not part of the word, and it renders as a stray
+# Latin letter mid-word, so it comes out along with the controls that carry it.
+# Written as a named escape rather than a raw literal, which for an invisible
+# character would be unreadable in the source and undiffable.
+#
+# The opener matched is any of the seven that start a directional run, not only
+# the embedding this one message happens to use: another mail client wrapping
+# the same single Latin letter in an isolate or an override is the same thing,
+# and a shape that is genuinely different -- a control with no lone letter
+# inside it -- still reaches the check below and raises.
+_DIRECTIONAL_RUN_OPENERS = (
+    "\N{LEFT-TO-RIGHT EMBEDDING}\N{RIGHT-TO-LEFT EMBEDDING}"
+    "\N{LEFT-TO-RIGHT OVERRIDE}\N{RIGHT-TO-LEFT OVERRIDE}"
+    "\N{LEFT-TO-RIGHT ISOLATE}\N{RIGHT-TO-LEFT ISOLATE}\N{FIRST STRONG ISOLATE}"
+)
+_DIRECTIONAL_RUN_CLOSERS = "\N{POP DIRECTIONAL FORMATTING}\N{POP DIRECTIONAL ISOLATE}"
+_DIRECTION_MARKS = "\N{LEFT-TO-RIGHT MARK}\N{RIGHT-TO-LEFT MARK}"
+_EMBEDDED_NOTE_LETTER_RE = re.compile(
+    f"[{_DIRECTIONAL_RUN_OPENERS}]"
+    r"\s*[A-Za-z]\s*"
+    f"[{_DIRECTIONAL_RUN_CLOSERS}]"
+    f"[{_DIRECTION_MARKS}]?"
+)
+# Every bidi formatting control, checked for after the removal above so that a
+# future message embedding something in a shape this module does not know about
+# raises rather than reaching the page as an invisible character.
+_BIDI_CONTROL_RE = re.compile(
+    f"[{_DIRECTIONAL_RUN_OPENERS}{_DIRECTIONAL_RUN_CLOSERS}{_DIRECTION_MARKS}]"
 )
 _NON_SLUG_RE = re.compile(r"[^a-z0-9]+")
 _NORMALIZED_BOOK_TEXT_RE = re.compile(r"[^a-z0-9]")
@@ -441,7 +478,9 @@ def _split_body_into_cases(
 ) -> tuple[
     tuple[str, ...], list[tuple[str, tuple[tuple[str, str], ...]]], tuple[str, ...]
 ]:
-    lines = [line.rstrip() for line in body.splitlines()]
+    lines = [
+        _without_embedded_note_letter(line.rstrip(), path) for line in body.splitlines()
+    ]
     starts = _case_start_indexes(lines)
     if not starts:
         raise ValueError(f"{path.name}: no cases found")
@@ -463,6 +502,26 @@ def _split_body_into_cases(
             )
         closing = trailing
     return preamble, cases, closing
+
+
+def _without_embedded_note_letter(line: str, path: Path) -> str:
+    """Drop a bidi-embedded Latin note letter, and raise on any control left.
+
+    Applied to every line of a body as it is split, so the heading, the fields,
+    the greeting and the sign-off are all read from cleaned text and no later
+    stage has to know about this. The tracked ``emails/<key>.txt`` still holds
+    the message as it arrived; this is a reading of it, and the page says so.
+    """
+    cleaned = _EMBEDDED_NOTE_LETTER_RE.sub("", line)
+    leftover = _BIDI_CONTROL_RE.search(cleaned)
+    if leftover is not None:
+        raise ValueError(
+            f"{path.name}: bidi formatting control "
+            f"U+{ord(leftover.group()):04X} survives in {cleaned.strip()!r}. "
+            "Widen _EMBEDDED_NOTE_LETTER_RE, or decide what this one means, "
+            "rather than letting an invisible character reach the page."
+        )
+    return cleaned
 
 
 def _require_no_unopened_case(preamble_lines: list[str], path: Path) -> None:

@@ -4,3 +4,4 @@
 # Binary assets: never convert line endings or diff as text.
 *.docx binary
 *.png binary
+*.woff2 binary

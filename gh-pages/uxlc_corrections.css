@@ -30,7 +30,7 @@ p { margin: .3rem 0; }
 .meta-value { font-size: 1.2rem; font-weight: 600; }
 .section-title { font-size: 1.1rem; margin: 1.4rem 0 .5rem; }
 .section-note { color: var(--muted); margin-bottom: .6rem; max-width: 68ch; }
-.summary-columns { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .75rem; margin-bottom: 1rem; align-items: start; }
+.summary-columns { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .75rem; margin-bottom: 1rem; align-items: start; }
 .summary-group { min-width: 0; }
 .summary-group-title { font-size: .75rem; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); margin: 0 0 .35rem; }
 .summary { width: 100%; border-collapse: collapse; background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; table-layout: fixed; }
@@ -56,10 +56,19 @@ p { margin: .3rem 0; }
 .category-badges { display: flex; gap: .35rem; flex-wrap: wrap; margin-left: auto; }
 .finding-badge { color: #fff; border-radius: 999px; padding: .12rem .55rem; font-size: .72rem; white-space: nowrap; }
 .record-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: .8rem; margin-top: .5rem; }
+/* Taamey D, served from this repo rather than asked of the reader's machine, so
+   the accents look the same here as they do in the change items this page links
+   to, which set their Hebrew in the same font. The rest of the list is the
+   fallback for a reader whose browser will not load the woff2. */
 .pointed-heb {
-  font-family: "SBL Hebrew", "Ezra SIL", "David", "Times New Roman", serif;
+  font-family: "Taamey D WOFF2", "SBL Hebrew", "Ezra SIL", "David", "Times New Roman", serif;
   font-size: 17pt;
   line-height: 1.35;
+  font-feature-settings: 'ss01'; /* ss01 = xataf qamats qatan */
+}
+@font-face {
+  font-family: "Taamey D WOFF2";
+  src: url("woff2/Taamey_D.woff2");
 }
 .case-fields { display: grid; grid-template-columns: max-content 1fr; gap: .1rem .7rem; }
 .case-field { display: contents; }
@@ -108,9 +117,3 @@ p { margin: .3rem 0; }
 .cat-kind-change-and-note { background: #505c91; }
 .cat-kind-change-or-note { background: #9c4a22; }
 .cat-kind-note { background: #1d6f6f; }
-.cat-email-proposed-corrections-and-notes-for-uxlc-exodus-7-11-20-38 { background: #7b4b8a; }
-.cat-email-proposed-corrections-and-notes-for-uxlc-leviticus-7-15-16-25 { background: #8a5a1f; }
-.cat-email-proposed-correction-and-note-for-uxlc-deuteronomy-33 { background: #3c5f3c; }
-.cat-email-suggested-uxlc-corrections-for-joshua-4-cases { background: #93334a; }
-.cat-email-suggested-uxlc-corrections-for-joshua-one-case { background: #2f5d8f; }
-.cat-email-fw-suggested-corrections-for-samuel-1sa-2sa { background: #6b6320; }

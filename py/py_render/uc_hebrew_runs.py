@@ -8,10 +8,13 @@ English around it as English.
 The unit is the whitespace-delimited token. A token holding any Hebrew letter
 contributes a Hebrew element running from its first Hebrew-block character to
 its last, so an enclosing paren or a trailing full stop stays outside and is not
-mirrored. Characters between those two, including the bidi controls and the
-Latin note marker Holman's Lev 25:20 form embeds, stay inside. Adjacent Hebrew
-tokens separated by one space become one element, keeping a phrase such as
+mirrored, and anything between those two stays inside. Adjacent Hebrew tokens
+separated by one space become one element, keeping a phrase such as
 וַיַּעַזְבוּ שָׁ֖ם in a single right-to-left run.
+
+Nothing here has to cope with a bidi control: ``uxlc_email_extract`` drops the
+one Latin note letter a message embeds mid-word, controls and all, and raises
+on any control it does not recognize, so a value reaching this module has none.
 """
 
 from __future__ import annotations
