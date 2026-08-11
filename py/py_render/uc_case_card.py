@@ -36,16 +36,22 @@ DISPLAY_FIELD_LABELS = {
 # one label of our own.
 MANUSCRIPT_LOCATION_LABEL = "Manuscript location"
 
-# The order the fields are shown in, which is not the order a message happens
-# to use: Holman writes the current text, then where he read it, then what he
-# proposes, then the resulting text. Ben asked for the current text and the
-# suggested text next to each other, so the suggested text moves up to sit
-# under the current one and the prose describing the change follows both.
+# The order the fields are shown in. This is the message's own order with ONE
+# field moved: Holman writes the current text, then where he read it, then what
+# he proposes, then the resulting text, and Ben asked on 2026-08-11 for the
+# current text and the suggested text next to each other. So the suggested text
+# moves up to sit under the current one, and nothing else moves.
+#
+# Do not tidy this into a "sensible" order. A first pass also moved the
+# manuscript location below the suggestion, which reads well enough and was not
+# asked for; Ben's reply the same day was that the card changes "seemed to go
+# way beyond what I asked". The nine cases whose message has no Corrected Text
+# field are therefore shown in exactly their message order.
 _FIELD_ORDER = (
     *FIRST_FIELD_LABELS,
     "Corrected Text",
-    "Suggested Correction",
     *sorted(IMAGE_LOCATION_LABELS),
+    "Suggested Correction",
     "Critical Note",
     "Note",
 )
