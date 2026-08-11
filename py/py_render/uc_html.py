@@ -41,6 +41,10 @@ from python_modules.uxlc_email_extract import (
     read_emails,
 )
 from python_modules.uxlc_external_links import book_display_name
+from python_modules.uxlc_holman_forms import (
+    forms_for_case,
+    require_full_coverage as require_form_shapes,
+)
 from python_modules.uxlc_manuscript_page import manuscript_page, manuscript_position
 from uxlc_comments.all_comments import BY_REF as COMMENTS_BY_REF, comments_for_ref
 
@@ -65,12 +69,13 @@ INTRO_OPENING_PARAGRAPHS = (
     " text as it stands; the rest ask the UXLC for a note on a reading Holman"
     " and the UXLC agree about.",
     "Each card is one case, and its labelled lines are Holman's, quoted from the"
-    " email as he wrote them, including his spellings of the accent names. Two"
+    " email as he wrote them, including his spellings of the accent names. Three"
     " things on a card are not: the manuscript location, which is estimated here"
-    " rather than quoted; and one word of his Lev 25:20 case, which had the"
-    " UXLC's note letter c sitting inside it. That letter is the note's name"
-    " rather than part of the word, so it and the invisible marks his mail"
-    " client wrapped it in are dropped here.",
+    " rather than quoted; the Current Text and Suggested Text rows on the cases"
+    " whose message gives the two forms no lines of their own; and one word of"
+    " his Lev 25:20 case, which had the UXLC's note letter c sitting inside it."
+    " That letter is the note's name rather than part of the word, so it and the"
+    " invisible marks his mail client wrapped it in are dropped here.",
 )
 
 INTRO_CLOSING_PARAGRAPHS = (
@@ -102,6 +107,7 @@ def render_uxlc_corrections_html(
     emails, cases = apply_bracketed_corrections(*read_emails(emails_dir, image_dir))
     locations = read_locations(data_dir)
     require_full_coverage(locations, [case.ref.key for case in cases])
+    require_form_shapes(cases)
     require_known_refs([case.ref.key for case in cases])
     _require_commented_cases_exist(cases)
 
@@ -253,10 +259,55 @@ def _intro_paragraphs(
 ) -> tuple[str, ...]:
     return (
         *INTRO_OPENING_PARAGRAPHS,
+        _forms_paragraph(cases),
         _manuscript_location_paragraph(cases, locations),
         _brackets_paragraph(emails, cases),
         _change_items_paragraph(cases),
         *INTRO_CLOSING_PARAGRAPHS,
+    )
+
+
+def _forms_paragraph(cases: list[CorrectionCase]) -> str:
+    """The intro's paragraph on the two forms read out of Holman's prose.
+
+    Generated because it counts the cases it applies to and names their books.
+    Both would go quietly wrong the first time a message arrived in a shape the
+    table in uxlc_holman_forms had to be extended for, which is exactly when a
+    reader would want to know how many cards the reading touches.
+    """
+    read_out = [case for case in cases if forms_for_case(case) is not None]
+    books = _and_list(
+        sorted(
+            {book_display_name(case.ref.book) for case in read_out},
+            key=lambda name: min(
+                case.ref.sort_key
+                for case in read_out
+                if book_display_name(case.ref.book) == name
+            ),
+        )
+    )
+    note_only = _chapter_verse_list(
+        [case for case in read_out if forms_for_case(case).suggested is None]
+    )
+    note_only_sentence = (
+        ""
+        if not note_only
+        else (
+            f" The {_and_list(note_only)} "
+            + ("case asks" if len(note_only) == 1 else "cases ask")
+            + " only for a note and propose no form, so they have no Suggested"
+            " Text row."
+        )
+    )
+    return (
+        f"On {len(read_out)} of the {len(cases)} cases, the {books} ones,"
+        " Holman's message gives the two forms no lines of their own. The form"
+        " as it stands is in parentheses on his Word / Verse line, after a"
+        " reference this page already gives at the head of the card, and the"
+        " form he proposes is in parentheses inside his suggestion sentence."
+        " Both are read out here and given rows of their own, so that every card"
+        " reads alike, and where that sentence held the proposed form it no"
+        " longer repeats what is now printed above it." + note_only_sentence
     )
 
 
@@ -270,10 +321,8 @@ def _manuscript_location_paragraph(
     wrong the first time a message arrived, which is the one moment a reader
     would most want it right.
     """
-    disagreeing = sorted(
-        f"{book_display_name(case.ref.book)} {case.ref.chapter}:{case.ref.verse}"
-        for case in cases
-        if _column_disagrees(case, locations[case.ref.key])
+    disagreeing = _chapter_verse_list(
+        [case for case in cases if _column_disagrees(case, locations[case.ref.key])]
     )
     agreeing = len(cases) - len(disagreeing)
     disagreement_sentence = (
@@ -333,10 +382,8 @@ def _change_items_paragraph(cases: list[CorrectionCase]) -> str:
     item yet, would otherwise leave a written-out figure quietly wrong.
     """
     linked = [case for case in cases if change_record_links(case.ref.key)]
-    doubled = sorted(
-        f"{book_display_name(case.ref.book)} {case.ref.chapter}:{case.ref.verse}"
-        for case in linked
-        if len(change_record_links(case.ref.key)) > 1
+    doubled = _chapter_verse_list(
+        [case for case in linked if len(change_record_links(case.ref.key)) > 1]
     )
     doubled_sentence = (
         ""
@@ -363,6 +410,19 @@ def _and_list(items: list[str]) -> str:
     if len(items) < 2:
         return "".join(items)
     return f"{', '.join(items[:-1])} and {items[-1]}"
+
+
+def _chapter_verse_list(cases: list[CorrectionCase]) -> list[str]:
+    """The cases named "Leviticus 7:25", in canonical order.
+
+    In canonical order because sorting the rendered strings does not give it:
+    "Leviticus 16:21" precedes "Leviticus 7:25" alphabetically, and did so on
+    the page until 2026-08-11.
+    """
+    return [
+        f"{book_display_name(case.ref.book)} {case.ref.chapter}:{case.ref.verse}"
+        for case in sorted(cases, key=lambda case: case.ref.sort_key)
+    ]
 
 
 def _meta_grid_html(cases: list[CorrectionCase], emails: list[SourceEmail]) -> str:
@@ -482,6 +542,11 @@ def _write_json(
                     {"label": label, "value": value}
                     for label, value in item.case.fields
                 ],
+                # The two forms read out of the prose of a message that gives
+                # them no lines of their own, absent on a case that does. Kept
+                # here so that regenerating and reading the diff tests the
+                # reading, the way it tests the parse of everything above.
+                **_forms_json(item.case),
                 "manuscript_folio": _folio_or_none(item.case.image_location),
                 "change_record_ids": [
                     link.record_id for link in change_record_links(item.case.ref.key)
@@ -514,6 +579,19 @@ def _write_json(
         "commented_case_count": sum(
             1 for item in rendered if comments_for_ref(item.case.ref.key)
         ),
+    }
+
+
+def _forms_json(case: CorrectionCase) -> dict[str, object]:
+    forms = forms_for_case(case)
+    if forms is None:
+        return {}
+    return {
+        "forms_read_from_prose": {
+            "current": forms.current,
+            "suggested": forms.suggested,
+            "suggestion_without_form": forms.suggestion,
+        }
     }
 
 

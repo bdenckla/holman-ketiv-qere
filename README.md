@@ -215,6 +215,21 @@ and so does the JSON extract. "Correction" stays where it names the UXLC's own
 change items, and where it names Ben Denckla's bracketed correction of a word of
 Holman's.
 
+Nine cards carry one more derivation. Holman's Joshua, Judges and Samuel
+messages state the word twice on lines of its own, "Current UXLC" or "Current
+Text" and then "Corrected Text"; his Exodus, Leviticus and Deuteronomy messages
+state neither, putting the form as it stands in parentheses on the "Word /
+Verse" line and the form he proposes in parentheses inside his suggestion
+sentence. `py/python_modules/uxlc_holman_forms.py` reads both out so that every
+card reads alike, and the JSON extract records what it read under
+`forms_read_from_prose`, so regenerating and reading the diff tests the reading.
+Because that is a derivation over prose, every such case declares which of three
+shapes its message has — `BOTH`, `CURRENT_ONLY` for the two that ask only for a
+note, `PAIR_IN_FIRST_FIELD` for Deuteronomy 33:28, whose two forms are both on
+the first line — and a mismatch raises. `require_full_coverage` raises on a case
+missing from the table, on a case in it that has a "Corrected Text" line of its
+own, and on a table entry naming no case.
+
 **This repo is public, so no address reaches a tracked file.**
 `uxlc_email_extract.redact_addresses` runs over each message body as the ingest
 step reads it, and only the sender's display name is kept from the headers. The

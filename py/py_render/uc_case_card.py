@@ -20,7 +20,18 @@ from python_modules.uxlc_email_extract import (
     book_slug,
 )
 from python_modules.uxlc_external_links import book_display_name, verse_links
+from python_modules.uxlc_holman_forms import (
+    HolmanForms,
+    SUGGESTION_LABEL,
+    forms_for_case,
+)
 from python_modules.uxlc_manuscript_page import manuscript_page, manuscript_position
+
+# The label the derived "as it stands" row is given. Holman spells his own such
+# line "Current UXLC" on five cases and "Current Text" on six, and Ben asked on
+# 2026-08-11 that those two be left as he wrote them; this row is not his, so it
+# takes the commoner of the two rather than inventing a third spelling.
+DERIVED_CURRENT_LABEL = "Current Text"
 
 # The labels are Holman's, verbatim from his emails, and the parser keeps them
 # that way. These two are relabelled for display only: the page says
@@ -158,7 +169,10 @@ def _change_record_links_html(case: CorrectionCase) -> str:
 
 
 def _fields_html(case: CorrectionCase, location: AtomLocation) -> str:
-    ordered = sorted(case.fields, key=lambda field: _FIELD_RANK[field[0]])
+    forms = forms_for_case(case)
+    ordered = sorted(
+        _displayed_fields(case, forms), key=lambda field: _FIELD_RANK[field[0]]
+    )
     return "\n".join(
         (
             _field_html(
@@ -171,6 +185,35 @@ def _fields_html(case: CorrectionCase, location: AtomLocation) -> str:
         )
         for label, value in ordered
     )
+
+
+def _displayed_fields(
+    case: CorrectionCase, forms: HolmanForms | None
+) -> list[tuple[str, str]]:
+    """The message's fields, or the same with the two forms given rows of their own.
+
+    Holman's Exodus, Leviticus and Deuteronomy messages state neither form on a
+    line of its own: the form as it stands is in parentheses on the Word / Verse
+    line, after a reference the card's heading already carries, and the form he
+    proposes is in parentheses inside his suggestion sentence. Ben asked on
+    2026-08-11 that those cases read like the Joshua, Judges and Samuel ones, so
+    the Word / Verse line -- which holds nothing else the card does not already
+    show -- gives way to a row per form, and the sentence loses the form now
+    printed above it.
+
+    Returned under Holman's own labels rather than the display ones, so that the
+    single ranking in _FIELD_ORDER still decides the order.
+    """
+    if forms is None:
+        return list(case.fields)
+    fields: list[tuple[str, str]] = [(DERIVED_CURRENT_LABEL, forms.current)]
+    if forms.suggested is not None:
+        fields.append(("Corrected Text", forms.suggested))
+    for label, value in case.fields:
+        if label in FIRST_FIELD_LABELS:
+            continue
+        fields.append((label, forms.suggestion if label == SUGGESTION_LABEL else value))
+    return fields
 
 
 def _field_html(label: str, value_html: str) -> str:

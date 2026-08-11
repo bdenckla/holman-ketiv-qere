@@ -128,6 +128,11 @@
           "value": "Dotan has a Mereka and Breuer noted: \"Two cantillation marks in the same word appear regularly only in the word of a zakef, tevir, and geresh\" (Page 33, The Cantillation of Scripture)."
         }
       ],
+      "forms_read_from_prose": {
+        "current": "וַיֵּהָֽפְכ֛וּ",
+        "suggested": "וַיֵּהָ֥פְכ֛וּ",
+        "suggestion_without_form": "Add note regarding Mereka OR change Meteg to Mereka."
+      },
       "manuscript_folio": "035A",
       "change_record_ids": [
         "2026.08.05-6"
@@ -169,6 +174,11 @@
           "value": "See above note regarding Breuer's rule on two cantillation marks in the same word under a Zaqef, Tevir, or Geresh."
         }
       ],
+      "forms_read_from_prose": {
+        "current": "וְהָֽיְתָ֛ה",
+        "suggested": "וְהָ֥יְתָ֛ה",
+        "suggestion_without_form": "Add note regarding Mereka OR change Meteg to Mereka."
+      },
       "manuscript_folio": "037B",
       "change_record_ids": [
         "2026.08.05-3"
@@ -210,6 +220,11 @@
           "value": "See above note regarding Breuer's rules for dual cantillation marks within a single word domain."
         }
       ],
+      "forms_read_from_prose": {
+        "current": "יִהְיֶֽה־לְךָ֛֩",
+        "suggested": "יִהְיֶ֥ה־לְךָ֛֩",
+        "suggestion_without_form": "Add note regarding Mereka OR change Meteg to Mereka."
+      },
       "manuscript_folio": "043A",
       "change_record_ids": [
         "2026.08.05-4"
@@ -251,6 +266,11 @@
           "value": "Going by appearance, this mark does not look like a Mereka due to its slant. Dotan has a Munach. This word is in the domain of Zaqef Qatan, and the servant of Zaqef Qatan is always Munach. Price noted BHS and BHK erroneously have Mereka, which is possibly a defect in L (Page 65, Syntax of Masoretic Accents)."
         }
       ],
+      "forms_read_from_prose": {
+        "current": "עַמּוּדֵיהֶ֥ם",
+        "suggested": "עַמּוּדֵיהֶ֣ם",
+        "suggestion_without_form": "Add note OR replace Mereka with Munach."
+      },
       "manuscript_folio": "055A",
       "change_record_ids": [
         "2026.08.05-5"
@@ -297,6 +317,11 @@
           "value": "Some may read this accent as a Pashta. Medieval scribes did not rely on physical positioning to differentiate a Pashta from an Azla. A note should be included to prevent graphic ambiguity for less fluent readers."
         }
       ],
+      "forms_read_from_prose": {
+        "current": "הַ֨בְּהֵמָ֔ה",
+        "suggested": null,
+        "suggestion_without_form": "Make a note about accent positioning."
+      },
       "manuscript_folio": "060A",
       "change_record_ids": [
         "2026.08.05-7"
@@ -338,6 +363,11 @@
           "value": "There are multiple dots or blemishes. A dot or blemish also appears below the Qamats on the word below it. This word is in the domain of a Tifcha and should be a Mereka. Dotan replaced BHS reading with a Mereka."
         }
       ],
+      "forms_read_from_prose": {
+        "current": "יר֛ק",
+        "suggested": "יָרֹ֥ק",
+        "suggestion_without_form": "Replace Tevir with Mereka and place note on blemish on MS."
+      },
       "manuscript_folio": "065B",
       "change_record_ids": [
         "2026.08.05-8"
@@ -379,6 +409,11 @@
           "value": "See note for Lev 7:25.6 regarding medieval scribal practices and the lack of reliance on physical positioning to differentiate Pashta from Azla."
         }
       ],
+      "forms_read_from_prose": {
+        "current": "עַ֨ל",
+        "suggested": null,
+        "suggestion_without_form": "Make a note about accent positioning."
+      },
       "manuscript_folio": "066B",
       "change_record_ids": [
         "2026.08.05-9"
@@ -420,6 +455,11 @@
           "value": "This mark is a Masorah Circle for the word below it. There is no angle to the mark for a Mahpakh and the shape matches that of other Masorah Circles. The Masorah Circle intersected part of the Patach as noted in the images."
         }
       ],
+      "forms_read_from_prose": {
+        "current": "מַה־נֹּאכַ֤֖ל",
+        "suggested": "מַה־נֹּאכַ֖ל",
+        "suggestion_without_form": "Remove Mahpakh and revise note."
+      },
       "manuscript_folio": "071B",
       "change_record_ids": [
         "2026.08.05-10"
@@ -476,6 +516,11 @@
           "value": "Dotan features a Mercha. In Daat Miqra, Breuer reads both Aleppo (A) and Leningrad (L) as having a Mercha. Conversely, Sassoon 1053 and Jacob ben Chayyim print a Meteg, but crucially include a Maqqef to bind the word to the subsequent Silluq. If the Meteg tradition is maintained, an editorial note should indicate that alternate manuscripts require a Maqqef; an independent word cannot sit accentless directly preceding a Silluq without violating Tiberian accentuation syntax."
         }
       ],
+      "forms_read_from_prose": {
+        "current": "יַֽעַרְפוּ",
+        "suggested": "יַ֥עַרְפוּ",
+        "suggestion_without_form": "Change Meteg to Mercha OR include an apparatus note detailing the manuscript variants."
+      },
       "manuscript_folio": "119B",
       "change_record_ids": [
         "2026.08.05-11"
