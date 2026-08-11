@@ -5,8 +5,7 @@ long page, at ``CHANGES_PAGE_URL``. It is a flat chronological list rather than
 a per-book one, and a record's anchor is the date it was entered plus its
 sequence number within that date -- ``#2026.08.05-6`` -- so nothing in an anchor
 says which verse the record is about. The mapping from a case to its records is
-therefore written out here, the way ``uxlc_case_tags.SUGGESTION_KIND_BY_REF``
-is, rather than derived.
+therefore written out here rather than derived.
 
 Three things the table records that a derivation would have got wrong:
 

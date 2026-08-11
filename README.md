@@ -126,6 +126,23 @@ with every email address replaced by `[address removed]`) and
 `emails/<key>.json` (subject, sender name, date, attachment list) — plus each
 attached PNG into `gh-pages/uxlc_img/`.
 
+**Estimate**, when a new message arrives, after ingesting it. This step needs
+the sibling `../UXLC-utils` clone, whose core XML and Leningrad Codex page index
+it interpolates between; a fresh clone of this repo does not have it, which is
+why the estimates are tracked rather than worked out at render time:
+
+```powershell
+.venv\Scripts\python.exe py/main_estimate_uxlc_locations.py
+```
+
+That writes `data/uxlc_atom_locations.json`, one estimated folio, column and
+line per case. The estimator is MAM-basics'
+`uxlc_misc.my_uxlc_location`, vendored into `py/uxlc_misc/` and `py/uxlc_lci/`;
+it takes the (book, chapter, verse, atom) quad the parser already has, so no
+word matching is involved. It refuses a case in Psalms, Proverbs or Job, whose
+Leningrad Codex pages have two columns rather than the three its column
+arithmetic assumes.
+
 **Render**, which needs only what is tracked, so a fresh clone can do it:
 
 ```powershell
@@ -147,14 +164,14 @@ The JSON is tracked so that regenerating and reading the diff is the test — a
 message whose wording or structure parses differently cannot change the page
 silently. There is no separate verifier.
 
-To add a new message: drop the `.eml` into `.novc/eml/`, run the ingest step,
-add the new cases to `SUGGESTION_KIND_BY_REF` in
-`py/python_modules/uxlc_case_tags.py`, and run the render step. Everything else
-is derived. The parser is fail-fast: an unrecognized field label, a heading
-whose reference disagrees with its first field, an attachment naming a case that
-is not in its message, two messages whose filenames reduce to one key, a case
-with no classification, and a bidi formatting control the reader would never see
-each raise rather than being dropped.
+To add a new message: drop the `.eml` into `.novc/eml/`, then run the ingest,
+estimate and render steps in that order. Everything else is derived. The
+pipeline is fail-fast: an unrecognized field label, a heading whose reference
+disagrees with its first field, an attachment naming a case that is not in its
+message, two messages whose filenames reduce to one key, a case with no
+manuscript-location estimate, a field label with no display rank, and a bidi
+formatting control the reader would never see each raise rather than being
+dropped.
 
 ### Links to the UXLC's proposed changes
 
@@ -183,9 +200,20 @@ arrived, and the page's intro says what was changed.
 
 The derived parts are the verse reference and atom index, the external links,
 the change-item links, the Leningrad folio (decoded from the ordinal that begins
-Holman's manuscript-image citation, and shown on that same line), and the one
-editorial layer: the "What Holman asks for" classification in
-`py/python_modules/uxlc_case_tags.py`.
+Holman's manuscript-image citation), and the manuscript location itself. That
+last one used to echo Holman's citation; since 2026-08-11 the card reports an
+estimated column and line from `data/uxlc_atom_locations.json` instead, gives
+his column beside it wherever the two disagree, and does not show the scan-file
+name at all. The citation is still in the tracked message body, and it is still
+what the folio link is decoded from.
+
+Two labels are relabelled for display, in `DISPLAY_FIELD_LABELS` in
+`py/py_render/uc_case_card.py`: Holman's "Corrected Text" is shown as "Suggested
+Text" and his "Suggested Correction" as "Suggestion", the page saying
+*suggestion* wherever it has the choice. The parser keeps his labels verbatim,
+and so does the JSON extract. "Correction" stays where it names the UXLC's own
+change items, and where it names Ben Denckla's bracketed correction of a word of
+Holman's.
 
 **This repo is public, so no address reaches a tracked file.**
 `uxlc_email_extract.redact_addresses` runs over each message body as the ingest

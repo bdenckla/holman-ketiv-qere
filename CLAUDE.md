@@ -26,10 +26,18 @@ through the rules instead of keeping them in the `:root` pairs where they can be
 
 ## Vendor whole files
 
-`py/main_update_vendored_files.py` copies from the neighbouring repos (`mb_cmn`,
-`python_modules`). Copy a source file entire; do not keep a hand-trimmed subset of one, and
-keep any local patch minimal and commented, so the next sync can tell a deliberate divergence
-from drift.
+`py/main_update_vendored_files.py` copies from the neighbouring MAM-basics, and is the
+authority on what it copies: the packages in `_VENDORED_PACKAGES` and the single files in
+`_VENDORED_FILES`, each package's `_provenance.md` naming the MAM-basics commit it came
+from. Copy a source file entire; do not keep a hand-trimmed subset of one, and keep any
+local patch minimal and commented, so the next sync can tell a deliberate divergence from
+drift.
+
+A package is vendored by path intersection — the sync copies the files that already exist
+locally — so adding a module means copying it in by hand once, after which the sync keeps
+it current. A module that sits at the top of `py/` rather than inside a package cannot be
+intersected that way, this repo's own `py/main_*.py` files being there and MAM-basics
+having none of them, so those are named outright in `_VENDORED_FILES`.
 
 ## Locating a word in the manuscripts, from the sibling repos
 

@@ -30,7 +30,10 @@ p { margin: .3rem 0; }
 .meta-value { font-size: 1.2rem; font-weight: 600; }
 .section-title { font-size: 1.1rem; margin: 1.4rem 0 .5rem; }
 .section-note { color: var(--muted); margin-bottom: .6rem; max-width: 68ch; }
-.summary-columns { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .75rem; margin-bottom: 1rem; align-items: start; }
+/* One column, Book, since the "What Holman asks for" one was dropped on
+   2026-08-11. Still a grid rather than a bare block so that a second column,
+   should one be wanted again, needs only the column count back. */
+.summary-columns { display: grid; grid-template-columns: minmax(0, 1fr); gap: .75rem; margin-bottom: 1rem; align-items: start; }
 .summary-group { min-width: 0; }
 .summary-group-title { font-size: .75rem; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); margin: 0 0 .35rem; }
 .summary { width: 100%; border-collapse: collapse; background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; table-layout: fixed; }
@@ -62,7 +65,7 @@ p { margin: .3rem 0; }
    fallback for a reader whose browser will not load the woff2. */
 .pointed-heb {
   font-family: "Taamey D WOFF2", "SBL Hebrew", "Ezra SIL", "David", "Times New Roman", serif;
-  font-size: 17pt;
+  font-size: 20pt;
   line-height: 1.35;
   font-feature-settings: 'ss01'; /* ss01 = xataf qamats qatan */
 }
@@ -78,11 +81,9 @@ p { margin: .3rem 0; }
 .folio-links a { margin-right: .5rem; }
 .case-source { margin-top: .6rem; font-size: .8rem; color: var(--muted); }
 .image-panel { border: 1px solid var(--border); border-radius: 6px; background: var(--img-bg); padding: .45rem; align-self: start; }
-.image-caption { font-size: .72rem; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; margin-bottom: .3rem; }
 .image-strip { display: grid; gap: .45rem; }
 .image-strip figure { display: grid; gap: .15rem; }
 .image-thumb { display: block; max-width: 100%; height: auto; border: 1px solid var(--border); border-radius: 4px; background: var(--card-bg); }
-.image-strip figcaption { font-size: .75rem; color: var(--muted); }
 .no-image { font-size: .8rem; color: var(--muted); }
 .commentary { margin-top: .7rem; border-top: 1px solid var(--border); padding-top: .55rem; }
 .comment { background: var(--comment-bg); border-left: 3px solid var(--comment-rule); border-radius: 0 6px 6px 0; padding: .45rem .65rem; }
@@ -96,7 +97,6 @@ p { margin: .3rem 0; }
 .email-prose { margin-top: .45rem; max-width: 68ch; }
 .email-file { margin-top: .45rem; font-size: .78rem; color: var(--muted); }
 @media (max-width: 850px) {
-  .summary-columns { grid-template-columns: 1fr; }
   .record-grid { grid-template-columns: 1fr; }
   .category-badges { margin-left: 0; }
 }

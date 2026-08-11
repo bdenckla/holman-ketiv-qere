@@ -1,0 +1,125 @@
+{
+  "note": "Estimated column and line for each atom Holman's emails raise, from MAM-basics' uxlc_misc.my_uxlc_location over the UXLC core XML and LC page index in the sibling UXLC-utils. Written by py/main_estimate_uxlc_locations.py and read by the render step; folio is the LC leaf in the DDDA form the manuscript image URLs use, line counts down from the top of the named column, and flat_line counts down the whole page across all three columns.",
+  "locations": {
+    "Exodus 7:20.19": {
+      "folio": "035A",
+      "column": 2,
+      "line": 19.0,
+      "flat_line": 46.0
+    },
+    "Exodus 11:6.1": {
+      "folio": "037B",
+      "column": 1,
+      "line": 21.4,
+      "flat_line": 21.4
+    },
+    "Exodus 20:3.2": {
+      "folio": "043A",
+      "column": 2,
+      "line": 19.1,
+      "flat_line": 46.1
+    },
+    "Exodus 38:12.6": {
+      "folio": "055A",
+      "column": 1,
+      "line": 3.5,
+      "flat_line": 3.5
+    },
+    "Levit 7:25.6": {
+      "folio": "060A",
+      "column": 3,
+      "line": 2.0,
+      "flat_line": 56.0
+    },
+    "Levit 15:8.2": {
+      "folio": "065B",
+      "column": 2,
+      "line": 1.8,
+      "flat_line": 28.8
+    },
+    "Levit 16:21.6": {
+      "folio": "066B",
+      "column": 1,
+      "line": 20.1,
+      "flat_line": 20.1
+    },
+    "Levit 25:20.4": {
+      "folio": "071B",
+      "column": 2,
+      "line": 14.3,
+      "flat_line": 41.3
+    },
+    "Deuter 33:28.13": {
+      "folio": "119B",
+      "column": 3,
+      "line": 23.3,
+      "flat_line": 77.3
+    },
+    "Joshua 5:1.36": {
+      "folio": "123B",
+      "column": 1,
+      "line": 23.6,
+      "flat_line": 23.6
+    },
+    "Joshua 9:23.10": {
+      "folio": "126B",
+      "column": 2,
+      "line": 15.6,
+      "flat_line": 42.6
+    },
+    "Joshua 19:8.8": {
+      "folio": "132A",
+      "column": 1,
+      "line": 5.1,
+      "flat_line": 5.1
+    },
+    "Joshua 20:4.12": {
+      "folio": "132B",
+      "column": 2,
+      "line": 9.2,
+      "flat_line": 36.2
+    },
+    "Judges 11:24.7": {
+      "folio": "144A",
+      "column": 1,
+      "line": 17.2,
+      "flat_line": 17.2
+    },
+    "1Samuel 7:10.10": {
+      "folio": "153B",
+      "column": 1,
+      "line": 23.0,
+      "flat_line": 23.0
+    },
+    "1Samuel 13:4.11": {
+      "folio": "156A",
+      "column": 3,
+      "line": 23.1,
+      "flat_line": 77.1
+    },
+    "2Samuel 5:21.1": {
+      "folio": "171A",
+      "column": 3,
+      "line": 27.6,
+      "flat_line": 81.6
+    },
+    "2Samuel 7:22.7": {
+      "folio": "172B",
+      "column": 1,
+      "line": 5.8,
+      "flat_line": 5.8
+    },
+    "2Samuel 15:26.11": {
+      "folio": "177A",
+      "column": 3,
+      "line": 17.5,
+      "flat_line": 71.5
+    },
+    "2Samuel 24:10.19": {
+      "folio": "183B",
+      "column": 3,
+      "line": 4.2,
+      "flat_line": 58.2
+    }
+  }
+}

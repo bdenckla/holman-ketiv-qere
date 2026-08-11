@@ -7,6 +7,11 @@ Writes gh-pages/uxlc_corrections.{html,css,js}, the extracted attachments under
 gh-pages/uxlc_img/, and the extract itself to
 docs-not-served/uxlc_corrections.json. The JSON is tracked so that regenerating
 and reading the diff is the test: a parse that changes silently cannot.
+
+Reads only what is tracked, so a fresh clone can run it. The manuscript
+locations it shows come from data/uxlc_atom_locations.json, which
+py/main_estimate_uxlc_locations.py writes and which needs the sibling
+UXLC-utils clone.
 """
 
 from __future__ import annotations
@@ -23,6 +28,7 @@ DEFAULT_EMAILS_DIR = REPO_ROOT / "emails"
 DEFAULT_OUTPUT_HTML = REPO_ROOT / "gh-pages" / "uxlc_corrections.html"
 DEFAULT_IMAGE_DIR = REPO_ROOT / "gh-pages" / "uxlc_img"
 DEFAULT_ASSETS_DIR = REPO_ROOT / "assets"
+DEFAULT_DATA_DIR = REPO_ROOT / "data"
 DEFAULT_JSON_OUTPUT = REPO_ROOT / "docs-not-served" / "uxlc_corrections.json"
 
 
@@ -35,6 +41,7 @@ def main() -> None:
     parser.add_argument("--output-html-path", type=Path, default=DEFAULT_OUTPUT_HTML)
     parser.add_argument("--image-dir", type=Path, default=DEFAULT_IMAGE_DIR)
     parser.add_argument("--assets-dir", type=Path, default=DEFAULT_ASSETS_DIR)
+    parser.add_argument("--data-dir", type=Path, default=DEFAULT_DATA_DIR)
     parser.add_argument("--json-output-path", type=Path, default=DEFAULT_JSON_OUTPUT)
     args = parser.parse_args()
 
@@ -43,6 +50,7 @@ def main() -> None:
         output_html_path=args.output_html_path,
         image_dir=args.image_dir,
         assets_dir=args.assets_dir,
+        data_dir=args.data_dir,
         json_output_path=args.json_output_path,
     )
     summary["output_html_path"] = args.output_html_path.as_posix()

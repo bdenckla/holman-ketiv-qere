@@ -15,6 +15,7 @@ Files copied:
   hebrew_verse_numerals.py
   mam_bknas.py
   mam_bknas_and_std_bknas.py
+  paths.py
   retired_kq_special_templates.py
   retired_template_names.py
   str_defs.py
@@ -23,6 +24,6 @@ Files copied:
   url_percent.py
   vendoring_sync.py
 
-Git commit: 2c01709acf325e5884bf1508c9e9307761d7359d
+Git commit: d1004804faac0be195840a648e4bc373ace75c2d
 
-Date copied: 2026-08-09
+Date copied: 2026-08-11

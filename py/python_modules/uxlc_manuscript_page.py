@@ -8,7 +8,7 @@ over page sides, counting folio 001A as 1, so
 
 and the folio and side invert out of it. The three-letter code names the book
 the page starts in, which is not always the book of the case on it, so it is
-shown but not checked.
+neither shown nor checked.
 
 Checked 2026-08-08: inverting all twenty ordinals in ``emails/`` and looking the
 folios up in the sibling ``codex-index-leningrad``'s
@@ -18,9 +18,16 @@ index, which is presumably where Holman's ordinals come from too. To
 re-establish the check, decode an ordinal here and compare against the
 ``page`` row of that JSON.
 
-The two image URLs follow ``codex-index-leningrad/lenin-wiki/py/image_urls.py``,
-whose Internet Archive page number is ``2 * folio + side - 2``, i.e. exactly one
-less than Holman's ordinal.
+The Sefaria image URL follows
+``codex-index-leningrad/lenin-wiki/py/image_urls.py``.
+
+The rest of a citation, ``Col. 2 middle``, is Holman saying which band of which
+column to look in. ``manuscript_position`` parses it so that the page can
+compare his column against the estimate in ``uxlc_atom_locations``, which is
+what it reports instead. The comparison is on the column alone: a column is a
+discrete fact both sources state, whereas top/middle/bottom is a loose gloss
+that an estimated line number supersedes, and checking it against equal
+nine-line thirds manufactures disagreements a line wide.
 """
 
 from __future__ import annotations
@@ -29,8 +36,13 @@ from dataclasses import dataclass
 import re
 
 _LOCATION_RE = re.compile(r"^(?P<ordinal>\d{2,4})_(?P<book_code>[A-Za-z0-9]+)_")
+# Holman writes the position two ways, "/ Col. 2 middle" and "(Col. 1 bottom)",
+# so the surrounding punctuation is not matched -- only the column and the
+# word after it, which he has always supplied.
+_POSITION_RE = re.compile(
+    r"Col\.?\s*(?P<column>\d)\s+(?P<band>top|middle|bottom)\b", re.IGNORECASE
+)
 _SEFARIA_PREFIX = "https://manuscripts.sefaria.org/leningrad-color/"
-_ARCHIVE_PREFIX = "https://archive.org/details/Leningrad_Codex_Color_Images/page/"
 
 
 @dataclass(frozen=True)
@@ -49,9 +61,18 @@ class ManuscriptPage:
     def sefaria_image_url(self) -> str:
         return f"{_SEFARIA_PREFIX}BIB_LENCDX_F{self.folio_label}.jpg"
 
+
+@dataclass(frozen=True)
+class ManuscriptPosition:
+    """Where on the page Holman puts the atom: a column and a band down it."""
+
+    column: int
+    band: str
+
     @property
-    def archive_page_url(self) -> str:
-        return f"{_ARCHIVE_PREFIX}n{self.ordinal - 1}/mode/1up?view=theater"
+    def display(self) -> str:
+        """Holman's wording, normalized to one spelling of ``Col.``."""
+        return f"Col. {self.column} {self.band}"
 
 
 def manuscript_page(image_location: str) -> ManuscriptPage | None:
@@ -69,4 +90,14 @@ def manuscript_page(image_location: str) -> ManuscriptPage | None:
         folio=folio,
         side="A" if side == 0 else "B",
         book_code=match.group("book_code"),
+    )
+
+
+def manuscript_position(image_location: str) -> ManuscriptPosition | None:
+    """Holman's column and band, or None when his citation names neither."""
+    match = _POSITION_RE.search(image_location)
+    if match is None:
+        return None
+    return ManuscriptPosition(
+        column=int(match.group("column")), band=match.group("band").lower()
     )

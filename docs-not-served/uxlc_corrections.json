@@ -110,7 +110,6 @@
       "email_key": "proposed-corrections-and-notes-for-uxlc-exodus-7-11-20-38",
       "index_in_email": 1,
       "heading": "1. Exodus 7:20",
-      "suggestion_kind": "Change the text or add a note",
       "fields": [
         {
           "label": "Word / Verse",
@@ -152,7 +151,6 @@
       "email_key": "proposed-corrections-and-notes-for-uxlc-exodus-7-11-20-38",
       "index_in_email": 2,
       "heading": "2. Exodus 11:6",
-      "suggestion_kind": "Change the text or add a note",
       "fields": [
         {
           "label": "Word / Verse",
@@ -194,7 +192,6 @@
       "email_key": "proposed-corrections-and-notes-for-uxlc-exodus-7-11-20-38",
       "index_in_email": 3,
       "heading": "3. Exodus 20:3",
-      "suggestion_kind": "Change the text or add a note",
       "fields": [
         {
           "label": "Word / Verse",
@@ -236,7 +233,6 @@
       "email_key": "proposed-corrections-and-notes-for-uxlc-exodus-7-11-20-38",
       "index_in_email": 4,
       "heading": "4. Exodus 38:12",
-      "suggestion_kind": "Change the text or add a note",
       "fields": [
         {
           "label": "Word / Verse",
@@ -283,7 +279,6 @@
       "email_key": "proposed-corrections-and-notes-for-uxlc-leviticus-7-15-16-25",
       "index_in_email": 1,
       "heading": "1. Leviticus 7:25",
-      "suggestion_kind": "Add or revise a note",
       "fields": [
         {
           "label": "Word / Verse",
@@ -325,7 +320,6 @@
       "email_key": "proposed-corrections-and-notes-for-uxlc-leviticus-7-15-16-25",
       "index_in_email": 2,
       "heading": "2. Leviticus 15:8",
-      "suggestion_kind": "Change the text and add a note",
       "fields": [
         {
           "label": "Word / Verse",
@@ -367,7 +361,6 @@
       "email_key": "proposed-corrections-and-notes-for-uxlc-leviticus-7-15-16-25",
       "index_in_email": 3,
       "heading": "3. Leviticus 16:21",
-      "suggestion_kind": "Add or revise a note",
       "fields": [
         {
           "label": "Word / Verse",
@@ -409,7 +402,6 @@
       "email_key": "proposed-corrections-and-notes-for-uxlc-leviticus-7-15-16-25",
       "index_in_email": 4,
       "heading": "4. Leviticus 25:20",
-      "suggestion_kind": "Change the text and add a note",
       "fields": [
         {
           "label": "Word / Verse",
@@ -466,7 +458,6 @@
       "email_key": "proposed-correction-and-note-for-uxlc-deuteronomy-33",
       "index_in_email": 1,
       "heading": "Deuteronomy 33:28",
-      "suggestion_kind": "Change the text or add a note",
       "fields": [
         {
           "label": "Word/Verse",
@@ -518,7 +509,6 @@
       "email_key": "suggested-uxlc-corrections-for-joshua-4-cases",
       "index_in_email": 1,
       "heading": "1. Joshua 5:1 (Word 36)",
-      "suggestion_kind": "Change the text",
       "fields": [
         {
           "label": "Current UXLC",
@@ -564,7 +554,6 @@
       "email_key": "suggested-uxlc-corrections-for-joshua-4-cases",
       "index_in_email": 2,
       "heading": "2. Joshua 9:23 (Word 10)",
-      "suggestion_kind": "Change the text",
       "fields": [
         {
           "label": "Current UXLC",
@@ -610,7 +599,6 @@
       "email_key": "suggested-uxlc-corrections-for-joshua-4-cases",
       "index_in_email": 3,
       "heading": "3. Joshua 19:8 (Word 8)",
-      "suggestion_kind": "Change the text",
       "fields": [
         {
           "label": "Current UXLC",
@@ -656,7 +644,6 @@
       "email_key": "suggested-uxlc-corrections-for-joshua-4-cases",
       "index_in_email": 4,
       "heading": "4. Joshua 20:4 (Word 12)",
-      "suggestion_kind": "Change the text",
       "fields": [
         {
           "label": "Current UXLC",
@@ -718,7 +705,6 @@
       "email_key": "suggested-uxlc-corrections-for-joshua-one-case",
       "index_in_email": 1,
       "heading": "Judg 11:24 (Word 7)",
-      "suggestion_kind": "Change the text",
       "fields": [
         {
           "label": "Current UXLC",
@@ -764,7 +750,6 @@
       "email_key": "fw-suggested-corrections-for-samuel-1sa-2sa",
       "index_in_email": 1,
       "heading": "1. 1 Samuel 7:10.10",
-      "suggestion_kind": "Change the text",
       "fields": [
         {
           "label": "Current Text",
@@ -808,7 +793,6 @@
       "email_key": "fw-suggested-corrections-for-samuel-1sa-2sa",
       "index_in_email": 2,
       "heading": "2. 1 Samuel 13:4.11",
-      "suggestion_kind": "Change the text",
       "fields": [
         {
           "label": "Current Text",
@@ -852,7 +836,6 @@
       "email_key": "fw-suggested-corrections-for-samuel-1sa-2sa",
       "index_in_email": 3,
       "heading": "3. 2 Samuel 5:21.1",
-      "suggestion_kind": "Change the text",
       "fields": [
         {
           "label": "Current Text",
@@ -901,7 +884,6 @@
       "email_key": "fw-suggested-corrections-for-samuel-1sa-2sa",
       "index_in_email": 4,
       "heading": "4. 2 Samuel 7:22.7",
-      "suggestion_kind": "Add or revise a note",
       "fields": [
         {
           "label": "Current Text",
@@ -945,7 +927,6 @@
       "email_key": "fw-suggested-corrections-for-samuel-1sa-2sa",
       "index_in_email": 5,
       "heading": "5. 2 Samuel 15:26.11",
-      "suggestion_kind": "Add or revise a note",
       "fields": [
         {
           "label": "Current Text",
@@ -989,7 +970,6 @@
       "email_key": "fw-suggested-corrections-for-samuel-1sa-2sa",
       "index_in_email": 6,
       "heading": "6. 2 Samuel 24:10.19",
-      "suggestion_kind": "Change the text",
       "fields": [
         {
           "label": "Current Text",

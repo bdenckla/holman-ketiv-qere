@@ -18,14 +18,14 @@ from py_render.uc_case_card import (
 )
 from py_render.uc_hebrew_runs import inline_text_html
 from py_render.uc_summary import all_filter_ids, summary_html
+from python_modules.uxlc_atom_locations import (
+    AtomLocation,
+    read_locations,
+    require_full_coverage,
+)
 from python_modules.uxlc_bracketed_corrections import (
     apply_bracketed_corrections,
     bracketed_correction_phrases,
-)
-from python_modules.uxlc_case_tags import (
-    SUGGESTION_KIND_LABELS,
-    require_full_coverage,
-    suggestion_kind,
 )
 from python_modules.uxlc_change_records import (
     CHANGES_PAGE_DESCRIPTION,
@@ -41,37 +41,35 @@ from python_modules.uxlc_email_extract import (
     read_emails,
 )
 from python_modules.uxlc_external_links import book_display_name
-from python_modules.uxlc_manuscript_page import manuscript_page
+from python_modules.uxlc_manuscript_page import manuscript_page, manuscript_position
 from uxlc_comments.all_comments import BY_REF as COMMENTS_BY_REF, comments_for_ref
 
-PAGE_TITLE = "Holman UXLC corrections"
-PAGE_HEADING = "Daniel Holman's suggested UXLC corrections"
+PAGE_TITLE = "Holman UXLC suggestions"
+PAGE_HEADING = "Daniel Holman's suggestions for the UXLC"
 INDEX_PAGE = "index.html"
 INDEX_NAV_LABEL = "Index"
 KETIV_QERE_PAGE = "table_data_findings.html"
 KETIV_QERE_NAV_LABEL = "Ketiv/qere review"
 SUPPRESSED_PAGE = "table_data_findings_suppressed.html"
 SUPPRESSED_NAV_LABEL = "Suppressed"
-THIS_NAV_LABEL = "UXLC corrections"
+THIS_NAV_LABEL = "UXLC suggestions"
 
-# The intro is these, then the two generated paragraphs _brackets_paragraph and
+# The intro is these, then the three generated paragraphs
+# _manuscript_location_paragraph, _brackets_paragraph and
 # _change_items_paragraph build, then INTRO_CLOSING_PARAGRAPHS.
 INTRO_OPENING_PARAGRAPHS = (
     "Daniel Holman has been sending Chris Kimball and Ben Denckla suggested"
-    " corrections to the UXLC, a book at a time, and this page collects them."
-    " Most are places where he reads the Leningrad Codex images differently from"
-    " the text as it stands; the rest ask the UXLC for a note on a reading Holman"
-    ' and the UXLC agree about, and the "What Holman asks for" column below'
-    " counts each kind.",
+    " changes to the UXLC, a book at a time, and this page collects them. Most"
+    " are places where he reads the Leningrad Codex images differently from the"
+    " text as it stands; the rest ask the UXLC for a note on a reading Holman"
+    " and the UXLC agree about.",
     "Each card is one case, and its labelled lines are Holman's, quoted from the"
     " email as he wrote them, including his spellings of the accent names. Two"
-    " things on a card are not: on the line giving the manuscript image, the"
-    " folio link and the Internet Archive link after Holman's citation are"
-    " decoded here from the page ordinal that citation begins with, so the folio"
-    " number is not Holman's either; and one word of his Lev 25:20 case had the"
-    " UXLC's note letter c sitting inside it, which is the note's name rather"
-    " than part of the word, so it and the invisible marks his mail client"
-    " wrapped it in are dropped here.",
+    " things on a card are not: the manuscript location, which is estimated here"
+    " rather than quoted; and one word of his Lev 25:20 case, which had the"
+    " UXLC's note letter c sitting inside it. That letter is the note's name"
+    " rather than part of the word, so it and the invisible marks his mail"
+    " client wrapped it in are dropped here.",
 )
 
 INTRO_CLOSING_PARAGRAPHS = (
@@ -97,10 +95,12 @@ def render_uxlc_corrections_html(
     output_html_path: Path,
     image_dir: Path,
     assets_dir: Path,
+    data_dir: Path,
     json_output_path: Path,
 ) -> dict[str, object]:
     emails, cases = apply_bracketed_corrections(*read_emails(emails_dir, image_dir))
-    require_full_coverage([case.ref.key for case in cases])
+    locations = read_locations(data_dir)
+    require_full_coverage(locations, [case.ref.key for case in cases])
     require_known_refs([case.ref.key for case in cases])
     _require_commented_cases_exist(cases)
 
@@ -113,6 +113,7 @@ def render_uxlc_corrections_html(
     _write_page(
         emails=emails,
         cases=cases,
+        locations=locations,
         rendered=rendered,
         output_html_path=output_html_path,
     )
@@ -191,6 +192,7 @@ def _write_page(
     *,
     emails: list[SourceEmail],
     cases: list[CorrectionCase],
+    locations: dict[str, AtomLocation],
     rendered: list[RenderedCase],
     output_html_path: Path,
 ) -> None:
@@ -200,13 +202,14 @@ def _write_page(
             case_number=item.number,
             case=item.case,
             source_email=email_by_key[item.case.email_key],
+            location=locations[item.case.ref.key],
             image_hrefs=item.image_hrefs,
             comment_entries=comments_for_ref(item.case.ref.key),
         )
         for item in rendered
     )
     intro = "\n".join(
-        f"<p>{escape(text)}</p>" for text in _intro_paragraphs(emails, cases)
+        f"<p>{escape(text)}</p>" for text in _intro_paragraphs(emails, cases, locations)
     )
     css_href = escape(output_html_path.with_suffix(".css").name)
     js_src = escape(output_html_path.with_suffix(".js").name)
@@ -245,14 +248,65 @@ def _write_page(
 
 
 def _intro_paragraphs(
-    emails: list[SourceEmail], cases: list[CorrectionCase]
+    emails: list[SourceEmail],
+    cases: list[CorrectionCase],
+    locations: dict[str, AtomLocation],
 ) -> tuple[str, ...]:
     return (
         *INTRO_OPENING_PARAGRAPHS,
+        _manuscript_location_paragraph(cases, locations),
         _brackets_paragraph(emails, cases),
         _change_items_paragraph(cases),
         *INTRO_CLOSING_PARAGRAPHS,
     )
+
+
+def _manuscript_location_paragraph(
+    cases: list[CorrectionCase], locations: dict[str, AtomLocation]
+) -> str:
+    """The intro's paragraph on the estimated manuscript location.
+
+    Generated because it counts the cases where the estimate and Holman's
+    reading of the column disagree. Written out, that figure would go quietly
+    wrong the first time a message arrived, which is the one moment a reader
+    would most want it right.
+    """
+    disagreeing = sorted(
+        f"{book_display_name(case.ref.book)} {case.ref.chapter}:{case.ref.verse}"
+        for case in cases
+        if _column_disagrees(case, locations[case.ref.key])
+    )
+    agreeing = len(cases) - len(disagreeing)
+    disagreement_sentence = (
+        " It agrees with his column on every case."
+        if not disagreeing
+        else (
+            f" It agrees with his column on {agreeing} of the {len(cases)}"
+            f" cases, and the {_and_list(disagreeing)} "
+            + ("card gives" if len(disagreeing) == 1 else "cards give")
+            + " his reading beside the estimate."
+        )
+    )
+    return (
+        "The manuscript location on a card is not Holman's. He names the scan"
+        " file he worked from and says which band of which column to look in,"
+        " as Col. 2 middle; the file name says nothing a reader can use, so the"
+        " card reports an estimated column and line instead, worked out from"
+        " the page breaks the UXLC's Leningrad Codex index records and how much"
+        " text lies between them." + disagreement_sentence + " The band is left"
+        " out of that comparison, top, middle and bottom being a gloss that a"
+        " line number supersedes. The folio link under the line is decoded from"
+        " the page ordinal Holman's citation begins with, so the folio number"
+        " is not his either."
+    )
+
+
+def _column_disagrees(case: CorrectionCase, location: AtomLocation) -> bool:
+    image_location = case.image_location
+    if image_location is None:
+        return False
+    holman = manuscript_position(image_location)
+    return holman is not None and holman.column != location.column
 
 
 def _brackets_paragraph(emails: list[SourceEmail], cases: list[CorrectionCase]) -> str:
@@ -425,9 +479,6 @@ def _write_json(
                 "email_key": item.case.email_key,
                 "index_in_email": item.case.index_in_email,
                 "heading": item.case.heading,
-                "suggestion_kind": SUGGESTION_KIND_LABELS[
-                    suggestion_kind(item.case.ref.key)
-                ],
                 "fields": [
                     {"label": label, "value": value}
                     for label, value in item.case.fields

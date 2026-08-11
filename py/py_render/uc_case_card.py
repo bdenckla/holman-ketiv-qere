@@ -1,4 +1,4 @@
-"""Render one suggested correction as a card."""
+"""Render one of Holman's suggestions as a card."""
 
 from __future__ import annotations
 
@@ -9,19 +9,53 @@ from pathlib import Path
 from py_render.rt_html_utils import external_link_html, record_category_badge_html
 from py_render.uc_comments import comments_html
 from py_render.uc_hebrew_runs import inline_text_html
-from python_modules.uxlc_case_tags import (
-    SUGGESTION_KIND_LABELS,
-    suggestion_kind,
-)
+from python_modules.uxlc_atom_locations import AtomLocation
 from python_modules.uxlc_change_records import change_record_links
 from python_modules.uxlc_email_extract import (
     CorrectionCase,
+    FIRST_FIELD_LABELS,
     IMAGE_LOCATION_LABELS,
+    KNOWN_FIELD_LABELS,
     SourceEmail,
     book_slug,
 )
 from python_modules.uxlc_external_links import book_display_name, verse_links
-from python_modules.uxlc_manuscript_page import manuscript_page
+from python_modules.uxlc_manuscript_page import manuscript_page, manuscript_position
+
+# The labels are Holman's, verbatim from his emails, and the parser keeps them
+# that way. These two are relabelled for display only: the page says
+# "suggestion" where it has the choice, and "Corrected Text" and "Suggested
+# Correction" are the two labels where it has one.
+DISPLAY_FIELD_LABELS = {
+    "Corrected Text": "Suggested Text",
+    "Suggested Correction": "Suggestion",
+}
+
+# Holman spells the image-location label three ways, and the value under it is
+# no longer his citation but an estimate derived here, so the three collapse to
+# one label of our own.
+MANUSCRIPT_LOCATION_LABEL = "Manuscript location"
+
+# The order the fields are shown in, which is not the order a message happens
+# to use: Holman writes the current text, then where he read it, then what he
+# proposes, then the resulting text. Ben asked for the current text and the
+# suggested text next to each other, so the suggested text moves up to sit
+# under the current one and the prose describing the change follows both.
+_FIELD_ORDER = (
+    *FIRST_FIELD_LABELS,
+    "Corrected Text",
+    "Suggested Correction",
+    *sorted(IMAGE_LOCATION_LABELS),
+    "Critical Note",
+    "Note",
+)
+_FIELD_RANK = {label: rank for rank, label in enumerate(_FIELD_ORDER)}
+_UNRANKED_LABELS = KNOWN_FIELD_LABELS - set(_FIELD_RANK)
+if _UNRANKED_LABELS:
+    raise AssertionError(
+        f"no display rank for the field labels {sorted(_UNRANKED_LABELS)}; add "
+        "them to _FIELD_ORDER, which decides what a card shows first"
+    )
 
 
 def case_fragment_id(case_number: int) -> str:
@@ -32,19 +66,12 @@ def book_filter_id(book: str) -> str:
     return f"book-{book_slug(book)}"
 
 
-def kind_filter_id(kind: str) -> str:
-    return f"kind-{kind}"
-
-
 def email_fragment_id(email_key: str) -> str:
     return f"src-{email_key}"
 
 
 def case_filter_ids(case: CorrectionCase) -> tuple[str, ...]:
-    return (
-        book_filter_id(case.ref.book),
-        kind_filter_id(suggestion_kind(case.ref.key)),
-    )
+    return (book_filter_id(case.ref.book),)
 
 
 def case_card_html(
@@ -52,24 +79,17 @@ def case_card_html(
     case_number: int,
     case: CorrectionCase,
     source_email: SourceEmail,
+    location: AtomLocation,
     image_hrefs: list[tuple[str, str, int, int]],
     comment_entries: tuple[dict[str, object], ...],
 ) -> str:
     fragment_id = case_fragment_id(case_number)
-    kind = suggestion_kind(case.ref.key)
     filter_ids = case_filter_ids(case)
-    badges = "\n".join(
-        (
-            record_category_badge_html(
-                filter_id=book_filter_id(case.ref.book),
-                label=book_display_name(case.ref.book),
-            ),
-            record_category_badge_html(
-                filter_id=kind_filter_id(kind), label=SUGGESTION_KIND_LABELS[kind]
-            ),
-        )
+    badges = record_category_badge_html(
+        filter_id=book_filter_id(case.ref.book),
+        label=book_display_name(case.ref.book),
     )
-    fields = "\n".join(_field_html(label, value) for label, value in case.fields)
+    fields = _fields_html(case, location)
     provenance = (
         '<p class="case-source">Holman\'s case '
         f"{case.index_in_email} in "
@@ -97,7 +117,6 @@ data-filter-ids="{escape(' '.join(filter_ids))}"
 {provenance}
 </div>
 <div class="image-panel">
-<div class="image-caption">Holman's images</div>
 {_images_html(image_hrefs)}
 </div>
 </div>
@@ -132,10 +151,23 @@ def _change_record_links_html(case: CorrectionCase) -> str:
     )
 
 
-def _field_html(label: str, value: str) -> str:
-    value_html = inline_text_html(value)
-    if label in IMAGE_LOCATION_LABELS:
-        value_html += _manuscript_page_links_html(value)
+def _fields_html(case: CorrectionCase, location: AtomLocation) -> str:
+    ordered = sorted(case.fields, key=lambda field: _FIELD_RANK[field[0]])
+    return "\n".join(
+        (
+            _field_html(
+                MANUSCRIPT_LOCATION_LABEL, _manuscript_location_html(value, location)
+            )
+            if label in IMAGE_LOCATION_LABELS
+            else _field_html(
+                DISPLAY_FIELD_LABELS.get(label, label), inline_text_html(value)
+            )
+        )
+        for label, value in ordered
+    )
+
+
+def _field_html(label: str, value_html: str) -> str:
     return (
         f'<div class="case-field">\n'
         f"<dt>{escape(label)}</dt>\n"
@@ -144,22 +176,43 @@ def _field_html(label: str, value: str) -> str:
     )
 
 
-def _manuscript_page_links_html(image_location: str) -> str:
+def _manuscript_location_html(image_location: str, location: AtomLocation) -> str:
+    """The estimated column and line, with Holman's column where it differs.
+
+    Holman's citation names the scan file he worked from and says which band of
+    which column to look in. The file name says nothing a reader can use, so it
+    is not shown; the column is a discrete fact the estimate states too, so the
+    two are compared, and his reading is given whenever they disagree. The band
+    is not compared: top, middle and bottom are a gloss that a line number
+    supersedes, and testing them against equal nine-line thirds would report
+    disagreements a line wide as real ones.
+    """
+    text = f"Column {location.column}, line {location.rounded_line} or thereabouts."
+    holman = manuscript_position(image_location)
+    if holman is not None and holman.column != location.column:
+        text += f" Holman gives {holman.display}."
+    return escape(text) + _folio_link_html(image_location)
+
+
+def _folio_link_html(image_location: str) -> str:
+    """The Sefaria image of the leaf, decoded from Holman's page ordinal."""
     page = manuscript_page(image_location)
     if page is None:
         return ""
-    links = "\n".join(
-        (
-            external_link_html(
-                href=page.sefaria_image_url, label=f"folio {page.folio_label}"
-            ),
-            external_link_html(href=page.archive_page_url, label="Internet Archive"),
-        )
+    link = external_link_html(
+        href=page.sefaria_image_url, label=f"folio {page.folio_label}"
     )
-    return f'\n<span class="folio-links">{links}</span>'
+    return f'\n<span class="folio-links">{link}</span>'
 
 
 def _images_html(image_hrefs: list[tuple[str, str, int, int]]) -> str:
+    """The attached crops, uncaptioned.
+
+    The caption Holman's filenames carry stays in the data and reaches the alt
+    attribute, which is not what a caption is: it is read only where the image
+    itself cannot be seen, so it is not the clutter on every card that the
+    visible caption was.
+    """
     if not image_hrefs:
         return '<p class="no-image">No image attached</p>'
     figures = "\n".join(
@@ -169,7 +222,6 @@ def _images_html(image_hrefs: list[tuple[str, str, int, int]]) -> str:
             f'<img class="image-thumb" src="{escape(href)}"'
             f' width="{width}" height="{height}" loading="lazy" decoding="async"'
             f' alt="{escape(caption)}"></a>\n'
-            f"<figcaption>{escape(caption)}</figcaption>\n"
             "</figure>"
         )
         for href, caption, width, height in image_hrefs

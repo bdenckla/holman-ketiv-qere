@@ -15,6 +15,6 @@ Files copied:
   mpplus_param_access.py
   mpplus_structure.py
 
-Git commit: 2c01709acf325e5884bf1508c9e9307761d7359d
+Git commit: d1004804faac0be195840a648e4bc373ace75c2d
 
-Date copied: 2026-08-09
+Date copied: 2026-08-11
