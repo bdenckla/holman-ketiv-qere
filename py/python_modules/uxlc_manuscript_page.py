@@ -21,10 +21,10 @@ re-establish the check, decode an ordinal here and compare against the
 The Sefaria image URL follows
 ``codex-index-leningrad/lenin-wiki/py/image_urls.py``.
 
-The rest of a citation, ``Col. 2 middle``, is Holman saying which band of which
-column to look in. ``manuscript_position`` parses it so that the page can
-compare his column against the estimate in ``uxlc_atom_locations``, which is
-what it reports instead. The comparison is on the column alone: a column is a
+The rest of a citation, ``Col. 2 middle``, is Holman's own placing of the atom
+on that page. ``manuscript_position`` parses it so that the page can compare his
+column against the estimate in ``uxlc_atom_locations``, which is what it reports
+instead. The comparison is on the column alone: a column is a
 discrete fact both sources state, whereas top/middle/bottom is a loose gloss
 that an estimated line number supersedes, and checking it against equal
 nine-line thirds manufactures disagreements a line wide.

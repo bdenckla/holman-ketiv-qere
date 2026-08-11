@@ -289,11 +289,11 @@ def _manuscript_location_paragraph(
     )
     return (
         "The manuscript location on a card is not Holman's. He names the scan"
-        " file he worked from and says which band of which column to look in,"
-        " as Col. 2 middle; the file name says nothing a reader can use, so the"
+        " file he worked from and puts the atom in a band of a column of it, as"
+        " Col. 2 middle; the file name says nothing a reader can use, so the"
         " card reports an estimated column and line instead, worked out from"
-        " the page breaks the UXLC's Leningrad Codex index records and how much"
-        " text lies between them." + disagreement_sentence + " The band is left"
+        " the page breaks the UXLC's Leningrad Codex index records and the"
+        " count of atoms between them." + disagreement_sentence + " The band is left"
         " out of that comparison, top, middle and bottom being a gloss that a"
         " line number supersedes. The folio link under the line is decoded from"
         " the page ordinal Holman's citation begins with, so the folio number"

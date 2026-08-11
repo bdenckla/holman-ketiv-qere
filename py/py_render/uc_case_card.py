@@ -179,8 +179,8 @@ def _field_html(label: str, value_html: str) -> str:
 def _manuscript_location_html(image_location: str, location: AtomLocation) -> str:
     """The estimated column and line, with Holman's column where it differs.
 
-    Holman's citation names the scan file he worked from and says which band of
-    which column to look in. The file name says nothing a reader can use, so it
+    Holman's citation names the scan file he worked from and puts the atom in a
+    band of a column of it. The file name says nothing a reader can use, so it
     is not shown; the column is a discrete fact the estimate states too, so the
     two are compared, and his reading is given whenever they disagree. The band
     is not compared: top, middle and bottom are a gloss that a line number
