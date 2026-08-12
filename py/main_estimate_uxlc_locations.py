@@ -1,18 +1,39 @@
-"""Estimate where each of Holman's atoms sits in the Leningrad Codex.
+"""What the sibling UXLC-utils clone says about each of Holman's atoms.
 
 Run from repo root:
     .venv\\Scripts\\python.exe py/main_estimate_uxlc_locations.py
 
-Writes the tracked data/uxlc_atom_locations.json, which the render step reads.
-This step needs the sibling UXLC-utils clone, whose core XML and LC index the
-estimator interpolates between; the render step needs only what is tracked, so
-a fresh clone can render the page but not re-estimate it -- the same division
-the .eml ingest step already draws.
+Two facts, both wanting ~11 MB of UXLC core XML this repo does not track, both
+written out for the render step to read: where the atom sits in the Leningrad
+Codex (data/uxlc_atom_locations.json) and what the UXLC numbers it
+(data/uxlc_standard_atoms.json). The render step needs only what is tracked, so
+a fresh clone can render the page but not redo either -- the same division the
+.eml ingest step already draws.
 
 The estimator itself is MAM-basics' uxlc_misc.my_uxlc_location, vendored into
-py/uxlc_misc/ and py/uxlc_lci/ by py/main_update_vendored_files.py. It takes the
-(book, chapter, verse, atom) quad CaseRef already holds, so no word matching is
-involved and none of the CLI's ambiguity cases arise.
+py/uxlc_misc/ and py/uxlc_lci/ by py/main_update_vendored_files.py. It takes a
+(book, chapter, verse, atom) quad, so no word matching is involved and none of
+the CLI's ambiguity cases arise.
+
+What it does NOT take is the atom number CaseRef holds, and until 2026-08-12 it
+was handed exactly that. Three numberings are in play here and no two of them
+agree everywhere; ``python_modules.uxlc_standard_atoms`` sets out the evidence
+for what each is:
+
+  * **Holman's**, which CaseRef holds, counts a ketiv/qere pair as one atom and
+    does not count a mid-verse samekh.
+  * **the UXLC's**, which this module works out and which the page shows, counts
+    every child element of the verse.
+  * **the estimator's**, which is whatever my_uxlc.read_all_books builds, that
+    reader dropping the <k> and keeping every <q>. bibdist.calc walks its lists
+    and takes the atom number as an index into one, so this is the numbering the
+    estimator's input has to be in.
+
+So _atom_numbers below resolves Holman's index to the verse element it names,
+and reports that element's place in each of the other two counts. Of the 124
+cases the estimator's number differs from Holman's on one, Ezekiel 8:6, whose
+ketiv מהם has two qere atoms; before the fix the estimate for that case was
+worked out for אֲשֶׁ֥ר, the atom before the בֵּֽית־ the case is about.
 """
 
 from __future__ import annotations
@@ -24,8 +45,9 @@ import sys
 
 from mb_cmn import bib_locales as tbn
 from python_modules.uxlc_atom_locations import AtomLocation, write_locations
-from python_modules.uxlc_email_extract import CorrectionCase, read_emails
-from uxlc_misc import my_uxlc_location
+from python_modules.uxlc_email_extract import CaseRef, CorrectionCase, read_emails
+from python_modules.uxlc_standard_atoms import write_standard_atoms
+from uxlc_misc import my_uxlc, my_uxlc_location
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_EMAILS_DIR = REPO_ROOT / "emails"
@@ -42,6 +64,22 @@ NOTE = (
     " whole page across all three columns."
 )
 
+STANDARD_ATOMS_NOTE = (
+    "The UXLC's atom number for each atom Holman's emails raise, worked out"
+    " from the UXLC core XML in the sibling UXLC-utils. The UXLC counts every"
+    " child element of the verse, so a ketiv and its qere are two atoms and a"
+    " mid-verse samekh is one; Holman counts a ketiv/qere pair once and does"
+    " not count a samekh, so the key here, which is his, disagrees with the"
+    " value on the few cases where the verse has either before the atom."
+    " Written by py/main_estimate_uxlc_locations.py and read by the render"
+    " step; python_modules/uxlc_standard_atoms sets out the evidence."
+)
+
+# Every tag the UXLC core XML puts directly under <v>. Passed to my_uxlc.read so
+# that its lists hold one entry per element, which is what the UXLC's own
+# numbering counts; the reader's default handlers drop <k> and the markers.
+_COUNTED_VERSE_CHILD_TAGS = ("w", "k", "q", "x", "pe", "samekh", "reversednun")
+
 
 def main() -> None:
     sys.stdout.reconfigure(encoding="utf-8")
@@ -56,14 +94,30 @@ def main() -> None:
     _emails, cases = read_emails(args.emails_dir, args.image_dir)
 
     uxlc, pbi = my_uxlc_location.prep()
-    locations = {case.ref.key: _estimate(uxlc, pbi, case) for case in cases}
+    verse_tags = my_uxlc.read_all_books(
+        {tag: _handle_counted for tag in _COUNTED_VERSE_CHILD_TAGS}
+    )
+    numbers = {case.ref.key: _atom_numbers(verse_tags, case.ref) for case in cases}
+    locations = {
+        case.ref.key: _estimate(uxlc, pbi, case, numbers[case.ref.key][1])
+        for case in cases
+    }
     path = write_locations(args.data_dir, locations, note=NOTE)
+    standard_path = write_standard_atoms(
+        args.data_dir,
+        {ref_key: standard for ref_key, (standard, _est) in numbers.items()},
+        note=STANDARD_ATOMS_NOTE,
+    )
 
     print(
         json.dumps(
             {
                 "case_count": len(cases),
+                "renumbered_case_count": sum(
+                    1 for case in cases if numbers[case.ref.key][0] != case.ref.atom
+                ),
                 "output_path": path.as_posix(),
+                "standard_atoms_path": standard_path.as_posix(),
             },
             ensure_ascii=False,
             indent=2,
@@ -119,10 +173,10 @@ def _require_column_on_page(case: CorrectionCase, guess: dict) -> None:
         )
 
 
-def _estimate(uxlc, pbi, case: CorrectionCase) -> AtomLocation:
+def _estimate(uxlc, pbi, case: CorrectionCase, estimator_atom: int) -> AtomLocation:
     ref = case.ref
     guess = my_uxlc_location.page_and_guesses(
-        uxlc, pbi, (ref.book, ref.chapter, ref.verse, ref.atom)
+        uxlc, pbi, (ref.book, ref.chapter, ref.verse, estimator_atom)
     )
     _require_column_on_page(case, guess)
     return AtomLocation(
@@ -131,6 +185,73 @@ def _estimate(uxlc, pbi, case: CorrectionCase) -> AtomLocation:
         line=float(guess["line-guess"]),
         flat_line=float(guess["fline-guess"]),
     )
+
+
+def _handle_counted(accum: list, verse_child) -> None:
+    """Keep one entry per verse child, whatever its tag.
+
+    my_uxlc.read takes its verse-child handlers as an argument for exactly this:
+    the default set appends a word for <w> and each <q>, ignores <k> and the
+    markers, and so builds the estimator's numbering rather than the UXLC's.
+    The tag is all this needs -- the atom text is never compared here, the atom
+    being identified by Holman's index rather than matched by its letters.
+    """
+    accum.append(verse_child.tag)
+
+
+def _atom_numbers(verse_tags: dict, ref: CaseRef) -> tuple[int, int]:
+    """Holman's index resolved into the UXLC's number and the estimator's.
+
+    Walks his count -- <w> is an atom, a run of <k> and <q> is one atom, a
+    marker is nothing -- to the element his index names, then reports that
+    element's place in the UXLC's count of every child and in the estimator's
+    count of <w> and <q>.
+    """
+    tags = verse_tags[ref.book][ref.chapter - 1][ref.verse - 1]
+    covered = _holman_atoms(tags)
+    if not 1 <= ref.atom <= len(covered):
+        raise ValueError(
+            f"{ref.key} names atom {ref.atom}, but counting a ketiv/qere pair "
+            f"once the verse has {len(covered)}"
+        )
+    elements = covered[ref.atom - 1]
+    if len(elements) > 1:
+        raise ValueError(
+            f"{ref.key} names a run of {len(elements)} ketiv and qere elements, "
+            "so which of them the UXLC would number is not settled here. Decide "
+            "what the card should say before letting this case reach the page."
+        )
+    standard = elements[0]
+    if tags[standard - 1] == "k":
+        raise ValueError(
+            f"{ref.key} names a ketiv, which my_uxlc.read_all_books drops, so "
+            "the estimator has no atom to be handed. Decide what to estimate "
+            "from before letting this case reach the page."
+        )
+    estimator = sum(1 for tag in tags[:standard] if tag in ("w", "q"))
+    return standard, estimator
+
+
+def _holman_atoms(tags: list[str]) -> list[list[int]]:
+    """For each atom Holman would count, the places its elements hold.
+
+    1-based, and a list per atom rather than a number because a ketiv/qere run
+    is one atom of his covering two elements or more.
+    """
+    atoms: list[list[int]] = []
+    run: list[int] = []
+    for index, tag in enumerate(tags, start=1):
+        if tag in ("k", "q"):
+            run.append(index)
+            continue
+        if run:
+            atoms.append(run)
+            run = []
+        if tag == "w":
+            atoms.append([index])
+    if run:
+        atoms.append(run)
+    return atoms
 
 
 if __name__ == "__main__":

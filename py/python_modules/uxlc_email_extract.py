@@ -45,15 +45,19 @@ What is NOT checked is that a case's atom index names the word the case quotes.
 Measured 2026-08-12 against the UXLC core XML in the sibling UXLC-utils, 122 of
 the 124 cases agree, and the two that do not differ only by a combining grapheme
 joiner (Psalms 31:24.1 and Proverbs 30:15.1). Holman counts a ketiv/qere pair as
-one atom, so the count to compare his index against has to do the same:
+one atom, so the count his index is compared against has to do the same:
 ``uxlc_misc.my_uxlc.read_all_books`` instead drops the ``<k>`` and keeps every
 ``<q>``, which agrees with him wherever a pair is one of each and parts company
 where it is not. Ezekiel 8:6 is the one case in the 124 where it is not -- that
 verse's ketiv מהם has two qere atoms, מָ֣ה and הֵ֣ם -- and it was read as a real
-disagreement until the schemes were worked out. See
-``uxlc_change_records``'s first bullet, where the change list's own numbering,
-a third scheme again, is set out. The index is Holman's and is left as he wrote
-it.
+disagreement until the numberings were worked out.
+
+``CaseRef.atom`` is therefore Holman's and is left as he wrote it, which is what
+makes it a stable key for everything filed against a case: his attachments are
+named that way, and so are the tables in ``uxlc_change_records``,
+``uxlc_holman_forms``, ``uxlc_attachment_notes`` and ``uxlc_comments``. It is
+not the number a card shows. ``uxlc_standard_atoms`` holds that one, and sets
+out the three numberings in play and how each was established.
 """
 
 from __future__ import annotations

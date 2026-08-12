@@ -46,6 +46,10 @@ from python_modules.uxlc_holman_forms import (
     require_full_coverage as require_form_shapes,
 )
 from python_modules.uxlc_manuscript_page import manuscript_page, manuscript_position
+from python_modules.uxlc_standard_atoms import (
+    read_standard_atoms,
+    require_full_coverage as require_standard_atoms,
+)
 from uxlc_comments.all_comments import BY_REF as COMMENTS_BY_REF, comments_for_ref
 
 PAGE_TITLE = "Holman UXLC suggestions"
@@ -59,9 +63,10 @@ INDEX_PAGE = "index.html"
 INDEX_NAV_LABEL = "Index"
 THIS_NAV_LABEL = "UXLC suggestions"
 
-# The intro is these, then the three generated paragraphs
-# _manuscript_location_paragraph, _brackets_paragraph and
-# _change_items_paragraph build, then INTRO_CLOSING_PARAGRAPHS.
+# The intro is these, then the four generated paragraphs
+# _atom_numbering_paragraph, _forms_paragraph, _manuscript_location_paragraph,
+# _brackets_paragraph and _change_items_paragraph build, then
+# INTRO_CLOSING_PARAGRAPHS.
 INTRO_OPENING_PARAGRAPHS = (
     "Daniel Holman has been sending Chris Kimball and Ben Denckla suggested"
     " changes to the UXLC, a book at a time, and this page collects them. Most"
@@ -69,13 +74,14 @@ INTRO_OPENING_PARAGRAPHS = (
     " text as it stands; the rest ask the UXLC for a note on a reading Holman"
     " and the UXLC agree about.",
     "Each card is one case, and its labelled lines are Holman's, quoted from the"
-    " email as he wrote them, including his spellings of the accent names. Three"
-    " things on a card are not: the manuscript location, which is estimated here"
-    " rather than quoted; the Current Text and Suggested Text rows on the cases"
-    " whose message gives the two forms no lines of their own; and one word of"
-    " his Lev 25:20 case, which had the UXLC's note letter c sitting inside it."
-    " That letter is the note's name rather than part of the word, so it and the"
-    " invisible marks his mail client wrapped it in are dropped here.",
+    " email as he wrote them, including his spellings of the accent names. Four"
+    " things on a card are not: the atom number at its head, which is the UXLC's"
+    " and only usually his as well; the manuscript location, which is estimated"
+    " here rather than quoted; the Current Text and Suggested Text rows on the"
+    " cases whose message gives the two forms no lines of their own; and one"
+    " word of his Lev 25:20 case, which had the UXLC's note letter c sitting"
+    " inside it. That letter is the note's name rather than part of the word, so"
+    " it and the invisible marks his mail client wrapped it in are dropped here.",
 )
 
 INTRO_CLOSING_PARAGRAPHS = (
@@ -106,7 +112,9 @@ def render_uxlc_corrections_html(
 ) -> dict[str, object]:
     emails, cases = apply_bracketed_corrections(*read_emails(emails_dir, image_dir))
     locations = read_locations(data_dir)
+    standard_atoms = read_standard_atoms(data_dir)
     require_full_coverage(locations, [case.ref.key for case in cases])
+    require_standard_atoms(standard_atoms, [case.ref.key for case in cases])
     require_form_shapes(cases)
     require_known_refs([case.ref.key for case in cases])
     _require_commented_cases_exist(cases)
@@ -121,12 +129,14 @@ def render_uxlc_corrections_html(
         emails=emails,
         cases=cases,
         locations=locations,
+        standard_atoms=standard_atoms,
         rendered=rendered,
         output_html_path=output_html_path,
     )
     return _write_json(
         emails=emails,
         rendered=rendered,
+        standard_atoms=standard_atoms,
         json_output_path=json_output_path,
     )
 
@@ -200,6 +210,7 @@ def _write_page(
     emails: list[SourceEmail],
     cases: list[CorrectionCase],
     locations: dict[str, AtomLocation],
+    standard_atoms: dict[str, int],
     rendered: list[RenderedCase],
     output_html_path: Path,
 ) -> None:
@@ -210,13 +221,15 @@ def _write_page(
             case=item.case,
             source_email=email_by_key[item.case.email_key],
             location=locations[item.case.ref.key],
+            standard_atom=standard_atoms[item.case.ref.key],
             image_hrefs=item.image_hrefs,
             comment_entries=comments_for_ref(item.case.ref.key),
         )
         for item in rendered
     )
     intro = "\n".join(
-        f"<p>{escape(text)}</p>" for text in _intro_paragraphs(emails, cases, locations)
+        f"<p>{escape(text)}</p>"
+        for text in _intro_paragraphs(emails, cases, locations, standard_atoms)
     )
     css_href = escape(output_html_path.with_suffix(".css").name)
     js_src = escape(output_html_path.with_suffix(".js").name)
@@ -256,14 +269,54 @@ def _intro_paragraphs(
     emails: list[SourceEmail],
     cases: list[CorrectionCase],
     locations: dict[str, AtomLocation],
+    standard_atoms: dict[str, int],
 ) -> tuple[str, ...]:
     return (
         *INTRO_OPENING_PARAGRAPHS,
+        _atom_numbering_paragraph(cases, standard_atoms),
         _forms_paragraph(cases),
         _manuscript_location_paragraph(cases, locations),
         _brackets_paragraph(emails, cases),
         _change_items_paragraph(cases),
         *INTRO_CLOSING_PARAGRAPHS,
+    )
+
+
+def _atom_numbering_paragraph(
+    cases: list[CorrectionCase], standard_atoms: dict[str, int]
+) -> str:
+    """The intro's paragraph on the two ways of numbering a verse's atoms.
+
+    Generated because it counts the cards where the two disagree and names them.
+    Written out, that list would go quietly wrong the first time a message
+    raised a word in a verse with a ketiv/qere pair or a dividing samekh before
+    it, and a reader comparing the card against his email is exactly the reader
+    who needs it right.
+    """
+    renumbered = _chapter_verse_list(
+        [case for case in cases if standard_atoms[case.ref.key] != case.ref.atom]
+    )
+    if not renumbered:
+        disagreement_sentence = (
+            " On every case here the two counts give the same number, so nothing"
+            " on a card turns on the difference."
+        )
+    else:
+        disagreement_sentence = (
+            f" Holman's number follows the UXLC's in parentheses on the"
+            f" {_and_list(renumbered)} "
+            + ("card" if len(renumbered) == 1 else "cards")
+            + ", and nowhere else."
+        )
+    return (
+        "The atom number at the head of a card is the UXLC's, and on"
+        f" {len(renumbered)} of the {len(cases)} cases it is not the number"
+        " Holman wrote. Where a verse has a ketiv and a qere, the UXLC numbers"
+        " each of them and Holman numbers the pair once; where a samekh divides"
+        " a verse, the UXLC numbers that too and Holman does not. Everywhere"
+        " else the two counts agree. The UXLC's number is the one shown, because"
+        " it is the one that finds the word at tanach.us, whose change list and"
+        " note pages both use it." + disagreement_sentence
     )
 
 
@@ -509,6 +562,7 @@ def _write_json(
     *,
     emails: list[SourceEmail],
     rendered: list[RenderedCase],
+    standard_atoms: dict[str, int],
     json_output_path: Path,
 ) -> dict[str, object]:
     payload = {
@@ -534,7 +588,11 @@ def _write_json(
                 "book_display": book_display_name(item.case.ref.book),
                 "chapter": item.case.ref.chapter,
                 "verse": item.case.ref.verse,
+                # Holman's number, then the UXLC's, which is what the card
+                # shows. They are the same on all but a few cases; see
+                # python_modules/uxlc_standard_atoms.
                 "atom": item.case.ref.atom,
+                "standard_atom": standard_atoms[item.case.ref.key],
                 "email_key": item.case.email_key,
                 "index_in_email": item.case.index_in_email,
                 "heading": item.case.heading,

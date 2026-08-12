@@ -148,11 +148,25 @@ why the estimates are tracked rather than worked out at render time:
 .venv\Scripts\python.exe py/main_estimate_uxlc_locations.py
 ```
 
-That writes `data/uxlc_atom_locations.json`, one estimated folio, column and
-line per case. The estimator is MAM-basics'
-`uxlc_misc.my_uxlc_location`, vendored into `py/uxlc_misc/` and `py/uxlc_lci/`;
-it takes the (book, chapter, verse, atom) quad the parser already has, so no
-word matching is involved.
+That writes two files. `data/uxlc_atom_locations.json` holds one estimated
+folio, column and line per case; the estimator is MAM-basics'
+`uxlc_misc.my_uxlc_location`, vendored into `py/uxlc_misc/` and `py/uxlc_lci/`,
+and it takes a (book, chapter, verse, atom) quad, so no word matching is
+involved. `data/uxlc_standard_atoms.json` holds the UXLC's atom number per case,
+which is what a card shows.
+
+**Three numberings are in play, and no two of them agree everywhere.** Holman
+counts a ketiv/qere pair as one atom and does not count a mid-verse samekh; the
+UXLC counts every child element of the verse; `my_uxlc.read_all_books`, which
+the estimator walks, drops the `<k>` and keeps every `<q>`. So the atom number
+in `CaseRef` is neither of the other two, and `_atom_numbers` in
+`py/main_estimate_uxlc_locations.py` resolves it to the verse element it names
+and reports that element's place in each of the other counts — one for the card
+to show, one for the estimator to be handed.
+`py/python_modules/uxlc_standard_atoms.py` sets out the evidence for what the
+UXLC's numbering is, and how much weaker the samekh half of it is than the
+ketiv/qere half. Of the 124 cases, 5 get a number on the card that is not the
+one in Holman's email, and 1 changed the estimate it is worked out from.
 
 Psalms, Proverbs and Job are written two columns to a Leningrad Codex leaf and
 the rest of the manuscript three, and the estimator's flat-line arithmetic

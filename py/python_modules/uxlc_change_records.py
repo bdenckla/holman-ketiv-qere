@@ -13,39 +13,25 @@ Four things the table records that a derivation would have got wrong:
     His Lev 16:21.6 is the list's Lev 16:21.7, his Lev 25:20.4 is its Lev
     25:20.3, his Joshua 5:1 word 36 is its Josh 5:1.37, and his Ezek 8:6.12 is
     its Ezek 8:6.14. The word is the same one in each -- the same form is quoted
-    and the same correction described. Three of the four are one scheme against
-    another rather than a discrepancy: **the change list counts every element of
-    a ketiv/qere pair as an atom of its own, and Holman counts the pair once.**
-    The UXLC core XML writes such a pair as sibling ``<k>`` and ``<q>`` children
-    of the verse, so the list's number runs ahead of Holman's by one for every
-    pair earlier in the verse -- Lev 16:21 has ידו / יָדָ֗יו at its atom 5, and
-    Joshua 5:1 has עברנו / עָבְרָ֑ם at its 27.
+    and the same correction described.
 
-    Ezekiel is where the gap is two rather than one, because Ezek 8:6's ketiv
-    מהם has *two* qere atoms, מָ֣ה and הֵ֣ם. Counting the three elements once
-    puts בֵּֽית־ at 12, which is Holman's; counting them separately puts it at
-    14, which is the list's. A third count, 13, is what
-    ``uxlc_misc.my_uxlc.read_all_books`` yields, that reader dropping the
-    ``<k>`` and keeping each ``<q>``; it belongs to neither of them.
+    Three of the four are the two numberings ``uxlc_standard_atoms`` sets out
+    rather than a discrepancy: the list numbers a ketiv and its qere separately
+    and Holman numbers the pair once, so the list's number runs ahead of his by
+    one for every element of a pair earlier in the verse. Ezek 8:6 is where it
+    runs ahead by two, that verse's ketiv מהם having two qere atoms, מָ֣ה and
+    הֵ֣ם. The card shows the list's number on all three of them.
 
-    Lev 25:20 is the one of the four that ketiv/qere does not explain, that
-    verse having no such pair. There the two indexes are the two atoms of the
-    maqaf compound מַה־נֹּאכַ֤֖ל: the list's 3 is מַה־ and Holman's 4 is
-    נֹּאכַ֤֖ל, which is the atom whose mahpakh his case asks to remove. The
-    change list does this elsewhere too, quoting a maqaf compound whole and
-    citing the atom it starts at -- Gen 14:17.9, Ex 5:22.11 and 2Sam 3:30.10 are
-    the on-disk instances.
+    Lev 25:20 is the one that ketiv/qere does not explain, that verse having no
+    such pair, and the card shows Holman's 4 there. The two indexes are the two
+    atoms of the maqaf compound מַה־נֹּאכַ֤֖ל: the list's 3 is מַה־ and Holman's
+    4 is נֹּאכַ֤֖ל, the atom whose mahpakh his case asks to remove. The change
+    list does this elsewhere too, quoting a maqaf compound whole and citing the
+    atom it starts at -- Gen 14:17.9, Ex 5:22.11 and 2Sam 3:30.10 are the
+    instances in the change files on disk in the sibling UXLC-utils.
 
-    Established 2026-08-12 by scoring all 1367 records of the eighteen change
-    files in the sibling UXLC-utils' ``in/UXLC-misc`` against its ``in/UXLC-39``
-    core XML. 174 of the records cite an atom with a ``<k>`` or a ``<q>`` before
-    it, which is where the two schemes disagree; counting every element the
-    record's quoted word is the atom cited in 170 of the 174, counting the pair
-    once in 50. The probe is ``UXLC-utils/.novc/atom_scheme_final.py``, which is
-    gitignored scratch rather than something either repo runs.
-
-    The key below is Holman's, because the key is how a case in ``emails/`` is
-    named.
+    The keys below are Holman's, because a key is how a case in ``emails/`` is
+    named, and ``data/uxlc_standard_atoms.json`` is keyed the same way.
 
   * Judges 11:24.7 has two records, by two authors. 2026.04.10-7 is Ben
     Denckla's, entered four months before Holman's message, asking about the
@@ -91,7 +77,8 @@ CHANGES_PAGE_LABEL = "2026.10.19 - Changes"
 CHANGES_PAGE_DESCRIPTION = "the changes proposed for UXLC 2.6"
 
 # Keyed as uxlc_email_extract.CaseRef.key spells a reference: bk39 book id,
-# chapter:verse.atom. Leviticus is Levit and Deuteronomy is Deuter there. The
+# chapter:verse.atom, with the atom numbered as Holman numbers it rather than as
+# the card shows it. Leviticus is Levit and Deuteronomy is Deuter there. The
 # values are the change list's own ids, which is what its anchors are.
 CHANGE_RECORD_IDS_BY_REF = {
     "Exodus 7:20.19": ("2026.08.05-6",),

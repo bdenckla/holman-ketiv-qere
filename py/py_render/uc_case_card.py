@@ -105,6 +105,7 @@ def case_card_html(
     case: CorrectionCase,
     source_email: SourceEmail,
     location: AtomLocation,
+    standard_atom: int,
     image_hrefs: list[tuple[str, str, int, int]],
     comment_entries: tuple[dict[str, object], ...],
 ) -> str:
@@ -129,7 +130,7 @@ data-filter-ids="{escape(' '.join(filter_ids))}"
 >
 <div class="record-head">
 <a class="record-ref" href="#{fragment_id}">#{case_number}</a>
-<span class="record-verse">{_verse_ref_html(case)}</span>
+<span class="record-verse">{_verse_ref_html(case, standard_atom)}</span>
 <span class="category-badges">
 {badges}
 </span>
@@ -149,11 +150,20 @@ data-filter-ids="{escape(' '.join(filter_ids))}"
 </article>"""
 
 
-def _verse_ref_html(case: CorrectionCase) -> str:
+def _verse_ref_html(case: CorrectionCase, standard_atom: int) -> str:
+    """The reference at the head of the card, numbered as the UXLC numbers it.
+
+    Holman's number follows in parentheses on the few cases where his count and
+    the UXLC's disagree, and nowhere else -- on the other cases there is nothing
+    to record, the two being the same number. The intro says what the two counts
+    are; ``python_modules.uxlc_standard_atoms`` says how that was established.
+    """
     ref = case.ref
     reference = (
-        f"{book_display_name(ref.book)} {ref.chapter}:{ref.verse}, atom {ref.atom}"
+        f"{book_display_name(ref.book)} {ref.chapter}:{ref.verse}, atom {standard_atom}"
     )
+    if standard_atom != ref.atom:
+        reference += f" (Holman's {ref.atom})"
     links = "\n".join(
         external_link_html(href=link.href, label=link.label, title=link.title)
         for link in verse_links(ref.book, ref.chapter, ref.verse)
