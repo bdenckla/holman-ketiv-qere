@@ -240,13 +240,23 @@ tracked `emails/<key>.txt` and `emails/<key>.json` still hold the message as it
 arrived, and the page's intro says what was changed.
 
 The derived parts are the verse reference and atom index, the external links,
-the change-item links, the Leningrad folio (decoded from the ordinal that begins
-Holman's manuscript-image citation), and the manuscript location itself. That
-last one used to echo Holman's citation; since 2026-08-11 the card reports an
-estimated column and line from `data/uxlc_atom_locations.json` instead, gives
-his column beside it wherever the two disagree, and does not show the scan-file
-name at all. The citation is still in the tracked message body, and it is still
-what the folio link is decoded from.
+the change-item links, and the manuscript location. That last one used to echo
+Holman's citation; since 2026-08-11 the card reports an estimated column and
+line from `data/uxlc_atom_locations.json` instead, gives his column beside it
+wherever the two disagree, and does not show the scan-file name at all. Since
+2026-08-12 the folio link is that file's estimate too, with Holman's decoded
+ordinal named beside it where the two disagree, on the same footing as his
+column. The citation is still in the tracked message body.
+
+The folio was decoded from Holman's ordinal until then. What changed it:
+measured 2026-08-12, five of the 124 citations name a scan file whose own name
+says it cannot hold the case's verse, `623_Amos_9.12b-Oba_20a` for Micah 1:14
+being the plainest. The five are Jer 3:24.2, Amos 8:12.8, Obad 1:1.17, Mic
+1:14.10 and Zech 12:5.1, all in the message of 2026-08-12, four of them
+consecutive in its MINOR PROPHETS section; their cited ordinals run low by 2 to
+4 pages and the other 119 agree with the estimate exactly. To re-establish that,
+parse the verse range out of the first token of each case's manuscript citation
+in `emails/` and check it against the case's own reference.
 
 Two labels are relabelled for display, in `DISPLAY_FIELD_LABELS` in
 `py/py_render/uc_case_card.py`: Holman's "Corrected Text" is shown as "Suggested

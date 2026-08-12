@@ -25,7 +25,11 @@ from python_modules.uxlc_holman_forms import (
     SUGGESTION_LABEL,
     forms_for_case,
 )
-from python_modules.uxlc_manuscript_page import manuscript_page, manuscript_position
+from python_modules.uxlc_manuscript_page import (
+    manuscript_page,
+    manuscript_position,
+    sefaria_image_url,
+)
 
 # The label the derived "as it stands" row is given. Holman spells his own such
 # line "Current UXLC" on five cases and "Current Text" on six, and Ben asked on
@@ -259,30 +263,40 @@ def _field_html(label: str, value_html: str) -> str:
 
 
 def _manuscript_location_html(image_location: str, location: AtomLocation) -> str:
-    """The estimated column and line, with Holman's column where it differs.
+    """The estimated folio, column and line, with Holman's where they differ.
 
     Holman's citation names the scan file he worked from and puts the atom in a
     band of a column of it. The file name says nothing a reader can use, so it
-    is not shown; the column is a discrete fact the estimate states too, so the
-    two are compared, and his reading is given whenever they disagree. The band
-    is not compared: top, middle and bottom are a gloss that a line number
-    supersedes, and testing them against equal nine-line thirds would report
-    disagreements a line wide as real ones.
+    is not shown; the column and the folio his ordinal decodes to are both
+    discrete facts the estimate states too, so both are compared and his reading
+    is given whenever they disagree. The band is not compared: top, middle and
+    bottom are a gloss that a line number supersedes, and testing them against
+    equal nine-line thirds would report disagreements a line wide as real ones.
+
+    The folio was the card's own answer until 2026-08-12, when five citations
+    turned out to name a scan whose file name says outright that it cannot hold
+    the case's verse. ``uxlc_manuscript_page`` names the five and records Ben's
+    decision that the card stop echoing them.
     """
     text = f"Column {location.column}, line {location.rounded_line} or thereabouts."
-    holman = manuscript_position(image_location)
-    if holman is not None and holman.column != location.column:
-        text += f" Holman gives {holman.display}."
-    return escape(text) + _folio_link_html(image_location)
+    holman_position = manuscript_position(image_location)
+    if holman_position is not None and holman_position.column != location.column:
+        text += f" Holman gives {holman_position.display}."
+    holman_page = manuscript_page(image_location)
+    if holman_page is not None and holman_page.folio_label != location.folio:
+        text += f" Holman cites folio {holman_page.folio_label}."
+    return escape(text) + _folio_link_html(location)
 
 
-def _folio_link_html(image_location: str) -> str:
-    """The Sefaria image of the leaf, decoded from Holman's page ordinal."""
-    page = manuscript_page(image_location)
-    if page is None:
-        return ""
+def _folio_link_html(location: AtomLocation) -> str:
+    """The Sefaria image of the estimated leaf.
+
+    Every case has an estimate -- ``uxlc_atom_locations.require_full_coverage``
+    raises otherwise -- so unlike the citation this once decoded, this link is
+    on every card.
+    """
     link = external_link_html(
-        href=page.sefaria_image_url, label=f"folio {page.folio_label}"
+        href=sefaria_image_url(location.folio), label=f"folio {location.folio}"
     )
     return f'\n<span class="folio-links">{link}</span>'
 

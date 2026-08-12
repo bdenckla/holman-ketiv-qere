@@ -28,6 +28,19 @@ instead. The comparison is on the column alone: a column is a
 discrete fact both sources state, whereas top/middle/bottom is a loose gloss
 that an estimated line number supersedes, and checking it against equal
 nine-line thirds manufactures disagreements a line wide.
+
+Since 2026-08-12 the decoded folio is compared the same way rather than shown as
+the card's answer, because five of the 124 citations name a scan that cannot
+hold their own verse. Each scan-file name carries its verse range, so no
+estimator is needed to see it -- ``623_Amos_9.12b-Oba_20a`` cannot hold Micah
+1:14. The five are Jer 3:24.2, Amos 8:12.8, Obad 1:1.17, Mic 1:14.10 and Zech
+12:5.1, all in the message of 2026-08-12, and four of them run consecutively
+through its MINOR PROPHETS section; Amos 8:12.8 repeats the file name of the
+case above it verbatim. Their cited ordinals run low by 2 to 4 pages, never
+high, and the other 119 agree with the estimate exactly. Ben's decision the same
+day, on being shown the five: do not keep echoing Holman's mistakes. So the card
+links ``uxlc_atom_locations``' folio and gives Holman's beside it where the two
+disagree, as it already does for his column.
 """
 
 from __future__ import annotations
@@ -59,7 +72,18 @@ class ManuscriptPage:
 
     @property
     def sefaria_image_url(self) -> str:
-        return f"{_SEFARIA_PREFIX}BIB_LENCDX_F{self.folio_label}.jpg"
+        return sefaria_image_url(self.folio_label)
+
+
+def sefaria_image_url(folio_label: str) -> str:
+    """The Sefaria scan of one leaf, named in the DDDA form both sources use.
+
+    Takes the label rather than a ``ManuscriptPage`` because the card links the
+    estimated folio, which arrives as a bare string from
+    ``uxlc_atom_locations``, and Holman's decoded ordinal is only compared
+    against it.
+    """
+    return f"{_SEFARIA_PREFIX}BIB_LENCDX_F{folio_label}.jpg"
 
 
 @dataclass(frozen=True)
