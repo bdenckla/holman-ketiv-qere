@@ -14,9 +14,9 @@ and what a note page's address ``<book>.<c>.<v>.<position>-<code>.html`` means.
 Established 2026-08-12 against the sibling UXLC-utils clone, in two passes whose
 strength is very different and worth keeping apart:
 
-  * **The ketiv/qere half is settled.** Of the 1367 records in
-    ``in/UXLC-misc``'s eighteen change files, 174 cite an atom with a ``<k>`` or
-    a ``<q>`` before it; counting every element, the record's quoted word is the
+  * **The ketiv/qere half is settled.** Of the 1367 records in the seventeen
+    change files under ``in/UXLC-misc``, 174 cite an atom with a ``<k>`` or a
+    ``<q>`` before it; counting every element, the record's quoted word is the
     atom cited in 170 of the 174, counting the pair once in 50. The 476 note
     pages under ``in/UXLC-notes`` say the same independently: 97 of them address
     an atom with a ``<k>`` or ``<q>`` before it, and beyond that every one of
