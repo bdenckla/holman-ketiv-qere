@@ -138,6 +138,9 @@ whose filename does not name their own case: `COMPANION_IMAGE_CASES` for an
 image named after the word a case compares against rather than the case itself,
 and `IMAGES_WITH_NO_CASE` for an image of a case its message never writes up,
 which is not written out at all. Both raise on an entry no message has.
+`doc/uxlc-email-count-disagreements.md` is why the second of those two tables
+exists: it sets out, message by message, where a stated count, the cases written
+up and the images attached disagree, and what is still open with Holman.
 
 **Estimate**, when a new message arrives, after ingesting it. This step needs
 the sibling `../UXLC-utils` clone, whose core XML and Leningrad Codex page index
