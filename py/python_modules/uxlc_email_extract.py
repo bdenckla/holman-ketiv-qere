@@ -7,13 +7,25 @@ label vocabulary drifts from message to message (``Word / Verse`` in one,
 ``Current Text`` in another), so the labels are kept verbatim rather than
 normalized, and the renderer shows the email's wording.
 
+The heading drifts too. It is usually the reference, numbered or not, and in
+the Chronicles, Jeremiah, Job and Ezra messages it carries the word as well,
+parenthesised or after an em dash -- which in those messages is the only place
+the form as it stands is written, there being no ``Current UXLC`` line. In the
+Proverbs message it is a bare ordinal and the reference is in the ``Verse``
+field. The Jeremiah message additionally divides its cases by book, with
+``JEREMIAH`` and its three fellows alone on a line; see
+``_without_section_dividers``.
+
 Two steps, because this repo is public and a .eml file's headers carry the
 correspondents' addresses:
 
   ``ingest_eml_files``  reads the .eml files from a local, untracked mailbox and
     writes the tracked derivative: one address-redacted body text and one small
     metadata JSON per message, plus each attached PNG. Run it when a new message
-    arrives; it is the only step that needs the mailbox.
+    arrives; it is the only step that needs the mailbox. Where a message has no
+    plain-text part -- true of every message from Psalms Part I onwards -- that
+    body text is read out of the HTML by ``_text_from_html``, there being no
+    original plain text to prefer.
 
   ``read_emails``  reads that derivative. This is what the report is generated
     from, so a fresh clone can regenerate the page without the .eml files.
@@ -28,6 +40,13 @@ disagrees with its first field, an attachment that cannot be assigned to a
 case, and a duplicate reference all raise rather than dropping content. What is
 assumed rather than checked is that a field value is one line, and that the
 prose after a message's last case is its sign-off.
+
+What is NOT checked is that a case's atom index names the word the case quotes.
+Measured 2026-08-12 against the UXLC core XML in the sibling UXLC-utils, 121 of
+the 124 cases agree; of the three that do not, two differ only by a combining
+grapheme joiner (Psalms 31:24.1 and Proverbs 30:15.1) and one is a real
+disagreement (Ezekiel 8:6.12, whose word בֵּֽית־ the UXLC numbers 13). The index
+is Holman's and is left as he wrote it.
 """
 
 from __future__ import annotations
@@ -38,11 +57,17 @@ import email
 import email.message
 import email.policy
 import email.utils
+import html
 import json
 from pathlib import Path
 import re
 
 from mb_cmn import bib_locales as tbn
+from python_modules.uxlc_attachment_notes import (
+    COMPANION_IMAGE_CASES,
+    IMAGES_WITH_NO_CASE,
+    require_known_attachments,
+)
 
 # The first labelled line of every case carries one of these labels. A heading
 # is recognized by being the prose line directly above such a label.
@@ -51,13 +76,24 @@ FIRST_FIELD_LABELS = (
     "Word/Verse",
     "Current UXLC",
     "Current Text",
+    "Verse",
+    # From the Chronicles, Jeremiah, Job and Ezra messages of 2026-08-09 to
+    # 2026-08-12 onwards, whose cases open on the manuscript citation: the word
+    # itself is in the heading there rather than on a line of its own.
+    "Image Location",
+    "Image",
 )
 OTHER_FIELD_LABELS = (
     "Manuscript Image",
-    "Image Location",
     "UXLC Image Location",
+    "Location",
+    # The Psalms messages' spelling. R and L are the recto and verso of the
+    # leaf, not part of a column number.
+    "Location R/L",
     "Suggested Correction",
+    "Correction",
     "Corrected Text",
+    "Target Text",
     "Critical Note",
     "Note",
 )
@@ -65,8 +101,21 @@ KNOWN_FIELD_LABELS = frozenset(FIRST_FIELD_LABELS + OTHER_FIELD_LABELS)
 
 # Labels whose value names the Leningrad Codex image and column Holman worked
 # from, e.g. "069_Exo_7.9b-8.3a / Col. 2 middle".
+#
+# The Psalms and Proverbs messages split that citation across two lines, the
+# scan file under "Image" and the column under "Location" or "Location R/L",
+# where every other message puts both on one. ``image_location`` joins whichever
+# of these a case has, so the two halves reach the folio and column readers as
+# the single string they are everywhere else.
 IMAGE_LOCATION_LABELS = frozenset(
-    ("Manuscript Image", "Image Location", "UXLC Image Location")
+    (
+        "Manuscript Image",
+        "Image Location",
+        "UXLC Image Location",
+        "Image",
+        "Location",
+        "Location R/L",
+    )
 )
 
 ADDRESS_REDACTION = "[address removed]"
@@ -79,10 +128,21 @@ _HEADING_RE = re.compile(
     r"^(?:\d+\.\s*)?"
     r"(?P<book>.+?)\s+(?P<chapter>\d+):(?P<verse>\d+)"
     r"(?:\.(?P<atom>\d+))?"
-    r"(?:\s*\(Word\s+(?P<atom_paren>\d+)\))?$"
+    r"(?:\s*\(Word\s+(?P<atom_paren>\d+)\))?"
+    # The Chronicles and Jeremiah messages put the word in parentheses after
+    # the reference, the Job and Ezra ones after an em dash. It is the only
+    # statement of the form as it stands in those messages, which have no
+    # Current UXLC line, so the heading is what carries it onto the card.
+    r"(?P<word>\s*(?:\([^)]*\)|\N{EM DASH}\s*\S.*|\N{EN DASH}\s*\S.*))?$"
 )
+# The Proverbs message numbers its cases and states the reference nowhere but
+# the Verse field, so its headings are a bare ordinal.
+_ORDINAL_HEADING_RE = re.compile(r"^\d+\.?$")
+# "Ex 7:20.19 UXLC (word)" in the earlier messages, a bare "Prov 8:13.1" in the
+# Proverbs one, so the UXLC that follows the reference is optional.
 _FIRST_FIELD_REF_RE = re.compile(
-    r"^(?P<book>.+?)\s+(?P<chapter>\d+):(?P<verse>\d+)\.(?P<atom>\d+)\s+UXLC\b"
+    r"^(?P<book>.+?)\s+(?P<chapter>\d+):(?P<verse>\d+)\.(?P<atom>\d+)"
+    r"(?:\s+UXLC\b|\s*$)"
 )
 # Holman names an attachment after the case it belongs to, with any remainder
 # serving as its caption: "Josh 20.4.12 Daat Miqra.png".
@@ -124,6 +184,20 @@ _EMBEDDED_NOTE_LETTER_RE = re.compile(
 _BIDI_CONTROL_RE = re.compile(
     f"[{_DIRECTIONAL_RUN_OPENERS}{_DIRECTIONAL_RUN_CLOSERS}{_DIRECTION_MARKS}]"
 )
+# A book divider in the Jeremiah message: capitals and spaces, alone on a line.
+_SECTION_DIVIDER_RE = re.compile(r"^[A-Z][A-Z ]*$")
+# The one divider that names a section of the canon rather than a single book.
+_SECTION_DIVIDER_NAMES = frozenset(("MINOR PROPHETS",))
+# Reading an HTML-only body as text. Every tag Holman's mail client emits that
+# ends a line of what he typed, then everything else, which is font declarations.
+_SCRIPT_OR_STYLE_RE = re.compile(
+    r"(?s)<\s*(script|style)\b.*?</\s*\1\s*>", re.IGNORECASE
+)
+_LINE_ENDING_TAG_RE = re.compile(
+    r"</\s*(?:div|p|tr|li|h[1-6]|table|blockquote)\s*>|<\s*br\s*/?\s*>", re.IGNORECASE
+)
+_ANY_TAG_RE = re.compile(r"<[^>]+>")
+_BLANK_RUN_RE = re.compile(r"\n{3,}")
 _NON_SLUG_RE = re.compile(r"[^a-z0-9]+")
 _NORMALIZED_BOOK_TEXT_RE = re.compile(r"[^a-z0-9]")
 _BK39ID_BY_NORMALIZED = {
@@ -195,10 +269,17 @@ class CorrectionCase:
 
     @property
     def image_location(self) -> str | None:
-        for label, value in self.fields:
-            if label in IMAGE_LOCATION_LABELS:
-                return value
-        return None
+        """Holman's manuscript citation, rejoined where his message split it.
+
+        The Psalms and Proverbs messages put the scan file and the column on
+        separate lines; everywhere else they are one line. Joining in the order
+        the message states them puts the scan file first either way, which is
+        what ``manuscript_page`` anchors on.
+        """
+        parts = [
+            value for label, value in self.fields if label in IMAGE_LOCATION_LABELS
+        ]
+        return " ".join(part for part in parts if part) or None
 
 
 @dataclass(frozen=True)
@@ -252,6 +333,7 @@ def ingest_eml_files(
 
     written_keys: dict[str, str] = {}
     written_images: dict[str, str] = {}
+    all_attachment_names: list[str] = []
     body_count = 0
     image_count = 0
     for path in paths:
@@ -279,6 +361,11 @@ def ingest_eml_files(
 
         attachments = []
         for source_filename, data in _png_attachments(message, path):
+            all_attachment_names.append(source_filename)
+            if source_filename in IMAGES_WITH_NO_CASE:
+                # Declared as belonging to no case in its message, so it is not
+                # written out and nothing later has to decide what to do with it.
+                continue
             file_name = f"{_NON_SLUG_RE.sub('_', Path(source_filename).stem.lower()).strip('_')}.png"
             owner = written_images.get(file_name)
             if owner is not None and owner != source_filename:
@@ -305,6 +392,8 @@ def ingest_eml_files(
             encoding="utf-8",
             newline="\n",
         )
+
+    require_known_attachments(all_attachment_names)
 
     orphans = sorted(
         path.name for path in image_dir.glob("*.png") if path.name not in written_images
@@ -343,26 +432,70 @@ def _email_key(path: Path) -> str:
 
 
 def _plain_text_body(message: email.message.EmailMessage, path: Path) -> str:
-    """The message's one text/plain part.
+    """The message's one text/plain part, or its one text/html part read as text.
 
-    Two would mean a forward carrying the original as a real message/rfc822
-    attachment rather than as the inline quoted text the Samuel message uses,
-    and taking the first would silently drop the other. That wants deciding
-    rather than guessing, so it raises.
+    Two of either would mean a forward carrying the original as a real
+    message/rfc822 attachment rather than as the inline quoted text the Samuel
+    message uses, and taking the first would silently drop the other. That wants
+    deciding rather than guessing, so it raises.
+
+    Holman's messages through the Samuel one of 2026-08-08 are
+    multipart/alternative and carry his own plain text beside the HTML; the
+    seven from Psalms Part I onwards are multipart/mixed with no plain-text
+    part at all. For those there is no original to prefer, so the body is read
+    out of the HTML by ``_text_from_html`` and that reading is what the tracked
+    derivative holds.
     """
-    bodies = [
-        part.get_content()
-        for part in message.walk()
-        if part.get_content_type() == "text/plain"
-    ]
-    if not bodies:
-        raise ValueError(f"{path.name}: no text/plain part")
+    bodies = _parts_of_type(message, "text/plain")
     if len(bodies) > 1:
         raise ValueError(
             f"{path.name}: {len(bodies)} text/plain parts; decide which is the "
             "message body before ingesting it"
         )
-    return bodies[0]
+    if bodies:
+        return bodies[0]
+
+    html_bodies = _parts_of_type(message, "text/html")
+    if not html_bodies:
+        raise ValueError(f"{path.name}: no text/plain part and no text/html part")
+    if len(html_bodies) > 1:
+        raise ValueError(
+            f"{path.name}: no text/plain part and {len(html_bodies)} text/html "
+            "parts; decide which is the message body before ingesting it"
+        )
+    return _text_from_html(html_bodies[0])
+
+
+def _parts_of_type(message: email.message.EmailMessage, content_type: str) -> list[str]:
+    """Every non-attachment part of one content type, decoded."""
+    return [
+        part.get_content()
+        for part in message.walk()
+        if part.get_content_type() == content_type and part.get_filename() is None
+    ]
+
+
+def _text_from_html(source: str) -> str:
+    """An HTML-only body read as the line-based text the case parser expects.
+
+    Holman's HTML is one ``<div>`` or ``<br>`` per line of what he typed, so
+    ending a line at each of those recovers his layout: a case's heading and its
+    ``Label: value`` lines come back one to a line, which is the whole of what
+    the parser needs. Nothing else in the markup carries meaning -- the tags are
+    his mail client's per-span font declarations.
+
+    A no-break space becomes an ordinary one, because he uses it for the blank
+    lines between cases and a line holding just ``&nbsp;`` should read as blank.
+    Runs of blank lines collapse to one, so the tracked derivative looks like
+    the plain-text bodies the earlier messages supplied.
+    """
+    text = _SCRIPT_OR_STYLE_RE.sub("", source)
+    text = _LINE_ENDING_TAG_RE.sub("\n", text)
+    text = _ANY_TAG_RE.sub("", text)
+    text = html.unescape(text)
+    text = text.replace("\N{NO-BREAK SPACE}", " ")
+    lines = [line.strip() for line in text.split("\n")]
+    return _BLANK_RUN_RE.sub("\n\n", "\n".join(lines)).strip() + "\n"
 
 
 def _png_attachments(
@@ -481,6 +614,7 @@ def _split_body_into_cases(
     lines = [
         _without_embedded_note_letter(line.rstrip(), path) for line in body.splitlines()
     ]
+    lines = _without_section_dividers(lines, path)
     starts = _case_start_indexes(lines)
     if not starts:
         raise ValueError(f"{path.name}: no cases found")
@@ -502,6 +636,41 @@ def _split_body_into_cases(
             )
         closing = trailing
     return preamble, cases, closing
+
+
+def _without_section_dividers(lines: list[str], path: Path) -> list[str]:
+    """Drop the all-capitals book dividers, having checked each names a book.
+
+    The Jeremiah message of 2026-08-12 groups its 24 cases under ``JEREMIAH``,
+    ``EZEKIEL``, ``MINOR PROPHETS`` and ``DANIEL``, each alone on a line between
+    two cases. They are dropped rather than shown because each one repeats the
+    book of every case beneath it, which the card already states and the page
+    already filters on; they are dropped here, before the case scan, because a
+    line between two cases would otherwise be read as prose after the earlier
+    one and raise.
+
+    Each divider is checked against ``_bk39id`` first, so a capitalized line
+    that is not a book name reaches the ordinary parse and raises there rather
+    than being swallowed. ``MINOR PROPHETS`` names the section rather than one
+    book and is the reason for the declared set beside it.
+    """
+    kept = []
+    for line in lines:
+        stripped = line.strip()
+        if _SECTION_DIVIDER_RE.match(stripped) is None:
+            kept.append(line)
+            continue
+        if stripped in _SECTION_DIVIDER_NAMES:
+            continue
+        try:
+            _bk39id(stripped, path)
+        except ValueError as exc:
+            raise ValueError(
+                f"{path.name}: {stripped!r} stands alone in capitals like the "
+                "book dividers of the Jeremiah message, but names no book. Add "
+                "it to _SECTION_DIVIDER_NAMES, or say what it is."
+            ) from exc
+    return kept
 
 
 def _without_embedded_note_letter(line: str, path: Path) -> str:
@@ -631,6 +800,25 @@ def _build_case(
     fields: tuple[tuple[str, str], ...],
     path: Path,
 ) -> CorrectionCase:
+    field_ref = _ref_from_first_field(fields[0][1], path)
+
+    if _ORDINAL_HEADING_RE.match(heading) is not None:
+        # A bare ordinal names no verse, so the first field has to.
+        if field_ref is None:
+            raise ValueError(
+                f"{path.name}: case heading {heading!r} is a bare ordinal and "
+                f"its {fields[0][0]} field {fields[0][1]!r} states no "
+                "reference, so nothing says which atom this case is about"
+            )
+        return CorrectionCase(
+            email_key=email_key,
+            index_in_email=index_in_email,
+            heading=heading,
+            ref=field_ref,
+            fields=fields,
+            images=(),
+        )
+
     match = _HEADING_RE.match(heading)
     if match is None:
         raise ValueError(f"{path.name}: unparsable case heading {heading!r}")
@@ -639,7 +827,6 @@ def _build_case(
     verse = int(match.group("verse"))
     atom_text = match.group("atom") or match.group("atom_paren")
 
-    field_ref = _ref_from_first_field(fields[0][1], path)
     if field_ref is not None:
         if (field_ref.book, field_ref.chapter, field_ref.verse) != (
             book,
@@ -727,6 +914,23 @@ def _assign_images(
     unreferenced: list[CaseImage] = []
     for source_filename, file_name in attachments:
         stem = Path(source_filename).stem
+        declared = COMPANION_IMAGE_CASES.get(source_filename)
+        if declared is not None:
+            if declared not in by_ref:
+                raise ValueError(
+                    f"{path.name}: COMPANION_IMAGE_CASES assigns "
+                    f"{source_filename!r} to {declared}, which is not a case in "
+                    "this message"
+                )
+            by_ref[declared].append(
+                CaseImage(
+                    source_filename=source_filename,
+                    caption=stem.strip(),
+                    file_name=file_name,
+                    names_case_only=False,
+                )
+            )
+            continue
         match = _ATTACHMENT_REF_RE.match(stem)
         if match is None:
             unreferenced.append(

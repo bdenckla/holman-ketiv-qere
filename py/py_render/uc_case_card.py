@@ -37,9 +37,15 @@ DERIVED_CURRENT_LABEL = "Current Text"
 # that way. These two are relabelled for display only: the page says
 # "suggestion" where it has the choice, and "Corrected Text" and "Suggested
 # Correction" are the two labels where it has one.
+# The messages from Chronicles onwards spell the same two lines "Target Text"
+# and "Correction", so they take the same two display labels: the page says
+# "suggestion" wherever it has the choice, and a shorter spelling of Holman's
+# does not change which line it is.
 DISPLAY_FIELD_LABELS = {
     "Corrected Text": "Suggested Text",
+    "Target Text": "Suggested Text",
     "Suggested Correction": "Suggestion",
+    "Correction": "Suggestion",
 }
 
 # Holman spells the image-location label three ways, and the value under it is
@@ -61,8 +67,10 @@ MANUSCRIPT_LOCATION_LABEL = "Manuscript location"
 _FIELD_ORDER = (
     *FIRST_FIELD_LABELS,
     "Corrected Text",
+    "Target Text",
     *sorted(IMAGE_LOCATION_LABELS),
     "Suggested Correction",
+    "Correction",
     "Critical Note",
     "Note",
 )
@@ -169,22 +177,37 @@ def _change_record_links_html(case: CorrectionCase) -> str:
 
 
 def _fields_html(case: CorrectionCase, location: AtomLocation) -> str:
+    """One row per field, with the manuscript citation always a single row.
+
+    The Psalms and Proverbs messages state that citation on two lines, the scan
+    file under "Image" and the column under "Location" or "Location R/L". Both
+    are image-location fields and the row is the same row, so the first of them
+    carries it -- built from ``case.image_location``, which is the two rejoined
+    -- and the rest are dropped rather than repeating it.
+    """
     forms = forms_for_case(case)
     ordered = sorted(
         _displayed_fields(case, forms), key=lambda field: _FIELD_RANK[field[0]]
     )
-    return "\n".join(
-        (
-            _field_html(
-                MANUSCRIPT_LOCATION_LABEL, _manuscript_location_html(value, location)
+    image_location = case.image_location
+    rows = []
+    location_shown = False
+    for label, value in ordered:
+        if label in IMAGE_LOCATION_LABELS:
+            if location_shown:
+                continue
+            location_shown = True
+            rows.append(
+                _field_html(
+                    MANUSCRIPT_LOCATION_LABEL,
+                    _manuscript_location_html(image_location or value, location),
+                )
             )
-            if label in IMAGE_LOCATION_LABELS
-            else _field_html(
-                DISPLAY_FIELD_LABELS.get(label, label), inline_text_html(value)
-            )
+            continue
+        rows.append(
+            _field_html(DISPLAY_FIELD_LABELS.get(label, label), inline_text_html(value))
         )
-        for label, value in ordered
-    )
+    return "\n".join(rows)
 
 
 def _displayed_fields(

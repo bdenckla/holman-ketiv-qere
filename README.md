@@ -126,6 +126,19 @@ with every email address replaced by `[address removed]`) and
 `emails/<key>.json` (subject, sender name, date, attachment list) — plus each
 attached PNG into `gh-pages/uxlc_img/`.
 
+Holman's messages through the Samuel one of 2026-08-08 carry his own plain text
+beside the HTML, and `emails/<key>.txt` is that text verbatim. The seven from
+Psalms Part I onwards have no plain-text part at all, so for those the tracked
+body is `uxlc_email_extract._text_from_html`'s reading of the HTML: one line per
+`<div>` or `<br>`, which is one line per line he typed, with the font markup
+dropped.
+
+Two tables in `py/python_modules/uxlc_attachment_notes.py` settle attachments
+whose filename does not name their own case: `COMPANION_IMAGE_CASES` for an
+image named after the word a case compares against rather than the case itself,
+and `IMAGES_WITH_NO_CASE` for an image of a case its message never writes up,
+which is not written out at all. Both raise on an entry no message has.
+
 **Estimate**, when a new message arrives, after ingesting it. This step needs
 the sibling `../UXLC-utils` clone, whose core XML and Leningrad Codex page index
 it interpolates between; a fresh clone of this repo does not have it, which is
@@ -139,9 +152,23 @@ That writes `data/uxlc_atom_locations.json`, one estimated folio, column and
 line per case. The estimator is MAM-basics'
 `uxlc_misc.my_uxlc_location`, vendored into `py/uxlc_misc/` and `py/uxlc_lci/`;
 it takes the (book, chapter, verse, atom) quad the parser already has, so no
-word matching is involved. It refuses a case in Psalms, Proverbs or Job, whose
-Leningrad Codex pages have two columns rather than the three its column
-arithmetic assumes.
+word matching is involved.
+
+Psalms, Proverbs and Job are written two columns to a Leningrad Codex leaf and
+the rest of the manuscript three, and the estimator's flat-line arithmetic
+already knows this — `my_uxlc_location._page_column_count` returns 2 for the
+Sifrei Emet, so one of their pages is 54 flat lines rather than 81. What assumes
+three columns is only the inverse, `page_and_guesses` cutting a flat line at
+fixed 27-line boundaries; because both directions use the same 27 lines per
+column, that cut is right for a two-column leaf too, so long as the flat line
+stays on the leaf. `_require_column_on_page` checks exactly that, and replaced a
+guard that refused every Sifrei Emet case outright. Measured 2026-08-12, the
+largest flat line among the 63 Sifrei Emet cases is 54.8 (Job 34:20.4), so none
+of them reaches a third column; and the estimated column agrees with Holman's
+own in 117 of the 124 cases, the seven that differ being split between prose
+books and the Sifrei Emet. To re-establish both figures, compare the `column`
+and `flat_line` in `data/uxlc_atom_locations.json` against the `Col. N` in each
+case's manuscript citation in `emails/`.
 
 **Render**, which needs only what is tracked, so a fresh clone can do it:
 

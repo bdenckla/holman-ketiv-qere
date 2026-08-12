@@ -7,26 +7,44 @@ sequence number within that date -- ``#2026.08.05-6`` -- so nothing in an anchor
 says which verse the record is about. The mapping from a case to its records is
 therefore written out here rather than derived.
 
-Three things the table records that a derivation would have got wrong:
+Four things the table records that a derivation would have got wrong:
 
-  * The change list numbers the atom differently from Holman in three cases.
+  * The change list numbers the atom differently from Holman in four cases.
     His Lev 16:21.6 is the list's Lev 16:21.7, his Lev 25:20.4 is its Lev
-    25:20.3, and his Joshua 5:1 word 36 is its Josh 5:1.37. The word is the same
-    one in each -- the same reading is quoted and the same correction described.
+    25:20.3, his Joshua 5:1 word 36 is its Josh 5:1.37, and his Ezek 8:6.12 is
+    its Ezek 8:6.14. The word is the same one in each -- the same reading is
+    quoted and the same correction described. Ezekiel is the odd one: checked
+    2026-08-12 against the UXLC core XML in the sibling UXLC-utils, the word
+    both of them mean, בֵּֽית־, is atom 13 of that verse, so Holman's index and
+    the list's fall either side of it rather than one matching. The key below is
+    Holman's, because the key is how a case in ``emails/`` is named.
 
-  * One case has two records, because the list splits it. Holman's Joshua 20:4
-    case asks for the merkha and the meteg of זִקְנֵי־הָעִיר to change places,
-    and the list enters that as one record per word, 2026.08.05-15 and -16.
+  * Judges 11:24.7 has two records, by two authors. 2026.04.10-7 is Ben
+    Denckla's, entered four months before Holman's message, asking about the
+    same indistinct mark under the same tav. 2026.08.05-16 is Holman's own, and
+    its note says outright that it "follows on Ben Denckla's change of
+    2026.04.10 - 7". Both are linked because both are the change list's records
+    for that word, which is what a reader of the card wants.
 
-  * The Judges record is not Holman's. 2026.04.10-7 is on the same word as his
-    Judges 11:24 case and asks the same question about the same indistinct mark,
-    but it was entered four months before his message and Ben Denckla is its
-    author. It is linked because it is the change list's record for that word,
-    which is what a reader of the card wants; it is not the disposition of
-    Holman's message.
+  * Joshua 20:4 has one record, not two. Holman's case asks for the merkha and
+    the meteg of זִקְנֵי־הָעִיר to change places, and the list entered only the
+    first half, 2026.08.05-15 on זִקְנֵי־, marked "NoAction". Until 2026-08-12
+    this module also claimed 2026.08.05-16 for that case, on the reading that
+    the list had split it into one record per word; that id is Judges 11:24.7's,
+    as the paragraph above says.
 
-The six Samuel cases have no record in this list. That is what the list holds,
-not a judgement about them.
+  * Two of the Jeremiah records predate Holman's Jeremiah message and one of
+    them is not his: 2026.04.10-8 on Jer 10:3.11 is Holman's own, and
+    2026.04.10-9 on Jer 46:4.6 is Ben Denckla's. Both are the change list's
+    record for the word the case is about.
+
+The six Samuel cases have no record in this list, nor do the Psalms, Proverbs,
+Chronicles, Ezra, Nehemiah, Esther and Minor Prophets cases, nor Job 10:6.4 and
+Job 32:6.6. That is what the list holds, not a judgement about them.
+
+Two of the list's own records match no case here: 2026.08.05-1 and -2, on Gen
+26:7.21 and Gen 40:17.2, are Holman's but belong to a Genesis message this repo
+does not have.
 
 The page is versioned by date, so a later one has a different URL. When it
 appears, update ``CHANGES_PAGE_URL`` and re-read the ids: a record already
@@ -63,11 +81,25 @@ CHANGE_RECORD_IDS_BY_REF = {
     "Joshua 5:1.36": ("2026.08.05-12",),
     "Joshua 9:23.10": ("2026.08.05-13",),
     "Joshua 19:8.8": ("2026.08.05-14",),
-    # Josh 20:4.12 is the merkha under the nun of זִקְנֵי־ and Josh 20:4.13 the
-    # meteg under the ayin of הָעִיר, which is Holman's one case in two records.
-    "Joshua 20:4.12": ("2026.08.05-15", "2026.08.05-16"),
-    # Ben Denckla's, and four months older than Holman's message. See above.
-    "Judges 11:24.7": ("2026.04.10-7",),
+    # Only the merkha under the nun of זִקְנֵי־ was entered, not the meteg under
+    # the ayin of הָעִיר that Holman's case asks to exchange it with.
+    "Joshua 20:4.12": ("2026.08.05-15",),
+    # Ben Denckla's, then Holman's own following on from it. See above.
+    "Judges 11:24.7": ("2026.04.10-7", "2026.08.05-16"),
+    # Holman's own, entered four months before his Jeremiah message.
+    "Jeremiah 10:3.11": ("2026.04.10-8",),
+    # Ben Denckla's, on the word Holman's Jer 46:4 case is about.
+    "Jeremiah 46:4.6": ("2026.04.10-9",),
+    # The list files this one as Ezek 8:6.14, and the UXLC numbers the word 13.
+    "Ezekiel 8:6.12": ("2026.07.24-1",),
+    "Job 11:6.3": ("2026.08.05-27",),
+    "Job 15:35.3": ("2026.08.05-23",),
+    "Job 17:3.5": ("2026.08.05-28",),
+    "Job 29:25.1": ("2026.08.05-24",),
+    "Job 30:1.2": ("2026.08.05-29",),
+    "Job 32:12.1": ("2026.08.05-30",),
+    "Job 34:20.4": ("2026.08.05-25",),
+    "Job 39:28.4": ("2026.08.05-26",),
 }
 
 

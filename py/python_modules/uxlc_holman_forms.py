@@ -57,7 +57,11 @@ FORM_SHAPE_BY_REF = {
 }
 
 SUGGESTION_LABEL = "Suggested Correction"
-CORRECTED_TEXT_LABEL = "Corrected Text"
+# Holman's line stating the form he proposes. His Chronicles message of
+# 2026-08-09 calls it "Target Text" and every other message "Corrected Text";
+# either way the case states the form itself, so there is nothing to read out of
+# its prose and the case does not belong in FORM_SHAPE_BY_REF.
+SUGGESTED_TEXT_LABELS = frozenset(("Corrected Text", "Target Text"))
 
 # Any parenthesised run; whether it holds Hebrew is decided afterwards, against
 # the codepoint bounds rather than a character class written out in the source.
@@ -124,16 +128,19 @@ def forms_for_case(case: CorrectionCase) -> HolmanForms | None:
 
 
 def require_full_coverage(cases: list[CorrectionCase]) -> None:
-    """Raise unless the table names exactly the cases with no Corrected Text line."""
+    """Raise unless the table names exactly the cases with no suggested-text line."""
+    labels = " or ".join(sorted(SUGGESTED_TEXT_LABELS))
     without_corrected = {
         case.ref.key
         for case in cases
-        if CORRECTED_TEXT_LABEL not in [label for label, _value in case.fields]
+        if not SUGGESTED_TEXT_LABELS.intersection(
+            label for label, _value in case.fields
+        )
     }
     missing = sorted(without_corrected - set(FORM_SHAPE_BY_REF))
     if missing:
         raise ValueError(
-            f"{missing} state no {CORRECTED_TEXT_LABEL} line and are not in "
+            f"{missing} state no {labels} line and are not in "
             "python_modules/uxlc_holman_forms.FORM_SHAPE_BY_REF, so the card "
             "would show no form at all. Add each with the shape its message has."
         )
@@ -141,7 +148,7 @@ def require_full_coverage(cases: list[CorrectionCase]) -> None:
     if unwanted:
         raise ValueError(
             f"FORM_SHAPE_BY_REF names {unwanted}, which state a "
-            f"{CORRECTED_TEXT_LABEL} line of their own; drop them from the table "
+            f"{labels} line of their own; drop them from the table "
             "rather than reading their forms out of prose twice."
         )
     unmatched = sorted(set(FORM_SHAPE_BY_REF) - {case.ref.key for case in cases})
