@@ -42,11 +42,18 @@ assumed rather than checked is that a field value is one line, and that the
 prose after a message's last case is its sign-off.
 
 What is NOT checked is that a case's atom index names the word the case quotes.
-Measured 2026-08-12 against the UXLC core XML in the sibling UXLC-utils, 121 of
-the 124 cases agree; of the three that do not, two differ only by a combining
-grapheme joiner (Psalms 31:24.1 and Proverbs 30:15.1) and one is a real
-disagreement (Ezekiel 8:6.12, whose word בֵּֽית־ the UXLC numbers 13). The index
-is Holman's and is left as he wrote it.
+Measured 2026-08-12 against the UXLC core XML in the sibling UXLC-utils, 122 of
+the 124 cases agree, and the two that do not differ only by a combining grapheme
+joiner (Psalms 31:24.1 and Proverbs 30:15.1). Holman counts a ketiv/qere pair as
+one atom, so the count to compare his index against has to do the same:
+``uxlc_misc.my_uxlc.read_all_books`` instead drops the ``<k>`` and keeps every
+``<q>``, which agrees with him wherever a pair is one of each and parts company
+where it is not. Ezekiel 8:6 is the one case in the 124 where it is not -- that
+verse's ketiv מהם has two qere atoms, מָ֣ה and הֵ֣ם -- and it was read as a real
+disagreement until the schemes were worked out. See
+``uxlc_change_records``'s first bullet, where the change list's own numbering,
+a third scheme again, is set out. The index is Holman's and is left as he wrote
+it.
 """
 
 from __future__ import annotations
