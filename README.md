@@ -251,15 +251,13 @@ wherever the two disagree, and does not show the scan-file name at all. Since
 ordinal named beside it where the two disagree, on the same footing as his
 column. The citation is still in the tracked message body.
 
-The folio was decoded from Holman's ordinal until then. What changed it:
-measured 2026-08-12, five of the 124 citations name a scan file whose own name
-says it cannot hold the case's verse, `623_Amos_9.12b-Oba_20a` for Micah 1:14
-being the plainest. The five are Jer 3:24.2, Amos 8:12.8, Obad 1:1.17, Mic
-1:14.10 and Zech 12:5.1, all in the message of 2026-08-12, four of them
-consecutive in its MINOR PROPHETS section; their cited ordinals run low by 2 to
-4 pages and the other 119 agree with the estimate exactly. To re-establish that,
-parse the verse range out of the first token of each case's manuscript citation
-in `emails/` and check it against the case's own reference.
+The folio was decoded from Holman's ordinal until then, and
+`doc/holman-manuscript-citations.md` is why it no longer is: five of the 124
+citations name a scan file whose own name says it cannot hold the case's verse,
+`623_Amos_9.12b-Oba_20a` for Micah 1:14 being the plainest. That document names
+the five, shows that they are the complete set, says which two of them the UXLC's
+change list already holds a record for and with what folio, and gives the
+commands to re-establish all of it.
 
 Two labels are relabelled for display, in `DISPLAY_FIELD_LABELS` in
 `py/py_render/uc_case_card.py`: Holman's "Corrected Text" is shown as "Suggested
