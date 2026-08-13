@@ -10,6 +10,6 @@ Files copied:
   uxlc_lci_rec_flatten.py
   uxlc_lci_verlen.py
 
-Git commit: d1004804faac0be195840a648e4bc373ace75c2d
+Git commit: 3edbc5b8d5f46ffbedfaeebb378f8976919d223f
 
-Date copied: 2026-08-11
+Date copied: 2026-08-12

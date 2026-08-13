@@ -5,6 +5,43 @@ import xml.etree.ElementTree
 import mb_cmn.bib_locales as tbn
 import uxlc_paths
 
+UXLC_HOST = "tanach.us"
+"""The host UXLC is published on, and the host every rendered-page URL names.
+
+This is NOT where the downloads come from: see UXLC_DOWNLOAD_HOST below.  One constant
+served both jobs until 2026-08-12, for the good reason that the two were the same
+string; a URL on a rendered page has always been meant to name the published site,
+whatever host a run happened to fetch from.
+"""
+
+UXLC_DOWNLOAD_HOST = "hcanat.us"
+"""The host the two downloaders fetch from by default; ``--host`` overrides it.
+
+Not tanach.us, as of 2026-08-12.  tanach.us' robots.txt has disallowed every path for
+every user agent since 2026-08-02, and mb_cmn.polite_download obeys it, so a download
+from tanach.us raises RobotsDisallowedError before making a request.  Chris Kimball
+opened hcanat.us instead of reopening tanach.us -- the same tree on the same address,
+under a robots.txt of its own, cut at 15:53 GMT that day to a single MJ12bot stanza
+that permits every URL either downloader fetches.  Ben's decision the same day: treat
+that as the answer and fetch from hcanat.us.
+
+The two hosts do not serve identical bytes everywhere, so this default is not a pure
+relabeling:
+
+  * ``/Books/`` and ``/Changes/`` agree.  A full ``main_uxlc_download_changes --host
+    hcanat.us`` run on 2026-08-12 produced 39 of 39 core-XML files, 7 of 7 under
+    in/UXLC-rest and 16 of 17 change logs byte-identical to what is tracked, the
+    seventeenth ("2023.07.04 - Changes.xml") differing only in line endings, which
+    .gitattributes normalizes.
+
+  * ``/Notes/`` does NOT.  hcanat.us builds note pages from a newer template than the
+    477 committed under in/UXLC-notes/ -- attribution and change-log link in a
+    <table>, links ending .html rather than .xml, a trailing "auto" marker -- so
+    main_clc_download_notes run against this default adds pages that do not match the
+    ones already on disk.  clc_note_pages parses what is committed; a mixed tree is a
+    decision nobody has made yet.
+"""
+
 
 def canonical_xml_path(book_id):
     """Absolute path to book_id's canonical UXLC core-XML file.
@@ -31,10 +68,15 @@ def book_basename(book_id):
     return _UXLC_BOOK_FILE_NAMES[book_id]
 
 
-def note_page_url(book_id, ch, v, position, code):
-    """The tanach.us note-page URL for one (atom, code), by canonical book name."""
+def note_page_url(book_id, ch, v, position, code, host=UXLC_HOST):
+    """The note-page URL for one (atom, code), by canonical book name.
+
+    Defaults to UXLC_HOST, the PUBLISHED host, because every caller that puts a URL
+    on a rendered page leaves it at its default.  main_clc_download_notes always
+    passes a host explicitly, and the host it passes is UXLC_DOWNLOAD_HOST.
+    """
     name = book_basename(book_id)
-    return f"https://tanach.us/Notes/{name}/{name}.{ch}.{v}.{position}-{code}.html"
+    return f"https://{host}/Notes/{name}/{name}.{ch}.{v}.{position}-{code}.html"
 
 
 def read(book_id, handlers=None):
