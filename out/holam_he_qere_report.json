@@ -30,8 +30,8 @@
       "plain_text_hit_count": 1373,
       "templated_non_trivq_hit_count": 1,
       "source_template_hit_counts": {
-        "כו\"ק": 1,
-        "מ:קו\"כ-אם-2": 19
+        "כו״ק": 1,
+        "מ:קו״כ-אם-2": 19
       },
       "vowel_only_form_counts": {
         "אֵיכֹה": 1,
@@ -281,7 +281,7 @@
       "vowel_only_form": "אׇהֳלֹה",
       "is_trivq_arg1": true,
       "source_templates": [
-        "מ:קו\"כ-אם-2"
+        "מ:קו״כ-אם-2"
       ],
       "source_argument_keys": [
         "1"
@@ -299,7 +299,7 @@
       "vowel_only_form": "אָהֳלֹה",
       "is_trivq_arg1": true,
       "source_templates": [
-        "מ:קו\"כ-אם-2"
+        "מ:קו״כ-אם-2"
       ],
       "source_argument_keys": [
         "1"
@@ -317,7 +317,7 @@
       "vowel_only_form": "שִׁילֹה",
       "is_trivq_arg1": true,
       "source_templates": [
-        "מ:קו\"כ-אם-2"
+        "מ:קו״כ-אם-2"
       ],
       "source_argument_keys": [
         "1"
@@ -335,7 +335,7 @@
       "vowel_only_form": "עִירֹה",
       "is_trivq_arg1": true,
       "source_templates": [
-        "מ:קו\"כ-אם-2"
+        "מ:קו״כ-אם-2"
       ],
       "source_argument_keys": [
         "1"
@@ -353,7 +353,7 @@
       "vowel_only_form": "סוּתֹה",
       "is_trivq_arg1": true,
       "source_templates": [
-        "מ:קו\"כ-אם-2"
+        "מ:קו״כ-אם-2"
       ],
       "source_argument_keys": [
         "1"
@@ -371,7 +371,7 @@
       "vowel_only_form": "בְּעִירֹה",
       "is_trivq_arg1": true,
       "source_templates": [
-        "מ:קו\"כ-אם-2"
+        "מ:קו״כ-אם-2"
       ],
       "source_argument_keys": [
         "1"
@@ -389,7 +389,7 @@
       "vowel_only_form": "כְסוּתֹה",
       "is_trivq_arg1": true,
       "source_templates": [
-        "מ:קו\"כ-אם-2"
+        "מ:קו״כ-אם-2"
       ],
       "source_argument_keys": [
         "1"
@@ -407,7 +407,7 @@
       "vowel_only_form": "קִצֹּה",
       "is_trivq_arg1": true,
       "source_templates": [
-        "מ:קו\"כ-אם-2"
+        "מ:קו״כ-אם-2"
       ],
       "source_argument_keys": [
         "1"
@@ -425,7 +425,7 @@
       "vowel_only_form": "נְכֹתֹה",
       "is_trivq_arg1": true,
       "source_templates": [
-        "מ:קו\"כ-אם-2"
+        "מ:קו״כ-אם-2"
       ],
       "source_argument_keys": [
         "1"
@@ -443,7 +443,7 @@
       "vowel_only_form": "תְּבוּאָתֹה",
       "is_trivq_arg1": true,
       "source_templates": [
-        "מ:קו\"כ-אם-2"
+        "מ:קו״כ-אם-2"
       ],
       "source_argument_keys": [
         "1"
@@ -461,7 +461,7 @@
       "vowel_only_form": "כֻּלֹּה",
       "is_trivq_arg1": true,
       "source_templates": [
-        "מ:קו\"כ-אם-2"
+        "מ:קו״כ-אם-2"
       ],
       "source_argument_keys": [
         "1"
@@ -479,7 +479,7 @@
       "vowel_only_form": "בֹּה",
       "is_trivq_arg1": true,
       "source_templates": [
-        "מ:קו\"כ-אם-2"
+        "מ:קו״כ-אם-2"
       ],
       "source_argument_keys": [
         "1"
@@ -497,7 +497,7 @@
       "vowel_only_form": "עֶזְרֹה",
       "is_trivq_arg1": true,
       "source_templates": [
-        "מ:קו\"כ-אם-2"
+        "מ:קו״כ-אם-2"
       ],
       "source_argument_keys": [
         "1"
@@ -515,7 +515,7 @@
       "vowel_only_form": "כֻּלֹּה",
       "is_trivq_arg1": true,
       "source_templates": [
-        "מ:קו\"כ-אם-2"
+        "מ:קו״כ-אם-2"
       ],
       "source_argument_keys": [
         "1"
@@ -533,7 +533,7 @@
       "vowel_only_form": "כֻּלֹּה",
       "is_trivq_arg1": true,
       "source_templates": [
-        "מ:קו\"כ-אם-2"
+        "מ:קו״כ-אם-2"
       ],
       "source_argument_keys": [
         "1"
@@ -551,7 +551,7 @@
       "vowel_only_form": "בְּתוֹכֹה",
       "is_trivq_arg1": true,
       "source_templates": [
-        "מ:קו\"כ-אם-2"
+        "מ:קו״כ-אם-2"
       ],
       "source_argument_keys": [
         "1"
@@ -569,7 +569,7 @@
       "vowel_only_form": "תְבוּאָתֹה",
       "is_trivq_arg1": true,
       "source_templates": [
-        "מ:קו\"כ-אם-2"
+        "מ:קו״כ-אם-2"
       ],
       "source_argument_keys": [
         "1"
@@ -587,7 +587,7 @@
       "vowel_only_form": "בְּתוֹכֹה",
       "is_trivq_arg1": true,
       "source_templates": [
-        "מ:קו\"כ-אם-2"
+        "מ:קו״כ-אם-2"
       ],
       "source_argument_keys": [
         "1"
@@ -605,7 +605,7 @@
       "vowel_only_form": "מָעֻזֹּה",
       "is_trivq_arg1": true,
       "source_templates": [
-        "מ:קו\"כ-אם-2"
+        "מ:קו״כ-אם-2"
       ],
       "source_argument_keys": [
         "1"
@@ -6225,7 +6225,7 @@
       "vowel_only_form": "כֹּה",
       "is_trivq_arg1": false,
       "source_templates": [
-        "כו\"ק"
+        "כו״ק"
       ],
       "source_argument_keys": [
         "2"
@@ -39223,7 +39223,7 @@
           "vowel_only_form": "אׇהֳלֹה",
           "source_category": "trivq_arg1",
           "source_templates": [
-            "מ:קו\"כ-אם-2"
+            "מ:קו״כ-אם-2"
           ],
           "source_argument_keys": [
             "1"
@@ -39234,7 +39234,7 @@
           "vowel_only_form": "אָהֳלֹה",
           "source_category": "trivq_arg1",
           "source_templates": [
-            "מ:קו\"כ-אם-2"
+            "מ:קו״כ-אם-2"
           ],
           "source_argument_keys": [
             "1"
@@ -40742,7 +40742,7 @@
           "vowel_only_form": "שִׁילֹה",
           "source_category": "trivq_arg1",
           "source_templates": [
-            "מ:קו\"כ-אם-2"
+            "מ:קו״כ-אם-2"
           ],
           "source_argument_keys": [
             "1"
@@ -40763,7 +40763,7 @@
           "vowel_only_form": "עִירֹה",
           "source_category": "trivq_arg1",
           "source_templates": [
-            "מ:קו\"כ-אם-2"
+            "מ:קו״כ-אם-2"
           ],
           "source_argument_keys": [
             "1"
@@ -40774,7 +40774,7 @@
           "vowel_only_form": "סוּתֹה",
           "source_category": "trivq_arg1",
           "source_templates": [
-            "מ:קו\"כ-אם-2"
+            "מ:קו״כ-אם-2"
           ],
           "source_argument_keys": [
             "1"
@@ -43060,7 +43060,7 @@
           "vowel_only_form": "בְּעִירֹה",
           "source_category": "trivq_arg1",
           "source_templates": [
-            "מ:קו\"כ-אם-2"
+            "מ:קו״כ-אם-2"
           ],
           "source_argument_keys": [
             "1"
@@ -43081,7 +43081,7 @@
           "vowel_only_form": "כְסוּתֹה",
           "source_category": "trivq_arg1",
           "source_templates": [
-            "מ:קו\"כ-אם-2"
+            "מ:קו״כ-אם-2"
           ],
           "source_argument_keys": [
             "1"
@@ -45350,7 +45350,7 @@
           "vowel_only_form": "כֹּה",
           "source_category": "templated_other",
           "source_templates": [
-            "כו\"ק"
+            "כו״ק"
           ],
           "source_argument_keys": [
             "2"
@@ -49375,7 +49375,7 @@
           "vowel_only_form": "קִצֹּה",
           "source_category": "trivq_arg1",
           "source_templates": [
-            "מ:קו\"כ-אם-2"
+            "מ:קו״כ-אם-2"
           ],
           "source_argument_keys": [
             "1"
@@ -50313,7 +50313,7 @@
           "vowel_only_form": "נְכֹתֹה",
           "source_category": "trivq_arg1",
           "source_templates": [
-            "מ:קו\"כ-אם-2"
+            "מ:קו״כ-אם-2"
           ],
           "source_argument_keys": [
             "1"
@@ -50868,7 +50868,7 @@
           "vowel_only_form": "תְּבוּאָתֹה",
           "source_category": "trivq_arg1",
           "source_templates": [
-            "מ:קו\"כ-אם-2"
+            "מ:קו״כ-אם-2"
           ],
           "source_argument_keys": [
             "1"
@@ -51178,7 +51178,7 @@
           "vowel_only_form": "כֻּלֹּה",
           "source_category": "trivq_arg1",
           "source_templates": [
-            "מ:קו\"כ-אם-2"
+            "מ:קו״כ-אם-2"
           ],
           "source_argument_keys": [
             "1"
@@ -51665,7 +51665,7 @@
           "vowel_only_form": "בֹּה",
           "source_category": "trivq_arg1",
           "source_templates": [
-            "מ:קו\"כ-אם-2"
+            "מ:קו״כ-אם-2"
           ],
           "source_argument_keys": [
             "1"
@@ -54371,7 +54371,7 @@
           "vowel_only_form": "עֶזְרֹה",
           "source_category": "trivq_arg1",
           "source_templates": [
-            "מ:קו\"כ-אם-2"
+            "מ:קו״כ-אם-2"
           ],
           "source_argument_keys": [
             "1"
@@ -54885,7 +54885,7 @@
           "vowel_only_form": "כֻּלֹּה",
           "source_category": "trivq_arg1",
           "source_templates": [
-            "מ:קו\"כ-אם-2"
+            "מ:קו״כ-אם-2"
           ],
           "source_argument_keys": [
             "1"
@@ -56230,7 +56230,7 @@
           "vowel_only_form": "כֻּלֹּה",
           "source_category": "trivq_arg1",
           "source_templates": [
-            "מ:קו\"כ-אם-2"
+            "מ:קו״כ-אם-2"
           ],
           "source_argument_keys": [
             "1"
@@ -56830,7 +56830,7 @@
           "vowel_only_form": "בְּתוֹכֹה",
           "source_category": "trivq_arg1",
           "source_templates": [
-            "מ:קו\"כ-אם-2"
+            "מ:קו״כ-אם-2"
           ],
           "source_argument_keys": [
             "1"
@@ -56851,7 +56851,7 @@
           "vowel_only_form": "תְבוּאָתֹה",
           "source_category": "trivq_arg1",
           "source_templates": [
-            "מ:קו\"כ-אם-2"
+            "מ:קו״כ-אם-2"
           ],
           "source_argument_keys": [
             "1"
@@ -56872,7 +56872,7 @@
           "vowel_only_form": "בְּתוֹכֹה",
           "source_category": "trivq_arg1",
           "source_templates": [
-            "מ:קו\"כ-אם-2"
+            "מ:קו״כ-אם-2"
           ],
           "source_argument_keys": [
             "1"
@@ -58747,7 +58747,7 @@
           "vowel_only_form": "מָעֻזֹּה",
           "source_category": "trivq_arg1",
           "source_templates": [
-            "מ:קו\"כ-אם-2"
+            "מ:קו״כ-אם-2"
           ],
           "source_argument_keys": [
             "1"
@@ -61136,7 +61136,7 @@
           "vowel_only_form": "אׇהֳלֹה",
           "source_category": "trivq_arg1",
           "source_templates": [
-            "מ:קו\"כ-אם-2"
+            "מ:קו״כ-אם-2"
           ],
           "source_argument_keys": [
             "1"
@@ -61147,7 +61147,7 @@
           "vowel_only_form": "אָהֳלֹה",
           "source_category": "trivq_arg1",
           "source_templates": [
-            "מ:קו\"כ-אם-2"
+            "מ:קו״כ-אם-2"
           ],
           "source_argument_keys": [
             "1"
@@ -61168,7 +61168,7 @@
           "vowel_only_form": "שִׁילֹה",
           "source_category": "trivq_arg1",
           "source_templates": [
-            "מ:קו\"כ-אם-2"
+            "מ:קו״כ-אם-2"
           ],
           "source_argument_keys": [
             "1"
@@ -61189,7 +61189,7 @@
           "vowel_only_form": "עִירֹה",
           "source_category": "trivq_arg1",
           "source_templates": [
-            "מ:קו\"כ-אם-2"
+            "מ:קו״כ-אם-2"
           ],
           "source_argument_keys": [
             "1"
@@ -61200,7 +61200,7 @@
           "vowel_only_form": "סוּתֹה",
           "source_category": "trivq_arg1",
           "source_templates": [
-            "מ:קו\"כ-אם-2"
+            "מ:קו״כ-אם-2"
           ],
           "source_argument_keys": [
             "1"
@@ -61221,7 +61221,7 @@
           "vowel_only_form": "בְּעִירֹה",
           "source_category": "trivq_arg1",
           "source_templates": [
-            "מ:קו\"כ-אם-2"
+            "מ:קו״כ-אם-2"
           ],
           "source_argument_keys": [
             "1"
@@ -61242,7 +61242,7 @@
           "vowel_only_form": "כְסוּתֹה",
           "source_category": "trivq_arg1",
           "source_templates": [
-            "מ:קו\"כ-אם-2"
+            "מ:קו״כ-אם-2"
           ],
           "source_argument_keys": [
             "1"
@@ -61263,7 +61263,7 @@
           "vowel_only_form": "כֹּה",
           "source_category": "templated_other",
           "source_templates": [
-            "כו\"ק"
+            "כו״ק"
           ],
           "source_argument_keys": [
             "2"
@@ -61284,7 +61284,7 @@
           "vowel_only_form": "קִצֹּה",
           "source_category": "trivq_arg1",
           "source_templates": [
-            "מ:קו\"כ-אם-2"
+            "מ:קו״כ-אם-2"
           ],
           "source_argument_keys": [
             "1"
@@ -61305,7 +61305,7 @@
           "vowel_only_form": "נְכֹתֹה",
           "source_category": "trivq_arg1",
           "source_templates": [
-            "מ:קו\"כ-אם-2"
+            "מ:קו״כ-אם-2"
           ],
           "source_argument_keys": [
             "1"
@@ -61326,7 +61326,7 @@
           "vowel_only_form": "תְּבוּאָתֹה",
           "source_category": "trivq_arg1",
           "source_templates": [
-            "מ:קו\"כ-אם-2"
+            "מ:קו״כ-אם-2"
           ],
           "source_argument_keys": [
             "1"
@@ -61347,7 +61347,7 @@
           "vowel_only_form": "כֻּלֹּה",
           "source_category": "trivq_arg1",
           "source_templates": [
-            "מ:קו\"כ-אם-2"
+            "מ:קו״כ-אם-2"
           ],
           "source_argument_keys": [
             "1"
@@ -61368,7 +61368,7 @@
           "vowel_only_form": "בֹּה",
           "source_category": "trivq_arg1",
           "source_templates": [
-            "מ:קו\"כ-אם-2"
+            "מ:קו״כ-אם-2"
           ],
           "source_argument_keys": [
             "1"
@@ -61389,7 +61389,7 @@
           "vowel_only_form": "עֶזְרֹה",
           "source_category": "trivq_arg1",
           "source_templates": [
-            "מ:קו\"כ-אם-2"
+            "מ:קו״כ-אם-2"
           ],
           "source_argument_keys": [
             "1"
@@ -61410,7 +61410,7 @@
           "vowel_only_form": "כֻּלֹּה",
           "source_category": "trivq_arg1",
           "source_templates": [
-            "מ:קו\"כ-אם-2"
+            "מ:קו״כ-אם-2"
           ],
           "source_argument_keys": [
             "1"
@@ -61431,7 +61431,7 @@
           "vowel_only_form": "כֻּלֹּה",
           "source_category": "trivq_arg1",
           "source_templates": [
-            "מ:קו\"כ-אם-2"
+            "מ:קו״כ-אם-2"
           ],
           "source_argument_keys": [
             "1"
@@ -61452,7 +61452,7 @@
           "vowel_only_form": "בְּתוֹכֹה",
           "source_category": "trivq_arg1",
           "source_templates": [
-            "מ:קו\"כ-אם-2"
+            "מ:קו״כ-אם-2"
           ],
           "source_argument_keys": [
             "1"
@@ -61473,7 +61473,7 @@
           "vowel_only_form": "תְבוּאָתֹה",
           "source_category": "trivq_arg1",
           "source_templates": [
-            "מ:קו\"כ-אם-2"
+            "מ:קו״כ-אם-2"
           ],
           "source_argument_keys": [
             "1"
@@ -61494,7 +61494,7 @@
           "vowel_only_form": "בְּתוֹכֹה",
           "source_category": "trivq_arg1",
           "source_templates": [
-            "מ:קו\"כ-אם-2"
+            "מ:קו״כ-אם-2"
           ],
           "source_argument_keys": [
             "1"
@@ -61515,7 +61515,7 @@
           "vowel_only_form": "מָעֻזֹּה",
           "source_category": "trivq_arg1",
           "source_templates": [
-            "מ:קו\"כ-אם-2"
+            "מ:קו״כ-אם-2"
           ],
           "source_argument_keys": [
             "1"
