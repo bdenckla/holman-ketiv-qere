@@ -84,7 +84,6 @@ def matching_template_args_for_word(
     template_args: list[dict[str, str]],
     word: str,
 ) -> list[dict[str, str]]:
-    normalized_word = normalize_mpu_match_text(word)
     normalized_exact_word = normalize_mpu_exact_arg_match_text(word)
     exact_matches = [
         arg

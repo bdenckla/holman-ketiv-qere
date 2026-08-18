@@ -1,12 +1,13 @@
-from __future__ import annotations
-
 """Search mpu (MAM-parsed-plus) qere readings for holam-he word endings.
 
 This is now a thin wrapper around the reusable ending-pattern search engine.
 To create another ending-pattern search, copy this file and adjust SEARCH_SPEC.
 """
 
+from __future__ import annotations
+
 import json
+import sys
 
 from mb_cmn.hebrew_points import XOLAM
 from python_modules.qere_ending_search import (
@@ -18,13 +19,6 @@ from python_modules.qere_ending_search import (
     load_mpu_hits_for_spec,
     load_wordlist_hits_for_spec,
     write_ending_pattern_report,
-)
-from python_modules.qere_projection import (
-    iter_plus_verses,
-    project_qere_atoms,
-    strip_accents_and_meteg,
-    to_vowel_only_form,
-    word_atoms_from_qere_atoms,
 )
 
 # mpu = MAM-parsed-plus.
@@ -56,6 +50,8 @@ def build_report() -> dict[str, object]:
 
 
 def main() -> None:
+    sys.stdout.reconfigure(encoding="utf-8")
+    sys.stderr.reconfigure(encoding="utf-8")
     output_path, report = write_ending_pattern_report(SEARCH_SPEC)
     print(str(output_path))
     print(json.dumps(report["summary"], ensure_ascii=False, indent=2))

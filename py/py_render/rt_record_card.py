@@ -24,10 +24,6 @@ from py_render.rt_issue_tags import (
     record_issue_tags,
 )
 from py_render.rt_mam_uxlc_diff_descriptions import simple_row_diff_note_lines
-from py_render.rt_matching_tmpl_args import (
-    matching_template_arguments_in_mpu_verse_by_row_number,
-    supported_qere_wrapper_by_row_number,
-)
 from py_render.rt_render_utils import (
     as_optional_text,
     as_text,

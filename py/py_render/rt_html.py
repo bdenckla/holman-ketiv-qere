@@ -70,7 +70,6 @@ def render_table_data_findings_html(
         matching_template_arguments_in_mpu_verse_by_row_number(payload)
     )
     supported_qere_wrappers = supported_qere_wrapper_by_row_number(payload)
-    source_document = as_text(payload.get("source_document", ""))
     finding_counts = Counter(as_text(row.get("finding", "")) for row in rows)
     sorted_findings = sorted(
         finding_counts.items(), key=lambda item: (-item[1], item[0])
