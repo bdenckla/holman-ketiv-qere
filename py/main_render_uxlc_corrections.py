@@ -21,15 +21,15 @@ import json
 from pathlib import Path
 import sys
 
+import hkq_paths
 from py_render.uc_html import render_uxlc_corrections_html
 
-REPO_ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_EMAILS_DIR = REPO_ROOT / "emails"
-DEFAULT_OUTPUT_HTML = REPO_ROOT / "gh-pages" / "uxlc_corrections.html"
-DEFAULT_IMAGE_DIR = REPO_ROOT / "gh-pages" / "uxlc_img"
-DEFAULT_ASSETS_DIR = REPO_ROOT / "assets"
-DEFAULT_DATA_DIR = REPO_ROOT / "data"
-DEFAULT_JSON_OUTPUT = REPO_ROOT / "docs-not-served" / "uxlc_corrections.json"
+DEFAULT_EMAILS_DIR = hkq_paths.emails_dir()
+DEFAULT_OUTPUT_HTML = hkq_paths.uxlc_corrections_html_path()
+DEFAULT_IMAGE_DIR = hkq_paths.email_img_dir()
+DEFAULT_ASSETS_DIR = hkq_paths.assets_dir()
+DEFAULT_DATA_DIR = hkq_paths.data_dir()
+DEFAULT_JSON_OUTPUT = hkq_paths.uxlc_corrections_json_path()
 
 
 def main() -> None:

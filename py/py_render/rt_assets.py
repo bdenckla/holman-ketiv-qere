@@ -3,6 +3,8 @@ from __future__ import annotations
 
 from pathlib import Path
 
+import hkq_paths
+
 # Badge and swatch colours, taken in order and wrapping only past the end. The
 # UXLC-corrections report draws all three of its filter columns from one cursor
 # through this list, so it needs as many distinct colours as it has filters --
@@ -33,7 +35,7 @@ PALETTE = [
     "#5c4a8c",
 ]
 
-ASSETS_DIR = Path(__file__).resolve().parents[2] / "assets"
+ASSETS_DIR = hkq_paths.assets_dir()
 CSS_TEMPLATE_PATH = ASSETS_DIR / "table_data_findings.css"
 JS_TEMPLATE_PATH = ASSETS_DIR / "table_data_findings.js"
 CSS_COLOR_PLACEHOLDER = "/* __FINDING_COLORS__ */"

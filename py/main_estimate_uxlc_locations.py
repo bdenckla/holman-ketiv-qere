@@ -43,16 +43,16 @@ import json
 from pathlib import Path
 import sys
 
+import hkq_paths
 from mb_cmn import bib_locales as tbn
 from python_modules.uxlc_atom_locations import AtomLocation, write_locations
 from python_modules.uxlc_email_extract import CaseRef, CorrectionCase, read_emails
 from python_modules.uxlc_standard_atoms import write_standard_atoms
 from uxlc_misc import my_uxlc, my_uxlc_location
 
-REPO_ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_EMAILS_DIR = REPO_ROOT / "emails"
-DEFAULT_IMAGE_DIR = REPO_ROOT / "gh-pages" / "uxlc_img"
-DEFAULT_DATA_DIR = REPO_ROOT / "data"
+DEFAULT_EMAILS_DIR = hkq_paths.emails_dir()
+DEFAULT_IMAGE_DIR = hkq_paths.email_img_dir()
+DEFAULT_DATA_DIR = hkq_paths.data_dir()
 
 NOTE = (
     "Estimated column and line for each atom Holman's emails raise, from"

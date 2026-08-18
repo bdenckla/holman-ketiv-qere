@@ -42,7 +42,7 @@ class ParsedExtract:
 
 
 def parse_docx_archive(
-    archive: zipfile.ZipFile, image_dir: Path, repo_root: Path
+    archive: zipfile.ZipFile, image_dir: Path, data_root: Path
 ) -> ParsedExtract:
     body, rel_map = _docx_body_and_relationships(archive)
     intro_paragraphs, table_element = _intro_and_table(body)
@@ -61,7 +61,7 @@ def parse_docx_archive(
         table_rows=table_rows,
         column_keys=column_keys,
         image_dir=image_dir,
-        repo_root=repo_root,
+        data_root=data_root,
     )
     _validate_leningrad_quote_count(leningrad_quote_count)
 
@@ -187,7 +187,7 @@ def _parse_data_rows(
     table_rows: list[list[dict[str, object]]],
     column_keys: list[str],
     image_dir: Path,
-    repo_root: Path,
+    data_root: Path,
 ) -> tuple[
     list[dict[str, object]],
     list[tuple[str, str | None, str | None, str | None]],
@@ -204,7 +204,7 @@ def _parse_data_rows(
             row=row,
             column_keys=column_keys,
             image_dir=image_dir,
-            repo_root=repo_root,
+            data_root=data_root,
         )
         data_rows.append(ordered_row_data)
         notes_signatures.append(notes_signature)
@@ -219,7 +219,7 @@ def _ordered_row_data(
     row: list[dict[str, object]],
     column_keys: list[str],
     image_dir: Path,
-    repo_root: Path,
+    data_root: Path,
 ) -> tuple[dict[str, object], tuple[str, str | None, str | None, str | None], int]:
     row_data: dict[str, object] = {
         "row_number": row_index,
@@ -248,7 +248,7 @@ def _ordered_row_data(
                 column_key=key,
                 targets=targets,
                 image_dir=image_dir,
-                repo_root=repo_root,
+                data_root=data_root,
             )
 
     if image_refs:

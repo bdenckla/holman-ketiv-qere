@@ -22,12 +22,12 @@ import json
 from pathlib import Path
 import sys
 
+import hkq_paths
 from python_modules.uxlc_email_extract import ingest_eml_files
 
-REPO_ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_EML_DIR = REPO_ROOT / ".novc" / "eml"
-DEFAULT_EMAILS_DIR = REPO_ROOT / "emails"
-DEFAULT_IMAGE_DIR = REPO_ROOT / "gh-pages" / "uxlc_img"
+DEFAULT_EML_DIR = hkq_paths.eml_dir()
+DEFAULT_EMAILS_DIR = hkq_paths.emails_dir()
+DEFAULT_IMAGE_DIR = hkq_paths.email_img_dir()
 
 
 def main() -> None:

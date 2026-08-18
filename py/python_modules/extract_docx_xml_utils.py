@@ -15,8 +15,15 @@ CONTROL_CHARS = {
     "\u00a0": " ",
 }
 
-# These two Aleppo crops are intentional manual overrides of the DOCX-embedded
+# These three Aleppo crops are intentional manual overrides of the DOCX-embedded
 # source image, so extraction must leave them untouched when they already exist.
+# (The count read "two" until 2026-08-18, while the set below has always had three.)
+#
+# Spelled relative to the DATA root, which is what export_images below measures
+# each output path against -- not relative to the working directory, and not to the
+# repo the code lives in.  Those two roots are one directory today and stop being
+# one when the Python moves to MAM-basics; hkq_paths' module docstring states the
+# distinction.
 PRESERVED_EXTRACTED_IMAGE_PATHS = frozenset(
     {
         "gh-pages/img/row013_aleppo_01.png",
@@ -101,7 +108,7 @@ def export_images(
     column_key: str,
     targets: list[str],
     image_dir: Path,
-    repo_root: Path,
+    data_root: Path,
 ) -> list[str]:
     exported_paths = []
     for image_index, target in enumerate(targets, start=1):
@@ -109,10 +116,10 @@ def export_images(
         filename = f"row{row_number:03d}_{column_key}_{image_index:02d}{extension}"
         output_path = image_dir / filename
         try:
-            rel_output_path = output_path.resolve().relative_to(repo_root.resolve())
+            rel_output_path = output_path.resolve().relative_to(data_root.resolve())
         except ValueError as exc:
             raise ValueError(
-                f"image path {output_path!s} is outside repo root {repo_root!s}"
+                f"image path {output_path!s} is outside data root {data_root!s}"
             ) from exc
 
         rel_output_path_str = rel_output_path.as_posix()

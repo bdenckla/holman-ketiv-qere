@@ -5,6 +5,8 @@ import json
 import zipfile
 from pathlib import Path
 
+import hkq_paths
+from mb_cmn import paths
 from py_render.rt_html import (
     render_table_data_findings_html,
 )
@@ -13,20 +15,17 @@ from python_modules.extract_docx_pipeline import parse_docx_archive, write_extra
 from python_modules.verify_table_notes_in_uxlc import verify_table_notes_in_uxlc
 from python_modules.verify_table_words_in_mam_plus import verify_table_words_in_mam_plus
 
-REPO_ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_DOCX_PATH = (
-    REPO_ROOT / "Review of Qere and Kethib readings in the Aleppo and Leningrad.docx"
-)
-DEFAULT_MAM_PARSED_PATH = REPO_ROOT.parent / "MAM-parsed"
-DEFAULT_UXLC_UTILS_PATH = REPO_ROOT.parent / "UXLC-utils"
-DEFAULT_SERVED_DOCS_DIR = REPO_ROOT / "gh-pages"
-DEFAULT_NONSERVED_DOCS_DIR = REPO_ROOT / "docs-not-served"
+DEFAULT_DOCX_PATH = hkq_paths.review_docx_path()
+DEFAULT_MAM_PARSED_PATH = paths.sibling_repo("MAM-parsed")
+DEFAULT_UXLC_UTILS_PATH = paths.uxlc_utils_dir()
+DEFAULT_SERVED_DOCS_DIR = hkq_paths.gh_pages_dir()
+DEFAULT_NONSERVED_DOCS_DIR = hkq_paths.docs_not_served_dir()
 
 
 def source_document_reference(docx_path: Path) -> str:
-    """Return a stable, repo-relative path when the source file is inside this repo."""
+    """Return a stable, data-root-relative path when the source file is inside that repo."""
     try:
-        relative = docx_path.resolve().relative_to(REPO_ROOT.resolve())
+        relative = docx_path.resolve().relative_to(hkq_paths.hkq_data_root().resolve())
     except ValueError:
         return str(docx_path)
     return relative.as_posix()
@@ -42,7 +41,9 @@ def extract(
 
     with zipfile.ZipFile(docx_path) as archive:
         parsed = parse_docx_archive(
-            archive=archive, image_dir=image_dir, repo_root=REPO_ROOT
+            archive=archive,
+            image_dir=image_dir,
+            data_root=hkq_paths.hkq_data_root(),
         )
 
     intro_path, json_path = write_extract_files(

@@ -5,6 +5,8 @@ from dataclasses import dataclass
 import json
 from pathlib import Path
 
+import hkq_paths
+from mb_cmn import paths
 from python_modules.qere_projection import (
     iter_plus_verses,
     project_qere_atoms,
@@ -12,12 +14,9 @@ from python_modules.qere_projection import (
     word_atoms_from_qere_atoms,
 )
 
-REPO_ROOT = Path(__file__).resolve().parents[2]
-DEFAULT_MAM_PARSED_PLUS_DIR = REPO_ROOT.parent / "MAM-parsed" / "plus"
-DEFAULT_MAM_BASICS_QERE_WORDS_PATH = (
-    REPO_ROOT.parent / "MAM-basics" / "out" / "mam-qere-words.json"
-)
-DEFAULT_OUTPUT_DIR = REPO_ROOT / "out"
+DEFAULT_MAM_PARSED_PLUS_DIR = paths.mam_parsed_plus_dir()
+DEFAULT_MAM_BASICS_QERE_WORDS_PATH = hkq_paths.mam_qere_words_path()
+DEFAULT_OUTPUT_DIR = hkq_paths.out_dir()
 # mpu = MAM-parsed-plus.
 
 

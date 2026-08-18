@@ -4,12 +4,16 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Final
 
+import hkq_paths
 from python_modules.json_io import load_json
 
+# The tracker these row numbers name, stated outright rather than inferred from a
+# working directory: refresh_table_row_github_issues passes it to `gh --repo`.  It
+# stays bdenckla/holman-ketiv-qere after the Python moves to MAM-basics, the issues
+# being about the review this repo holds.
 REPO_OWNER: Final = "bdenckla"
 REPO_NAME: Final = "holman-ketiv-qere"
-REPO_ROOT: Final = Path(__file__).resolve().parents[2]
-ROW_GITHUB_ISSUES_JSON_PATH: Final = REPO_ROOT / "io" / "table_row_github_issues.json"
+ROW_GITHUB_ISSUES_JSON_PATH: Final = hkq_paths.row_github_issues_path()
 
 ISSUE_LABEL_TO_TAG: Final[dict[str, str]] = {
     "QyV": "qyv",

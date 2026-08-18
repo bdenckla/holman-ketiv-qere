@@ -4,7 +4,8 @@ import json
 from pathlib import Path
 import sys
 
-from mb_cmn import bib_locales
+import hkq_paths
+from mb_cmn import bib_locales, paths
 from mb_cmn.hebrew_points import XIRIQ
 from python_modules.hebrew_text_tokens import (
     find_hebrew_tokens,
@@ -12,10 +13,9 @@ from python_modules.hebrew_text_tokens import (
 )
 from python_modules.mam_plus_verse_data import verse_texts_by_location
 
-REPO_ROOT = Path(__file__).resolve().parents[1]
-PLUS_DIR = (REPO_ROOT.parent / "MAM-parsed" / "plus").resolve()
+PLUS_DIR = paths.mam_parsed_plus_dir().resolve()
 TARGET_VERSE = ("Tsefaniah", 2, 9)
-OUTPUT_DIR = REPO_ROOT / "out"
+OUTPUT_DIR = hkq_paths.out_dir()
 OUTPUT_PATH = OUTPUT_DIR / "final_hiriq_verse_text_report.json"
 
 

@@ -3,6 +3,8 @@ from __future__ import annotations
 import argparse
 from pathlib import Path
 
+import hkq_paths
+
 
 def main() -> None:
     parser = argparse.ArgumentParser(
@@ -11,13 +13,13 @@ def main() -> None:
     parser.add_argument(
         "--table-json-path",
         type=Path,
-        default=Path("docs-not-served/table_data.json"),
+        default=hkq_paths.table_data_json_path(),
         help="Path to table_data.json input.",
     )
     parser.add_argument(
         "--output-html-path",
         type=Path,
-        default=Path("gh-pages/table_data_findings.html"),
+        default=hkq_paths.findings_html_path(),
         help="Path for generated HTML output.",
     )
     parser.add_argument(
