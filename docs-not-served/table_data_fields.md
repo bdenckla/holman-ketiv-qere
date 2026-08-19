@@ -1,6 +1,6 @@
 # table_data.json field guide
 
-This document describes the fields in `docs-not-served/table_data.json` as produced by `py/main_extract_docx.py`.
+This document describes the fields in `docs-not-served/table_data.json` as produced by `../MAM-basics/py/main_extract_docx_and_render_table.py`.
 
 It distinguishes between:
 
@@ -32,7 +32,7 @@ It distinguishes between:
 
 - Type: object
 - Meaning: post-extraction verification summary against MAM-parsed-plus verse text
-- Source: `py/python_modules/verify_table_words_in_mam_plus.py`
+- Source: `../MAM-basics/py/hkq_cmn/verify_table_words_in_mam_plus.py`
 - Current data observation: all `77` rows are found in their mapped MAM-parsed-plus verse text
 
 ### `mam_plus_rows_matching_mpu_verse_template_arg`
