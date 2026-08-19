@@ -8,7 +8,7 @@ Each of Daniel Holman's suggested-correction cases carries an `Image` field
 naming the Leningrad Codex scan he worked from and where on it he found the
 atom, for example `492_Jer_2.11b-2.37a | Col. 1 middle`. Two facts are read out
 of that citation: the leading number is a page-side ordinal that
-`py/python_modules/uxlc_manuscript_page.py` inverts to a folio, and the rest is
+`../MAM-basics/py/hkq_cmn/uxlc_manuscript_page.py` inverts to a folio, and the rest is
 his column and band.
 
 ## The finding
@@ -81,7 +81,7 @@ verse and the folio agrees.
 ## What changed on the page
 
 Ben Denckla's decision, 2026-08-12, on being shown the five: do not keep echoing
-Holman's mistakes. So `py/py_render/uc_case_card.py` now links the folio from
+Holman's mistakes. So `../MAM-basics/py/py_render/uc_case_card.py` now links the folio from
 `data/uxlc_atom_locations.json` and names Holman's beside it where the two
 disagree — the treatment his column already had. Micah 1:14 now reads
 "Column 2, line 26 or thereabouts. Holman cites folio 312A." above a link to
@@ -155,7 +155,7 @@ No network access is needed for the first two; the third needs the sibling
 `UXLC-utils` clone.
 
 1. **The cases and their citations.** `read_emails(Path("emails"),
-   Path("gh-pages/uxlc_img"))` from `py/python_modules/uxlc_email_extract.py`.
+   Path("gh-pages/uxlc_img"))` from `../MAM-basics/py/hkq_cmn/uxlc_email_extract.py`.
    Each case's `image_location` property is the citation, and `ref.key` spells
    its reference.
 2. **The two tests.** Take the first whitespace-separated token of the citation,

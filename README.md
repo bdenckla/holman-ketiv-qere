@@ -12,6 +12,13 @@ source and rendered as a report under `gh-pages/`:
 
 `gh-pages/index.html` links to both.
 
+**The code that does the extracting and rendering is not in this repo.** It lives in the
+sibling `../MAM-basics`, under that repo's `py/`, and writes back into this one. Every command
+below runs from `C:\Users\BenDe\GitRepos\MAM-basics` on that repo's interpreter, and every
+module path below is spelled relative to this repo, so `../MAM-basics/py/hkq_cmn/foo.py` names
+a file over there. [CLAUDE.md](CLAUDE.md) lists which entry point writes which files, and which
+tracked artifacts no program regenerates.
+
 ## Ketiv/qere review
 
 This part of the repository tracks a focused extraction from:
@@ -29,7 +36,7 @@ The extracted table is intentionally treated as a fixed project scope:
 Run extraction with:
 
 ```powershell
-.venv\Scripts\python.exe py/main_extract_docx_and_render_table.py
+C:\Users\BenDe\GitRepos\MAM-basics\.venv\Scripts\python.exe C:\Users\BenDe\GitRepos\MAM-basics\py\main_extract_docx_and_render_table.py
 ```
 
 This also generates:
@@ -48,7 +55,7 @@ Checked-in issue metadata used by the findings report lives in:
 To regenerate the HTML report from an existing JSON extract:
 
 ```powershell
-.venv\Scripts\python.exe py/main_just_render_table.py
+C:\Users\BenDe\GitRepos\MAM-basics\.venv\Scripts\python.exe C:\Users\BenDe\GitRepos\MAM-basics\py\main_just_render_table.py
 ```
 
 The extractor performs mpu (MAM-parsed-plus) verification as a mandatory part of extraction.
@@ -65,19 +72,19 @@ Default extraction behavior includes:
 
 Verification logic lives in:
 
-- `py/python_modules/verify_table_words_in_mam_plus.py`
+- `../MAM-basics/py/hkq_cmn/verify_table_words_in_mam_plus.py`
 
 This module is import-only and is called by the extractor.
 
 ## Search Scripts
 
-Tracked phenomenon-search scripts live under `py/` when they are useful to
-reuse or adapt.
+Phenomenon-search scripts live in `../MAM-basics/py/` when they are useful to
+reuse or adapt, and write their reports back here.
 
 Current example:
 
-- `py/main_search_holam_he_qere.py`
-- `py/main_search_final_hiriq_verse_text.py`
+- `../MAM-basics/py/main_search_holam_he_qere.py`
+- `../MAM-basics/py/main_search_final_hiriq_verse_text.py`
 
 This script traverses mpu (MAM-parsed-plus) qere readings directly, reports which hits come from
 the first argument of `קו"כ-אם`, and compares the vowel-only-form hit set against
@@ -90,20 +97,20 @@ prints all final-hiriq hits along with the tokens from Tsefaniah 2:9.
 
 Shared helpers for future ending-pattern searches live in:
 
-- `py/python_modules/qere_projection.py`
-- `py/python_modules/qere_ending_search.py`
+- `../MAM-basics/py/hkq_cmn/qere_projection.py`
+- `../MAM-basics/py/hkq_cmn/qere_ending_search.py`
 
 Shared helpers for verse-text token searches live in:
 
-- `py/python_modules/hebrew_text_tokens.py`
+- `../MAM-basics/py/hkq_cmn/hebrew_text_tokens.py`
 
-To create another ending-pattern search, copy `py/main_search_holam_he_qere.py` and
-change `SEARCH_SPEC`.
+To create another ending-pattern search, copy
+`../MAM-basics/py/main_search_holam_he_qere.py` and change `SEARCH_SPEC`.
 
-Run it from the repo root with:
+Run it from the MAM-basics repo root with:
 
 ```powershell
-.venv\Scripts\python.exe py/main_search_holam_he_qere.py
+C:\Users\BenDe\GitRepos\MAM-basics\.venv\Scripts\python.exe C:\Users\BenDe\GitRepos\MAM-basics\py\main_search_holam_he_qere.py
 ```
 
 It writes its report to `out/holam_he_qere_report.json`, which is tracked.
@@ -118,7 +125,7 @@ repo is public and a `.eml` file's headers carry the correspondents' addresses.
 they live in `.novc/eml/`, which `.gitignore` already covers:
 
 ```powershell
-.venv\Scripts\python.exe py/main_ingest_uxlc_emails.py
+C:\Users\BenDe\GitRepos\MAM-basics\.venv\Scripts\python.exe C:\Users\BenDe\GitRepos\MAM-basics\py\main_ingest_uxlc_emails.py
 ```
 
 That writes the tracked derivative — per message, `emails/<key>.txt` (the body,
@@ -133,7 +140,7 @@ body is `uxlc_email_extract._text_from_html`'s reading of the HTML: one line per
 `<div>` or `<br>`, which is one line per line he typed, with the font markup
 dropped.
 
-Two tables in `py/python_modules/uxlc_attachment_notes.py` settle attachments
+Two tables in `../MAM-basics/py/hkq_cmn/uxlc_attachment_notes.py` settle attachments
 whose filename does not name their own case: `COMPANION_IMAGE_CASES` for an
 image named after the word a case compares against rather than the case itself,
 and `IMAGES_WITH_NO_CASE` for an image of a case its message never writes up,
@@ -148,25 +155,26 @@ it interpolates between; a fresh clone of this repo does not have it, which is
 why the estimates are tracked rather than worked out at render time:
 
 ```powershell
-.venv\Scripts\python.exe py/main_estimate_uxlc_locations.py
+C:\Users\BenDe\GitRepos\MAM-basics\.venv\Scripts\python.exe C:\Users\BenDe\GitRepos\MAM-basics\py\main_estimate_uxlc_locations.py
 ```
 
 That writes two files. `data/uxlc_atom_locations.json` holds one estimated
 folio, column and line per case; the estimator is MAM-basics'
-`uxlc_misc.my_uxlc_location`, vendored into `py/uxlc_misc/` and `py/uxlc_lci/`,
-and it takes a (book, chapter, verse, atom) quad, so no word matching is
-involved. `data/uxlc_standard_atoms.json` holds the UXLC's atom number per case,
-which is what a card shows.
+`uxlc_misc.my_uxlc_location`, which the estimate step now imports directly —
+`py/uxlc_misc/` and `py/uxlc_lci/` were vendored copies of it here until
+2026-08-18 — and it takes a (book, chapter, verse, atom) quad, so no word
+matching is involved. `data/uxlc_standard_atoms.json` holds the UXLC's atom
+number per case, which is what a card shows.
 
 **Three numberings are in play, and no two of them agree everywhere.** Holman
 counts a ketiv/qere pair as one atom and does not count a mid-verse samekh; the
 UXLC counts every child element of the verse; `my_uxlc.read_all_books`, which
 the estimator walks, drops the `<k>` and keeps every `<q>`. So the atom number
 in `CaseRef` is neither of the other two, and `_atom_numbers` in
-`py/main_estimate_uxlc_locations.py` resolves it to the verse element it names
-and reports that element's place in each of the other counts — one for the card
-to show, one for the estimator to be handed.
-`py/python_modules/uxlc_standard_atoms.py` sets out the evidence for what the
+`../MAM-basics/py/main_estimate_uxlc_locations.py` resolves it to the verse
+element it names and reports that element's place in each of the other counts —
+one for the card to show, one for the estimator to be handed.
+`../MAM-basics/py/hkq_cmn/uxlc_standard_atoms.py` sets out the evidence for what the
 UXLC's numbering is, and how much weaker the samekh half of it is than the
 ketiv/qere half. Of the 124 cases, 5 get a number on the card that is not the
 one in Holman's email, and 1 changed the estimate it is worked out from.
@@ -190,7 +198,7 @@ case's manuscript citation in `emails/`.
 **Render**, which needs only what is tracked, so a fresh clone can do it:
 
 ```powershell
-.venv\Scripts\python.exe py/main_render_uxlc_corrections.py
+C:\Users\BenDe\GitRepos\MAM-basics\.venv\Scripts\python.exe C:\Users\BenDe\GitRepos\MAM-basics\py\main_render_uxlc_corrections.py
 ```
 
 That writes:
@@ -220,7 +228,7 @@ dropped.
 ### Links to the UXLC's proposed changes
 
 A card links the change items the UXLC's editor has entered for that word, at
-the page `py/python_modules/uxlc_change_records.py` names. That page is a flat
+the page `../MAM-basics/py/hkq_cmn/uxlc_change_records.py` names. That page is a flat
 chronological list whose anchors are dates and sequence numbers, so nothing in
 an anchor says which verse a record is about and the case-to-record mapping is
 written out in `CHANGE_RECORD_IDS_BY_REF` rather than derived. The module's
@@ -236,7 +244,7 @@ two exceptions. The UXLC's note letter `c` sat inside a word of the Lev 25:20
 case, wrapped in the bidi controls that kept it upright, and
 `uxlc_email_extract._without_embedded_note_letter` drops it. And a word in
 square brackets is Ben Denckla's, standing in for a word of Holman's:
-`py/python_modules/uxlc_bracketed_corrections.py` holds those, one table entry
+`../MAM-basics/py/hkq_cmn/uxlc_bracketed_corrections.py` holds those, one table entry
 per replacement, and raises both on an entry whose original is not in the text
 exactly once and on an entry naming no case, field or message. Either way the
 tracked `emails/<key>.txt` and `emails/<key>.json` still hold the message as it
@@ -260,7 +268,7 @@ change list already holds a record for and with what folio, and gives the
 commands to re-establish all of it.
 
 Two labels are relabelled for display, in `DISPLAY_FIELD_LABELS` in
-`py/py_render/uc_case_card.py`: Holman's "Corrected Text" is shown as "Suggested
+`../MAM-basics/py/py_render/uc_case_card.py`: Holman's "Corrected Text" is shown as "Suggested
 Text" and his "Suggested Correction" as "Suggestion", the page saying
 *suggestion* wherever it has the choice. The parser keeps his labels verbatim,
 and so does the JSON extract. "Correction" stays where it names the UXLC's own
@@ -272,7 +280,7 @@ messages state the word twice on lines of its own, "Current UXLC" or "Current
 Text" and then "Corrected Text"; his Exodus, Leviticus and Deuteronomy messages
 state neither, putting the form as it stands in parentheses on the "Word /
 Verse" line and the form he proposes in parentheses inside his suggestion
-sentence. `py/python_modules/uxlc_holman_forms.py` reads both out so that every
+sentence. `../MAM-basics/py/hkq_cmn/uxlc_holman_forms.py` reads both out so that every
 card reads alike, and the JSON extract records what it read under
 `forms_read_from_prose`, so regenerating and reading the diff tests the reading.
 Because that is a derivation over prose, every such case declares which of three
@@ -291,27 +299,32 @@ but cannot rerun the ingest step, which needs the mailbox.
 ### Commentary
 
 Remarks on a case — Ben's, or ones arriving by email from others — live in
-`py/uxlc_comments/`, keyed by case reference. `all_comments.py` documents the
+`../MAM-basics/py/uxlc_comments/`, keyed by case reference. `all_comments.py` documents the
 key format and the entry fields and is the aggregator; each contributor gets a
 module beside it. A key matching no case raises, so a typo is loud.
 
 ## Tests
 
-Run all tracked tests from the repo root with:
+The tests moved to MAM-basics with the code they exercise, into that repo's
+`py/tests/`, and run as part of its whole suite from its repo root:
 
 ```powershell
-.venv\Scripts\python.exe py/main_test.py
+C:\Users\BenDe\GitRepos\MAM-basics\.venv\Scripts\python.exe C:\Users\BenDe\GitRepos\MAM-basics\py\main_test.py
 ```
 
-`py/main_test.py --list` is the authority on which flags exist; the registry in
-`TEST_MODULE_SPECS` is hand-maintained, so compare it against
-`git ls-files "py/tests/test_*.py"` after adding a test file. Run a focused
-subset with one of those flags:
-
-```powershell
-.venv\Scripts\python.exe py/main_test.py --verify-table-words-in-mam-plus
-```
+That runner is a `pytest.main()` wrapper and passes its arguments straight
+through, so a focused subset is a `-k` selection rather than a flag of its own —
+this repo's `--verify-table-words-in-mam-plus` and `--h-dot-below-nfc` have no
+counterpart there:
 
 ```powershell
-.venv\Scripts\python.exe py/main_test.py --h-dot-below-nfc
+C:\Users\BenDe\GitRepos\MAM-basics\.venv\Scripts\python.exe C:\Users\BenDe\GitRepos\MAM-basics\py\main_test.py -k verify_table_words_in_mam_plus
 ```
+
+There is no registry to keep in step any more: pytest discovers `py/tests/`
+itself, so a new file named `test_*.py` or `*_test.py` runs on being added.
+
+The NFC lint that ran here as `--h-dot-below-nfc` still covers this repo's
+tracked files. It is one of three scopes in MAM-basics'
+`py/tests/test_h_dot_below_nfc.py`, rooted at `hkq_paths.hkq_data_root()`, and
+it reads every tracked file here outside `out/` and `gh-pages/`.

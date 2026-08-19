@@ -3,7 +3,7 @@
 Three of Daniel Holman's thirteen suggested-UXLC-correction messages state a number of
 corrections that something else in the same message contradicts. Two of the three are
 disagreements between the cases written up and the images attached, and are the reason
-`py/python_modules/uxlc_attachment_notes.py` has an `IMAGES_WITH_NO_CASE` table at all. The
+`../MAM-basics/py/hkq_cmn/uxlc_attachment_notes.py` has an `IMAGES_WITH_NO_CASE` table at all. The
 third is a preamble sentence reused from an earlier message.
 
 Measured 2026-08-12, against holman-ketiv-qere `636213d` and the thirteen messages in
