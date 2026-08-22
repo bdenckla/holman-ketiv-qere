@@ -86,10 +86,11 @@ through the rules instead of keeping them in the `:root` pairs where they can be
 The authored copies are the four files in `assets/`, and the generators copy them into
 `gh-pages/`, so an edit made to a `gh-pages/` copy is lost at the next run.
 
-## Locating a word in the manuscripts, from the sibling repos
+## Locating a word in the manuscripts, from MAM-basics
 
-Neither script lives here, and the Aleppo one needs Pillow, which this repo's venv lacks — so
-run each with its own repo's interpreter.
+Neither script lives here, and as of 2026-08-22 **both are MAM-basics'**, so run both with
+MAM-basics' interpreter by absolute path. Each addresses the manuscript data it reads by
+absolute path too, so neither needs a `cd`.
 
 Aleppo Codex — page, column, line, plus an HTML image preview. Coverage is whatever
 `codex-index-aleppo/line-breaks/` holds, which as of 2026-08-03 is 35 leaves, `001r`–`018v` and
@@ -97,14 +98,19 @@ Aleppo Codex — page, column, line, plus an HTML image preview. Coverage is wha
 ID alone. `--wide` widens the crop to take in masorah parva.
 
 ```bash
-cd C:\Users\BenDe\GitRepos\codex-index-aleppo
+C:\Users\BenDe\GitRepos\MAM-basics\.venv\Scripts\python.exe C:\Users\BenDe\GitRepos\MAM-basics\py\main_ac_find_word_in_images.py Job 38:31 "כִּימָ֥ה"
 ```
 
-```bash
-.venv/Scripts/python.exe py/main_find_word_in_aleppo_images.py Job 38:31 "כִּימָ֥ה"
-```
+This one moved too, and later than the Leningrad script below. It was
+`codex-index-aleppo/py/main_find_word_in_aleppo_images.py`, run from that repo's own venv, until
+Phase 3 of `../MAM-basics/doc/PLAN-evacuate-python-from-codex-index-trio.md` on 2026-08-22; that
+repo's venv went in the same plan's Phase 7 the same day, and codex-index-aleppo now holds the
+page images and the line-break JSON and no code at all. The note that stood here until then —
+that the Aleppo script needed Pillow, "which this repo's venv lacks", so each script wanted its
+own repo's interpreter — is obsolete in both halves: MAM-basics' venv has Pillow, and there is no
+second interpreter left to choose between.
 
-Leningrad Codex — an *estimate* of page, column and line. This one moved: it ran from
+Leningrad Codex — an *estimate* of page, column and line. This one moved first: it ran from
 `codex-index-leningrad` until 2026-08-03, and is now in MAM-basics, reading `../UXLC-utils`.
 
 ```bash
