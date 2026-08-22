@@ -325,6 +325,9 @@ There is no registry to keep in step any more: pytest discovers `py/tests/`
 itself, so a new file named `test_*.py` or `*_test.py` runs on being added.
 
 The NFC lint that ran here as `--h-dot-below-nfc` still covers this repo's
-tracked files. It is one of three scopes in MAM-basics'
-`py/tests/test_h_dot_below_nfc.py`, rooted at `hkq_paths.hkq_data_root()`, and
+tracked files. It is one of seven scopes in MAM-basics'
+`py/tests/test_h_dot_below_nfc.py` — three when `0890cb8` wrote this on 2026-08-18, four
+when book-of-job's arrived on 2026-08-19 (`ef8e384` there), seven when the codex-index trio's
+did on 2026-08-22 (`fe6cef2`); count the `_Scope(` entries rather than trust this sentence —
+rooted at `hkq_paths.hkq_data_root()`, and
 it reads every tracked file here outside `out/` and `gh-pages/`.

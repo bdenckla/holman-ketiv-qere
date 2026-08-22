@@ -11,7 +11,10 @@ holman-ketiv-qere is data and prose: `gh-pages/`, `emails/`, `docs-not-served/`,
 directories is generated, and **every generator lives in the sibling repo `../MAM-basics`**, which
 writes back into this one. All 100 tracked `.py` files left on 2026-08-18, together with `py/`'s
 five `_provenance.md` vendoring breadcrumbs, `py/.gitignore` and `.vscode/settings.json`, whose
-auto-approve rules named nothing but this repo's interpreter and the scripts that went with it. Do
+nineteen auto-approve rules named this repo's interpreter and the scripts that went with it, plus
+nine `git` / `where.exe` / `settings.json` rules worth nothing on their own (this sentence said
+"nothing but this repo's interpreter and the scripts" until the 2026-08-22 review's follow-up;
+`git show 15824d4:.vscode/settings.json` is the record). Do
 not add a `.py` back, and do not go looking here for the code that produced a file you are reading.
 Run everything below from `C:\Users\BenDe\GitRepos\MAM-basics`, on that repo's interpreter — the
 `.venv` left here has nothing to run.
