@@ -422,7 +422,7 @@ share a source. He added a note in MAM about the geresh in the Leningrad Codex
 rather than moving the accent.
 
 **M32, Judges 10:11.1, may belong in the same position and has not been suppressed.**
-Avi ruled on it in the same message — MAM is correct, the accented syllable beginning
+Avi ruled on it in the same message — MAM is correct, the stressed syllable beginning
 with the י — and his later note says that error too is shared by the Jerusalem Crown
 and Mechon Mamre. It is left active because Ben asked for M17 and only M17.
 
