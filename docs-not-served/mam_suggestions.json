@@ -29,18 +29,18 @@
   "suppressed_case_count": 4,
   "mam_plus_verify": {
     "case_count": 34,
-    "stated_atom_agrees": 31,
-    "stated_atom_corrected": 3,
+    "stated_atom_agrees": 33,
+    "stated_atom_corrected": 1,
     "comparison_form_already_present": 0
   },
   "cases": [
     {
-      "ref": "1Ki 7:24.16",
+      "ref": "1Ki 7:24.17",
       "book_abbrev": "1Ki",
       "std_book_name": "1Kings",
       "chapter": 7,
       "verse": 24,
-      "atom": 16,
+      "atom": 17,
       "comparison_source": "Aleppo",
       "comparison_edition": "Aleppo Codex",
       "mam_form": "בִּיצֻֽקָתֽוֹ׃",
@@ -51,18 +51,16 @@
         "fw-30-more-corrections-for-mam"
       ],
       "case_number": 1,
-      "atom_as_sent": 17,
-      "ref_as_sent": "1Ki 7:24.17",
       "image_files": [
         "gh-pages/mam_img/mam001_01.png"
       ],
       "mam_plus_check": {
-        "atom_count": 16,
+        "atom_count": 17,
         "quoted_atom_count": 1,
-        "quoted_form_starts_at_atom": 16,
-        "derived_atom": 16,
+        "quoted_form_starts_at_atom": 17,
+        "derived_atom": 17,
         "stated_atom": 17,
-        "stated_atom_agrees": false,
+        "stated_atom_agrees": true,
         "comparison_form_already_present": false
       }
     },
@@ -747,7 +745,7 @@
       "comparison_source": "HUB",
       "comparison_edition": "Jerusalem Crown",
       "mam_form": "יְהוֹשֻׁעַ֙",
-      "comparison_form": "יְהוֹשֻׁ֨עַ֙",
+      "comparison_form": "יְהוֹשֻׁ֙עַ֙",
       "description": "",
       "suggestion": "Add helper accent",
       "source_message_keys": [
@@ -755,6 +753,14 @@
         "suggested-correction-for-mam"
       ],
       "case_number": 24,
+      "comparison_form_as_sent": "יְהוֹשֻׁ֨עַ֙",
+      "corrections": [
+        {
+          "field": "comparison_form",
+          "corrected_by": "Ben Denckla",
+          "reason": "MAM spells the stress helper of a pashta as a second U+0599 pashta, not as the U+05A8 qadma the form as sent has. Measured 2026-09-02 over MAM-parsed/plus, 3,824 atoms have two U+0599, while only two have a qadma before a pashta: וְי֨וֹם֙ at Exodus 20:9 and at Deuteronomy 5:13, one in each Decalogue's combined cantillation. Holman's suggestion for this case reads 'Add helper accent', and the helper he means is that doubled pashta; the qadma is a slip of the same kind as the 'Mereka' of Zechariah 2:4 above, not a proposal to use Unicode QADMA."
+        }
+      ],
       "disposition": {
         "state": "suppressed",
         "outcome": "Suggestion taken",
@@ -777,12 +783,12 @@
       }
     },
     {
-      "ref": "Judg 1:7.20",
+      "ref": "Judg 1:7.21",
       "book_abbrev": "Judg",
       "std_book_name": "Judges",
       "chapter": 1,
       "verse": 7,
-      "atom": 20,
+      "atom": 21,
       "comparison_source": "Aleppo",
       "comparison_edition": "Aleppo Codex",
       "mam_form": "יְרֽוּשָׁלַ֖͏ִם",
@@ -793,18 +799,16 @@
         "fw-30-more-corrections-for-mam"
       ],
       "case_number": 25,
-      "atom_as_sent": 21,
-      "ref_as_sent": "Judg 1:7.21",
       "image_files": [
         "gh-pages/mam_img/mam025_01.png"
       ],
       "mam_plus_check": {
-        "atom_count": 22,
+        "atom_count": 23,
         "quoted_atom_count": 1,
-        "quoted_form_starts_at_atom": 20,
-        "derived_atom": 20,
+        "quoted_form_starts_at_atom": 21,
+        "derived_atom": 21,
         "stated_atom": 21,
-        "stated_atom_agrees": false,
+        "stated_atom_agrees": true,
         "comparison_form_already_present": false
       }
     },

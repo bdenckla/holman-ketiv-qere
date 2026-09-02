@@ -435,7 +435,7 @@ of its own, while the Aleppo Codex repeats it only where at least one letter sta
 between the two letters that would carry it — and in יהושע the ש stands immediately
 before the ע.
 
-### One line of Holman's has been corrected, and the correction is Ben's
+### Two of Holman's entries have been corrected, and both corrections are Ben's
 
 Zechariah 2:4.11's suggestion as sent reads "Place Mereka on first syllable",
 which is wrong twice: the mark is a munaḥ rather than a merkha, and MAM already has
@@ -452,6 +452,17 @@ the one of 2026-08-27, in both its body and its workbook. The message of 2026-08
 carries the same four cases with no suggestion column at all, so it neither
 states nor corrects the line, and every other occurrence in the mailbox is the
 2026-08-27 message quoted back inside a reply. There is no follow-up revising it.
+
+**Joshua 10:12.3's comparison form is the second**, and it corrects a form rather
+than a line of prose. As sent it spells the stress helper of the pashta as U+05A8
+qadma; MAM spells that helper as a second U+0599 pashta. Measured 2026-09-02 over
+`../MAM-parsed/plus`, 3,824 atoms have two U+0599 while only two have a qadma before
+a pashta — `וְי֨וֹם֙` at Exodus 20:9 and at Deuteronomy 5:13, one in each Decalogue's
+combined cantillation. Holman's suggestion for the case reads "Add helper accent",
+which is that doubled pashta, so the qadma is a typing slip of the same kind as the
+"Mereka" above. Ben Denckla settled it on 2026-09-02: "I am 100% sure he wasn't
+honestly suggesting use of Unicode QADMA." The card shows the corrected form, names
+Ben as the corrector, and keeps what Holman sent under `comparison_form_as_sent`.
 
 `../MAM-basics/py/hkq_cmn/mam_suggestion_corrections.py` holds the table, one entry
 per replacement, and raises both on an entry whose original is not the field's exact
@@ -484,28 +495,46 @@ spellings. Those two facts name one atom and no other, so there is no ambiguity 
 resolve and the ingest raises rather than guess if either stops holding. Atoms are
 counted with maqaf-joined atoms separate.
 
-31 of Holman's 34 indices agree with the derivation. **The other three have been
-corrected**: 1Kings 7:24 (17 as sent, 16 derived), 2Samuel 15:37 (8 as sent, 9
-derived) and Judges 1:7 (21 as sent, 20 derived), each out by one and not in a
-consistent direction, all three of them the atom יְרוּשָׁלַ͏ִם. A corrected case keeps
-what he sent under `atom_as_sent` and `ref_as_sent`.
+33 of Holman's 34 indices agree with the derivation. **The one that does not is not
+his error either.** 2Samuel 15:37 (8 as sent, 9 derived) disagrees because
+`../MAM-basics/py/hkq_cmn/mam_plus_verse_data.py` collects the parameters of the
+navigation template `מ:פסוק` into the verse text. That template holds the book name,
+chapter, verse and seder, so the verse renders with `שמואל` as its first atom and its
+Hebrew numerals fused onto the first word. His 8 is right. A case whose derived index
+differs keeps what he sent under `atom_as_sent` and `ref_as_sent`.
+
+**That defect is raised and not fixed**, as of 2026-09-02, because the fix needs a
+decision about what each template with no rule of its own should contribute. The
+navigation template alone changes the atom count of 392 verses, and the book-title
+template `מ:ספר חדש` and the special-letter template `מ:אות-מיוחדת-במילה` leak the
+same way: Genesis 1:1 renders 9 atoms for a seven-word verse. Of the 34 cases only
+2Samuel 15:37 carries any such template, so the other 33 indices are unaffected.
+
+**Two atom corrections dissolved on 2026-09-02**: 1Kings 7:24 (17 as sent) and Judges
+1:7 (21 as sent) now land where Holman put them. Until that day a template with no
+parameters contributed nothing to the verse text, so the paseq template `מ:פסק` fused
+the atoms on either side of it and Judges 1:7 counted 22 atoms rather than 23. Earlier
+the same day the shirah spaces of the Song of Deborah were fusing Judges 5:6.7 and
+Judges 5:11.13 the same way, and both of those were right too. The ketiv/qere
+artifacts regenerate byte-identical across both fixes, so nothing else here depended
+on either defect.
 
 The four maqaf compounds are **not** among the corrections, though a cruder check
 reports them as disagreements: Holman quotes a whole compound while numbering one of
-its atoms, and the atom he numbers is the one bearing the difference every time.
+its atoms, and the atom he numbers is the one that differs every time.
 
-Two more cases looked out by one and were not: Judges 5:6.7 and Judges 5:11.13 were
-casualties of a defect in `../MAM-basics/py/hkq_cmn/mam_plus_verse_data.py`, which
-dropped the shirah spaces of the Song of Deborah and so fused the atoms on either side
-of them. That was fixed on 2026-09-02, in the same pass that found it; the ketiv/qere
-artifacts regenerate byte-identical across the fix, so nothing else here depended on
-the defect.
+**Five indices have looked like Holman's numbering and none has been**: 1Kings 7:24,
+2Samuel 15:37, Judges 1:7, Judges 5:6.7 and Judges 5:11.13. Investigate a
+disagreement before reporting it as his.
 
 `comparison_form_already_present` is a separate question asked of every case: whether
 MAM already has the form he proposes. A non-zero count there dates the local corpus
 rather than saying anything about Holman. It was zero on 2026-09-02, including for the
 two cases corrected on Wikisource on 2026-08-28, because the local `MAM-parsed`
-predates those edits.
+predates those edits. It asks that question of the form as extracted rather than as
+corrected, so Joshua 10:12's flag still asks whether MAM has the qadma spelling Holman
+typed; `../MAM-basics/py/hkq_cmn/verify_mam_suggestions.py`'s docstring records the
+limitation and why the atom index is unaffected by it.
 
 ## Tests
 
