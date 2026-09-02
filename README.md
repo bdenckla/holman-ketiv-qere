@@ -10,13 +10,21 @@ source:
   original scope of this repo and everything from here to "Suggested UXLC
   corrections" is about it.
 - **Suggested MAM corrections** — his emails proposing corrections to MAM itself,
-  extracted to `docs-not-served/mam_suggestions.json`. See "Suggested MAM
-  corrections" below.
+  extracted to `docs-not-served/mam_suggestions.json` and rendered onto the **same
+  page as the ketiv/qere review**, `gh-pages/table_data_findings.html`. See
+  "Suggested MAM corrections" below.
 
 **The three are distinct, and the repo's name covers only one of them.** Only the
 review is about ketiv/qere; the UXLC corrections are addressed to a different text,
 and the MAM suggestions are about meteg and accent placement. A reader arriving at
 this repo from its name should not assume otherwise.
+
+**Two of the three share one report, and a filter separates them.** Ben's decision,
+2026-09-02: the ketiv/qere review and the MAM suggestions are both about MAM, so
+they are shown together on `table_data_findings.html` with a "Suggestion kind"
+filter group — `ketiv/qere`, `meteg`, `accent placement` — that partitions the
+page, so either body can be read alone or both together without navigating. The
+UXLC corrections keep their own report, being addressed to a different text.
 
 `gh-pages/index.html` links to the two rendered reports.
 
@@ -338,6 +346,30 @@ C:\Users\BenDe\GitRepos\MAM-basics\.venv\Scripts\python.exe C:\Users\BenDe\GitRe
 That writes `docs-not-served/mam_suggestions.json` and one page crop per case into
 `gh-pages/mam_img/`. Both are tracked, so regenerating and reading the diff is the
 test; there is no separate verifier.
+
+**Render**, which is `main_extract_docx_and_render_table.py` — the same command that
+renders the ketiv/qere review, because the two share a page:
+
+```powershell
+C:\Users\BenDe\GitRepos\MAM-basics\.venv\Scripts\python.exe C:\Users\BenDe\GitRepos\MAM-basics\py\main_just_render_table.py
+```
+
+The suggestions extract is **required**, not optional: a missing file raises rather
+than rendering a page quietly short of 34 records. Each suggestion becomes a card
+with anchor `mam001`..`mam034` and reference label `M1`..`M34`, deliberately not of
+the `row<N>` shape the review's cards use — the report's two pages carry a redirect
+script that sends an unknown `row<N>` fragment to the other page, and a suggestion
+is on one page only.
+
+The kind a card gets is **derived** from Holman's two forms, not from which edition
+he compares against: a case whose two forms become equal once every meteg is dropped
+is a meteg case, and everything else is accent placement. Keying it to the edition
+would give the same answer today, every meteg case being an Aleppo Codex comparison
+and every accent-placement case a Jerusalem Crown one, and would silently mislabel
+the first message that breaks that coincidence.
+
+All 34 are on the Active page. The Suppressed page holds closed **issues**, and only
+the review's rows have issues.
 
 **The privacy boundary here is stricter than the UXLC one**, and `CLAUDE.md` states
 it: no message body is tracked at all, and nothing Ben or Avi wrote is stored in any

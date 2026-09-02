@@ -32,7 +32,10 @@ C:\Users\BenDe\GitRepos\MAM-basics\.venv\Scripts\python.exe C:\Users\BenDe\GitRe
   `gh-pages/table_data_findings.html`, `gh-pages/table_data_findings_suppressed.html`, and the
   `gh-pages/` copies of `assets/table_data_findings.css` and `assets/table_data_findings.js`.
   Verification against the sibling `../MAM-parsed/plus/*.json` is part of extraction rather than
-  a command of its own.
+  a command of its own. **It also reads `docs-not-served/mam_suggestions.json`** and renders
+  those 34 cases onto the same page — since 2026-09-02 the report carries both bodies of work,
+  separated by a "Suggestion kind" filter group rather than by two pages. That file is
+  required: a missing one raises rather than rendering a page short of its records.
 - `main_ingest_uxlc_emails.py` — writes `emails/<key>.txt` and `emails/<key>.json`, and each
   attached PNG into `gh-pages/uxlc_img/`. Needs the untracked mailbox at `.novc/eml/`, so a fresh
   clone cannot run it; see the address boundary below.
@@ -46,7 +49,9 @@ C:\Users\BenDe\GitRepos\MAM-basics\.venv\Scripts\python.exe C:\Users\BenDe\GitRe
   mailbox distinct from `main_ingest_uxlc_emails.py`'s `.novc/eml/`, so a fresh clone cannot run
   it either. Verification against `../MAM-parsed/plus/*.json` is part of the ingest. This is
   Holman's suggested corrections to **MAM**, which is a third body of his work beside the
-  ketiv/qere review and the UXLC corrections; see the stricter privacy boundary below.
+  ketiv/qere review and the UXLC corrections; see the stricter privacy boundary below. It writes
+  no HTML — the cards are rendered by the two commands above, which is why a change here is not
+  visible on the page until one of them runs.
 - `main_search_holam_he_qere.py` — writes `out/holam_he_qere_report.json`.
 - `main_search_final_hiriq_verse_text.py` — writes `out/final_hiriq_verse_text_report.json`.
 

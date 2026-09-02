@@ -96,6 +96,14 @@ p { margin: .3rem 0; }
 .image-strip { display: flex; gap: .35rem; flex-wrap: wrap; margin-top: .3rem; }
 .image-thumb { display: block; max-width: 100%; border: 1px solid var(--border); border-radius: 4px; background: var(--card-bg); }
 .image-caption { font-size: .78rem; color: var(--muted); text-transform: uppercase; }
+/* Record-kind swatches, hard-coded for the same reason the issue-tag ones below
+   are: rt_assets.py's generated colour cursor walks the finding ids, and drawing
+   a second group from it would repeat a colour across two groups shown side by
+   side, where the eye reads sameness of colour as sameness of category. These
+   three are PALETTE entries 10-12, which no finding id reaches. */
+.cat-kind-ketiv-qere { background: #1d6f6f; }
+.cat-kind-meteg { background: #7b4b8a; }
+.cat-kind-accent-placement { background: #8a5a1f; }
 .cat-issue-tag-holam-he { background: #7b9f35; }
 .cat-issue-tag-qyv { background: #d67b2c; }
 .cat-issue-tag-boa-sans-aleph { background: #4b8b54; }
