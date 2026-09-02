@@ -59,6 +59,15 @@ An eighth, `main_just_render_table.py`, re-renders the report pages from an exis
 `docs-not-served/table_data.json` without re-reading the `.docx`. It writes a subset of the first
 command's output and is not needed for a full pass.
 
+**Suppressed means HANDLED, and says nothing about how.** Ben's decision, 2026-09-02, asked
+directly: a suppressed record may have been accepted, rejected, or something in between such as
+partially taken, and the report does not distinguish those. Do not add a flag that would — the
+ketiv/qere half cannot supply one, its rows being suppressed off a closed GitHub issue whose
+`is_closed` is a bare boolean, with every closed issue carrying GitHub's default `COMPLETED`
+reason. Half a report able to say which kind of closure a record got is worse than neither half
+saying it. The how goes in prose per record: in the GitHub issue for a ketiv/qere row, on the card
+for a MAM suggestion.
+
 **77 rows is a fixed project scope, not a count of what happens to be there.**
 `docs-not-served/table_data.json` is expected to hold exactly 77, and a regeneration that changes
 the number is a failure rather than a finding.

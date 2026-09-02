@@ -378,7 +378,29 @@ the **personal** side of Ben and Avi's correspondence. A substantive judgment ab
 the text is a different matter — it settles a suggestion, and Avi is cited for it by
 name; see "When a suggestion is ruled on" below.
 
-### When a suggestion is ruled on: it is suppressed, and the reason cites whoever ruled
+### Suppressed means handled, on both halves of the report
+
+**Suppressed says a record has been handled and deliberately does not say how** —
+Ben's decision, 2026-09-02. Handled covers a suggestion accepted, one rejected, and
+anything in between such as one partially taken. There is no flag distinguishing
+those and none is wanted: the ketiv/qere half could not supply one anyway, since
+those rows are suppressed off a closed GitHub issue, `is_closed` is a bare boolean,
+and every closed issue carries GitHub's default `COMPLETED` reason. What carries the
+how is prose, per record.
+
+Where that prose lives differs between the two halves, and this is the sharpest
+difference between them:
+
+- **A ketiv/qere row's reason is in its GitHub issue only.** Nothing in the tracked
+  data or on the page states it; the card's `issue` link is the whole channel. Of
+  the eighteen suppressed as of 2026-09-02, twelve close on a Wikisource diff, two
+  by pointing at a `bdenckla/mgketer` issue, two on an accepted judgment, one on a
+  rejection of Holman's framing that still produced a note, and one on a research
+  aside stating no disposition at all.
+- **A MAM suggestion's reason is on its card**, from the rulings table described
+  below, so it needs no tracker.
+
+### When a suggestion is handled: it is suppressed, and the reason cites whoever ruled
 
 A suggestion stays open until somebody rules on it. A ruling is written down in
 `../MAM-basics/py/hkq_cmn/mam_suggestion_dispositions.py` — which case, what was
@@ -386,7 +408,7 @@ decided, why, by whom, on what date — and the ingest attaches it to the case, 
 the tracked extract carries it and regenerating and reading the diff is the test.
 A suppressed case keeps its card, its crop and its number and moves to the
 **Suppressed** page beside the ketiv/qere rows whose issues are closed; suppression
-says the suggestion has been ruled on, not that it was never made. Its card leads
+says the suggestion has been handled, not that it was never made. Its card leads
 with the ruling, because a reader who does not know a case is settled will take the
 recommendation under it as still standing.
 
