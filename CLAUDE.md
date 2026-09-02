@@ -133,7 +133,12 @@ two of Avi's forwards and five replies — contributed nothing, one of those for
 of Holman's cases verbatim without that mattering.
 
 One consequence shaped how the comparison edition is named. The two workbook messages label it
-**"HUB"** and nothing else, and the identification of what edition that names was made by a
+**"HUB"** and nothing else — an initialism this project does **not** adopt, Avi Kadish having
+asked on 2026-08-30 that it be dropped because "Hebrew University Bible" already names the Hebrew
+University Bible Project, which these cases have nothing to do with. It survives only as a
+quotation of Holman's own label, in `comparison_source` and in prose about that field; our name
+for the edition, for those two messages and for those four cases is **Jerusalem Crown**. The
+identification of what edition that names was made by a
 correspondent in a reply — on the wrong side of this boundary. So it was not read out of the
 mailbox: Ben settled it directly, on 2026-09-02, as the **Jerusalem Crown** (כתר ירושלים). That is
 why `comparison_source` and `comparison_edition` are two fields rather than one — the first holds

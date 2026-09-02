@@ -453,7 +453,7 @@ shape as `uxlc_bracketed_corrections.py`, which does this for the UXLC correctio
 ### Where the crops come from, which differs by message
 
 The 30-case message attaches its crops as ordinary image parts whose filenames
-restate the case, so each is matched to its case by name. The two HUB messages
+restate the case, so each is matched to its case by name. The two Jerusalem Crown messages
 attach no images at all: their crops are embedded **inside** the attached `.xlsx`,
 named `image1.png`..`image4.png`, and the only thing that says which case each
 belongs to is the drawing anchor recording the cell it sits in.
