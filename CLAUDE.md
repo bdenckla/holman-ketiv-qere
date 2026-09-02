@@ -93,17 +93,28 @@ before adding a field to the derivative, check what it would carry out of the ma
 ### The MAM suggestions keep a STRICTER boundary, and it is not the one above
 
 Ben's instruction, 2026-09-02, on the messages under `.novc/eml-mam/`: what becomes public is the
-suggestions themselves, and **nothing Ben Denckla or Seth (Avi) Kadish wrote is stored in any
-explicit form**. So `main_ingest_mam_suggestions.py` tracks **no message body at all** — a
+suggestions themselves. So `main_ingest_mam_suggestions.py` tracks **no message body at all** — a
 reference, the two forms Holman compares, his one-line description, his recommendation where he
-gives one, and the message's subject, date and sender display name. That is the whole of it.
+gives one, and the message's subject, date and sender display name. That is the whole of what the
+ingest takes.
 
 Do not extend the UXLC ingest's looser rule to these messages because the two ingests sit beside
 each other. Tracking a redacted body would satisfy the address rule above and still break this one:
 the threads around these messages are a discussion **between Ben and Avi** about Holman's
-suggestions, and their sentences are what may not be kept. Those sentences may inform how a
-suggestion is presented; none of them may be quoted, paraphrased into a stored field, or
-reconstructed from one.
+suggestions, and harvesting them wholesale is what may not happen.
+
+**What the boundary protects is the PERSONAL correspondence, not every sentence**, and this
+section said the stronger thing for a few hours before Ben narrowed it the same day. In his words:
+what he did not want to leak is *"Avi's more personal comments about being too busy at the moment
+to process some of these suggestions in a timely fashion, and things like that."* A **substantive
+judgment about the text** is the opposite case — it is what settles a suggestion, and Ben asked
+outright that Avi be **cited** for it by name.
+
+The two are kept apart structurally. The ingest harvests nothing from those threads, because it
+reads only messages Holman sent. A judgment that settles a case is written down **deliberately**,
+one entry at a time, in `../MAM-basics/py/hkq_cmn/mam_suggestion_dispositions.py`, with the
+person who reached it named and the date. Nothing about anyone's availability or circumstances
+belongs in such an entry.
 
 `hkq_cmn/mam_suggestion_extract.py` enforces this structurally rather than by redaction: a message
 contributes only if `SUGGESTION_SENDER_NAME` sent it, and every other message in the mailbox is

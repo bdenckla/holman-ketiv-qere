@@ -7,8 +7,8 @@
   var h = window.location.hash;
   if (!h) return;
   var id = h.slice(1);
-  if (!/^row\d+$/.test(id)) return;
-  var here = new Set(["row01", "row02", "row03", "row10", "row13", "row14", "row37", "row45", "row48", "row50", "row52", "row53", "row54", "row73", "row74", "row75", "row76", "row77"]);
+  if (!/^(row|mam)\d+$/.test(id)) return;
+  var here = new Set(["mam017", "row01", "row02", "row03", "row10", "row13", "row14", "row37", "row45", "row48", "row50", "row52", "row53", "row54", "row73", "row74", "row75", "row76", "row77"]);
   if (!here.has(id)) window.location.replace("table_data_findings.html" + h);
 })();
 </script>
@@ -23,15 +23,15 @@
 <a class="nav-link active" href="table_data_findings_suppressed.html">Suppressed</a>
 </nav>
 <h1>Suppressed</h1>
-<p class="subtitle">Closed issues only, so ketiv/qere rows only</p>
+<p class="subtitle">Closed ketiv/qere issues, and suggestions ruled on</p>
 <div class="meta-grid">
     <div class="meta-box">
         <div class="meta-label">Total Records</div>
-        <div class="meta-value">18</div>
+        <div class="meta-value">19</div>
     </div>
     <div class="meta-box">
         <div class="meta-label">Visible/Filtered-out records</div>
-        <div class="meta-value" id="visible-filtered-count">18/0</div>
+        <div class="meta-value" id="visible-filtered-count">19/0</div>
     </div>
 </div>
 <div class="summary-columns">
@@ -41,6 +41,10 @@
 <tr data-filter-id="kind-ketiv-qere">
 <td><span class="cat-swatch cat-kind-ketiv-qere"></span>ketiv/qere</td>
 <td>18</td>
+</tr>
+<tr data-filter-id="kind-accent-placement">
+<td><span class="cat-swatch cat-kind-accent-placement"></span>accent placement</td>
+<td>1</td>
 </tr>
 </table>
 </section>
@@ -2165,6 +2169,81 @@ rel="noopener"
 class="image-thumb"
 src="img/row077_leningrad_01.png"
 alt="Leningrad image 1"
+>
+</a>
+</div>
+</div>
+</div>
+</div>
+</article>
+<article
+id="mam017"
+class="record-card"
+data-filter-ids="kind-accent-placement"
+>
+<div class="record-head">
+<a class="record-ref" href="#mam017">M17</a>
+<span class="record-verse">
+2Kings 17:15.15
+<a
+href="https://www.mgketer.org/mikra/11/17/1/mg/106"
+target="_blank"
+rel="noopener"
+>mgketer</a>
+<a
+href="https://bdenckla.github.io/MAM-with-doc/BD-2Kings.html#c17v15"
+target="_blank"
+rel="noopener"
+>MwD</a>
+<a
+href="https://he.wikisource.org/wiki/%D7%9E%D7%9C%D7%9B%D7%99%D7%9D%20%D7%91_%D7%99%D7%96/%D7%98%D7%A2%D7%9E%D7%99%D7%9D"
+target="_blank"
+rel="noopener"
+>MAM-ws</a>
+</span>
+<span class="category-badges">
+<span class="finding-badge cat-kind-accent-placement">accent placement</span>
+</span>
+</div>
+<div class="record-grid">
+<div>
+<table class="comparison-table">
+<thead>
+<tr>
+<th>name</th>
+<th>value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="comparison-name-col">MAM</td>
+<td class="comparison-value-col" dir="rtl"><bdi class="pointed-heb">וַיֵּ֨לְכ֜וּ</bdi></td>
+</tr>
+<tr>
+<td class="comparison-name-col">Jerusalem Crown</td>
+<td class="comparison-value-col" dir="rtl"><bdi class="pointed-heb">וַיֵּ֨לְכוּ֜</bdi></td>
+</tr>
+</tbody>
+</table>
+<div class="note-line"><span class="label">Suppressed:</span> <span>MAM is right; the geresh is misplaced in the Jerusalem Crown</span></div>
+<div class="note-line"><span class="label">Why:</span> <span>Seth (Avi) Kadish, 2026-08-28: the geresh appears to have been erased in the Leningrad Codex, and the UXLC has it that way, but even erased it stood over the כ rather than over the final ו. He notes the same misplacement onto the final ו in BHS and in Mechon Mamre, and reads the three editions sharing it as evidence that they share a source. He added a note in MAM about the geresh in the Leningrad Codex rather than moving the accent.</span></div>
+<div class="note-line"><span class="label">Suggestion:</span> <span>Move Geresh to end of word</span></div>
+<div class="note-line"><span class="label">Atom:</span> <span>15 of 29</span></div>
+<div class="note-line"><span class="label">Messages:</span> <span>2026-08-21, 2026-08-27</span></div>
+</div>
+<div>
+<div class="image-panel">
+<div class="image-caption">Jerusalem Crown</div>
+<div class="image-strip">
+<a
+href="mam_img/mam017_01.png"
+target="_blank"
+rel="noopener"
+>
+<img
+class="image-thumb"
+src="mam_img/mam017_01.png"
+alt="Jerusalem Crown image 1"
 >
 </a>
 </div>

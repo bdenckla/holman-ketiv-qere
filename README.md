@@ -372,9 +372,37 @@ All 34 are on the Active page. The Suppressed page holds closed **issues**, and 
 the review's rows have issues.
 
 **The privacy boundary here is stricter than the UXLC one**, and `CLAUDE.md` states
-it: no message body is tracked at all, and nothing Ben or Avi wrote is stored in any
-form. Only messages Holman sent contribute, which is what makes that structural
-rather than a matter of redaction.
+it: no message body is tracked at all, and the ingest harvests nothing from the
+threads around these messages, reading only what Holman sent. What that protects is
+the **personal** side of Ben and Avi's correspondence. A substantive judgment about
+the text is a different matter — it settles a suggestion, and Avi is cited for it by
+name; see "When a suggestion is ruled on" below.
+
+### When a suggestion is ruled on: it is suppressed, and the reason cites whoever ruled
+
+A suggestion stays open until somebody rules on it. A ruling is written down in
+`../MAM-basics/py/hkq_cmn/mam_suggestion_dispositions.py` — which case, what was
+decided, why, by whom, on what date — and the ingest attaches it to the case, so
+the tracked extract carries it and regenerating and reading the diff is the test.
+A suppressed case keeps its card, its crop and its number and moves to the
+**Suppressed** page beside the ketiv/qere rows whose issues are closed; suppression
+says the suggestion has been ruled on, not that it was never made. Its card leads
+with the ruling, because a reader who does not know a case is settled will take the
+recommendation under it as still standing.
+
+**One case is suppressed so far: M17, 2Kings 17:15.15** (Ben's decision, 2026-09-02).
+MAM is right and the geresh is misplaced in the Jerusalem Crown. Seth (Avi) Kadish
+established this on 2026-08-28: the geresh appears to have been erased in the
+Leningrad Codex, and the UXLC has it that way, but even erased it stood over the כ
+rather than over the final ו. He notes the same misplacement onto the final ו in BHS
+and in Mechon Mamre, and reads the three editions sharing it as evidence that they
+share a source. He added a note in MAM about the geresh in the Leningrad Codex
+rather than moving the accent.
+
+**M32, Judges 10:11.1, may belong in the same position and has not been suppressed.**
+Avi ruled on it in the same message — MAM is correct, the accented syllable beginning
+with the י — and his later note says that error too is shared by the Jerusalem Crown
+and Mechon Mamre. It is left active because Ben asked for M17 and only M17.
 
 ### One line of Holman's has been corrected, and the correction is Ben's
 
