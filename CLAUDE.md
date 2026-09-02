@@ -19,7 +19,7 @@ not add a `.py` back, and do not go looking here for the code that produced a fi
 Run everything below from `C:\Users\BenDe\GitRepos\MAM-basics`, on that repo's interpreter — the
 `.venv` left here has nothing to run.
 
-**Six commands regenerate everything, and there is no one command that runs them all.** Each is
+**Seven commands regenerate everything, and there is no one command that runs them all.** Each is
 the only program that writes the files named beside it:
 
 ```powershell
@@ -41,10 +41,16 @@ C:\Users\BenDe\GitRepos\MAM-basics\.venv\Scripts\python.exe C:\Users\BenDe\GitRe
 - `main_render_uxlc_corrections.py` — writes `gh-pages/uxlc_corrections.html`,
   `docs-not-served/uxlc_corrections.json`, and the `gh-pages/` copies of
   `assets/uxlc_corrections.css` and `assets/uxlc_corrections.js`. Needs only what is tracked here.
+- `main_ingest_mam_suggestions.py` — writes `docs-not-served/mam_suggestions.json` and the page
+  crops under `gh-pages/mam_img/`. Needs the untracked mailbox at `.novc/eml-mam/`, a **second**
+  mailbox distinct from `main_ingest_uxlc_emails.py`'s `.novc/eml/`, so a fresh clone cannot run
+  it either. Verification against `../MAM-parsed/plus/*.json` is part of the ingest. This is
+  Holman's suggested corrections to **MAM**, which is a third body of his work beside the
+  ketiv/qere review and the UXLC corrections; see the stricter privacy boundary below.
 - `main_search_holam_he_qere.py` — writes `out/holam_he_qere_report.json`.
 - `main_search_final_hiriq_verse_text.py` — writes `out/final_hiriq_verse_text_report.json`.
 
-A seventh, `main_just_render_table.py`, re-renders the report pages from an existing
+An eighth, `main_just_render_table.py`, re-renders the report pages from an existing
 `docs-not-served/table_data.json` without re-reading the `.docx`. It writes a subset of the first
 command's output and is not needed for a full pass.
 
@@ -63,8 +69,9 @@ image whose bytes differ, with three Aleppo crops named in `PRESERVED_EXTRACTED_
 exempted as manual replacements. `io/table_row_github_issues.json` has a writer of its own,
 `main_just_render_table.py --update-issue-metadata`, which reads this repo's GitHub tracker.
 
-**`.novc/` stays here** — it is this repo's gitignored scratch directory, and the mailbox the
-ingest step reads lives in it.
+**`.novc/` stays here** — it is this repo's gitignored scratch directory, and both mailboxes the
+ingest steps read live in it: `.novc/eml/` for the UXLC corrections and `.novc/eml-mam/` for the
+MAM suggestions.
 
 ## This repo is public, so no address may reach a tracked file
 
@@ -77,6 +84,34 @@ messages is a forward and quotes the original To and From lines in its body text
 
 Keep that boundary where it is. Do not track a `.eml`, do not reintroduce the recipients, and
 before adding a field to the derivative, check what it would carry out of the mail headers.
+
+### The MAM suggestions keep a STRICTER boundary, and it is not the one above
+
+Ben's instruction, 2026-09-02, on the messages under `.novc/eml-mam/`: what becomes public is the
+suggestions themselves, and **nothing Ben Denckla or Seth (Avi) Kadish wrote is stored in any
+explicit form**. So `main_ingest_mam_suggestions.py` tracks **no message body at all** — a
+reference, the two forms Holman compares, his one-line description, his recommendation where he
+gives one, and the message's subject, date and sender display name. That is the whole of it.
+
+Do not extend the UXLC ingest's looser rule to these messages because the two ingests sit beside
+each other. Tracking a redacted body would satisfy the address rule above and still break this one:
+the threads around these messages are a discussion **between Ben and Avi** about Holman's
+suggestions, and their sentences are what may not be kept. Those sentences may inform how a
+suggestion is presented; none of them may be quoted, paraphrased into a stored field, or
+reconstructed from one.
+
+`hkq_cmn/mam_suggestion_extract.py` enforces this structurally rather than by redaction: a message
+contributes only if `SUGGESTION_SENDER_NAME` sent it, and every other message in the mailbox is
+skipped and named in the run summary, which goes to stdout and is not tracked. Of the ten messages
+in the mailbox on 2026-09-02, three were Holman's and contributed all 34 cases; the other seven —
+two of Avi's forwards and five replies — contributed nothing, one of those forwards quoting all 30
+of Holman's cases verbatim without that mattering.
+
+One consequence worth knowing before an editorial decision is made from this data. The two
+workbook messages label their comparison edition **"HUB"** and nothing else; the identification of
+what edition that names was made by a correspondent in a reply, so it is on the wrong side of this
+boundary and the extract holds Holman's label verbatim. Naming that edition on a page is Ben's call
+to make, not something to read out of the mailbox.
 
 ## Authored CSS uses `light-dark()`, not a `prefers-color-scheme` block
 

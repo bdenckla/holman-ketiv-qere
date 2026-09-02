@@ -1,7 +1,7 @@
 # holman-ketiv-qere
 
-Two bodies of work Daniel Holman has sent Ben Denckla, each extracted from its
-source and rendered as a report under `gh-pages/`:
+Three bodies of work Daniel Holman has sent Ben Denckla, each extracted from its
+source:
 
 - **Suggested UXLC corrections** — his emails to the UXLC's editor, rendered to
   `gh-pages/uxlc_corrections.html`. See "Suggested UXLC corrections" below.
@@ -9,8 +9,16 @@ source and rendered as a report under `gh-pages/`:
   Leningrad.docx`, rendered to `gh-pages/table_data_findings.html`. That is the
   original scope of this repo and everything from here to "Suggested UXLC
   corrections" is about it.
+- **Suggested MAM corrections** — his emails proposing corrections to MAM itself,
+  extracted to `docs-not-served/mam_suggestions.json`. See "Suggested MAM
+  corrections" below.
 
-`gh-pages/index.html` links to both.
+**The three are distinct, and the repo's name covers only one of them.** Only the
+review is about ketiv/qere; the UXLC corrections are addressed to a different text,
+and the MAM suggestions are about meteg and accent placement. A reader arriving at
+this repo from its name should not assume otherwise.
+
+`gh-pages/index.html` links to the two rendered reports.
 
 **The code that does the extracting and rendering is not in this repo.** It lives in the
 sibling `../MAM-basics`, under that repo's `py/`, and writes back into this one. Every command
@@ -302,6 +310,77 @@ Remarks on a case — Ben's, or ones arriving by email from others — live in
 `../MAM-basics/py/uxlc_comments/`, keyed by case reference. `all_comments.py` documents the
 key format and the entry fields and is the aggregator; each contributor gets a
 module beside it. A key matching no case raises, so a typo is loud.
+
+## Suggested MAM corrections
+
+Daniel Holman emails Avi Kadish and Ben Denckla suggested corrections to **MAM
+itself** — a third body of his work, and neither of the two above. As of
+2026-09-02 there are 34 cases from three messages, in two groups:
+
+- **30 meteg cases**, Judges 1:7.21 through 2Chronicles 32:7.18, from the message
+  of 2026-08-31. In 29 of them MAM has a meteg where he reports the Aleppo Codex
+  has none; the thirtieth, Isaiah 23:12.11, runs the other way.
+- **4 accent-placement cases** — Joshua 10:12.3, Judges 10:11.1, 2Kings 17:15.15
+  and Zechariah 2:4.11 — from the messages of 2026-08-21 and 2026-08-27, which
+  carry the same four and differ only in that the later one adds a recommendation
+  per case. He compares against an edition he calls **"HUB"**, and that label is
+  kept as he wrote it; see `CLAUDE.md` for why the extract does not identify the
+  edition.
+
+**Ingest**, when a new message arrives. The `.eml` files are **not** tracked; they
+live in `.novc/eml-mam/`, a second mailbox distinct from the UXLC one:
+
+```powershell
+C:\Users\BenDe\GitRepos\MAM-basics\.venv\Scripts\python.exe C:\Users\BenDe\GitRepos\MAM-basics\py\main_ingest_mam_suggestions.py
+```
+
+That writes `docs-not-served/mam_suggestions.json` and one page crop per case into
+`gh-pages/mam_img/`. Both are tracked, so regenerating and reading the diff is the
+test; there is no separate verifier.
+
+**The privacy boundary here is stricter than the UXLC one**, and `CLAUDE.md` states
+it: no message body is tracked at all, and nothing Ben or Avi wrote is stored in any
+form. Only messages Holman sent contribute, which is what makes that structural
+rather than a matter of redaction.
+
+### Where the crops come from, which differs by message
+
+The 30-case message attaches its crops as ordinary image parts whose filenames
+restate the case, so each is matched to its case by name. The two HUB messages
+attach no images at all: their crops are embedded **inside** the attached `.xlsx`,
+named `image1.png`..`image4.png`, and the only thing that says which case each
+belongs to is the drawing anchor recording the cell it sits in.
+`../MAM-basics/py/hkq_cmn/xlsx_xml_utils.py` reads both the cells and those anchors,
+with the standard library alone as the DOCX reader beside it does.
+
+### What the corpus check says, and what it does not
+
+The ingest looks every case up in the sibling `../MAM-parsed/plus/*.json` and records
+the result per case under `mam_plus_check`, with totals under `mam_plus_verify`. It
+never fails the run: an index that disagrees with the corpus is a fact to be read off
+the extract, not a reason to refuse a message.
+
+Measured 2026-09-02 against MAM-parsed `54ba7e0`: all 34 of Holman's MAM forms are
+present in their verse, 30 of them starting exactly at the atom he numbers. Atoms are
+counted with maqaf-joined atoms separate, which is his counting rule, established
+independently against the page crops and against the corpus. Of the four that differ,
+2Kings 21:12.11 numbers one atom of a maqaf compound and quotes the whole compound,
+and 1Kings 7:24.17, 2Samuel 15:37.8 and Judges 1:7.21 are out by one in inconsistent
+directions — all three of them the atom יְרוּשָׁלַ͏ִם, which is worth asking him about
+rather than resolving by guessing.
+
+Two more cases looked out by one and were not: Judges 5:6.7 and Judges 5:11.13 were
+casualties of a defect in `../MAM-basics/py/hkq_cmn/mam_plus_verse_data.py`, which
+dropped the shirah spaces of the Song of Deborah and so fused the atoms on either side
+of them. That was fixed on 2026-09-02, in the same pass that found it; the ketiv/qere
+artifacts regenerate byte-identical across the fix, so nothing else here depended on
+the defect.
+
+`comparison_form_already_present` is a separate question asked of every case: whether
+MAM already has the form he proposes. A non-zero count there dates the local corpus
+rather than saying anything about Holman. It was zero on 2026-09-02, including for the
+two cases corrected on Wikisource on 2026-08-28, because the local `MAM-parsed`
+predates those edits.
 
 ## Tests
 

@@ -1,0 +1,1063 @@
+{
+  "source_messages": [
+    {
+      "key": "fw-30-more-corrections-for-mam",
+      "subject": "Fw: 30 More Corrections for MAM",
+      "date": "2026-08-31T17:14:04+00:00",
+      "sender_name": "Daniel Holman",
+      "shape": "prose-list",
+      "case_count": 30
+    },
+    {
+      "key": "mam-and-hub-text-comparison",
+      "subject": "MAM and HUB text comparison",
+      "date": "2026-08-21T07:00:42+00:00",
+      "sender_name": "Daniel Holman",
+      "shape": "workbook",
+      "case_count": 4
+    },
+    {
+      "key": "suggested-correction-for-mam",
+      "subject": "Suggested Correction for MAM",
+      "date": "2026-08-27T20:31:13+00:00",
+      "sender_name": "Daniel Holman",
+      "shape": "workbook",
+      "case_count": 4
+    }
+  ],
+  "case_count": 34,
+  "mam_plus_verify": {
+    "case_count": 34,
+    "mam_form_starts_at_stated_atom": 30,
+    "mam_form_covers_stated_atom_only": 1,
+    "mam_form_elsewhere_in_verse": 3,
+    "mam_form_not_in_verse": 0,
+    "comparison_form_already_present": 0
+  },
+  "cases": [
+    {
+      "ref": "1Ki 7:24.17",
+      "book_abbrev": "1Ki",
+      "std_book_name": "1Kings",
+      "chapter": 7,
+      "verse": 24,
+      "atom": 17,
+      "comparison_source": "Aleppo",
+      "mam_form": "בִּיצֻֽקָתֽוֹ׃",
+      "comparison_form": "בִּיצֻקָתֽוֹ׃",
+      "description": "Aleppo has no Meteg under Tzadi",
+      "recommendation": null,
+      "source_message_keys": [
+        "fw-30-more-corrections-for-mam"
+      ],
+      "case_number": 1,
+      "image_files": [
+        "gh-pages/mam_img/mam001_01.png"
+      ],
+      "mam_plus_check": {
+        "atom_count": 16,
+        "quoted_atom_count": 1,
+        "mam_form_found_in_verse": true,
+        "mam_form_found_at_atom": 16,
+        "mam_form_starts_at_stated_atom": false,
+        "mam_form_covers_stated_atom": false,
+        "comparison_form_already_present": false,
+        "atom_text_at_stated_atom": null
+      }
+    },
+    {
+      "ref": "1Ki 11:1.13",
+      "book_abbrev": "1Ki",
+      "std_book_name": "1Kings",
+      "chapter": 11,
+      "verse": 1,
+      "atom": 13,
+      "comparison_source": "Aleppo",
+      "mam_form": "צֵֽדְנִיֹּ֖ת",
+      "comparison_form": "צֵדְנִיֹּ֖ת",
+      "description": "Aleppo has no Meteg under Tzadi",
+      "recommendation": null,
+      "source_message_keys": [
+        "fw-30-more-corrections-for-mam"
+      ],
+      "case_number": 2,
+      "image_files": [
+        "gh-pages/mam_img/mam002_01.png"
+      ],
+      "mam_plus_check": {
+        "atom_count": 14,
+        "quoted_atom_count": 1,
+        "mam_form_found_in_verse": true,
+        "mam_form_found_at_atom": 13,
+        "mam_form_starts_at_stated_atom": true,
+        "mam_form_covers_stated_atom": true,
+        "comparison_form_already_present": false,
+        "atom_text_at_stated_atom": "צֵֽדְנִיֹּ֖ת"
+      }
+    },
+    {
+      "ref": "1Ki 12:18.21",
+      "book_abbrev": "1Ki",
+      "std_book_name": "1Kings",
+      "chapter": 12,
+      "verse": 18,
+      "atom": 21,
+      "comparison_source": "Aleppo",
+      "mam_form": "יְרֽוּשָׁלָֽ͏ִם׃",
+      "comparison_form": "יְרוּשָׁלָֽ͏ִם׃",
+      "description": "Aleppo has no Meteg under Resh",
+      "recommendation": null,
+      "source_message_keys": [
+        "fw-30-more-corrections-for-mam"
+      ],
+      "case_number": 3,
+      "image_files": [
+        "gh-pages/mam_img/mam003_01.png"
+      ],
+      "mam_plus_check": {
+        "atom_count": 21,
+        "quoted_atom_count": 1,
+        "mam_form_found_in_verse": true,
+        "mam_form_found_at_atom": 21,
+        "mam_form_starts_at_stated_atom": true,
+        "mam_form_covers_stated_atom": true,
+        "comparison_form_already_present": false,
+        "atom_text_at_stated_atom": "יְרֽוּשָׁלָֽ͏ִם"
+      }
+    },
+    {
+      "ref": "1Ki 15:5.19",
+      "book_abbrev": "1Ki",
+      "std_book_name": "1Kings",
+      "chapter": 15,
+      "verse": 5,
+      "atom": 19,
+      "comparison_source": "Aleppo",
+      "mam_form": "הַֽחִתִּֽי׃",
+      "comparison_form": "הַחִתִּֽי׃",
+      "description": "Aleppo has no Meteg under Hey",
+      "recommendation": null,
+      "source_message_keys": [
+        "fw-30-more-corrections-for-mam"
+      ],
+      "case_number": 4,
+      "image_files": [
+        "gh-pages/mam_img/mam004_01.png"
+      ],
+      "mam_plus_check": {
+        "atom_count": 19,
+        "quoted_atom_count": 1,
+        "mam_form_found_in_verse": true,
+        "mam_form_found_at_atom": 19,
+        "mam_form_starts_at_stated_atom": true,
+        "mam_form_covers_stated_atom": true,
+        "comparison_form_already_present": false,
+        "atom_text_at_stated_atom": "הַֽחִתִּֽי"
+      }
+    },
+    {
+      "ref": "1Ki 15:19.23",
+      "book_abbrev": "1Ki",
+      "std_book_name": "1Kings",
+      "chapter": 15,
+      "verse": 19,
+      "atom": 23,
+      "comparison_source": "Aleppo",
+      "mam_form": "מֵֽעָלָֽי׃",
+      "comparison_form": "מֵעָלָֽי׃",
+      "description": "Aleppo has no Meteg under Mem",
+      "recommendation": null,
+      "source_message_keys": [
+        "fw-30-more-corrections-for-mam"
+      ],
+      "case_number": 5,
+      "image_files": [
+        "gh-pages/mam_img/mam005_01.png"
+      ],
+      "mam_plus_check": {
+        "atom_count": 23,
+        "quoted_atom_count": 1,
+        "mam_form_found_in_verse": true,
+        "mam_form_found_at_atom": 23,
+        "mam_form_starts_at_stated_atom": true,
+        "mam_form_covers_stated_atom": true,
+        "comparison_form_already_present": false,
+        "atom_text_at_stated_atom": "מֵֽעָלָֽי"
+      }
+    },
+    {
+      "ref": "1Ki 17:16.14",
+      "book_abbrev": "1Ki",
+      "std_book_name": "1Kings",
+      "chapter": 17,
+      "verse": 16,
+      "atom": 14,
+      "comparison_source": "Aleppo",
+      "mam_form": "אֵֽלִיָּֽהוּ׃",
+      "comparison_form": "אֵלִיָּֽהוּ׃",
+      "description": "Aleppo has no Meteg under Alef",
+      "recommendation": null,
+      "source_message_keys": [
+        "fw-30-more-corrections-for-mam"
+      ],
+      "case_number": 6,
+      "image_files": [
+        "gh-pages/mam_img/mam006_01.png"
+      ],
+      "mam_plus_check": {
+        "atom_count": 14,
+        "quoted_atom_count": 1,
+        "mam_form_found_in_verse": true,
+        "mam_form_found_at_atom": 14,
+        "mam_form_starts_at_stated_atom": true,
+        "mam_form_covers_stated_atom": true,
+        "comparison_form_already_present": false,
+        "atom_text_at_stated_atom": "אֵֽלִיָּֽהוּ"
+      }
+    },
+    {
+      "ref": "1Ki 18:1.20",
+      "book_abbrev": "1Ki",
+      "std_book_name": "1Kings",
+      "chapter": 18,
+      "verse": 1,
+      "atom": 20,
+      "comparison_source": "Aleppo",
+      "mam_form": "הָֽאֲדָמָֽה׃",
+      "comparison_form": "הָאֲדָמָֽה׃",
+      "description": "Aleppo has no Meteg under Hey",
+      "recommendation": null,
+      "source_message_keys": [
+        "fw-30-more-corrections-for-mam"
+      ],
+      "case_number": 7,
+      "image_files": [
+        "gh-pages/mam_img/mam007_01.png"
+      ],
+      "mam_plus_check": {
+        "atom_count": 20,
+        "quoted_atom_count": 1,
+        "mam_form_found_in_verse": true,
+        "mam_form_found_at_atom": 20,
+        "mam_form_starts_at_stated_atom": true,
+        "mam_form_covers_stated_atom": true,
+        "comparison_form_already_present": false,
+        "atom_text_at_stated_atom": "הָֽאֲדָמָֽה"
+      }
+    },
+    {
+      "ref": "1Ki 22:7.6",
+      "book_abbrev": "1Ki",
+      "std_book_name": "1Kings",
+      "chapter": 22,
+      "verse": 7,
+      "atom": 6,
+      "comparison_source": "Aleppo",
+      "mam_form": "לַֽיהֹוָ֖ה",
+      "comparison_form": "לַיהֹוָ֖ה",
+      "description": "Aleppo has no Meteg under Lamed",
+      "recommendation": null,
+      "source_message_keys": [
+        "fw-30-more-corrections-for-mam"
+      ],
+      "case_number": 8,
+      "image_files": [
+        "gh-pages/mam_img/mam008_01.png"
+      ],
+      "mam_plus_check": {
+        "atom_count": 9,
+        "quoted_atom_count": 1,
+        "mam_form_found_in_verse": true,
+        "mam_form_found_at_atom": 6,
+        "mam_form_starts_at_stated_atom": true,
+        "mam_form_covers_stated_atom": true,
+        "comparison_form_already_present": false,
+        "atom_text_at_stated_atom": "לַֽיהֹוָ֖ה"
+      }
+    },
+    {
+      "ref": "1Sa 18:9.6",
+      "book_abbrev": "1Sa",
+      "std_book_name": "1Samuel",
+      "chapter": 18,
+      "verse": 9,
+      "atom": 6,
+      "comparison_source": "Aleppo",
+      "mam_form": "מֵֽהַיּ֥וֹם",
+      "comparison_form": "מֵהַיּ֥וֹם",
+      "description": "Aleppo has no Meteg under Mem",
+      "recommendation": null,
+      "source_message_keys": [
+        "fw-30-more-corrections-for-mam"
+      ],
+      "case_number": 9,
+      "image_files": [
+        "gh-pages/mam_img/mam009_01.png"
+      ],
+      "mam_plus_check": {
+        "atom_count": 8,
+        "quoted_atom_count": 1,
+        "mam_form_found_in_verse": true,
+        "mam_form_found_at_atom": 6,
+        "mam_form_starts_at_stated_atom": true,
+        "mam_form_covers_stated_atom": true,
+        "comparison_form_already_present": false,
+        "atom_text_at_stated_atom": "מֵֽהַיּ֥וֹם"
+      }
+    },
+    {
+      "ref": "1Sa 27:3.15",
+      "book_abbrev": "1Sa",
+      "std_book_name": "1Samuel",
+      "chapter": 27,
+      "verse": 3,
+      "atom": 15,
+      "comparison_source": "Aleppo",
+      "mam_form": "וַֽאֲבִיגַ֥יִל",
+      "comparison_form": "וַאֲבִיגַ֥יִל",
+      "description": "Aleppo has no Meteg under Vav",
+      "recommendation": null,
+      "source_message_keys": [
+        "fw-30-more-corrections-for-mam"
+      ],
+      "case_number": 10,
+      "image_files": [
+        "gh-pages/mam_img/mam010_01.png"
+      ],
+      "mam_plus_check": {
+        "atom_count": 18,
+        "quoted_atom_count": 1,
+        "mam_form_found_in_verse": true,
+        "mam_form_found_at_atom": 15,
+        "mam_form_starts_at_stated_atom": true,
+        "mam_form_covers_stated_atom": true,
+        "comparison_form_already_present": false,
+        "atom_text_at_stated_atom": "וַֽאֲבִיגַ֥יִל"
+      }
+    },
+    {
+      "ref": "2Ch 6:27.17",
+      "book_abbrev": "2Ch",
+      "std_book_name": "2Chronicles",
+      "chapter": 6,
+      "verse": 27,
+      "atom": 17,
+      "comparison_source": "Aleppo",
+      "mam_form": "וְנָֽתַתָּ֤ה",
+      "comparison_form": "וְנָתַתָּ֤ה",
+      "description": "Aleppo has no Meteg under Nun",
+      "recommendation": null,
+      "source_message_keys": [
+        "fw-30-more-corrections-for-mam"
+      ],
+      "case_number": 11,
+      "image_files": [
+        "gh-pages/mam_img/mam011_01.png"
+      ],
+      "mam_plus_check": {
+        "atom_count": 24,
+        "quoted_atom_count": 1,
+        "mam_form_found_in_verse": true,
+        "mam_form_found_at_atom": 17,
+        "mam_form_starts_at_stated_atom": true,
+        "mam_form_covers_stated_atom": true,
+        "comparison_form_already_present": false,
+        "atom_text_at_stated_atom": "וְנָֽתַתָּ֤ה"
+      }
+    },
+    {
+      "ref": "2Ch 6:28.9",
+      "book_abbrev": "2Ch",
+      "std_book_name": "2Chronicles",
+      "chapter": 6,
+      "verse": 28,
+      "atom": 9,
+      "comparison_source": "Aleppo",
+      "mam_form": "וְיֵֽרָק֜וֹן",
+      "comparison_form": "וְיֵרָק֜וֹן",
+      "description": "Aleppo has no Meteg under Yod",
+      "recommendation": null,
+      "source_message_keys": [
+        "fw-30-more-corrections-for-mam"
+      ],
+      "case_number": 12,
+      "image_files": [
+        "gh-pages/mam_img/mam012_01.png"
+      ],
+      "mam_plus_check": {
+        "atom_count": 23,
+        "quoted_atom_count": 1,
+        "mam_form_found_in_verse": true,
+        "mam_form_found_at_atom": 9,
+        "mam_form_starts_at_stated_atom": true,
+        "mam_form_covers_stated_atom": true,
+        "comparison_form_already_present": false,
+        "atom_text_at_stated_atom": "וְיֵֽרָק֜וֹן"
+      }
+    },
+    {
+      "ref": "2Ch 18:33.21",
+      "book_abbrev": "2Ch",
+      "std_book_name": "2Chronicles",
+      "chapter": 18,
+      "verse": 33,
+      "atom": 21,
+      "comparison_source": "Aleppo",
+      "mam_form": "הׇֽחֳלֵֽיתִי׃",
+      "comparison_form": "הׇחֳלֵֽיתִי׃",
+      "description": "Aleppo has no Meteg under Hey",
+      "recommendation": null,
+      "source_message_keys": [
+        "fw-30-more-corrections-for-mam"
+      ],
+      "case_number": 13,
+      "image_files": [
+        "gh-pages/mam_img/mam013_01.png"
+      ],
+      "mam_plus_check": {
+        "atom_count": 21,
+        "quoted_atom_count": 1,
+        "mam_form_found_in_verse": true,
+        "mam_form_found_at_atom": 21,
+        "mam_form_starts_at_stated_atom": true,
+        "mam_form_covers_stated_atom": true,
+        "comparison_form_already_present": false,
+        "atom_text_at_stated_atom": "הׇֽחֳלֵֽיתִי"
+      }
+    },
+    {
+      "ref": "2Ch 24:25.13",
+      "book_abbrev": "2Ch",
+      "std_book_name": "2Chronicles",
+      "chapter": 24,
+      "verse": 25,
+      "atom": 13,
+      "comparison_source": "Aleppo",
+      "mam_form": "יְהֽוֹיָדָ֣ע",
+      "comparison_form": "יְהוֹיָדָ֣ע",
+      "description": "Aleppo has no Meteg under Hey",
+      "recommendation": null,
+      "source_message_keys": [
+        "fw-30-more-corrections-for-mam"
+      ],
+      "case_number": 14,
+      "image_files": [
+        "gh-pages/mam_img/mam014_01.png"
+      ],
+      "mam_plus_check": {
+        "atom_count": 25,
+        "quoted_atom_count": 1,
+        "mam_form_found_in_verse": true,
+        "mam_form_found_at_atom": 13,
+        "mam_form_starts_at_stated_atom": true,
+        "mam_form_covers_stated_atom": true,
+        "comparison_form_already_present": false,
+        "atom_text_at_stated_atom": "יְהֽוֹיָדָ֣ע"
+      }
+    },
+    {
+      "ref": "2Ch 32:7.18",
+      "book_abbrev": "2Ch",
+      "std_book_name": "2Chronicles",
+      "chapter": 32,
+      "verse": 7,
+      "atom": 18,
+      "comparison_source": "Aleppo",
+      "mam_form": "מֵֽעִמּֽוֹ׃",
+      "comparison_form": "מֵעִמּֽוֹ׃",
+      "description": "Aleppo has no Meteg under first Mem",
+      "recommendation": null,
+      "source_message_keys": [
+        "fw-30-more-corrections-for-mam"
+      ],
+      "case_number": 15,
+      "image_files": [
+        "gh-pages/mam_img/mam015_01.png"
+      ],
+      "mam_plus_check": {
+        "atom_count": 18,
+        "quoted_atom_count": 1,
+        "mam_form_found_in_verse": true,
+        "mam_form_found_at_atom": 18,
+        "mam_form_starts_at_stated_atom": true,
+        "mam_form_covers_stated_atom": true,
+        "comparison_form_already_present": false,
+        "atom_text_at_stated_atom": "מֵֽעִמּֽוֹ"
+      }
+    },
+    {
+      "ref": "2Ki 7:12.19",
+      "book_abbrev": "2Ki",
+      "std_book_name": "2Kings",
+      "chapter": 7,
+      "verse": 12,
+      "atom": 19,
+      "comparison_source": "Aleppo",
+      "mam_form": "וַיֵּֽצְא֤וּ",
+      "comparison_form": "וַיֵּצְא֤וּ",
+      "description": "Aleppo has no Meteg under Yod",
+      "recommendation": null,
+      "source_message_keys": [
+        "fw-30-more-corrections-for-mam"
+      ],
+      "case_number": 16,
+      "image_files": [
+        "gh-pages/mam_img/mam016_01.png"
+      ],
+      "mam_plus_check": {
+        "atom_count": 33,
+        "quoted_atom_count": 1,
+        "mam_form_found_in_verse": true,
+        "mam_form_found_at_atom": 19,
+        "mam_form_starts_at_stated_atom": true,
+        "mam_form_covers_stated_atom": true,
+        "comparison_form_already_present": false,
+        "atom_text_at_stated_atom": "וַיֵּֽצְא֤וּ"
+      }
+    },
+    {
+      "ref": "2Ki 17:15.15",
+      "book_abbrev": "2Ki",
+      "std_book_name": "2Kings",
+      "chapter": 17,
+      "verse": 15,
+      "atom": 15,
+      "comparison_source": "HUB",
+      "mam_form": "וַיֵּ֨לְכ֜וּ",
+      "comparison_form": "וַיֵּ֨לְכוּ֜",
+      "description": "",
+      "recommendation": "Move Geresh to end of word",
+      "source_message_keys": [
+        "mam-and-hub-text-comparison",
+        "suggested-correction-for-mam"
+      ],
+      "case_number": 17,
+      "image_files": [
+        "gh-pages/mam_img/mam017_01.png"
+      ],
+      "mam_plus_check": {
+        "atom_count": 29,
+        "quoted_atom_count": 1,
+        "mam_form_found_in_verse": true,
+        "mam_form_found_at_atom": 15,
+        "mam_form_starts_at_stated_atom": true,
+        "mam_form_covers_stated_atom": true,
+        "comparison_form_already_present": false,
+        "atom_text_at_stated_atom": "וַיֵּ֨לְכ֜וּ"
+      }
+    },
+    {
+      "ref": "2Ki 21:12.11",
+      "book_abbrev": "2Ki",
+      "std_book_name": "2Kings",
+      "chapter": 21,
+      "verse": 12,
+      "atom": 11,
+      "comparison_source": "Aleppo",
+      "mam_form": "עַל־יְרֽוּשָׁלַ֖͏ִם",
+      "comparison_form": "עַל־יְרוּשָׁלַ֖͏ִם",
+      "description": "Aleppo has no Meteg under Resh",
+      "recommendation": null,
+      "source_message_keys": [
+        "fw-30-more-corrections-for-mam"
+      ],
+      "case_number": 18,
+      "image_files": [
+        "gh-pages/mam_img/mam018_01.png"
+      ],
+      "mam_plus_check": {
+        "atom_count": 18,
+        "quoted_atom_count": 2,
+        "mam_form_found_in_verse": true,
+        "mam_form_found_at_atom": 10,
+        "mam_form_starts_at_stated_atom": false,
+        "mam_form_covers_stated_atom": true,
+        "comparison_form_already_present": false,
+        "atom_text_at_stated_atom": "יְרֽוּשָׁלַ֖͏ִם"
+      }
+    },
+    {
+      "ref": "2Sa 11:3.14",
+      "book_abbrev": "2Sa",
+      "std_book_name": "2Samuel",
+      "chapter": 11,
+      "verse": 3,
+      "atom": 14,
+      "comparison_source": "Aleppo",
+      "mam_form": "הַֽחִתִּֽי׃",
+      "comparison_form": "הַחִתִּֽי׃",
+      "description": "Aleppo has no Meteg under Hey",
+      "recommendation": null,
+      "source_message_keys": [
+        "fw-30-more-corrections-for-mam"
+      ],
+      "case_number": 19,
+      "image_files": [
+        "gh-pages/mam_img/mam019_01.png"
+      ],
+      "mam_plus_check": {
+        "atom_count": 14,
+        "quoted_atom_count": 1,
+        "mam_form_found_in_verse": true,
+        "mam_form_found_at_atom": 14,
+        "mam_form_starts_at_stated_atom": true,
+        "mam_form_covers_stated_atom": true,
+        "comparison_form_already_present": false,
+        "atom_text_at_stated_atom": "הַֽחִתִּֽי"
+      }
+    },
+    {
+      "ref": "2Sa 12:31.25",
+      "book_abbrev": "2Sa",
+      "std_book_name": "2Samuel",
+      "chapter": 12,
+      "verse": 31,
+      "atom": 25,
+      "comparison_source": "Aleppo",
+      "mam_form": "יְרֽוּשָׁלָֽ͏ִם׃",
+      "comparison_form": "יְרוּשָׁלָֽ͏ִם׃",
+      "description": "Aleppo has no Meteg under Resh",
+      "recommendation": null,
+      "source_message_keys": [
+        "fw-30-more-corrections-for-mam"
+      ],
+      "case_number": 20,
+      "image_files": [
+        "gh-pages/mam_img/mam020_01.png"
+      ],
+      "mam_plus_check": {
+        "atom_count": 25,
+        "quoted_atom_count": 1,
+        "mam_form_found_in_verse": true,
+        "mam_form_found_at_atom": 25,
+        "mam_form_starts_at_stated_atom": true,
+        "mam_form_covers_stated_atom": true,
+        "comparison_form_already_present": false,
+        "atom_text_at_stated_atom": "יְרֽוּשָׁלָֽ͏ִם"
+      }
+    },
+    {
+      "ref": "2Sa 15:37.8",
+      "book_abbrev": "2Sa",
+      "std_book_name": "2Samuel",
+      "chapter": 15,
+      "verse": 37,
+      "atom": 8,
+      "comparison_source": "Aleppo",
+      "mam_form": "יְרֽוּשָׁלָֽ͏ִם׃",
+      "comparison_form": "יְרוּשָׁלָֽ͏ִם׃",
+      "description": "Aleppo has no Meteg under Resh",
+      "recommendation": null,
+      "source_message_keys": [
+        "fw-30-more-corrections-for-mam"
+      ],
+      "case_number": 21,
+      "image_files": [
+        "gh-pages/mam_img/mam021_01.png"
+      ],
+      "mam_plus_check": {
+        "atom_count": 9,
+        "quoted_atom_count": 1,
+        "mam_form_found_in_verse": true,
+        "mam_form_found_at_atom": 9,
+        "mam_form_starts_at_stated_atom": false,
+        "mam_form_covers_stated_atom": false,
+        "comparison_form_already_present": false,
+        "atom_text_at_stated_atom": "יָב֖וֹא"
+      }
+    },
+    {
+      "ref": "2Sa 18:3.9",
+      "book_abbrev": "2Sa",
+      "std_book_name": "2Samuel",
+      "chapter": 18,
+      "verse": 3,
+      "atom": 9,
+      "comparison_source": "Aleppo",
+      "mam_form": "לֹֽא־יָשִׂ֧ימוּ",
+      "comparison_form": "לֹא־יָשִׂ֧ימוּ",
+      "description": "Aleppo has no Meteg under Lamed",
+      "recommendation": null,
+      "source_message_keys": [
+        "fw-30-more-corrections-for-mam"
+      ],
+      "case_number": 22,
+      "image_files": [
+        "gh-pages/mam_img/mam022_01.png"
+      ],
+      "mam_plus_check": {
+        "atom_count": 31,
+        "quoted_atom_count": 2,
+        "mam_form_found_in_verse": true,
+        "mam_form_found_at_atom": 9,
+        "mam_form_starts_at_stated_atom": true,
+        "mam_form_covers_stated_atom": true,
+        "comparison_form_already_present": false,
+        "atom_text_at_stated_atom": "לֹֽא"
+      }
+    },
+    {
+      "ref": "Isa 23:12.11",
+      "book_abbrev": "Isa",
+      "std_book_name": "Isaiah",
+      "chapter": 23,
+      "verse": 12,
+      "atom": 11,
+      "comparison_source": "Aleppo",
+      "mam_form": "ק֣וּמִי",
+      "comparison_form": "ק֣וּמִֽי",
+      "description": "Aleppo HAS a Meteg under Mem",
+      "recommendation": null,
+      "source_message_keys": [
+        "fw-30-more-corrections-for-mam"
+      ],
+      "case_number": 23,
+      "image_files": [
+        "gh-pages/mam_img/mam023_01.png"
+      ],
+      "mam_plus_check": {
+        "atom_count": 17,
+        "quoted_atom_count": 1,
+        "mam_form_found_in_verse": true,
+        "mam_form_found_at_atom": 11,
+        "mam_form_starts_at_stated_atom": true,
+        "mam_form_covers_stated_atom": true,
+        "comparison_form_already_present": false,
+        "atom_text_at_stated_atom": "ק֣וּמִי"
+      }
+    },
+    {
+      "ref": "Josh 10:12.3",
+      "book_abbrev": "Josh",
+      "std_book_name": "Joshua",
+      "chapter": 10,
+      "verse": 12,
+      "atom": 3,
+      "comparison_source": "HUB",
+      "mam_form": "יְהוֹשֻׁעַ֙",
+      "comparison_form": "יְהוֹשֻׁ֨עַ֙",
+      "description": "",
+      "recommendation": "Add helper accent",
+      "source_message_keys": [
+        "mam-and-hub-text-comparison",
+        "suggested-correction-for-mam"
+      ],
+      "case_number": 24,
+      "image_files": [
+        "gh-pages/mam_img/mam024_01.png"
+      ],
+      "mam_plus_check": {
+        "atom_count": 21,
+        "quoted_atom_count": 1,
+        "mam_form_found_in_verse": true,
+        "mam_form_found_at_atom": 3,
+        "mam_form_starts_at_stated_atom": true,
+        "mam_form_covers_stated_atom": true,
+        "comparison_form_already_present": false,
+        "atom_text_at_stated_atom": "יְהוֹשֻׁעַ֙"
+      }
+    },
+    {
+      "ref": "Judg 1:7.21",
+      "book_abbrev": "Judg",
+      "std_book_name": "Judges",
+      "chapter": 1,
+      "verse": 7,
+      "atom": 21,
+      "comparison_source": "Aleppo",
+      "mam_form": "יְרֽוּשָׁלַ֖͏ִם",
+      "comparison_form": "יְרוּשָׁלַ֖͏ִם",
+      "description": "Aleppo has no Meteg under Resh",
+      "recommendation": null,
+      "source_message_keys": [
+        "fw-30-more-corrections-for-mam"
+      ],
+      "case_number": 25,
+      "image_files": [
+        "gh-pages/mam_img/mam025_01.png"
+      ],
+      "mam_plus_check": {
+        "atom_count": 22,
+        "quoted_atom_count": 1,
+        "mam_form_found_in_verse": true,
+        "mam_form_found_at_atom": 20,
+        "mam_form_starts_at_stated_atom": false,
+        "mam_form_covers_stated_atom": false,
+        "comparison_form_already_present": false,
+        "atom_text_at_stated_atom": "וַיָּ֥מׇת"
+      }
+    },
+    {
+      "ref": "Judg 1:32.9",
+      "book_abbrev": "Judg",
+      "std_book_name": "Judges",
+      "chapter": 1,
+      "verse": 32,
+      "atom": 9,
+      "comparison_source": "Aleppo",
+      "mam_form": "הֽוֹרִישֽׁוֹ׃",
+      "comparison_form": "הוֹרִישֽׁוֹ׃",
+      "description": "Aleppo has no Meteg under Hey",
+      "recommendation": null,
+      "source_message_keys": [
+        "fw-30-more-corrections-for-mam"
+      ],
+      "case_number": 26,
+      "image_files": [
+        "gh-pages/mam_img/mam026_01.png"
+      ],
+      "mam_plus_check": {
+        "atom_count": 9,
+        "quoted_atom_count": 1,
+        "mam_form_found_in_verse": true,
+        "mam_form_found_at_atom": 9,
+        "mam_form_starts_at_stated_atom": true,
+        "mam_form_covers_stated_atom": true,
+        "comparison_form_already_present": false,
+        "atom_text_at_stated_atom": "הֽוֹרִישֽׁוֹ"
+      }
+    },
+    {
+      "ref": "Judg 5:6.7",
+      "book_abbrev": "Judg",
+      "std_book_name": "Judges",
+      "chapter": 5,
+      "verse": 6,
+      "atom": 7,
+      "comparison_source": "Aleppo",
+      "mam_form": "חָֽדְל֖וּ",
+      "comparison_form": "חָדְל֖וּ",
+      "description": "Aleppo has no Meteg under Chet",
+      "recommendation": null,
+      "source_message_keys": [
+        "fw-30-more-corrections-for-mam"
+      ],
+      "case_number": 27,
+      "image_files": [
+        "gh-pages/mam_img/mam027_01.png"
+      ],
+      "mam_plus_check": {
+        "atom_count": 13,
+        "quoted_atom_count": 1,
+        "mam_form_found_in_verse": true,
+        "mam_form_found_at_atom": 7,
+        "mam_form_starts_at_stated_atom": true,
+        "mam_form_covers_stated_atom": true,
+        "comparison_form_already_present": false,
+        "atom_text_at_stated_atom": "חָֽדְל֖וּ"
+      }
+    },
+    {
+      "ref": "Judg 5:11.13",
+      "book_abbrev": "Judg",
+      "std_book_name": "Judges",
+      "chapter": 5,
+      "verse": 11,
+      "atom": 13,
+      "comparison_source": "Aleppo",
+      "mam_form": "יָֽרְד֥וּ",
+      "comparison_form": "יָרְד֥וּ",
+      "description": "Aleppo has no Meteg under Yod",
+      "recommendation": null,
+      "source_message_keys": [
+        "fw-30-more-corrections-for-mam"
+      ],
+      "case_number": 28,
+      "image_files": [
+        "gh-pages/mam_img/mam028_01.png"
+      ],
+      "mam_plus_check": {
+        "atom_count": 16,
+        "quoted_atom_count": 1,
+        "mam_form_found_in_verse": true,
+        "mam_form_found_at_atom": 13,
+        "mam_form_starts_at_stated_atom": true,
+        "mam_form_covers_stated_atom": true,
+        "comparison_form_already_present": false,
+        "atom_text_at_stated_atom": "יָֽרְד֥וּ"
+      }
+    },
+    {
+      "ref": "Judg 6:1.2",
+      "book_abbrev": "Judg",
+      "std_book_name": "Judges",
+      "chapter": 6,
+      "verse": 1,
+      "atom": 2,
+      "comparison_source": "Aleppo",
+      "mam_form": "בְנֵֽי־יִשְׂרָאֵ֛ל",
+      "comparison_form": "בְנֵי־יִשְׂרָאֵ֛ל",
+      "description": "Aleppo has no Meteg under Nun",
+      "recommendation": null,
+      "source_message_keys": [
+        "fw-30-more-corrections-for-mam"
+      ],
+      "case_number": 29,
+      "image_files": [
+        "gh-pages/mam_img/mam029_01.png"
+      ],
+      "mam_plus_check": {
+        "atom_count": 12,
+        "quoted_atom_count": 2,
+        "mam_form_found_in_verse": true,
+        "mam_form_found_at_atom": 2,
+        "mam_form_starts_at_stated_atom": true,
+        "mam_form_covers_stated_atom": true,
+        "comparison_form_already_present": false,
+        "atom_text_at_stated_atom": "בְנֵֽי"
+      }
+    },
+    {
+      "ref": "Judg 6:4.1",
+      "book_abbrev": "Judg",
+      "std_book_name": "Judges",
+      "chapter": 6,
+      "verse": 4,
+      "atom": 1,
+      "comparison_source": "Aleppo",
+      "mam_form": "וַיַּֽחֲנ֣וּ",
+      "comparison_form": "וַיַּחֲנ֣וּ",
+      "description": "Aleppo has no Meteg under Yod",
+      "recommendation": null,
+      "source_message_keys": [
+        "fw-30-more-corrections-for-mam"
+      ],
+      "case_number": 30,
+      "image_files": [
+        "gh-pages/mam_img/mam030_01.png"
+      ],
+      "mam_plus_check": {
+        "atom_count": 16,
+        "quoted_atom_count": 1,
+        "mam_form_found_in_verse": true,
+        "mam_form_found_at_atom": 1,
+        "mam_form_starts_at_stated_atom": true,
+        "mam_form_covers_stated_atom": true,
+        "comparison_form_already_present": false,
+        "atom_text_at_stated_atom": "וַיַּֽחֲנ֣וּ"
+      }
+    },
+    {
+      "ref": "Judg 6:5.4",
+      "book_abbrev": "Judg",
+      "std_book_name": "Judges",
+      "chapter": 6,
+      "verse": 5,
+      "atom": 4,
+      "comparison_source": "Aleppo",
+      "mam_form": "יַֽעֲל֜וּ",
+      "comparison_form": "יַעֲל֜וּ",
+      "description": "Aleppo has no Meteg under Yod",
+      "recommendation": null,
+      "source_message_keys": [
+        "fw-30-more-corrections-for-mam"
+      ],
+      "case_number": 31,
+      "image_files": [
+        "gh-pages/mam_img/mam031_01.png"
+      ],
+      "mam_plus_check": {
+        "atom_count": 16,
+        "quoted_atom_count": 1,
+        "mam_form_found_in_verse": true,
+        "mam_form_found_at_atom": 4,
+        "mam_form_starts_at_stated_atom": true,
+        "mam_form_covers_stated_atom": true,
+        "comparison_form_already_present": false,
+        "atom_text_at_stated_atom": "יַֽעֲל֜וּ"
+      }
+    },
+    {
+      "ref": "Judg 10:11.1",
+      "book_abbrev": "Judg",
+      "std_book_name": "Judges",
+      "chapter": 10,
+      "verse": 11,
+      "atom": 1,
+      "comparison_source": "HUB",
+      "mam_form": "וַיֹּ֥אמֶר",
+      "comparison_form": "וַ֥יֹּאמֶר",
+      "description": "",
+      "recommendation": "Place Mereka on first syllable",
+      "source_message_keys": [
+        "mam-and-hub-text-comparison",
+        "suggested-correction-for-mam"
+      ],
+      "case_number": 32,
+      "image_files": [
+        "gh-pages/mam_img/mam032_01.png"
+      ],
+      "mam_plus_check": {
+        "atom_count": 14,
+        "quoted_atom_count": 1,
+        "mam_form_found_in_verse": true,
+        "mam_form_found_at_atom": 1,
+        "mam_form_starts_at_stated_atom": true,
+        "mam_form_covers_stated_atom": true,
+        "comparison_form_already_present": false,
+        "atom_text_at_stated_atom": "וַיֹּ֥אמֶר"
+      }
+    },
+    {
+      "ref": "Judg 21:16.3",
+      "book_abbrev": "Judg",
+      "std_book_name": "Judges",
+      "chapter": 21,
+      "verse": 16,
+      "atom": 3,
+      "comparison_source": "Aleppo",
+      "mam_form": "הָֽעֵדָ֔ה",
+      "comparison_form": "הָעֵדָ֔ה",
+      "description": "Aleppo no Meteg under Hey",
+      "recommendation": null,
+      "source_message_keys": [
+        "fw-30-more-corrections-for-mam"
+      ],
+      "case_number": 33,
+      "image_files": [
+        "gh-pages/mam_img/mam033_01.png"
+      ],
+      "mam_plus_check": {
+        "atom_count": 11,
+        "quoted_atom_count": 1,
+        "mam_form_found_in_verse": true,
+        "mam_form_found_at_atom": 3,
+        "mam_form_starts_at_stated_atom": true,
+        "mam_form_covers_stated_atom": true,
+        "comparison_form_already_present": false,
+        "atom_text_at_stated_atom": "הָֽעֵדָ֔ה"
+      }
+    },
+    {
+      "ref": "Zech 2:4.11",
+      "book_abbrev": "Zech",
+      "std_book_name": "Zechariah",
+      "chapter": 2,
+      "verse": 4,
+      "atom": 11,
+      "comparison_source": "HUB",
+      "mam_form": "זֵ֣רוּ",
+      "comparison_form": "זֵר֣וּ",
+      "description": "",
+      "recommendation": "Place Mereka on first syllable",
+      "source_message_keys": [
+        "mam-and-hub-text-comparison",
+        "suggested-correction-for-mam"
+      ],
+      "case_number": 34,
+      "image_files": [
+        "gh-pages/mam_img/mam034_01.png"
+      ],
+      "mam_plus_check": {
+        "atom_count": 32,
+        "quoted_atom_count": 1,
+        "mam_form_found_in_verse": true,
+        "mam_form_found_at_atom": 11,
+        "mam_form_starts_at_stated_atom": true,
+        "mam_form_covers_stated_atom": true,
+        "comparison_form_already_present": false,
+        "atom_text_at_stated_atom": "זֵ֣רוּ"
+      }
+    }
+  ]
+}
