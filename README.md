@@ -412,19 +412,28 @@ says the suggestion has been handled, not that it was never made. Its card leads
 with the ruling, because a reader who does not know a case is settled will take the
 suggestion under it as still standing.
 
-**One case is suppressed so far: M17, 2Kings 17:15.15** (Ben's decision, 2026-09-02).
-MAM is right and the geresh is misplaced in the Jerusalem Crown. Seth (Avi) Kadish
-established this on 2026-08-28: the geresh appears to have been erased in the
-Leningrad Codex, and the UXLC has it that way, but even erased it stood over the כ
-rather than over the final ו. He notes the same misplacement onto the final ו in BHS
-and in Mechon Mamre, and reads the three editions sharing it as evidence that they
-share a source. He added a note in MAM about the geresh in the Leningrad Codex
-rather than moving the accent.
+**Four cases are suppressed so far, the whole Jerusalem Crown batch** (Ben's
+decisions, 2026-09-02). Seth (Avi) Kadish ruled on all four on 2026-08-28, and each
+card cites him:
 
-**M32, Judges 10:11.1, may belong in the same position and has not been suppressed.**
-Avi ruled on it in the same message — MAM is correct, the stressed syllable beginning
-with the י — and his later note says that error too is shared by the Jerusalem Crown
-and Mechon Mamre. It is left active because Ben asked for M17 and only M17.
+| Case | Verse | Outcome |
+|---|---|---|
+| M17 | 2Kings 17:15.15 | Suggestion not taken — MAM is right; the geresh is misplaced in the Jerusalem Crown |
+| M24 | Joshua 10:12.3 | Suggestion taken — MAM now has the pashta repeated over the ש |
+| M32 | Judges 10:11.1 | Suggestion not taken — MAM is right; the merkha is misplaced in the Jerusalem Crown |
+| M34 | Zechariah 2:4.11 | Suggestion taken — MAM now has the munaḥ on the ר |
+
+Two of them turn on the Aleppo Codex not being extant, which is why Avi reasoned
+from the Leningrad Codex there: its leaves jump 2Kings 14:21 to 18:13, and again
+Zephaniah 3:20 to Zechariah 9:17, so at M17 and M34 the Leningrad Codex is the
+primary reference manuscript. The Aleppo Codex is extant at M24 and M32.
+
+M24's reason cites Yeivin (*ITM* §239) for why nothing in the manuscripts was at
+issue there: the standard printed editions and the Leningrad and Cairo codices
+repeat the pashta on every non-final stress, a furtive pataḥ counting as a syllable
+of its own, while the Aleppo Codex repeats it only where at least one letter stands
+between the two letters that would carry it — and in יהושע the ש stands immediately
+before the ע.
 
 ### One line of Holman's has been corrected, and the correction is Ben's
 
