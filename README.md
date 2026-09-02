@@ -330,7 +330,7 @@ itself** — a third body of his work, and neither of the two above. As of
   has none; the thirtieth, Isaiah 23:12.11, runs the other way.
 - **4 accent-placement cases** — Joshua 10:12.3, Judges 10:11.1, 2Kings 17:15.15
   and Zechariah 2:4.11 — from the messages of 2026-08-21 and 2026-08-27, which
-  carry the same four and differ only in that the later one adds a recommendation
+  carry the same four and differ only in that the later one adds a suggestion
   per case. He compares against an edition he calls **"HUB"**, which is the
   **Jerusalem Crown** (כתר ירושלים) — Ben Denckla's identification, 2026-09-02.
   `comparison_source` keeps Holman's label verbatim and `comparison_edition`
@@ -410,7 +410,7 @@ A suppressed case keeps its card, its crop and its number and moves to the
 **Suppressed** page beside the ketiv/qere rows whose issues are closed; suppression
 says the suggestion has been handled, not that it was never made. Its card leads
 with the ruling, because a reader who does not know a case is settled will take the
-recommendation under it as still standing.
+suggestion under it as still standing.
 
 **One case is suppressed so far: M17, 2Kings 17:15.15** (Ben's decision, 2026-09-02).
 MAM is right and the geresh is misplaced in the Jerusalem Crown. Seth (Avi) Kadish
@@ -428,19 +428,19 @@ and Mechon Mamre. It is left active because Ben asked for M17 and only M17.
 
 ### One line of Holman's has been corrected, and the correction is Ben's
 
-Zechariah 2:4.11's recommendation as sent reads "Place Mereka on first syllable",
+Zechariah 2:4.11's suggestion as sent reads "Place Mereka on first syllable",
 which is wrong twice: the mark is a munaḥ rather than a merkha, and MAM already has
 it on the first syllable of זֵרוּ, the Jerusalem Crown having it on the second — so
 the line describes MAM's existing state rather than the change toward that edition.
-It looks carried down from the Judges 10:11 row, whose recommendation is worded
+It looks carried down from the Judges 10:11 row, whose suggestion is worded
 identically and where the mark genuinely is a merkha. The extract shows "Place Munaḥ
-on second syllable" and keeps his wording under `recommendation_as_sent`, with the
+on second syllable" and keeps his wording under `suggestion_as_sent`, with the
 corrector and the reason under `corrections`.
 
 **Holman did not correct this himself**, and the record must not imply that he did.
 Checked 2026-09-02 across the whole mailbox: the line occurs in exactly one message,
 the one of 2026-08-27, in both its body and its workbook. The message of 2026-08-21
-carries the same four cases with no recommendation column at all, so it neither
+carries the same four cases with no suggestion column at all, so it neither
 states nor corrects the line, and every other occurrence in the mailbox is the
 2026-08-27 message quoted back inside a reply. There is no follow-up revising it.
 

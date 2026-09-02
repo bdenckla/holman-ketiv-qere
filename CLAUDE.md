@@ -103,7 +103,7 @@ before adding a field to the derivative, check what it would carry out of the ma
 
 Ben's instruction, 2026-09-02, on the messages under `.novc/eml-mam/`: what becomes public is the
 suggestions themselves. So `main_ingest_mam_suggestions.py` tracks **no message body at all** — a
-reference, the two forms Holman compares, his one-line description, his recommendation where he
+reference, the two forms Holman compares, his one-line description, his suggestion where he
 gives one, and the message's subject, date and sender display name. That is the whole of what the
 ingest takes.
 
