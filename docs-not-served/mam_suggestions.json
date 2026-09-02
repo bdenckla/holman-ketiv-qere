@@ -28,21 +28,20 @@
   "case_count": 34,
   "mam_plus_verify": {
     "case_count": 34,
-    "mam_form_starts_at_stated_atom": 30,
-    "mam_form_covers_stated_atom_only": 1,
-    "mam_form_elsewhere_in_verse": 3,
-    "mam_form_not_in_verse": 0,
+    "stated_atom_agrees": 31,
+    "stated_atom_corrected": 3,
     "comparison_form_already_present": 0
   },
   "cases": [
     {
-      "ref": "1Ki 7:24.17",
+      "ref": "1Ki 7:24.16",
       "book_abbrev": "1Ki",
       "std_book_name": "1Kings",
       "chapter": 7,
       "verse": 24,
-      "atom": 17,
+      "atom": 16,
       "comparison_source": "Aleppo",
+      "comparison_edition": "Aleppo Codex",
       "mam_form": "בִּיצֻֽקָתֽוֹ׃",
       "comparison_form": "בִּיצֻקָתֽוֹ׃",
       "description": "Aleppo has no Meteg under Tzadi",
@@ -51,18 +50,19 @@
         "fw-30-more-corrections-for-mam"
       ],
       "case_number": 1,
+      "atom_as_sent": 17,
+      "ref_as_sent": "1Ki 7:24.17",
       "image_files": [
         "gh-pages/mam_img/mam001_01.png"
       ],
       "mam_plus_check": {
         "atom_count": 16,
         "quoted_atom_count": 1,
-        "mam_form_found_in_verse": true,
-        "mam_form_found_at_atom": 16,
-        "mam_form_starts_at_stated_atom": false,
-        "mam_form_covers_stated_atom": false,
-        "comparison_form_already_present": false,
-        "atom_text_at_stated_atom": null
+        "quoted_form_starts_at_atom": 16,
+        "derived_atom": 16,
+        "stated_atom": 17,
+        "stated_atom_agrees": false,
+        "comparison_form_already_present": false
       }
     },
     {
@@ -73,6 +73,7 @@
       "verse": 1,
       "atom": 13,
       "comparison_source": "Aleppo",
+      "comparison_edition": "Aleppo Codex",
       "mam_form": "צֵֽדְנִיֹּ֖ת",
       "comparison_form": "צֵדְנִיֹּ֖ת",
       "description": "Aleppo has no Meteg under Tzadi",
@@ -87,12 +88,11 @@
       "mam_plus_check": {
         "atom_count": 14,
         "quoted_atom_count": 1,
-        "mam_form_found_in_verse": true,
-        "mam_form_found_at_atom": 13,
-        "mam_form_starts_at_stated_atom": true,
-        "mam_form_covers_stated_atom": true,
-        "comparison_form_already_present": false,
-        "atom_text_at_stated_atom": "צֵֽדְנִיֹּ֖ת"
+        "quoted_form_starts_at_atom": 13,
+        "derived_atom": 13,
+        "stated_atom": 13,
+        "stated_atom_agrees": true,
+        "comparison_form_already_present": false
       }
     },
     {
@@ -103,6 +103,7 @@
       "verse": 18,
       "atom": 21,
       "comparison_source": "Aleppo",
+      "comparison_edition": "Aleppo Codex",
       "mam_form": "יְרֽוּשָׁלָֽ͏ִם׃",
       "comparison_form": "יְרוּשָׁלָֽ͏ִם׃",
       "description": "Aleppo has no Meteg under Resh",
@@ -117,12 +118,11 @@
       "mam_plus_check": {
         "atom_count": 21,
         "quoted_atom_count": 1,
-        "mam_form_found_in_verse": true,
-        "mam_form_found_at_atom": 21,
-        "mam_form_starts_at_stated_atom": true,
-        "mam_form_covers_stated_atom": true,
-        "comparison_form_already_present": false,
-        "atom_text_at_stated_atom": "יְרֽוּשָׁלָֽ͏ִם"
+        "quoted_form_starts_at_atom": 21,
+        "derived_atom": 21,
+        "stated_atom": 21,
+        "stated_atom_agrees": true,
+        "comparison_form_already_present": false
       }
     },
     {
@@ -133,6 +133,7 @@
       "verse": 5,
       "atom": 19,
       "comparison_source": "Aleppo",
+      "comparison_edition": "Aleppo Codex",
       "mam_form": "הַֽחִתִּֽי׃",
       "comparison_form": "הַחִתִּֽי׃",
       "description": "Aleppo has no Meteg under Hey",
@@ -147,12 +148,11 @@
       "mam_plus_check": {
         "atom_count": 19,
         "quoted_atom_count": 1,
-        "mam_form_found_in_verse": true,
-        "mam_form_found_at_atom": 19,
-        "mam_form_starts_at_stated_atom": true,
-        "mam_form_covers_stated_atom": true,
-        "comparison_form_already_present": false,
-        "atom_text_at_stated_atom": "הַֽחִתִּֽי"
+        "quoted_form_starts_at_atom": 19,
+        "derived_atom": 19,
+        "stated_atom": 19,
+        "stated_atom_agrees": true,
+        "comparison_form_already_present": false
       }
     },
     {
@@ -163,6 +163,7 @@
       "verse": 19,
       "atom": 23,
       "comparison_source": "Aleppo",
+      "comparison_edition": "Aleppo Codex",
       "mam_form": "מֵֽעָלָֽי׃",
       "comparison_form": "מֵעָלָֽי׃",
       "description": "Aleppo has no Meteg under Mem",
@@ -177,12 +178,11 @@
       "mam_plus_check": {
         "atom_count": 23,
         "quoted_atom_count": 1,
-        "mam_form_found_in_verse": true,
-        "mam_form_found_at_atom": 23,
-        "mam_form_starts_at_stated_atom": true,
-        "mam_form_covers_stated_atom": true,
-        "comparison_form_already_present": false,
-        "atom_text_at_stated_atom": "מֵֽעָלָֽי"
+        "quoted_form_starts_at_atom": 23,
+        "derived_atom": 23,
+        "stated_atom": 23,
+        "stated_atom_agrees": true,
+        "comparison_form_already_present": false
       }
     },
     {
@@ -193,6 +193,7 @@
       "verse": 16,
       "atom": 14,
       "comparison_source": "Aleppo",
+      "comparison_edition": "Aleppo Codex",
       "mam_form": "אֵֽלִיָּֽהוּ׃",
       "comparison_form": "אֵלִיָּֽהוּ׃",
       "description": "Aleppo has no Meteg under Alef",
@@ -207,12 +208,11 @@
       "mam_plus_check": {
         "atom_count": 14,
         "quoted_atom_count": 1,
-        "mam_form_found_in_verse": true,
-        "mam_form_found_at_atom": 14,
-        "mam_form_starts_at_stated_atom": true,
-        "mam_form_covers_stated_atom": true,
-        "comparison_form_already_present": false,
-        "atom_text_at_stated_atom": "אֵֽלִיָּֽהוּ"
+        "quoted_form_starts_at_atom": 14,
+        "derived_atom": 14,
+        "stated_atom": 14,
+        "stated_atom_agrees": true,
+        "comparison_form_already_present": false
       }
     },
     {
@@ -223,6 +223,7 @@
       "verse": 1,
       "atom": 20,
       "comparison_source": "Aleppo",
+      "comparison_edition": "Aleppo Codex",
       "mam_form": "הָֽאֲדָמָֽה׃",
       "comparison_form": "הָאֲדָמָֽה׃",
       "description": "Aleppo has no Meteg under Hey",
@@ -237,12 +238,11 @@
       "mam_plus_check": {
         "atom_count": 20,
         "quoted_atom_count": 1,
-        "mam_form_found_in_verse": true,
-        "mam_form_found_at_atom": 20,
-        "mam_form_starts_at_stated_atom": true,
-        "mam_form_covers_stated_atom": true,
-        "comparison_form_already_present": false,
-        "atom_text_at_stated_atom": "הָֽאֲדָמָֽה"
+        "quoted_form_starts_at_atom": 20,
+        "derived_atom": 20,
+        "stated_atom": 20,
+        "stated_atom_agrees": true,
+        "comparison_form_already_present": false
       }
     },
     {
@@ -253,6 +253,7 @@
       "verse": 7,
       "atom": 6,
       "comparison_source": "Aleppo",
+      "comparison_edition": "Aleppo Codex",
       "mam_form": "לַֽיהֹוָ֖ה",
       "comparison_form": "לַיהֹוָ֖ה",
       "description": "Aleppo has no Meteg under Lamed",
@@ -267,12 +268,11 @@
       "mam_plus_check": {
         "atom_count": 9,
         "quoted_atom_count": 1,
-        "mam_form_found_in_verse": true,
-        "mam_form_found_at_atom": 6,
-        "mam_form_starts_at_stated_atom": true,
-        "mam_form_covers_stated_atom": true,
-        "comparison_form_already_present": false,
-        "atom_text_at_stated_atom": "לַֽיהֹוָ֖ה"
+        "quoted_form_starts_at_atom": 6,
+        "derived_atom": 6,
+        "stated_atom": 6,
+        "stated_atom_agrees": true,
+        "comparison_form_already_present": false
       }
     },
     {
@@ -283,6 +283,7 @@
       "verse": 9,
       "atom": 6,
       "comparison_source": "Aleppo",
+      "comparison_edition": "Aleppo Codex",
       "mam_form": "מֵֽהַיּ֥וֹם",
       "comparison_form": "מֵהַיּ֥וֹם",
       "description": "Aleppo has no Meteg under Mem",
@@ -297,12 +298,11 @@
       "mam_plus_check": {
         "atom_count": 8,
         "quoted_atom_count": 1,
-        "mam_form_found_in_verse": true,
-        "mam_form_found_at_atom": 6,
-        "mam_form_starts_at_stated_atom": true,
-        "mam_form_covers_stated_atom": true,
-        "comparison_form_already_present": false,
-        "atom_text_at_stated_atom": "מֵֽהַיּ֥וֹם"
+        "quoted_form_starts_at_atom": 6,
+        "derived_atom": 6,
+        "stated_atom": 6,
+        "stated_atom_agrees": true,
+        "comparison_form_already_present": false
       }
     },
     {
@@ -313,6 +313,7 @@
       "verse": 3,
       "atom": 15,
       "comparison_source": "Aleppo",
+      "comparison_edition": "Aleppo Codex",
       "mam_form": "וַֽאֲבִיגַ֥יִל",
       "comparison_form": "וַאֲבִיגַ֥יִל",
       "description": "Aleppo has no Meteg under Vav",
@@ -327,12 +328,11 @@
       "mam_plus_check": {
         "atom_count": 18,
         "quoted_atom_count": 1,
-        "mam_form_found_in_verse": true,
-        "mam_form_found_at_atom": 15,
-        "mam_form_starts_at_stated_atom": true,
-        "mam_form_covers_stated_atom": true,
-        "comparison_form_already_present": false,
-        "atom_text_at_stated_atom": "וַֽאֲבִיגַ֥יִל"
+        "quoted_form_starts_at_atom": 15,
+        "derived_atom": 15,
+        "stated_atom": 15,
+        "stated_atom_agrees": true,
+        "comparison_form_already_present": false
       }
     },
     {
@@ -343,6 +343,7 @@
       "verse": 27,
       "atom": 17,
       "comparison_source": "Aleppo",
+      "comparison_edition": "Aleppo Codex",
       "mam_form": "וְנָֽתַתָּ֤ה",
       "comparison_form": "וְנָתַתָּ֤ה",
       "description": "Aleppo has no Meteg under Nun",
@@ -357,12 +358,11 @@
       "mam_plus_check": {
         "atom_count": 24,
         "quoted_atom_count": 1,
-        "mam_form_found_in_verse": true,
-        "mam_form_found_at_atom": 17,
-        "mam_form_starts_at_stated_atom": true,
-        "mam_form_covers_stated_atom": true,
-        "comparison_form_already_present": false,
-        "atom_text_at_stated_atom": "וְנָֽתַתָּ֤ה"
+        "quoted_form_starts_at_atom": 17,
+        "derived_atom": 17,
+        "stated_atom": 17,
+        "stated_atom_agrees": true,
+        "comparison_form_already_present": false
       }
     },
     {
@@ -373,6 +373,7 @@
       "verse": 28,
       "atom": 9,
       "comparison_source": "Aleppo",
+      "comparison_edition": "Aleppo Codex",
       "mam_form": "וְיֵֽרָק֜וֹן",
       "comparison_form": "וְיֵרָק֜וֹן",
       "description": "Aleppo has no Meteg under Yod",
@@ -387,12 +388,11 @@
       "mam_plus_check": {
         "atom_count": 23,
         "quoted_atom_count": 1,
-        "mam_form_found_in_verse": true,
-        "mam_form_found_at_atom": 9,
-        "mam_form_starts_at_stated_atom": true,
-        "mam_form_covers_stated_atom": true,
-        "comparison_form_already_present": false,
-        "atom_text_at_stated_atom": "וְיֵֽרָק֜וֹן"
+        "quoted_form_starts_at_atom": 9,
+        "derived_atom": 9,
+        "stated_atom": 9,
+        "stated_atom_agrees": true,
+        "comparison_form_already_present": false
       }
     },
     {
@@ -403,6 +403,7 @@
       "verse": 33,
       "atom": 21,
       "comparison_source": "Aleppo",
+      "comparison_edition": "Aleppo Codex",
       "mam_form": "הׇֽחֳלֵֽיתִי׃",
       "comparison_form": "הׇחֳלֵֽיתִי׃",
       "description": "Aleppo has no Meteg under Hey",
@@ -417,12 +418,11 @@
       "mam_plus_check": {
         "atom_count": 21,
         "quoted_atom_count": 1,
-        "mam_form_found_in_verse": true,
-        "mam_form_found_at_atom": 21,
-        "mam_form_starts_at_stated_atom": true,
-        "mam_form_covers_stated_atom": true,
-        "comparison_form_already_present": false,
-        "atom_text_at_stated_atom": "הׇֽחֳלֵֽיתִי"
+        "quoted_form_starts_at_atom": 21,
+        "derived_atom": 21,
+        "stated_atom": 21,
+        "stated_atom_agrees": true,
+        "comparison_form_already_present": false
       }
     },
     {
@@ -433,6 +433,7 @@
       "verse": 25,
       "atom": 13,
       "comparison_source": "Aleppo",
+      "comparison_edition": "Aleppo Codex",
       "mam_form": "יְהֽוֹיָדָ֣ע",
       "comparison_form": "יְהוֹיָדָ֣ע",
       "description": "Aleppo has no Meteg under Hey",
@@ -447,12 +448,11 @@
       "mam_plus_check": {
         "atom_count": 25,
         "quoted_atom_count": 1,
-        "mam_form_found_in_verse": true,
-        "mam_form_found_at_atom": 13,
-        "mam_form_starts_at_stated_atom": true,
-        "mam_form_covers_stated_atom": true,
-        "comparison_form_already_present": false,
-        "atom_text_at_stated_atom": "יְהֽוֹיָדָ֣ע"
+        "quoted_form_starts_at_atom": 13,
+        "derived_atom": 13,
+        "stated_atom": 13,
+        "stated_atom_agrees": true,
+        "comparison_form_already_present": false
       }
     },
     {
@@ -463,6 +463,7 @@
       "verse": 7,
       "atom": 18,
       "comparison_source": "Aleppo",
+      "comparison_edition": "Aleppo Codex",
       "mam_form": "מֵֽעִמּֽוֹ׃",
       "comparison_form": "מֵעִמּֽוֹ׃",
       "description": "Aleppo has no Meteg under first Mem",
@@ -477,12 +478,11 @@
       "mam_plus_check": {
         "atom_count": 18,
         "quoted_atom_count": 1,
-        "mam_form_found_in_verse": true,
-        "mam_form_found_at_atom": 18,
-        "mam_form_starts_at_stated_atom": true,
-        "mam_form_covers_stated_atom": true,
-        "comparison_form_already_present": false,
-        "atom_text_at_stated_atom": "מֵֽעִמּֽוֹ"
+        "quoted_form_starts_at_atom": 18,
+        "derived_atom": 18,
+        "stated_atom": 18,
+        "stated_atom_agrees": true,
+        "comparison_form_already_present": false
       }
     },
     {
@@ -493,6 +493,7 @@
       "verse": 12,
       "atom": 19,
       "comparison_source": "Aleppo",
+      "comparison_edition": "Aleppo Codex",
       "mam_form": "וַיֵּֽצְא֤וּ",
       "comparison_form": "וַיֵּצְא֤וּ",
       "description": "Aleppo has no Meteg under Yod",
@@ -507,12 +508,11 @@
       "mam_plus_check": {
         "atom_count": 33,
         "quoted_atom_count": 1,
-        "mam_form_found_in_verse": true,
-        "mam_form_found_at_atom": 19,
-        "mam_form_starts_at_stated_atom": true,
-        "mam_form_covers_stated_atom": true,
-        "comparison_form_already_present": false,
-        "atom_text_at_stated_atom": "וַיֵּֽצְא֤וּ"
+        "quoted_form_starts_at_atom": 19,
+        "derived_atom": 19,
+        "stated_atom": 19,
+        "stated_atom_agrees": true,
+        "comparison_form_already_present": false
       }
     },
     {
@@ -523,6 +523,7 @@
       "verse": 15,
       "atom": 15,
       "comparison_source": "HUB",
+      "comparison_edition": "Jerusalem Crown",
       "mam_form": "וַיֵּ֨לְכ֜וּ",
       "comparison_form": "וַיֵּ֨לְכוּ֜",
       "description": "",
@@ -538,12 +539,11 @@
       "mam_plus_check": {
         "atom_count": 29,
         "quoted_atom_count": 1,
-        "mam_form_found_in_verse": true,
-        "mam_form_found_at_atom": 15,
-        "mam_form_starts_at_stated_atom": true,
-        "mam_form_covers_stated_atom": true,
-        "comparison_form_already_present": false,
-        "atom_text_at_stated_atom": "וַיֵּ֨לְכ֜וּ"
+        "quoted_form_starts_at_atom": 15,
+        "derived_atom": 15,
+        "stated_atom": 15,
+        "stated_atom_agrees": true,
+        "comparison_form_already_present": false
       }
     },
     {
@@ -554,6 +554,7 @@
       "verse": 12,
       "atom": 11,
       "comparison_source": "Aleppo",
+      "comparison_edition": "Aleppo Codex",
       "mam_form": "עַל־יְרֽוּשָׁלַ֖͏ִם",
       "comparison_form": "עַל־יְרוּשָׁלַ֖͏ִם",
       "description": "Aleppo has no Meteg under Resh",
@@ -568,12 +569,11 @@
       "mam_plus_check": {
         "atom_count": 18,
         "quoted_atom_count": 2,
-        "mam_form_found_in_verse": true,
-        "mam_form_found_at_atom": 10,
-        "mam_form_starts_at_stated_atom": false,
-        "mam_form_covers_stated_atom": true,
-        "comparison_form_already_present": false,
-        "atom_text_at_stated_atom": "יְרֽוּשָׁלַ֖͏ִם"
+        "quoted_form_starts_at_atom": 10,
+        "derived_atom": 11,
+        "stated_atom": 11,
+        "stated_atom_agrees": true,
+        "comparison_form_already_present": false
       }
     },
     {
@@ -584,6 +584,7 @@
       "verse": 3,
       "atom": 14,
       "comparison_source": "Aleppo",
+      "comparison_edition": "Aleppo Codex",
       "mam_form": "הַֽחִתִּֽי׃",
       "comparison_form": "הַחִתִּֽי׃",
       "description": "Aleppo has no Meteg under Hey",
@@ -598,12 +599,11 @@
       "mam_plus_check": {
         "atom_count": 14,
         "quoted_atom_count": 1,
-        "mam_form_found_in_verse": true,
-        "mam_form_found_at_atom": 14,
-        "mam_form_starts_at_stated_atom": true,
-        "mam_form_covers_stated_atom": true,
-        "comparison_form_already_present": false,
-        "atom_text_at_stated_atom": "הַֽחִתִּֽי"
+        "quoted_form_starts_at_atom": 14,
+        "derived_atom": 14,
+        "stated_atom": 14,
+        "stated_atom_agrees": true,
+        "comparison_form_already_present": false
       }
     },
     {
@@ -614,6 +614,7 @@
       "verse": 31,
       "atom": 25,
       "comparison_source": "Aleppo",
+      "comparison_edition": "Aleppo Codex",
       "mam_form": "יְרֽוּשָׁלָֽ͏ִם׃",
       "comparison_form": "יְרוּשָׁלָֽ͏ִם׃",
       "description": "Aleppo has no Meteg under Resh",
@@ -628,22 +629,22 @@
       "mam_plus_check": {
         "atom_count": 25,
         "quoted_atom_count": 1,
-        "mam_form_found_in_verse": true,
-        "mam_form_found_at_atom": 25,
-        "mam_form_starts_at_stated_atom": true,
-        "mam_form_covers_stated_atom": true,
-        "comparison_form_already_present": false,
-        "atom_text_at_stated_atom": "יְרֽוּשָׁלָֽ͏ִם"
+        "quoted_form_starts_at_atom": 25,
+        "derived_atom": 25,
+        "stated_atom": 25,
+        "stated_atom_agrees": true,
+        "comparison_form_already_present": false
       }
     },
     {
-      "ref": "2Sa 15:37.8",
+      "ref": "2Sa 15:37.9",
       "book_abbrev": "2Sa",
       "std_book_name": "2Samuel",
       "chapter": 15,
       "verse": 37,
-      "atom": 8,
+      "atom": 9,
       "comparison_source": "Aleppo",
+      "comparison_edition": "Aleppo Codex",
       "mam_form": "יְרֽוּשָׁלָֽ͏ִם׃",
       "comparison_form": "יְרוּשָׁלָֽ͏ִם׃",
       "description": "Aleppo has no Meteg under Resh",
@@ -652,18 +653,19 @@
         "fw-30-more-corrections-for-mam"
       ],
       "case_number": 21,
+      "atom_as_sent": 8,
+      "ref_as_sent": "2Sa 15:37.8",
       "image_files": [
         "gh-pages/mam_img/mam021_01.png"
       ],
       "mam_plus_check": {
         "atom_count": 9,
         "quoted_atom_count": 1,
-        "mam_form_found_in_verse": true,
-        "mam_form_found_at_atom": 9,
-        "mam_form_starts_at_stated_atom": false,
-        "mam_form_covers_stated_atom": false,
-        "comparison_form_already_present": false,
-        "atom_text_at_stated_atom": "יָב֖וֹא"
+        "quoted_form_starts_at_atom": 9,
+        "derived_atom": 9,
+        "stated_atom": 8,
+        "stated_atom_agrees": false,
+        "comparison_form_already_present": false
       }
     },
     {
@@ -674,6 +676,7 @@
       "verse": 3,
       "atom": 9,
       "comparison_source": "Aleppo",
+      "comparison_edition": "Aleppo Codex",
       "mam_form": "לֹֽא־יָשִׂ֧ימוּ",
       "comparison_form": "לֹא־יָשִׂ֧ימוּ",
       "description": "Aleppo has no Meteg under Lamed",
@@ -688,12 +691,11 @@
       "mam_plus_check": {
         "atom_count": 31,
         "quoted_atom_count": 2,
-        "mam_form_found_in_verse": true,
-        "mam_form_found_at_atom": 9,
-        "mam_form_starts_at_stated_atom": true,
-        "mam_form_covers_stated_atom": true,
-        "comparison_form_already_present": false,
-        "atom_text_at_stated_atom": "לֹֽא"
+        "quoted_form_starts_at_atom": 9,
+        "derived_atom": 9,
+        "stated_atom": 9,
+        "stated_atom_agrees": true,
+        "comparison_form_already_present": false
       }
     },
     {
@@ -704,6 +706,7 @@
       "verse": 12,
       "atom": 11,
       "comparison_source": "Aleppo",
+      "comparison_edition": "Aleppo Codex",
       "mam_form": "ק֣וּמִי",
       "comparison_form": "ק֣וּמִֽי",
       "description": "Aleppo HAS a Meteg under Mem",
@@ -718,12 +721,11 @@
       "mam_plus_check": {
         "atom_count": 17,
         "quoted_atom_count": 1,
-        "mam_form_found_in_verse": true,
-        "mam_form_found_at_atom": 11,
-        "mam_form_starts_at_stated_atom": true,
-        "mam_form_covers_stated_atom": true,
-        "comparison_form_already_present": false,
-        "atom_text_at_stated_atom": "ק֣וּמִי"
+        "quoted_form_starts_at_atom": 11,
+        "derived_atom": 11,
+        "stated_atom": 11,
+        "stated_atom_agrees": true,
+        "comparison_form_already_present": false
       }
     },
     {
@@ -734,6 +736,7 @@
       "verse": 12,
       "atom": 3,
       "comparison_source": "HUB",
+      "comparison_edition": "Jerusalem Crown",
       "mam_form": "יְהוֹשֻׁעַ֙",
       "comparison_form": "יְהוֹשֻׁ֨עַ֙",
       "description": "",
@@ -749,22 +752,22 @@
       "mam_plus_check": {
         "atom_count": 21,
         "quoted_atom_count": 1,
-        "mam_form_found_in_verse": true,
-        "mam_form_found_at_atom": 3,
-        "mam_form_starts_at_stated_atom": true,
-        "mam_form_covers_stated_atom": true,
-        "comparison_form_already_present": false,
-        "atom_text_at_stated_atom": "יְהוֹשֻׁעַ֙"
+        "quoted_form_starts_at_atom": 3,
+        "derived_atom": 3,
+        "stated_atom": 3,
+        "stated_atom_agrees": true,
+        "comparison_form_already_present": false
       }
     },
     {
-      "ref": "Judg 1:7.21",
+      "ref": "Judg 1:7.20",
       "book_abbrev": "Judg",
       "std_book_name": "Judges",
       "chapter": 1,
       "verse": 7,
-      "atom": 21,
+      "atom": 20,
       "comparison_source": "Aleppo",
+      "comparison_edition": "Aleppo Codex",
       "mam_form": "יְרֽוּשָׁלַ֖͏ִם",
       "comparison_form": "יְרוּשָׁלַ֖͏ִם",
       "description": "Aleppo has no Meteg under Resh",
@@ -773,18 +776,19 @@
         "fw-30-more-corrections-for-mam"
       ],
       "case_number": 25,
+      "atom_as_sent": 21,
+      "ref_as_sent": "Judg 1:7.21",
       "image_files": [
         "gh-pages/mam_img/mam025_01.png"
       ],
       "mam_plus_check": {
         "atom_count": 22,
         "quoted_atom_count": 1,
-        "mam_form_found_in_verse": true,
-        "mam_form_found_at_atom": 20,
-        "mam_form_starts_at_stated_atom": false,
-        "mam_form_covers_stated_atom": false,
-        "comparison_form_already_present": false,
-        "atom_text_at_stated_atom": "וַיָּ֥מׇת"
+        "quoted_form_starts_at_atom": 20,
+        "derived_atom": 20,
+        "stated_atom": 21,
+        "stated_atom_agrees": false,
+        "comparison_form_already_present": false
       }
     },
     {
@@ -795,6 +799,7 @@
       "verse": 32,
       "atom": 9,
       "comparison_source": "Aleppo",
+      "comparison_edition": "Aleppo Codex",
       "mam_form": "הֽוֹרִישֽׁוֹ׃",
       "comparison_form": "הוֹרִישֽׁוֹ׃",
       "description": "Aleppo has no Meteg under Hey",
@@ -809,12 +814,11 @@
       "mam_plus_check": {
         "atom_count": 9,
         "quoted_atom_count": 1,
-        "mam_form_found_in_verse": true,
-        "mam_form_found_at_atom": 9,
-        "mam_form_starts_at_stated_atom": true,
-        "mam_form_covers_stated_atom": true,
-        "comparison_form_already_present": false,
-        "atom_text_at_stated_atom": "הֽוֹרִישֽׁוֹ"
+        "quoted_form_starts_at_atom": 9,
+        "derived_atom": 9,
+        "stated_atom": 9,
+        "stated_atom_agrees": true,
+        "comparison_form_already_present": false
       }
     },
     {
@@ -825,6 +829,7 @@
       "verse": 6,
       "atom": 7,
       "comparison_source": "Aleppo",
+      "comparison_edition": "Aleppo Codex",
       "mam_form": "חָֽדְל֖וּ",
       "comparison_form": "חָדְל֖וּ",
       "description": "Aleppo has no Meteg under Chet",
@@ -839,12 +844,11 @@
       "mam_plus_check": {
         "atom_count": 13,
         "quoted_atom_count": 1,
-        "mam_form_found_in_verse": true,
-        "mam_form_found_at_atom": 7,
-        "mam_form_starts_at_stated_atom": true,
-        "mam_form_covers_stated_atom": true,
-        "comparison_form_already_present": false,
-        "atom_text_at_stated_atom": "חָֽדְל֖וּ"
+        "quoted_form_starts_at_atom": 7,
+        "derived_atom": 7,
+        "stated_atom": 7,
+        "stated_atom_agrees": true,
+        "comparison_form_already_present": false
       }
     },
     {
@@ -855,6 +859,7 @@
       "verse": 11,
       "atom": 13,
       "comparison_source": "Aleppo",
+      "comparison_edition": "Aleppo Codex",
       "mam_form": "יָֽרְד֥וּ",
       "comparison_form": "יָרְד֥וּ",
       "description": "Aleppo has no Meteg under Yod",
@@ -869,12 +874,11 @@
       "mam_plus_check": {
         "atom_count": 16,
         "quoted_atom_count": 1,
-        "mam_form_found_in_verse": true,
-        "mam_form_found_at_atom": 13,
-        "mam_form_starts_at_stated_atom": true,
-        "mam_form_covers_stated_atom": true,
-        "comparison_form_already_present": false,
-        "atom_text_at_stated_atom": "יָֽרְד֥וּ"
+        "quoted_form_starts_at_atom": 13,
+        "derived_atom": 13,
+        "stated_atom": 13,
+        "stated_atom_agrees": true,
+        "comparison_form_already_present": false
       }
     },
     {
@@ -885,6 +889,7 @@
       "verse": 1,
       "atom": 2,
       "comparison_source": "Aleppo",
+      "comparison_edition": "Aleppo Codex",
       "mam_form": "בְנֵֽי־יִשְׂרָאֵ֛ל",
       "comparison_form": "בְנֵי־יִשְׂרָאֵ֛ל",
       "description": "Aleppo has no Meteg under Nun",
@@ -899,12 +904,11 @@
       "mam_plus_check": {
         "atom_count": 12,
         "quoted_atom_count": 2,
-        "mam_form_found_in_verse": true,
-        "mam_form_found_at_atom": 2,
-        "mam_form_starts_at_stated_atom": true,
-        "mam_form_covers_stated_atom": true,
-        "comparison_form_already_present": false,
-        "atom_text_at_stated_atom": "בְנֵֽי"
+        "quoted_form_starts_at_atom": 2,
+        "derived_atom": 2,
+        "stated_atom": 2,
+        "stated_atom_agrees": true,
+        "comparison_form_already_present": false
       }
     },
     {
@@ -915,6 +919,7 @@
       "verse": 4,
       "atom": 1,
       "comparison_source": "Aleppo",
+      "comparison_edition": "Aleppo Codex",
       "mam_form": "וַיַּֽחֲנ֣וּ",
       "comparison_form": "וַיַּחֲנ֣וּ",
       "description": "Aleppo has no Meteg under Yod",
@@ -929,12 +934,11 @@
       "mam_plus_check": {
         "atom_count": 16,
         "quoted_atom_count": 1,
-        "mam_form_found_in_verse": true,
-        "mam_form_found_at_atom": 1,
-        "mam_form_starts_at_stated_atom": true,
-        "mam_form_covers_stated_atom": true,
-        "comparison_form_already_present": false,
-        "atom_text_at_stated_atom": "וַיַּֽחֲנ֣וּ"
+        "quoted_form_starts_at_atom": 1,
+        "derived_atom": 1,
+        "stated_atom": 1,
+        "stated_atom_agrees": true,
+        "comparison_form_already_present": false
       }
     },
     {
@@ -945,6 +949,7 @@
       "verse": 5,
       "atom": 4,
       "comparison_source": "Aleppo",
+      "comparison_edition": "Aleppo Codex",
       "mam_form": "יַֽעֲל֜וּ",
       "comparison_form": "יַעֲל֜וּ",
       "description": "Aleppo has no Meteg under Yod",
@@ -959,12 +964,11 @@
       "mam_plus_check": {
         "atom_count": 16,
         "quoted_atom_count": 1,
-        "mam_form_found_in_verse": true,
-        "mam_form_found_at_atom": 4,
-        "mam_form_starts_at_stated_atom": true,
-        "mam_form_covers_stated_atom": true,
-        "comparison_form_already_present": false,
-        "atom_text_at_stated_atom": "יַֽעֲל֜וּ"
+        "quoted_form_starts_at_atom": 4,
+        "derived_atom": 4,
+        "stated_atom": 4,
+        "stated_atom_agrees": true,
+        "comparison_form_already_present": false
       }
     },
     {
@@ -975,6 +979,7 @@
       "verse": 11,
       "atom": 1,
       "comparison_source": "HUB",
+      "comparison_edition": "Jerusalem Crown",
       "mam_form": "וַיֹּ֥אמֶר",
       "comparison_form": "וַ֥יֹּאמֶר",
       "description": "",
@@ -990,12 +995,11 @@
       "mam_plus_check": {
         "atom_count": 14,
         "quoted_atom_count": 1,
-        "mam_form_found_in_verse": true,
-        "mam_form_found_at_atom": 1,
-        "mam_form_starts_at_stated_atom": true,
-        "mam_form_covers_stated_atom": true,
-        "comparison_form_already_present": false,
-        "atom_text_at_stated_atom": "וַיֹּ֥אמֶר"
+        "quoted_form_starts_at_atom": 1,
+        "derived_atom": 1,
+        "stated_atom": 1,
+        "stated_atom_agrees": true,
+        "comparison_form_already_present": false
       }
     },
     {
@@ -1006,6 +1010,7 @@
       "verse": 16,
       "atom": 3,
       "comparison_source": "Aleppo",
+      "comparison_edition": "Aleppo Codex",
       "mam_form": "הָֽעֵדָ֔ה",
       "comparison_form": "הָעֵדָ֔ה",
       "description": "Aleppo no Meteg under Hey",
@@ -1020,12 +1025,11 @@
       "mam_plus_check": {
         "atom_count": 11,
         "quoted_atom_count": 1,
-        "mam_form_found_in_verse": true,
-        "mam_form_found_at_atom": 3,
-        "mam_form_starts_at_stated_atom": true,
-        "mam_form_covers_stated_atom": true,
-        "comparison_form_already_present": false,
-        "atom_text_at_stated_atom": "הָֽעֵדָ֔ה"
+        "quoted_form_starts_at_atom": 3,
+        "derived_atom": 3,
+        "stated_atom": 3,
+        "stated_atom_agrees": true,
+        "comparison_form_already_present": false
       }
     },
     {
@@ -1036,27 +1040,35 @@
       "verse": 4,
       "atom": 11,
       "comparison_source": "HUB",
+      "comparison_edition": "Jerusalem Crown",
       "mam_form": "זֵ֣רוּ",
       "comparison_form": "זֵר֣וּ",
       "description": "",
-      "recommendation": "Place Mereka on first syllable",
+      "recommendation": "Place Munaḥ on second syllable",
       "source_message_keys": [
         "mam-and-hub-text-comparison",
         "suggested-correction-for-mam"
       ],
       "case_number": 34,
+      "recommendation_as_sent": "Place Mereka on first syllable",
+      "corrections": [
+        {
+          "field": "recommendation",
+          "corrected_by": "Ben Denckla",
+          "reason": "The mark is a munaḥ, not a merkha, and MAM already has it on the first syllable of זֵרוּ; the comparison edition has it on the second. The wording as sent looks carried down from the Judges 10:11 row, where the mark genuinely is a merkha and 'first syllable' is right."
+        }
+      ],
       "image_files": [
         "gh-pages/mam_img/mam034_01.png"
       ],
       "mam_plus_check": {
         "atom_count": 32,
         "quoted_atom_count": 1,
-        "mam_form_found_in_verse": true,
-        "mam_form_found_at_atom": 11,
-        "mam_form_starts_at_stated_atom": true,
-        "mam_form_covers_stated_atom": true,
-        "comparison_form_already_present": false,
-        "atom_text_at_stated_atom": "זֵ֣רוּ"
+        "quoted_form_starts_at_atom": 11,
+        "derived_atom": 11,
+        "stated_atom": 11,
+        "stated_atom_agrees": true,
+        "comparison_form_already_present": false
       }
     }
   ]

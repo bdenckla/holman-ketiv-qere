@@ -323,9 +323,10 @@ itself** — a third body of his work, and neither of the two above. As of
 - **4 accent-placement cases** — Joshua 10:12.3, Judges 10:11.1, 2Kings 17:15.15
   and Zechariah 2:4.11 — from the messages of 2026-08-21 and 2026-08-27, which
   carry the same four and differ only in that the later one adds a recommendation
-  per case. He compares against an edition he calls **"HUB"**, and that label is
-  kept as he wrote it; see `CLAUDE.md` for why the extract does not identify the
-  edition.
+  per case. He compares against an edition he calls **"HUB"**, which is the
+  **Jerusalem Crown** (כתר ירושלים) — Ben Denckla's identification, 2026-09-02.
+  `comparison_source` keeps Holman's label verbatim and `comparison_edition`
+  holds the name; `CLAUDE.md` says why the two are separate fields.
 
 **Ingest**, when a new message arrives. The `.eml` files are **not** tracked; they
 live in `.novc/eml-mam/`, a second mailbox distinct from the UXLC one:
@@ -342,6 +343,30 @@ test; there is no separate verifier.
 it: no message body is tracked at all, and nothing Ben or Avi wrote is stored in any
 form. Only messages Holman sent contribute, which is what makes that structural
 rather than a matter of redaction.
+
+### One line of Holman's has been corrected, and the correction is Ben's
+
+Zechariah 2:4.11's recommendation as sent reads "Place Mereka on first syllable",
+which is wrong twice: the mark is a munaḥ rather than a merkha, and MAM already has
+it on the first syllable of זֵרוּ, the Jerusalem Crown having it on the second — so
+the line describes MAM's existing state rather than the change toward that edition.
+It looks carried down from the Judges 10:11 row, whose recommendation is worded
+identically and where the mark genuinely is a merkha. The extract shows "Place Munaḥ
+on second syllable" and keeps his wording under `recommendation_as_sent`, with the
+corrector and the reason under `corrections`.
+
+**Holman did not correct this himself**, and the record must not imply that he did.
+Checked 2026-09-02 across the whole mailbox: the line occurs in exactly one message,
+the one of 2026-08-27, in both its body and its workbook. The message of 2026-08-21
+carries the same four cases with no recommendation column at all, so it neither
+states nor corrects the line, and every other occurrence in the mailbox is the
+2026-08-27 message quoted back inside a reply. There is no follow-up revising it.
+
+`../MAM-basics/py/hkq_cmn/mam_suggestion_corrections.py` holds the table, one entry
+per replacement, and raises both on an entry whose original is not the field's exact
+current value and on an entry naming no case — so a reworded message cannot leave a
+correction silently unapplied, and a stale entry cannot sit unnoticed. It is the same
+shape as `uxlc_bracketed_corrections.py`, which does this for the UXLC corrections.
 
 ### Where the crops come from, which differs by message
 
@@ -360,14 +385,23 @@ the result per case under `mam_plus_check`, with totals under `mam_plus_verify`.
 never fails the run: an index that disagrees with the corpus is a fact to be read off
 the extract, not a reason to refuse a message.
 
-Measured 2026-09-02 against MAM-parsed `54ba7e0`: all 34 of Holman's MAM forms are
-present in their verse, 30 of them starting exactly at the atom he numbers. Atoms are
-counted with maqaf-joined atoms separate, which is his counting rule, established
-independently against the page crops and against the corpus. Of the four that differ,
-2Kings 21:12.11 numbers one atom of a maqaf compound and quotes the whole compound,
-and 1Kings 7:24.17, 2Samuel 15:37.8 and Judges 1:7.21 are out by one in inconsistent
-directions — all three of them the atom יְרוּשָׁלַ͏ִם, which is worth asking him about
-rather than resolving by guessing.
+**The atom index is derived, not taken from Holman**, so the indices here are
+consistent. Each case gives two spellings of one stretch of text, MAM's and the
+comparison edition's; measured 2026-09-02 across all 34, the MAM spelling occurs
+exactly once in its verse and exactly one atom inside it differs between the two
+spellings. Those two facts name one atom and no other, so there is no ambiguity to
+resolve and the ingest raises rather than guess if either stops holding. Atoms are
+counted with maqaf-joined atoms separate.
+
+31 of Holman's 34 indices agree with the derivation. **The other three have been
+corrected**: 1Kings 7:24 (17 as sent, 16 derived), 2Samuel 15:37 (8 as sent, 9
+derived) and Judges 1:7 (21 as sent, 20 derived), each out by one and not in a
+consistent direction, all three of them the atom יְרוּשָׁלַ͏ִם. A corrected case keeps
+what he sent under `atom_as_sent` and `ref_as_sent`.
+
+The four maqaf compounds are **not** among the corrections, though a cruder check
+reports them as disagreements: Holman quotes a whole compound while numbering one of
+its atoms, and the atom he numbers is the one bearing the difference every time.
 
 Two more cases looked out by one and were not: Judges 5:6.7 and Judges 5:11.13 were
 casualties of a defect in `../MAM-basics/py/hkq_cmn/mam_plus_verse_data.py`, which

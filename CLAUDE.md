@@ -107,11 +107,16 @@ in the mailbox on 2026-09-02, three were Holman's and contributed all 34 cases; 
 two of Avi's forwards and five replies — contributed nothing, one of those forwards quoting all 30
 of Holman's cases verbatim without that mattering.
 
-One consequence worth knowing before an editorial decision is made from this data. The two
-workbook messages label their comparison edition **"HUB"** and nothing else; the identification of
-what edition that names was made by a correspondent in a reply, so it is on the wrong side of this
-boundary and the extract holds Holman's label verbatim. Naming that edition on a page is Ben's call
-to make, not something to read out of the mailbox.
+One consequence shaped how the comparison edition is named. The two workbook messages label it
+**"HUB"** and nothing else, and the identification of what edition that names was made by a
+correspondent in a reply — on the wrong side of this boundary. So it was not read out of the
+mailbox: Ben settled it directly, on 2026-09-02, as the **Jerusalem Crown** (כתר ירושלים). That is
+why `comparison_source` and `comparison_edition` are two fields rather than one — the first holds
+Holman's label verbatim, the second Ben's identification — and why the mapping sits in a table in
+`../MAM-basics/py/hkq_cmn/mam_suggestion_extract.py` with its provenance written beside it. A label
+with no entry in that table raises. Prose says "Jerusalem Crown" and nothing else, and never
+"Breuer's Jerusalem Crown": Breuer advised on it without detailed involvement, and Yosef Ofer did
+the detailed work.
 
 ## Authored CSS uses `light-dark()`, not a `prefers-color-scheme` block
 
