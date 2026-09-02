@@ -495,27 +495,38 @@ spellings. Those two facts name one atom and no other, so there is no ambiguity 
 resolve and the ingest raises rather than guess if either stops holding. Atoms are
 counted with maqaf-joined atoms separate.
 
-33 of Holman's 34 indices agree with the derivation. **The one that does not is not
-his error either.** 2Samuel 15:37 (8 as sent, 9 derived) disagrees because
-`../MAM-basics/py/hkq_cmn/mam_plus_verse_data.py` collects the parameters of the
-navigation template `מ:פסוק` into the verse text. That template holds the book name,
-chapter, verse and seder, so the verse renders with `שמואל` as its first atom and its
-Hebrew numerals fused onto the first word. His 8 is right. A case whose derived index
-differs keeps what he sent under `atom_as_sent` and `ref_as_sent`.
+**All 34 of Holman's indices agree with the derivation**, and the one that did not has
+been fixed. Until 2026-09-02 2Samuel 15:37 disagreed, 8 as sent against 9 derived,
+because `../MAM-basics/py/hkq_cmn/mam_plus_verse_data.py` collected the parameters of
+the navigation template `מ:פסוק` into the verse text. That template holds the book name,
+chapter, verse and seder, so the verse rendered with `שמואל` as its first atom and its
+Hebrew numerals fused onto the first word. His 8 was right. A case whose derived index
+differs still keeps what he sent under `atom_as_sent` and `ref_as_sent`, and no case
+carries either field now.
 
-**That defect is raised and not fixed**, as of 2026-09-02, because the fix needs a
-decision about what each template with no rule of its own should contribute. The
-navigation template alone changes the atom count of 392 verses, and the book-title
-template `מ:ספר חדש` and the special-letter template `מ:אות-מיוחדת-במילה` leak the
-same way: Genesis 1:1 renders 9 atoms for a seven-word verse.
+**What was fixed is a proxy, not one template's rule.** That collector decided what a
+template contributed by asking whether it carried parameters, reading "carries
+parameters" as "carries verse text". The corpus disproves that reading outright: the
+setuma and petucha markers `סס`, `ססס`, `פפ` and `פפפ` each appear both with and
+without a parameter, and in all 84 parameter-bearing cases the parameter is one and
+the same note, `פסקא באמצע פסוק`, which names what the marker is. So one marker with
+one meaning was being treated two opposite ways. Every rule now dispatches on the template name, and a
+name with no rule raises rather than contributing a guess. Seven leaks closed together,
+changing the atom count of 507 verses: the navigation template in 895 payloads, the
+aliyah template `מ:עלייה` in 532, the book-title template `מ:ספר חדש` in 24, those four
+markers in 84, the two first-verse spacing templates in 12 and 5, and the special-letter
+template `מ:אות-מיוחדת-במילה` in 51, which collected all five of its parameters and so
+put its word in twice with three parameters of documentation after it. Genesis 1:1
+rendered 9 atoms for a seven-word verse and renders 7. The collector's docstring is
+where the evidence and the re-measurement path are kept.
 
-**Only 2Samuel 15:37 of the 34 is affected, and that is a rule rather than luck.**
+**Only 2Samuel 15:37 of the 34 was affected, and that was a rule rather than luck.**
 The navigation template precedes every verse, but in column D, which is not parsed
 into these payloads at all; it reaches a payload only where it also carries a
 division marker. Measured 2026-09-02, 895 verse payloads hold one, and 889 of those
 carry a seder (`סדר`), an aliyah (`עלייה`) or both — leaving 6 that carry a bare
 reference for a reason not established here. That case begins seder 29, which is why
-it is the one of the 34 that has one, and why the other 33 indices are unaffected.
+it was the one of the 34 that has one, and why the other 33 indices were unaffected.
 
 **Two atom corrections dissolved on 2026-09-02**: 1Kings 7:24 (17 as sent) and Judges
 1:7 (21 as sent) now land where Holman put them. Until that day a template with no
@@ -530,9 +541,10 @@ The four maqaf compounds are **not** among the corrections, though a cruder chec
 reports them as disagreements: Holman quotes a whole compound while numbering one of
 its atoms, and the atom he numbers is the one that differs every time.
 
-**Five indices have looked like Holman's numbering and none has been**: 1Kings 7:24,
-2Samuel 15:37, Judges 1:7, Judges 5:6.7 and Judges 5:11.13. Investigate a
-disagreement before reporting it as his.
+**Five indices have looked like Holman's numbering, none has been, and all five are
+now resolved**: 1Kings 7:24, 2Samuel 15:37, Judges 1:7, Judges 5:6.7 and Judges
+5:11.13. Every one turned out to be this corpus rendering rather than his numbering,
+which is why a disagreement is worth investigating before it is reported as his.
 
 `comparison_form_already_present` is a separate question asked of every case: whether
 MAM already has the form he proposes. A non-zero count there dates the local corpus

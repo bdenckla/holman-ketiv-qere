@@ -29,8 +29,8 @@
   "suppressed_case_count": 4,
   "mam_plus_verify": {
     "case_count": 34,
-    "stated_atom_agrees": 33,
-    "stated_atom_corrected": 1,
+    "stated_atom_agrees": 34,
+    "stated_atom_corrected": 0,
     "comparison_form_already_present": 0
   },
   "cases": [
@@ -644,12 +644,12 @@
       }
     },
     {
-      "ref": "2Sa 15:37.9",
+      "ref": "2Sa 15:37.8",
       "book_abbrev": "2Sa",
       "std_book_name": "2Samuel",
       "chapter": 15,
       "verse": 37,
-      "atom": 9,
+      "atom": 8,
       "comparison_source": "Aleppo",
       "comparison_edition": "Aleppo Codex",
       "mam_form": "יְרֽוּשָׁלָֽ͏ִם׃",
@@ -660,18 +660,16 @@
         "fw-30-more-corrections-for-mam"
       ],
       "case_number": 21,
-      "atom_as_sent": 8,
-      "ref_as_sent": "2Sa 15:37.8",
       "image_files": [
         "gh-pages/mam_img/mam021_01.png"
       ],
       "mam_plus_check": {
-        "atom_count": 9,
+        "atom_count": 8,
         "quoted_atom_count": 1,
-        "quoted_form_starts_at_atom": 9,
-        "derived_atom": 9,
+        "quoted_form_starts_at_atom": 8,
+        "derived_atom": 8,
         "stated_atom": 8,
-        "stated_atom_agrees": false,
+        "stated_atom_agrees": true,
         "comparison_form_already_present": false
       }
     },
