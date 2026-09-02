@@ -507,8 +507,15 @@ differs keeps what he sent under `atom_as_sent` and `ref_as_sent`.
 decision about what each template with no rule of its own should contribute. The
 navigation template alone changes the atom count of 392 verses, and the book-title
 template `מ:ספר חדש` and the special-letter template `מ:אות-מיוחדת-במילה` leak the
-same way: Genesis 1:1 renders 9 atoms for a seven-word verse. Of the 34 cases only
-2Samuel 15:37 carries any such template, so the other 33 indices are unaffected.
+same way: Genesis 1:1 renders 9 atoms for a seven-word verse.
+
+**Only 2Samuel 15:37 of the 34 is affected, and that is a rule rather than luck.**
+The navigation template precedes every verse, but in column D, which is not parsed
+into these payloads at all; it reaches a payload only where it also carries a
+division marker. Measured 2026-09-02, 895 verse payloads hold one, and 889 of those
+carry a seder (`סדר`), an aliyah (`עלייה`) or both — leaving 6 that carry a bare
+reference for a reason not established here. That case begins seder 29, which is why
+it is the one of the 34 that has one, and why the other 33 indices are unaffected.
 
 **Two atom corrections dissolved on 2026-09-02**: 1Kings 7:24 (17 as sent) and Judges
 1:7 (21 as sent) now land where Holman put them. Until that day a template with no
