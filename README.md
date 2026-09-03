@@ -30,7 +30,7 @@ UXLC corrections keep their own report, being addressed to a different text.
 
 **The code that does the extracting and rendering is not in this repo.** It lives in the
 sibling `../MAM-basics`, under that repo's `py/`, and writes back into this one. Every command
-below runs from `C:\Users\BenDe\GitRepos\MAM-basics` on that repo's interpreter, and every
+below runs from `C:/Users/BenDe/GitRepos/MAM-basics` on that repo's interpreter, and every
 module path below is spelled relative to this repo, so `../MAM-basics/py/hkq_cmn/foo.py` names
 a file over there. [CLAUDE.md](CLAUDE.md) lists which entry point writes which files, and which
 tracked artifacts no program regenerates.
@@ -52,7 +52,7 @@ The extracted table is intentionally treated as a fixed project scope:
 Run extraction with:
 
 ```powershell
-C:\Users\BenDe\GitRepos\MAM-basics\.venv\Scripts\python.exe C:\Users\BenDe\GitRepos\MAM-basics\py\main_extract_docx_and_render_table.py
+C:/Users/BenDe/GitRepos/MAM-basics/.venv/Scripts/python.exe C:/Users/BenDe/GitRepos/MAM-basics/py/main_extract_docx_and_render_table.py
 ```
 
 This also generates:
@@ -71,7 +71,7 @@ Checked-in issue metadata used by the findings report lives in:
 To regenerate the HTML report from an existing JSON extract:
 
 ```powershell
-C:\Users\BenDe\GitRepos\MAM-basics\.venv\Scripts\python.exe C:\Users\BenDe\GitRepos\MAM-basics\py\main_just_render_table.py
+C:/Users/BenDe/GitRepos/MAM-basics/.venv/Scripts/python.exe C:/Users/BenDe/GitRepos/MAM-basics/py/main_just_render_table.py
 ```
 
 The extractor performs mpu (MAM-parsed-plus) verification as a mandatory part of extraction.
@@ -126,7 +126,7 @@ To create another ending-pattern search, copy
 Run it from the MAM-basics repo root with:
 
 ```powershell
-C:\Users\BenDe\GitRepos\MAM-basics\.venv\Scripts\python.exe C:\Users\BenDe\GitRepos\MAM-basics\py\main_search_holam_he_qere.py
+C:/Users/BenDe/GitRepos/MAM-basics/.venv/Scripts/python.exe C:/Users/BenDe/GitRepos/MAM-basics/py/main_search_holam_he_qere.py
 ```
 
 It writes its report to `out/holam_he_qere_report.json`, which is tracked.
@@ -141,7 +141,7 @@ repo is public and a `.eml` file's headers carry the correspondents' addresses.
 they live in `.novc/eml/`, which `.gitignore` already covers:
 
 ```powershell
-C:\Users\BenDe\GitRepos\MAM-basics\.venv\Scripts\python.exe C:\Users\BenDe\GitRepos\MAM-basics\py\main_ingest_uxlc_emails.py
+C:/Users/BenDe/GitRepos/MAM-basics/.venv/Scripts/python.exe C:/Users/BenDe/GitRepos/MAM-basics/py/main_ingest_uxlc_emails.py
 ```
 
 That writes the tracked derivative — per message, `emails/<key>.txt` (the body,
@@ -171,7 +171,7 @@ it interpolates between; a fresh clone of this repo does not have it, which is
 why the estimates are tracked rather than worked out at render time:
 
 ```powershell
-C:\Users\BenDe\GitRepos\MAM-basics\.venv\Scripts\python.exe C:\Users\BenDe\GitRepos\MAM-basics\py\main_estimate_uxlc_locations.py
+C:/Users/BenDe/GitRepos/MAM-basics/.venv/Scripts/python.exe C:/Users/BenDe/GitRepos/MAM-basics/py/main_estimate_uxlc_locations.py
 ```
 
 That writes two files. `data/uxlc_atom_locations.json` holds one estimated
@@ -214,7 +214,7 @@ case's manuscript citation in `emails/`.
 **Render**, which needs only what is tracked, so a fresh clone can do it:
 
 ```powershell
-C:\Users\BenDe\GitRepos\MAM-basics\.venv\Scripts\python.exe C:\Users\BenDe\GitRepos\MAM-basics\py\main_render_uxlc_corrections.py
+C:/Users/BenDe/GitRepos/MAM-basics/.venv/Scripts/python.exe C:/Users/BenDe/GitRepos/MAM-basics/py/main_render_uxlc_corrections.py
 ```
 
 That writes:
@@ -340,7 +340,7 @@ itself** — a third body of his work, and neither of the two above. As of
 live in `.novc/eml-mam/`, a second mailbox distinct from the UXLC one:
 
 ```powershell
-C:\Users\BenDe\GitRepos\MAM-basics\.venv\Scripts\python.exe C:\Users\BenDe\GitRepos\MAM-basics\py\main_ingest_mam_suggestions.py
+C:/Users/BenDe/GitRepos/MAM-basics/.venv/Scripts/python.exe C:/Users/BenDe/GitRepos/MAM-basics/py/main_ingest_mam_suggestions.py
 ```
 
 That writes `docs-not-served/mam_suggestions.json` and one page crop per case into
@@ -351,7 +351,7 @@ test; there is no separate verifier.
 renders the ketiv/qere review, because the two share a page:
 
 ```powershell
-C:\Users\BenDe\GitRepos\MAM-basics\.venv\Scripts\python.exe C:\Users\BenDe\GitRepos\MAM-basics\py\main_just_render_table.py
+C:/Users/BenDe/GitRepos/MAM-basics/.venv/Scripts/python.exe C:/Users/BenDe/GitRepos/MAM-basics/py/main_just_render_table.py
 ```
 
 The suggestions extract is **required**, not optional: a missing file raises rather
@@ -561,7 +561,7 @@ The tests moved to MAM-basics with the code they exercise, into that repo's
 `py/tests/`, and run as part of its whole suite from its repo root:
 
 ```powershell
-C:\Users\BenDe\GitRepos\MAM-basics\.venv\Scripts\python.exe C:\Users\BenDe\GitRepos\MAM-basics\py\main_test.py
+C:/Users/BenDe/GitRepos/MAM-basics/.venv/Scripts/python.exe C:/Users/BenDe/GitRepos/MAM-basics/py/main_test.py
 ```
 
 That runner is a `pytest.main()` wrapper and passes its arguments straight
@@ -570,7 +570,7 @@ this repo's `--verify-table-words-in-mam-plus` and `--h-dot-below-nfc` have no
 counterpart there:
 
 ```powershell
-C:\Users\BenDe\GitRepos\MAM-basics\.venv\Scripts\python.exe C:\Users\BenDe\GitRepos\MAM-basics\py\main_test.py -k verify_table_words_in_mam_plus
+C:/Users/BenDe/GitRepos/MAM-basics/.venv/Scripts/python.exe C:/Users/BenDe/GitRepos/MAM-basics/py/main_test.py -k verify_table_words_in_mam_plus
 ```
 
 There is no registry to keep in step any more: pytest discovers `py/tests/`

@@ -176,4 +176,4 @@ No network access is needed for the first two; the third needs the sibling
    double-counts 82 records.
 
 Run anything written for this from the repo root with
-`C:\Users\BenDe\GitRepos\MAM-basics\.venv\Scripts\python.exe`.
+`C:/Users/BenDe/GitRepos/MAM-basics/.venv/Scripts/python.exe`.

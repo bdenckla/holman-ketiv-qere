@@ -176,7 +176,7 @@ any of it.
 ## Re-establishing the figures
 
 No tracked script produces the table above; it was measured with a throwaway in `.novc/`. The
-method, run from `C:\Users\BenDe\GitRepos\holman-ketiv-qere` on that repo's own venv:
+method, run from `C:/Users/BenDe/GitRepos/holman-ketiv-qere` on that repo's own venv:
 
 - **Cases per message** — `uxlc_email_extract.read_emails(emails_dir, image_dir)`, grouping the
   returned cases by `email_key`.

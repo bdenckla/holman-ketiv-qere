@@ -16,14 +16,14 @@ nine `git` / `where.exe` / `settings.json` rules worth nothing on their own (thi
 "nothing but this repo's interpreter and the scripts" until the 2026-08-22 review's follow-up;
 `git show 15824d4:.vscode/settings.json` is the record). Do
 not add a `.py` back, and do not go looking here for the code that produced a file you are reading.
-Run everything below from `C:\Users\BenDe\GitRepos\MAM-basics`, on that repo's interpreter — the
+Run everything below from `C:/Users/BenDe/GitRepos/MAM-basics`, on that repo's interpreter — the
 `.venv` left here has nothing to run.
 
 **Seven commands regenerate everything, and there is no one command that runs them all.** Each is
 the only program that writes the files named beside it:
 
 ```powershell
-C:\Users\BenDe\GitRepos\MAM-basics\.venv\Scripts\python.exe C:\Users\BenDe\GitRepos\MAM-basics\py\main_extract_docx_and_render_table.py
+C:/Users/BenDe/GitRepos/MAM-basics/.venv/Scripts/python.exe C:/Users/BenDe/GitRepos/MAM-basics/py/main_extract_docx_and_render_table.py
 ```
 
 - `main_extract_docx_and_render_table.py` — the ketiv/qere review. Reads the tracked
@@ -171,7 +171,7 @@ Aleppo Codex — page, column, line, plus an HTML image preview. Coverage is wha
 ID alone. `--wide` widens the crop to take in masorah parva.
 
 ```bash
-C:\Users\BenDe\GitRepos\MAM-basics\.venv\Scripts\python.exe C:\Users\BenDe\GitRepos\MAM-basics\py\main_ac_find_word_in_images.py Job 38:31 "כִּימָ֥ה"
+C:/Users/BenDe/GitRepos/MAM-basics/.venv/Scripts/python.exe C:/Users/BenDe/GitRepos/MAM-basics/py/main_ac_find_word_in_images.py Job 38:31 "כִּימָ֥ה"
 ```
 
 This one moved too, and later than the Leningrad script below. It was
@@ -187,7 +187,7 @@ Leningrad Codex — an *estimate* of page, column and line. This one moved first
 `codex-index-leningrad` until 2026-08-03, and is now in MAM-basics, reading `../UXLC-utils`.
 
 ```bash
-C:\Users\BenDe\GitRepos\MAM-basics\.venv\Scripts\python.exe C:\Users\BenDe\GitRepos\MAM-basics\py\main_uxlc_estimate_atom_loc.py Numbers 20:26 "אֶֽת־"
+C:/Users/BenDe/GitRepos/MAM-basics/.venv/Scripts/python.exe C:/Users/BenDe/GitRepos/MAM-basics/py/main_uxlc_estimate_atom_loc.py Numbers 20:26 "אֶֽת־"
 ```
 
 Both match the word exactly first, then stripped of vowels and accents, and both refuse to

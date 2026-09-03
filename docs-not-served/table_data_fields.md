@@ -113,7 +113,7 @@ It distinguishes between:
 
 - Type: string or null
 - Meaning: yatir marker extracted from UXLC notes, when present
-- Source: optional trailing `\n(yatir ...)` parsed from UXLC notes payload
+- Source: optional trailing `/n(yatir ...)` parsed from UXLC notes payload
 - Current data observation: `null` or `yatir aleph`
 
 ### `notes_structured_counts[].notes-HaKeter`
@@ -199,7 +199,7 @@ It distinguishes between:
 
 - Type: string or null
 - Meaning: optional yatir marker parsed from the UXLC payload
-- Source: parsed from a trailing newline marker in UXLC notes payload (for example `\n(yatir aleph)`)
+- Source: parsed from a trailing newline marker in UXLC notes payload (for example `/n(yatir aleph)`)
 - Current data observation: `null` for most rows; `yatir aleph` on two rows
 
 ### `notes-HaKeter`
