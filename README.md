@@ -537,9 +537,13 @@ Judges 5:11.13 the same way, and both of those were right too. The ketiv/qere
 artifacts regenerate byte-identical across both fixes, so nothing else here depended
 on either defect.
 
-The four maqaf compounds are **not** among the corrections, though a cruder check
+The three maqaf compounds are **not** among the corrections, though a cruder check
 reports them as disagreements: Holman quotes a whole compound while numbering one of
-its atoms, and the atom he numbers is the one that differs every time.
+its atoms, and the atom he numbers is the one that differs every time. They are
+2Kings 21:12.11, 2Samuel 18:3.9 and Judges 6:1.2, and each differs by one meteg on
+the compound's second atom. **This sentence said "four" until 2026-09-03**, and no
+committed version of the extract has ever held four: the count has been three since
+`48ee065` first recorded the 34 cases.
 
 **Five indices have looked like Holman's numbering, none has been, and all five are
 now resolved**: 1Kings 7:24, 2Samuel 15:37, Judges 1:7, Judges 5:6.7 and Judges
